@@ -1,0 +1,32 @@
+name: basemap
+
+# One-off: pull the real map geometry for the north lot from OpenStreetMap and
+# commit it. Roads and car parks do not move, so this is run by hand when the
+# map needs refreshing - never on a schedule, and never at page load.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  basemap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/fetch-basemap.js
+      - name: Commit the basemap
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/north-lot-map.json
+          if git diff --staged --quiet; then
+            echo "Basemap unchanged."
+          else
+            git commit -m "basemap: refresh north lot map geometry from OpenStreetMap"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
