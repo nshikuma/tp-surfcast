@@ -26,6 +26,15 @@ const OUT = [];
 const log = (...a) => { const l = a.join(' '); OUT.push(l); console.log(l); };
 
 async function get(url, { json = false, bytes = 0 } = {}) {
+  try {
+    return await getInner(url, { json, bytes });
+  } catch (e) {
+    const cause = e.cause ? ` (cause: ${e.cause.code || e.cause.message})` : '';
+    return { ok: false, info: `FETCH FAILED: ${e.message}${cause}`, url };
+  }
+}
+
+async function getInner(url, { json = false, bytes = 0 } = {}) {
   const res = await fetch(url, {
     headers: { 'User-Agent': 'tp-surfcast probe (personal surf forecast)', Accept: json ? 'application/json' : '*/*' },
     redirect: 'follow',
@@ -202,10 +211,21 @@ async function probeTorreyStructure() {
   ]) {
     const f = byName[name];
     if (!f) { log(`\n--- ${name}: not found`); continue; }
+    // Dryad exposes two shapes for the same bytes; try both before giving up.
+    const candidates = [];
     const dl = f._links?.['stash:file-download']?.href;
-    const r = await get(`https://datadryad.org${dl}`);
-    log(`\n--- ${name} (${r.info}) ---`);
-    log(r.ok ? r.text.slice(0, 4500) : '  (could not read)');
+    if (dl) candidates.push(`https://datadryad.org${dl}`);
+    const self = f._links?.self?.href;
+    if (self) candidates.push(`https://datadryad.org${self}/download`);
+    let got = null;
+    for (const u of candidates) {
+      const r = await get(u);
+      log(`\n--- ${name} via ${u}`);
+      log(`    ${r.info}`);
+      if (r.ok && r.text) { got = r; break; }
+    }
+    if (got) log(got.text.slice(0, 4500));
+    else log('  (could not read this file)');
   }
 
   // Header of the small survey-info file: names the surveys and coverage.
