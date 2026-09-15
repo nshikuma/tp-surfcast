@@ -67,6 +67,8 @@ async function collect() {
     waterTemp: () => tidesSrc.fetchWaterTempF(),
     // Scripps' own nearshore model along this stretch of beach.
     transect: () => mop.fetchTransect(),
+    // Which swells are in the water, kept separate rather than lumped.
+    trains: () => om.fetchSwellTrains(),
     surfline: () => fetchSurfline(),
   });
 
@@ -258,6 +260,7 @@ async function main() {
    * `days` and blows the JSON up past a megabyte. The page regroups hours by
    * local date from the single `hourly` array instead.
    */
+  const trainsByTime = data.trains || null;
   const r = (x, d = 2) => (Number.isFinite(x) ? Math.round(x * 10 ** d) / 10 ** d : x ?? null);
   const compactHour = (h) => ({
     time: h.time, localDate: h.localDate, localHour: r(h.localHour, 2), inWindow: h.inWindow,
@@ -275,10 +278,15 @@ async function main() {
     modelSpread: { heightFt: h.modelSpread.heightFt.map((m) => ({ model: m.model, faceFt: r(m.faceFt) })) },
     // Swell trains in the water, for the nearshore simulation. Deep-water
     // height per train, so the simulation starts where the forecast started.
-    partitions: (h.partitions || []).slice(0, 3).map((p) => ({
-      kind: p.kind, hsM: r(p.H0, 3), periodS: r(p.periodS, 1),
-      dirDeg: p.dirDeg == null ? null : r(p.dirDeg, 0),
-    })).filter((p) => p.hsM > 0.02 && p.periodS > 1 && p.dirDeg != null),
+    // Deep-water swell trains at this hour. The nearshore direction MOP
+    // publishes barely moves - refraction compresses everything toward
+    // shore-normal - so the offshore direction is what tells you where the
+    // swell is from and how it will hit.
+    trains: (trainsByTime?.get(h.time) || []).slice(0, 4).map((p) => ({
+      kind: p.kind, hsM: r(p.hsM, 2), hsFt: r(p.hsM * M_TO_FT, 1),
+      periodS: r(p.periodS, 1), dirDeg: r(p.dirDeg, 0),
+      dirCompass: compass(p.dirDeg),
+    })),
   });
   const compactDays = days.map(({ hours, ...rest }) => rest);
 

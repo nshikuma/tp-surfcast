@@ -124,6 +124,11 @@
     var foam = new Float32Array(nx * ny);
     var faceFt = new Float32Array(nx * ny);
     var land = new Uint8Array(nx * ny);
+    // Where the wave first breaks on each alongshore row, and how deep it is
+    // there. This is the whitewater line, and the geometry the peel comes from.
+    var breakIx = new Int16Array(ny).fill(-1);
+    var breakDepth = new Float32Array(ny);
+    var breakAngle = new Float32Array(ny).fill(NaN);
     var tideM = (tideFt || 0) * 0.3048;
 
     // Each MOP line, with its real distance offshore, so the profile can be
@@ -176,6 +181,7 @@
       var A = a.depthM / Math.pow(a.dist, 2 / 3);
       var rec = a.rec;
 
+      var broken = false;
       for (var ix = 0; ix < nx; ix++) {
         var idx = iy * nx + ix;
         var lon = frame.w + (ix + 0.5) * cellW;
@@ -218,18 +224,29 @@
         var Cg = groupSpeed(omega, k, h);
         var H = Math.sqrt(flux / (Cg * cosT));
         var Hmax = GAMMA * h;
-        if (H >= Hmax) { H = Hmax; foam[idx] = 1; }
+        if (!broken && H >= Hmax) {
+          broken = true;
+          breakIx[iy] = ix;
+          breakDepth[iy] = h;
+          // Angle of the crest to shore normal where it breaks. Its SIGN is
+          // which way the wave peels.
+          breakAngle[iy] = Math.asin(Math.max(-1, Math.min(1, ky / k))) * 180 / Math.PI;
+        }
+        if (broken) { H = Math.min(H, Hmax); foam[idx] = 1; }
         else if (H > 0.72 * Hmax) { foam[idx] = (H / Hmax - 0.72) / 0.28 * 0.6; }
         amp[idx] = H / 2;
         faceFt[idx] = H * M_FT * FACE_FACTOR;
         // Phase accumulates shoreward; x decreases toward the beach.
         phase[idx] = -Math.sqrt(kx2) * x + ky * (lat - frame.s) * 111320;
         if (!phase[idx] && phase[idx] !== 0) phase[idx] = 0;
-        // Once broken, stay broken on the way in.
-        if (iy >= 0 && ix > 0 && foam[idx - 1] && h < Hmax / GAMMA * 1.4) foam[idx] = 1;
       }
     }
-    return { nx: nx, ny: ny, depth: depth, amp: amp, phase: phase, foam: foam, faceFt: faceFt, land: land, anchors: anchors, tideM: tideM };
+    return {
+      nx: nx, ny: ny, depth: depth, amp: amp, phase: phase, foam: foam,
+      faceFt: faceFt, land: land, anchors: anchors, tideM: tideM,
+      breakIx: breakIx, breakDepth: breakDepth, breakAngle: breakAngle,
+      cellH: cellH, cellW: cellW, frame: frame,
+    };
   }
 
   /* ------------------------------------------------------- base map draw -- */
@@ -355,7 +372,8 @@
     { id: 'waves', label: 'Waves', on: true, hint: 'Animated surface: swell refracting, standing up and breaking.' },
     { id: 'size', label: 'Size', on: true, hint: 'Breaking face height along the beach.' },
     { id: 'shape', label: 'Peaky / walled', on: false, hint: 'How much the size changes along the beach. Big changes make defined peaks; flat means it walls up and closes out.' },
-    { id: 'angle', label: 'Swell angle', on: true, hint: 'Direction the swell is travelling as it reaches each stretch.' },
+    { id: 'peel', label: 'Peel & whitewater', on: true, hint: 'The breaking line, which way each section peels, and the broken water inside it.' },
+    { id: 'trains', label: 'Swell trains', on: true, hint: 'Every swell in the water right now: size, period and the direction it is coming FROM, out in deep water.' },
     { id: 'depth', label: 'Bottom', on: false, hint: 'Modelled seafloor between the real shoreline and the real MOP depth contour.' },
     { id: 'best', label: 'Best spot', on: true, hint: 'The stretch scoring highest at this hour.' },
   ];
@@ -401,6 +419,70 @@
       gradient: g,
       label: g > 0.55 ? 'Peaky - defined A-frames' : g > 0.22 ? 'Some shape' : 'Walled - closeout risk',
       key: g > 0.55 ? 'peaky' : g > 0.22 ? 'mixed' : 'walled',
+    };
+  }
+
+
+  /**
+   * Peel: which way the wave runs, and how fast the break travels along it.
+   *
+   * The crest angle at breaking carries the sign. This beach faces roughly
+   * west, so a swell arriving from NORTH of shore normal breaks progressively
+   * southward - the rider travels south, which facing the beach is a RIGHT. A
+   * swell from south of shore normal peels north: a LEFT.
+   *
+   * Peel speed is the celerity at the break divided by the sine of the angle
+   * between the crest and the breaking line. As that angle goes to zero the
+   * whole wall stands up at once - a closeout.
+   */
+  function peelAt(field, iy) {
+    var b = field.breakIx[iy];
+    if (b < 0 || !isFinite(field.breakAngle[iy])) return null;
+    var alongM = field.cellH * 111320;
+
+    // Bearing of the breaking line itself, from its neighbours.
+    var lo = iy, hi = iy;
+    while (lo > 0 && field.breakIx[lo - 1] < 0) lo--;
+    while (hi < field.ny - 1 && field.breakIx[hi + 1] < 0) hi++;
+    var a0 = field.breakIx[Math.max(0, iy - 3)];
+    var a1 = field.breakIx[Math.min(field.ny - 1, iy + 3)];
+    var dCross = (a1 >= 0 && a0 >= 0) ? (a1 - a0) * field.cellW * 111320 * 0.84 : 0;
+    var dAlong = 6 * alongM;
+    var lineTilt = Math.atan2(dCross, dAlong) * 180 / Math.PI;
+
+    var crestAngle = field.breakAngle[iy];          // + = from north of normal
+    // Angle between the crest and the breaking line.
+    var alpha = Math.abs(crestAngle - lineTilt);
+    if (alpha > 90) alpha = 180 - alpha;
+    alpha = Math.max(0.6, alpha);
+
+    var c = Math.sqrt(9.81 * Math.max(0.3, field.breakDepth[iy]));
+    var speed = Math.min(60, c / Math.sin(alpha * Math.PI / 180));
+    return {
+      dir: crestAngle > 0.4 ? 'right' : crestAngle < -0.4 ? 'left' : 'both',
+      alpha: alpha,
+      speedMs: speed,
+      quality: alpha < 4 ? 'closeout' : alpha < 11 ? 'fast' : alpha < 32 ? 'makeable' : 'slow',
+      ix: b,
+    };
+  }
+
+  /** The dominant peel across the frame, for the headline. */
+  function peelSummary(field) {
+    var lefts = 0, rights = 0, alphas = [], speeds = [];
+    for (var iy = 0; iy < field.ny; iy += 2) {
+      var p = peelAt(field, iy);
+      if (!p) continue;
+      if (p.dir === 'left') lefts++; else if (p.dir === 'right') rights++;
+      alphas.push(p.alpha); speeds.push(p.speedMs);
+    }
+    if (!alphas.length) return null;
+    alphas.sort(function (a, b) { return a - b; });
+    var med = alphas[alphas.length >> 1];
+    return {
+      dir: lefts > rights * 1.3 ? 'Lefts' : rights > lefts * 1.3 ? 'Rights' : 'Both ways',
+      alpha: med,
+      quality: med < 4 ? 'closing out' : med < 11 ? 'fast' : med < 32 ? 'makeable' : 'slow and fat',
     };
   }
 
@@ -463,6 +545,20 @@
     var stamp = el('span', 'sim-stamp');
     controls.appendChild(play); controls.appendChild(slider); controls.appendChild(stamp);
     host.appendChild(controls);
+
+    function nearestShore(lat) {
+      var sp = shore[0];
+      for (var i = 1; i < shore.length; i++) {
+        if (Math.abs(shore[i][1] - lat) < Math.abs(sp[1] - lat)) sp = shore[i];
+      }
+      return sp;
+    }
+    // Period ramp: one hue, short to long, so it reads as magnitude.
+    var PERIOD_RAMP = ['#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
+    function periodColor(T) {
+      var i = Math.max(0, Math.min(PERIOD_RAMP.length - 1, Math.floor(((T || 0) - 6) / 3)));
+      return PERIOD_RAMP[i];
+    }
 
     var ctx = canvas.getContext('2d');
     var buf = document.createElement('canvas');
@@ -567,59 +663,120 @@
 
     function drawOverlays() {
       var lines = nearshore.lines;
-      // Swell arrows at each MOP line, pointing the way the swell travels.
-      if (on.angle) {
+      var hour = hourAt(idx);
+
+      // ---- the breaking line, and which way each section peels -------------
+      if (on.peel && field) {
         ctx.save();
-        lines.forEach(function (l, li) {
-          if (li % 2) return;
-          var dir = l.dirDeg[idx];
-          if (dir == null) return;
-          var sp = null;
-          for (var sj = 0; sj < shore.length; sj++) {
-            if (!sp || Math.abs(shore[sj][1] - l.lat) < Math.abs(sp[1] - l.lat)) sp = shore[sj];
-          }
-          var x = proj.x(sp ? sp[0] - 0.0028 : l.lon), y = proj.y(sp ? sp[1] : l.lat);
-          ctx.save();
-          ctx.translate(x, y);
-          ctx.rotate((dir + 180) * Math.PI / 180);
-          ctx.fillStyle = 'rgba(255,255,255,.92)';
-          ctx.strokeStyle = 'rgba(15,45,60,.55)'; ctx.lineWidth = 1;
+        var pts = [];
+        for (var iy = 0; iy < field.ny; iy++) {
+          var b = field.breakIx[iy];
+          if (b < 0) continue;
+          pts.push({
+            iy: iy,
+            x: (b + 0.5) / field.nx * canvas.width,
+            y: (iy + 0.5) / field.ny * canvas.height,
+          });
+        }
+        if (pts.length > 2) {
+          // The whitewater edge.
           ctx.beginPath();
-          ctx.moveTo(0, -9); ctx.lineTo(5, 7); ctx.lineTo(0, 4); ctx.lineTo(-5, 7);
-          ctx.closePath(); ctx.fill(); ctx.stroke();
+          pts.forEach(function (p, i) { i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); });
+          ctx.strokeStyle = 'rgba(255,255,255,.95)';
+          ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+          ctx.stroke();
+          ctx.strokeStyle = 'rgba(18,60,80,.35)'; ctx.lineWidth = 1; ctx.stroke();
+
+          // Peel arrows along it: direction the break runs.
+          var step = Math.max(6, Math.round(pts.length / 9));
+          for (var pi = step; pi < pts.length - step; pi += step) {
+            var p = pts[pi];
+            var peel = peelAt(field, p.iy);
+            if (!peel || peel.dir === 'both') continue;
+            // On screen, north is up; a right peels south (down the canvas).
+            var down = peel.dir === 'right';
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(down ? 0 : Math.PI);
+            ctx.beginPath();
+            ctx.moveTo(0, -2); ctx.lineTo(0, 16); ctx.lineTo(-4, 10);
+            ctx.moveTo(0, 16); ctx.lineTo(4, 10);
+            ctx.strokeStyle = peel.quality === 'closeout' ? '#d03b3b'
+              : peel.quality === 'fast' ? '#fab219' : '#1c6f3f';
+            ctx.lineWidth = 2.4; ctx.lineCap = 'round';
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.font = '700 10px system-ui, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.92)';
+            var tag = down ? 'R' : 'L';
+            ctx.strokeText(tag, p.x, p.y - 7); ctx.fillStyle = '#12303f';
+            ctx.fillText(tag, p.x, p.y - 7);
+          }
+        }
+        ctx.restore();
+      }
+
+      // ---- deep-water swell trains ----------------------------------------
+      if (on.trains && hour && hour.trains && hour.trains.length) {
+        ctx.save();
+        var ox = canvas.width * 0.16;
+        var oy0 = canvas.height * 0.18;
+        hour.trains.slice(0, 4).forEach(function (tr, ti) {
+          var y = oy0 + ti * 64;
+          var len = 16 + Math.min(26, tr.hsFt * 6);
+          ctx.save();
+          ctx.translate(ox, y);
+          ctx.rotate((tr.dirDeg + 180) * Math.PI / 180);
+          ctx.beginPath();
+          ctx.moveTo(0, -len); ctx.lineTo(0, len * 0.5);
+          ctx.moveTo(0, len * 0.5); ctx.lineTo(-7, len * 0.5 - 9);
+          ctx.moveTo(0, len * 0.5); ctx.lineTo(7, len * 0.5 - 9);
+          ctx.strokeStyle = periodColor(tr.periodS);
+          ctx.lineWidth = tr.kind === 'wind sea' ? 2 : 3.4;
+          ctx.lineCap = 'round';
+          ctx.stroke();
           ctx.restore();
+
+          ctx.font = '600 11px system-ui, sans-serif';
+          ctx.textAlign = 'left';
+          var txt = tr.hsFt.toFixed(1) + ' ft \u00b7 ' + tr.periodS.toFixed(0) + 's \u00b7 ' + tr.dirCompass;
+          ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(255,255,255,.92)';
+          ctx.strokeText(txt, ox + 28, y + 4); ctx.fillStyle = '#12303f';
+          ctx.fillText(txt, ox + 28, y + 4);
+          ctx.font = '500 9.5px system-ui, sans-serif';
+          ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.9)';
+          ctx.strokeText(tr.kind, ox + 28, y + 16); ctx.fillStyle = '#5a6b74';
+          ctx.fillText(tr.kind, ox + 28, y + 16);
         });
         ctx.restore();
       }
 
-      // Peaky / walled: a ribbon along the beach coloured by how fast the size
-      // changes from one stretch to the next.
+      // ---- peaky / walled ribbon ------------------------------------------
       if (on.shape) {
         ctx.save();
         ctx.lineWidth = 6; ctx.lineCap = 'round';
         for (var i = 1; i < lines.length; i++) {
-          var a = lines[i - 1], b = lines[i];
-          if (a.faceFt[idx] == null || b.faceFt[idx] == null) continue;
-          var dm = Math.abs(b.lat - a.lat) * 111320 || 1;
-          var g = Math.abs(b.faceFt[idx] - a.faceFt[idx]) / dm * 100;
+          var a = lines[i - 1], b2 = lines[i];
+          if (a.faceFt[idx] == null || b2.faceFt[idx] == null) continue;
+          var dm = Math.abs(b2.lat - a.lat) * 111320 || 1;
+          var g = Math.abs(b2.faceFt[idx] - a.faceFt[idx]) / dm * 100;
           ctx.strokeStyle = g > 0.55 ? 'rgba(28,111,63,.85)' : g > 0.22 ? 'rgba(250,178,25,.85)' : 'rgba(208,59,59,.8)';
+          var sa = nearestShore(a.lat), sb = nearestShore(b2.lat);
           ctx.beginPath();
-          ctx.moveTo(proj.x(a.lon), proj.y(a.lat));
-          ctx.lineTo(proj.x(b.lon), proj.y(b.lat));
+          ctx.moveTo(proj.x(sa[0] - 0.0007), proj.y(sa[1]));
+          ctx.lineTo(proj.x(sb[0] - 0.0007), proj.y(sb[1]));
           ctx.stroke();
         }
         ctx.restore();
       }
 
-      // The best stretch at this hour.
+      // ---- best stretch ----------------------------------------------------
       if (on.best && nearshore.best && nearshore.best[idx]) {
         var bst = nearshore.best[idx];
-        var onShore = null;
-        for (var si = 0; si < shore.length; si++) {
-          if (!onShore || Math.abs(shore[si][1] - bst.lat) < Math.abs(onShore[1] - bst.lat)) onShore = shore[si];
-        }
-        var bx = proj.x(onShore ? onShore[0] - 0.0012 : bst.lon);
-        var by = proj.y(onShore ? onShore[1] : bst.lat);
+        var onShore = nearestShore(bst.lat);
+        var bx = proj.x(onShore[0] - 0.0012), by = proj.y(onShore[1]);
         ctx.save();
         ctx.beginPath(); ctx.arc(bx, by, 11, 0, Math.PI * 2);
         ctx.strokeStyle = '#1c6f3f'; ctx.lineWidth = 3; ctx.stroke();
@@ -628,9 +785,9 @@
         ctx.font = '600 11px system-ui, sans-serif';
         ctx.textAlign = 'left';
         ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.9)';
-        var txt = 'Best here · ' + bst.score;
-        ctx.strokeText(txt, bx + 15, by + 4); ctx.fillStyle = '#14301f';
-        ctx.fillText(txt, bx + 15, by + 4);
+        var txt2 = 'Best here \u00b7 ' + bst.score;
+        ctx.strokeText(txt2, bx + 15, by + 4); ctx.fillStyle = '#14301f';
+        ctx.fillText(txt2, bx + 15, by + 4);
         ctx.restore();
       }
     }

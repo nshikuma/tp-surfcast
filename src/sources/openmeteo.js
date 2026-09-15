@@ -146,6 +146,67 @@ export async function fetchWeather({ days = FORECAST_DAYS.outlook + 1, pastDays 
   return { byModel, models: Object.keys(byModel), daily };
 }
 
+
+/**
+ * Swell trains: what is actually in the water, separated out.
+ *
+ * The models in the height ensemble (ECMWF-WAM, Meteo-France WAM) do not
+ * publish partitioned swell fields, so asking them for partitions silently
+ * returned one lumped "total" sea for every hour of the week - which is exactly
+ * the information a surfer most wants separated. Open-Meteo's best_match does
+ * publish primary, secondary and tertiary swell plus the wind sea, so this
+ * fetches those in one extra request and keeps the ensemble for height and
+ * confidence where it belongs.
+ */
+const TRAIN_VARS = [
+  'swell_wave_height', 'swell_wave_direction', 'swell_wave_period',
+  'secondary_swell_wave_height', 'secondary_swell_wave_direction', 'secondary_swell_wave_period',
+  'tertiary_swell_wave_height', 'tertiary_swell_wave_direction', 'tertiary_swell_wave_period',
+  'wind_wave_height', 'wind_wave_direction', 'wind_wave_period',
+];
+
+export async function fetchSwellTrains({ days = 8 } = {}) {
+  const q = new URLSearchParams({
+    latitude: String(SITE.lat),
+    longitude: String(SITE.lon),
+    hourly: TRAIN_VARS.join(','),
+    timezone: SITE.timezone,
+    forecast_days: String(days),
+    cell_selection: 'sea',
+  });
+  const j = await getJson(`${SOURCES.marine}?${q}`, { label: 'openmeteo:trains' });
+  if (j.error) throw new Error(`Open-Meteo trains: ${j.reason}`);
+  const stamps = normaliseTimes(j.hourly.time, j.utc_offset_seconds ?? 0);
+  const H = j.hourly;
+
+  const pick = (prefix, i) => {
+    const h = H[`${prefix}height`]?.[i];
+    const p = H[`${prefix}period`]?.[i];
+    const d = H[`${prefix}direction`]?.[i];
+    if (!Number.isFinite(h) || h < 0.03 || !Number.isFinite(p) || p <= 1) return null;
+    return { hsM: h, periodS: p, dirDeg: Number.isFinite(d) ? d : null };
+  };
+
+  const byTime = new Map();
+  stamps.forEach((s, i) => {
+    const trains = [];
+    const add = (prefix, kind) => {
+      const t = pick(prefix, i);
+      if (t && t.dirDeg != null) trains.push({ ...t, kind });
+    };
+    add('swell_wave_', 'primary swell');
+    add('secondary_swell_wave_', 'secondary swell');
+    add('tertiary_swell_wave_', 'tertiary swell');
+    add('wind_wave_', 'wind sea');
+    if (trains.length) {
+      trains.sort((a, b) => b.hsM - a.hsM);
+      byTime.set(s.time, trains);
+    }
+  });
+  if (!byTime.size) throw new Error('Open-Meteo returned no swell trains');
+  return byTime;
+}
+
 /** Sea surface temperature, as a backstop if neither buoy reports it. */
 export async function fetchSeaTempF() {
   const q = new URLSearchParams({
