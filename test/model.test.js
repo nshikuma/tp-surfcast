@@ -11,10 +11,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  transformToBreak, faceHeights, sizeLabel, wavePowerKwPerM, iribarren,
-  breakerType, combinePartitions, exposureFor, modelExposureFor, angleDiff,
-  wavelengthAt, groupVelocity, deepWavelength,
+  transformToBreak, transformFromDepth, faceHeights, sizeLabel, wavePowerKwPerM,
+  iribarren, breakerType, combinePartitions, exposureFor, modelExposureFor,
+  angleDiff, wavelengthAt, groupVelocity, deepWavelength,
 } from '../src/model/waves.js';
+import { CALIBRATION } from '../src/config.js';
 import { scoreHour, scoreTide, scoreWind, scorePeriod, gradeFor } from '../src/model/score.js';
 import { median, circMean, computeModelBias, waterQuality, wetsuitCall, compass } from '../src/model/forecast.js';
 import { parseOpendapAscii, partitionSpectrum } from '../src/sources/cdip.js';
@@ -303,4 +304,36 @@ test('a zero must never be averaged into the model ensemble', () => {
   const withoutZero = median([2.80, 1.86]);
   assert.equal(withZero, 1.86);
   assert.ok(withoutZero > withZero + 0.4, 'dropping the abstaining model must matter');
+});
+
+/* ---------------------------------------- transforming from a known depth -- */
+
+test('a wave shoaled from a known depth breaks at a sensible size', () => {
+  // MOP D0590 published 0.72 m at 15.4 s from 241 deg on a real flat day.
+  // With a 10 m output depth that should come out knee-to-thigh, not overhead.
+  const r = transformFromDepth(0.72, 15.4, 241, 10, { shoreNormal: 258 });
+  assert.ok(!r.blocked, 'should not be blocked');
+  const f = faceHeights(r.Hb);
+  assert.ok(f.typicalFt > 1.2 && f.typicalFt < 3.2, `got ${f.typicalFt} ft`);
+  assert.ok(r.depth > 0.3 && r.depth < 3, `break depth ${r.depth} m`);
+});
+
+test('shoaling from depth agrees with the deep-water path on the same wave', () => {
+  // Take a deep-water swell to a 10 m depth, then carry it on from there; the
+  // breaking height should match doing it in one go within a few per cent.
+  const T = 14, dir = 265;
+  const direct = transformToBreak(1.4, T, dir, { origin: 'buoy' });
+  // Height at 10 m from the same energy-flux relation the direct path uses.
+  const Cg0 = deepWavelength(T) / T / 2;
+  const Cg10 = groupVelocity(T, 10);
+  const H10 = 1.4 * CALIBRATION.shelfLoss * Math.sqrt(Cg0 / Cg10);
+  const staged = transformFromDepth(H10, T, dir, 10, { shoreNormal: 265 });
+  const diff = Math.abs(staged.Hb - direct.Hb) / direct.Hb;
+  assert.ok(diff < 0.06, `paths disagree by ${(diff * 100).toFixed(1)}%`);
+});
+
+test('a wave already breaking at the input depth is reported, not invented', () => {
+  const r = transformFromDepth(5.0, 16, 265, 2, { shoreNormal: 265 });
+  assert.equal(r.Hb, 0);
+  assert.equal(r.blocked, false);
 });

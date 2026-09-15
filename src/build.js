@@ -20,12 +20,14 @@ import * as cdip from './sources/cdip.js';
 import * as ndbc from './sources/ndbc.js';
 import * as tidesSrc from './sources/tides.js';
 import * as om from './sources/openmeteo.js';
+import * as mop from './sources/mop.js';
 import { fetchSurfline, ENABLED as SURFLINE_ENABLED } from './sources/surfline.js';
 import * as syn from './lib/synthetic.js';
 import {
   buildHourly, buildDaily, computeModelBias, computeDrift, wetsuitCall, compass, median,
 } from './model/forecast.js';
 import { scoreSkill, nowcastCheck } from './model/verify.js';
+import { buildNearshore, compareAtHome } from './model/nearshore.js';
 import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel } from './model/waves.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -63,6 +65,8 @@ async function collect() {
     marine: () => om.fetchMarine(),
     weather: () => om.fetchWeather(),
     waterTemp: () => tidesSrc.fetchWaterTempF(),
+    // Scripps' own nearshore model along this stretch of beach.
+    transect: () => mop.fetchTransect(),
     surfline: () => fetchSurfline(),
   });
 
@@ -223,6 +227,17 @@ async function main() {
   // Synthetic runs must never contaminate the drift comparison or the skill
   // scoreboard - they would make the forecast look accurate against data that
   // was never measured.
+  // The alongshore picture: every 100 m of beach, carried to breaking.
+  const nearshore = data.transect ? buildNearshore(data.transect, hourly) : null;
+  const mopCheck = nearshore ? compareAtHome(nearshore, hourly) : null;
+  if (nearshore) {
+    log(`nearshore: ${nearshore.lines.length} MOP lines, home ${nearshore.homeLine}, `
+      + `mean shore normal ${nearshore.meanShoreNormalDeg} deg`);
+    if (mopCheck) log(`  ${mopCheck.note}`);
+  } else {
+    log('nearshore: MOP unavailable this run');
+  }
+
   const archives = (await loadArchives()).filter((r) => !r.synthetic);
   const drift = computeDrift(days, pickForDrift(archives));
   const skill = scoreSkill(archives, data.buoy?.records || []);
@@ -285,6 +300,7 @@ async function main() {
         buoy: data.buoy ? `CDIP/NDBC ${data.buoy.station} (${data.buoy.source})` : 'unavailable',
         tides: data.tides ? `NOAA CO-OPS ${SOURCES.tideStation} (La Jolla / Scripps Pier)` : 'unavailable',
         waveModels: data.marine.models,
+        nearshore: data.transect ? `CDIP MOP ${mop.NORTH_LOT_LINE} +/- ${data.transect.lines.length - 1} lines` : 'unavailable',
         windModels: data.weather.models,
         surfline: SURFLINE_ENABLED ? 'enabled' : 'disabled by configuration',
       },
@@ -292,6 +308,8 @@ async function main() {
       biasByModel,
     },
     current,
+    nearshore,
+    mopCheck,
     wetsuit,
     nowcast,
     days: compactDays,
@@ -342,6 +360,7 @@ async function main() {
       spectrumBands: data.spectrum?.bands?.length ?? 0,
       tideSeries: data.tides?.series?.length ?? 0,
       hourly: hourly.length, days: days.length, archives: archives.length,
+      mopLines: nearshore?.lines?.length ?? 0, mopFrames: nearshore?.times?.length ?? 0,
     },
   }, null, 1));
 

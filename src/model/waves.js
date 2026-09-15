@@ -137,6 +137,60 @@ export function modelExposureFor(dirDeg) {
   return 1 - k * (1 - full);
 }
 
+
+/**
+ * Transform a wave from a KNOWN DEPTH to breaking.
+ *
+ * CDIP MOP publishes height, period and direction at its own output depth,
+ * already refracted over surveyed bathymetry. Round-tripping that back out to
+ * deep water and in again would throw away the good work and re-introduce the
+ * assumptions MOP exists to avoid, so this carries it the last step directly:
+ * alongshore wavenumber is conserved from the MOP depth shoreward, and the wave
+ * breaks where its height reaches gamma times the depth.
+ *
+ * @param {number} HsIn   significant height at depthIn, metres
+ * @param {number} T      period, seconds
+ * @param {number} dirIn  direction it comes FROM at depthIn, degrees true
+ * @param {number} depthIn water depth at the input point, metres
+ */
+export function transformFromDepth(HsIn, T, dirIn, depthIn, opts = {}) {
+  const shoreNormal = opts.shoreNormal ?? SITE.shoreNormalDeg;
+  const gamma = opts.gamma ?? CALIBRATION.gammaBreak;
+  const empty = { Hb: 0, depth: 0, angleIn: 0, angleB: 0, blocked: true };
+  if (!(HsIn > 0) || !(T > 0) || !(depthIn > 0.5)) return empty;
+
+  const angleIn = angleDiff(dirIn, shoreNormal);
+  if (Math.abs(angleIn) >= 80) return empty;
+
+  const kIn = (2 * Math.PI) / wavelengthAt(T, depthIn);
+  const CgIn = groupVelocity(T, depthIn);
+  const ky = kIn * Math.sin(rad(angleIn));          // conserved alongshore
+  const fluxIn = HsIn * HsIn * CgIn * Math.cos(rad(angleIn));
+
+  const at = (h) => {
+    const k = (2 * Math.PI) / wavelengthAt(T, h);
+    const kx2 = k * k - ky * ky;
+    if (kx2 <= 0) return null;                       // turned fully alongshore
+    const cosT = Math.sqrt(kx2) / k;
+    const Cg = groupVelocity(T, h);
+    return { H: Math.sqrt(fluxIn / (Cg * cosT)), angleB: deg(Math.asin(Math.min(1, ky / k))) };
+  };
+
+  // f(h) = H(h) - gamma*h crosses zero at the break point.
+  const f = (h) => { const r = at(h); return r ? r.H - gamma * h : -1; };
+  let lo = 0.05, hi = Math.min(depthIn, 60);
+  if (f(lo) < 0) return { ...empty, blocked: false };   // never steepens enough
+  if (f(hi) > 0) return { ...empty, blocked: false };   // already breaking at input depth
+  for (let i = 0; i < 70; i++) {
+    const mid = 0.5 * (lo + hi);
+    if (f(mid) > 0) lo = mid; else hi = mid;
+  }
+  const depth = 0.5 * (lo + hi);
+  const r = at(depth);
+  if (!r) return { ...empty, blocked: false };
+  return { Hb: r.H, depth, angleIn, angleB: r.angleB, blocked: false };
+}
+
 /** Piecewise directional exposure lookup (island + headland shadowing). */
 export function exposureFor(dirDeg) {
   const d = ((dirDeg % 360) + 360) % 360;
