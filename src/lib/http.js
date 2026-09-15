@@ -16,11 +16,23 @@ export async function getText(url, { timeoutMs = 25000, retries = 3, label = '' 
       });
       const body = await res.text();
       trace.push({ label, url, status: res.status, ms: Date.now() - started, bytes: body.length, attempt });
-      if (!res.ok) throw new Error(`HTTP ${res.status} for ${label || url}`);
+      if (!res.ok) {
+        const err = new Error(`HTTP ${res.status} for ${label || url}`);
+        err.status = res.status;
+        // A 4xx is a refusal, not a blip. Retrying one is pointless, and against
+        // a rate limiter it turns one refused request into four. Only 429 is
+        // worth waiting out, and the backoff below does that.
+        if (res.status >= 400 && res.status < 500 && res.status !== 429) {
+          err.noRetry = true;
+          throw err;
+        }
+        throw err;
+      }
       return body;
     } catch (err) {
       lastErr = err;
       trace.push({ label, url, error: String(err && err.message || err), ms: Date.now() - started, attempt });
+      if (err && err.noRetry) break;
     } finally {
       clearTimeout(timer);
     }

@@ -1,68 +1,89 @@
 /**
  * CDIP MOP - Monitoring and Prediction, alongshore transect.
  *
- * This is Scripps' own nearshore model: a full spectral refraction run over
- * SURVEYED bathymetry, output every ~100 m along the coast. It is strictly
- * better than what this project was doing for the nearshore step - taking a
- * 0.25-degree global model and refracting it with one assumed shore normal.
+ * Scripps' own nearshore model: a spectral refraction run over SURVEYED
+ * bathymetry, published every ~100 m along the coast. Line D0590 sits 65 m from
+ * the north lot. Strictly better than refracting a 0.25-degree global model
+ * with one assumed shore normal, which is what this project did before.
  *
- * Line D0590 sits 65 m from the north lot. The span either side of it covers
- * the stretch of beach you can see from the car park, and because every line
- * publishes its own latitude, longitude, water depth and SHORE NORMAL, the
- * transect also gives the real shape of this piece of coast rather than an
- * assumed straight one.
+ * BEING A GOOD CITIZEN. This is a public research server, not an API with a
+ * quota we have paid for, and an earlier version of this file got the whole
+ * project a 403 by firing 38 parallel requests at it every run. So:
+ *   - line POSITIONS are cached in src/data/mop-lines.json (they never move),
+ *   - requests go out one at a time with a pause between them,
+ *   - the span is sampled, not exhaustive,
+ *   - a refusal backs off for the rest of the run rather than retrying,
+ *   - and if MOP is unavailable the forecast carries on without it.
  *
  * Variables confirmed against the live DDS/DAS:
- *   waveTime  Int32   seconds since 1970
- *   waveHs    Float32 metres          significant height at the line
- *   waveTp    Float32 seconds         peak period
- *   waveDp    Float32 degrees true    peak direction, already refracted
- *   metaLatitude / metaLongitude      degrees
- *   metaWaterDepth                    metres
- *   metaShoreNormal                   degrees true
+ *   waveTime Int32 s since 1970 | waveHs m | waveTp s | waveDp degT
+ *   metaLatitude / metaLongitude / metaWaterDepth / metaShoreNormal
  */
+
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { getText } from '../lib/http.js';
 import { parseOpendapAscii } from './cdip.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BASE = 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore';
 
-/** The line at the north lot, and the span of beach around it. */
 export const NORTH_LOT_LINE = 'D0590';
-export const SPAN = { from: 583, to: 601 };
 
-const lineId = (n) => `D0${String(n).padStart(3, '0')}`;
-
-/** How many forecast hours the current MOP run carries. */
-async function forecastLength(id, kind) {
-  const dds = await getText(`${BASE}/${id}_${kind}.nc.dds`, { label: `mop:dds:${id}` });
-  const m = dds.match(/waveTime\s*=\s*(\d+)/);
-  if (!m) throw new Error(`MOP ${id}: no waveTime dimension in DDS`);
-  return Number(m[1]);
-}
+/** Pause between requests to the same public server. */
+const POLITE_GAP_MS = 700;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /**
- * One MOP line: its position on the coast and its wave forecast.
- * Metadata and wave data come back in a single request.
+ * MOP alongshore output depth, metres. Used only when metaWaterDepth cannot be
+ * read for a line; the fetched value always wins. Flagged in the payload so a
+ * fallback is never mistaken for a measurement.
  */
-export async function fetchLine(id, { kind = 'forecast', hours = 240 } = {}) {
-  const n = await forecastLength(id, kind);
-  const last = Math.min(n, hours) - 1;
+const ASSUMED_DEPTH_M = 10;
+
+export async function loadLinePositions() {
+  const raw = await readFile(path.join(__dirname, '..', 'data', 'mop-lines.json'), 'utf8');
+  const lines = JSON.parse(raw).lines;
+  // Shore normal from the real geometry: the coast runs line-to-line, and the
+  // normal faces seaward (west here). A fetched metaShoreNormal overrides this.
+  return lines.map((l, i) => {
+    const a = lines[Math.max(0, i - 1)];
+    const b = lines[Math.min(lines.length - 1, i + 1)];
+    const dy = (b.lat - a.lat) * 111320;
+    const dx = (b.lon - a.lon) * 111320 * Math.cos(l.lat * Math.PI / 180);
+    const coastBearing = ((Math.atan2(dx, dy) * 180) / Math.PI + 360) % 360;
+    return { ...l, shoreNormalDeg: (coastBearing + 270) % 360, shoreNormalFrom: 'geometry' };
+  });
+}
+
+function firstNum(x) {
+  const v = Array.isArray(x) ? (Array.isArray(x[0]) ? x[0][0] : x[0]) : x;
+  return Number.isFinite(v) ? v : null;
+}
+const asArray = (x) => ((Array.isArray(x) && Array.isArray(x[0])) ? x[0] : x) || [];
+
+/** One line's wave forecast, plus its depth and shore normal if they come back. */
+export async function fetchLine(id, { kind = 'forecast', hours = 180 } = {}) {
+  const dds = await getText(`${BASE}/${id}_${kind}.nc.dds`, { label: `mop:dds:${id}`, retries: 0 });
+  const m = dds.match(/waveTime\s*=\s*(\d+)/);
+  if (!m) throw new Error(`MOP ${id}: no waveTime dimension`);
+  const last = Math.min(Number(m[1]), hours) - 1;
   const slice = `[0:1:${last}]`;
+
+  await sleep(POLITE_GAP_MS);
   const query = [
-    'metaLatitude', 'metaLongitude', 'metaWaterDepth', 'metaShoreNormal',
+    'metaWaterDepth', 'metaShoreNormal',
     `waveTime${slice}`, `waveHs${slice}`, `waveTp${slice}`, `waveDp${slice}`,
   ].join(',');
-  const text = await getText(`${BASE}/${id}_${kind}.nc.ascii?${query}`, { label: `mop:${id}` });
+  const text = await getText(`${BASE}/${id}_${kind}.nc.ascii?${query}`, { label: `mop:${id}`, retries: 0 });
   const v = parseOpendapAscii(text);
 
-  const first = (x) => (Array.isArray(x) ? (Array.isArray(x[0]) ? x[0][0] : x[0]) : x);
-  const arr = (x) => (Array.isArray(x) && Array.isArray(x[0]) ? x[0] : x) || [];
-
-  const times = arr(v.waveTime);
-  const hs = arr(v.waveHs);
-  const tp = arr(v.waveTp);
-  const dp = arr(v.waveDp);
+  const times = asArray(v.waveTime);
+  const hs = asArray(v.waveHs);
+  const tp = asArray(v.waveTp);
+  const dp = asArray(v.waveDp);
   if (!times.length || !hs.length) throw new Error(`MOP ${id}: empty forecast`);
 
   const records = [];
@@ -79,49 +100,51 @@ export async function fetchLine(id, { kind = 'forecast', hours = 240 } = {}) {
   if (!records.length) throw new Error(`MOP ${id}: no usable records`);
 
   return {
-    id,
-    lat: first(v.metaLatitude),
-    lon: first(v.metaLongitude),
-    depthM: first(v.metaWaterDepth),
-    shoreNormalDeg: first(v.metaShoreNormal),
+    depthM: firstNum(v.metaWaterDepth),
+    shoreNormalDeg: firstNum(v.metaShoreNormal),
     records,
   };
 }
 
 /**
- * The whole stretch of beach. Lines are fetched in small batches so a slow
- * THREDDS response does not stall the build, and one bad line never sinks the
- * transect - it just leaves a gap.
+ * The stretch of beach. Sampled every `step` lines and fetched one at a time;
+ * a refusal (403/429) stops the run's remaining requests rather than pounding
+ * a server that has already said no.
  */
-export async function fetchTransect({ kind = 'forecast', hours = 240, from = SPAN.from, to = SPAN.to } = {}) {
-  const ids = [];
-  for (let n = from; n <= to; n++) ids.push(lineId(n));
+export async function fetchTransect({ kind = 'forecast', hours = 180, step = 2 } = {}) {
+  const positions = await loadLinePositions();
+  const wanted = positions.filter((p, i) => i % step === 0 || p.id === NORTH_LOT_LINE);
 
   const lines = [];
   const errors = {};
-  const BATCH = 5;
-  for (let i = 0; i < ids.length; i += BATCH) {
-    const group = ids.slice(i, i + BATCH);
-    const settled = await Promise.allSettled(group.map((id) => fetchLine(id, { kind, hours })));
-    settled.forEach((r, j) => {
-      if (r.status === 'fulfilled') lines.push(r.value);
-      else errors[group[j]] = String(r.reason && r.reason.message || r.reason);
-    });
+  let refused = false;
+  for (const p of wanted) {
+    if (refused) { errors[p.id] = 'skipped after a refusal earlier in this run'; continue; }
+    try {
+      const got = await fetchLine(p.id, { kind, hours });
+      lines.push({
+        id: p.id, lat: p.lat, lon: p.lon,
+        depthM: got.depthM ?? ASSUMED_DEPTH_M,
+        depthFrom: got.depthM != null ? 'published' : 'assumed',
+        shoreNormalDeg: got.shoreNormalDeg ?? p.shoreNormalDeg,
+        shoreNormalFrom: got.shoreNormalDeg != null ? 'published' : 'geometry',
+        records: got.records,
+      });
+    } catch (e) {
+      errors[p.id] = String(e.message);
+      if (e.status === 403 || e.status === 429) {
+        refused = true;
+        errors._refused = `CDIP refused with ${e.status}; backing off for this run.`;
+      }
+    }
+    await sleep(POLITE_GAP_MS);
   }
-  if (!lines.length) throw new Error(`MOP transect empty: ${JSON.stringify(errors)}`);
 
+  if (!lines.length) throw new Error(`MOP transect empty: ${JSON.stringify(errors)}`);
   lines.sort((a, b) => a.lat - b.lat);
   const home = lines.find((l) => l.id === NORTH_LOT_LINE) || lines[Math.floor(lines.length / 2)];
 
-  return {
-    kind,
-    lines,
-    home,
-    errors,
-    // Real coastline orientation, averaged over the span, for anything that
-    // still needs a single number.
-    meanShoreNormalDeg: circMeanDeg(lines.map((l) => l.shoreNormalDeg)),
-  };
+  return { kind, lines, home, errors, meanShoreNormalDeg: circMeanDeg(lines.map((l) => l.shoreNormalDeg)) };
 }
 
 function circMeanDeg(ds) {

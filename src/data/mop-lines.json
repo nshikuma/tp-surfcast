@@ -1,0 +1,26 @@
+{
+  "_comment": "CDIP MOP alongshore line positions across the Torrey Pines north lot, read once from the live metadata and cached here. These are fixed survey transects - they do not move - so refetching them on every run was 19 needless requests against a public research server. D0590 is 65 m from the north lot.",
+  "_source": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore",
+  "_readOn": "2026-09-15",
+  "lines": [
+    { "id": "D0583", "lat": 32.92722, "lon": -117.26728 },
+    { "id": "D0584", "lat": 32.92812, "lon": -117.26737 },
+    { "id": "D0585", "lat": 32.92902, "lon": -117.26756 },
+    { "id": "D0586", "lat": 32.93019, "lon": -117.26775 },
+    { "id": "D0587", "lat": 32.93109, "lon": -117.26785 },
+    { "id": "D0588", "lat": 32.93198, "lon": -117.26807 },
+    { "id": "D0589", "lat": 32.93258, "lon": -117.26830 },
+    { "id": "D0590", "lat": 32.93341, "lon": -117.26859 },
+    { "id": "D0591", "lat": 32.93404, "lon": -117.26879 },
+    { "id": "D0592", "lat": 32.93462, "lon": -117.26896 },
+    { "id": "D0593", "lat": 32.93539, "lon": -117.26928 },
+    { "id": "D0594", "lat": 32.93628, "lon": -117.26962 },
+    { "id": "D0595", "lat": 32.93722, "lon": -117.26997 },
+    { "id": "D0596", "lat": 32.93810, "lon": -117.27036 },
+    { "id": "D0597", "lat": 32.93917, "lon": -117.27068 },
+    { "id": "D0598", "lat": 32.93997, "lon": -117.27086 },
+    { "id": "D0599", "lat": 32.94069, "lon": -117.27103 },
+    { "id": "D0600", "lat": 32.94160, "lon": -117.27123 },
+    { "id": "D0601", "lat": 32.94239, "lon": -117.27137 }
+  ]
+}

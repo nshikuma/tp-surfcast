@@ -333,7 +333,7 @@ async function probeMopAsciiRaw() {
 
 (async () => {
   log(`probe run ${new Date().toISOString()}`);
-  for (const [name, fn] of [['dryad', probeDryad], ['mop', probeMop], ['structure', probeTorreyStructure], ['mop-lines', probeMopLines], ['mop-structure', probeMopStructure], ['mop-raw', probeMopAsciiRaw]]) {
+  for (const [name, fn] of [['dryad', probeDryad], ['structure', probeTorreyStructure]]) {
     try { await fn(); } catch (e) { log(`\n!! ${name} probe failed: ${e.message}`); }
   }
   log('\nDone. Paste this output back into the session to have the parser written against it.');
