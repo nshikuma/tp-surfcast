@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Torrey Pines Surf - North Lot</title>
+<meta name="description" content="A dedicated surf forecast for Torrey Pines State Beach at the north lot, anchored on CDIP buoy 100p1 and locally calibrated.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌊</text></svg>">
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div>
+      <h1>Torrey Pines &mdash; North Lot</h1>
+      <p class="sub" id="subtitle">Surf-only forecast for the 7:30&ndash;10:00am window.</p>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" title="Switch light / dark">Theme</button>
+      <button id="unitToggle" title="Switch between face height and Hawaiian scale">Face ft</button>
+    </div>
+  </header>
+
+  <div id="app"><div class="loading">Loading the latest run&hellip;</div></div>
+
+  <footer class="site">
+    <div class="srcline" id="sources"></div>
+    <p>
+      Wave heights are <b>face height</b> &mdash; what the wave looks like from the lineup &mdash;
+      with body-scale wording beside it. Set size is the bigger ones in the hour, not the average.
+      Everything is transformed onto this beach's own orientation and slope, so it is a forecast
+      for this stretch of sand rather than for the region.
+    </p>
+    <p id="genline"></p>
+  </footer>
+</div>
+<div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+<script src="app.js" type="module"></script>
+</body>
+</html>

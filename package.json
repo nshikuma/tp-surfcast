@@ -1,0 +1,15 @@
+{
+  "name": "tp-surfcast2",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Torrey Pines (north lot) surf forecast - dedicated, surfing-only, locally calibrated.",
+  "scripts": {
+    "build": "node src/build.js",
+    "build:synthetic": "node src/build.js --synthetic",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
