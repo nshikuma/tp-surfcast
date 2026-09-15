@@ -35,11 +35,14 @@
     var kx = Math.cos(latMid * Math.PI / 180);
     var spanLon = (frame.e - frame.w) * kx;
     var spanLat = frame.n - frame.s;
-    var scale = Math.min(w / spanLon, h / spanLat);
+    var scale = Math.max(w / spanLon, h / spanLat);
     var ox = (w - spanLon * scale) / 2;
     var oy = (h - spanLat * scale) / 2;
     return {
       scale: scale, kx: kx,
+      // The rectangle the map actually occupies. Anything drawn from grid
+      // indices must go through this, not the raw canvas size.
+      rect: { x: ox, y: oy, w: spanLon * scale, h: spanLat * scale },
       x: function (lon) { return ox + (lon - frame.w) * kx * scale; },
       y: function (lat) { return oy + (frame.n - lat) * scale; },
       lon: function (px) { return frame.w + (px - ox) / (scale * kx); },
@@ -233,7 +236,10 @@
           breakAngle[iy] = Math.asin(Math.max(-1, Math.min(1, ky / k))) * 180 / Math.PI;
         }
         if (broken) { H = Math.min(H, Hmax); foam[idx] = 1; }
-        else if (H > 0.72 * Hmax) { foam[idx] = (H / Hmax - 0.72) / 0.28 * 0.6; }
+        else if (H > 0.72 * Hmax) {
+          foam[idx] = (H / Hmax - 0.72) / 0.28 * 0.6;
+          if (breakIx[iy] < 0) { breakIx[iy] = ix; breakDepth[iy] = h; breakAngle[iy] = Math.asin(Math.max(-1, Math.min(1, ky / k))) * 180 / Math.PI; }
+        }
         amp[idx] = H / 2;
         faceFt[idx] = H * M_FT * FACE_FACTOR;
         // Phase accumulates shoreward; x decreases toward the beach.
@@ -674,8 +680,8 @@
           if (b < 0) continue;
           pts.push({
             iy: iy,
-            x: (b + 0.5) / field.nx * canvas.width,
-            y: (iy + 0.5) / field.ny * canvas.height,
+            x: proj.rect.x + (b + 0.5) / field.nx * proj.rect.w,
+            y: proj.rect.y + (iy + 0.5) / field.ny * proj.rect.h,
           });
         }
         if (pts.length > 2) {
@@ -805,7 +811,8 @@
       paintWater();
       bctx.putImageData(img, 0, 0);
       ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(buf, 0, 0, canvas.width, canvas.height);
+      var R = proj.rect;
+      ctx.drawImage(buf, R.x, R.y, R.w, R.h);
       API.drawLabels(ctx, proj, basemap.features);
       drawOverlays();
     }
@@ -827,8 +834,9 @@
       if (!field || !proj) return;
       var box = canvas.getBoundingClientRect();
       var px = ev.clientX - box.left, py = ev.clientY - box.top;
-      var gx = Math.floor(px / canvas.width * field.nx);
-      var gy = Math.floor(py / canvas.height * field.ny);
+      var R = proj.rect;
+      var gx = Math.floor((px - R.x) / R.w * field.nx);
+      var gy = Math.floor((py - R.y) / R.h * field.ny);
       if (gx < 0 || gy < 0 || gx >= field.nx || gy >= field.ny) { readout.style.opacity = 0; return; }
       var i = gy * field.nx + gx;
       if (field.land[i]) { readout.style.opacity = 0; return; }
