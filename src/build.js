@@ -258,6 +258,12 @@ async function main() {
     board: h.board.board,
     parts: { tide: r(h.parts.tide.score), wind: r(h.parts.wind.score), size: r(h.parts.size.score), shape: r(h.parts.shape.score) },
     modelSpread: { heightFt: h.modelSpread.heightFt.map((m) => ({ model: m.model, faceFt: r(m.faceFt) })) },
+    // Swell trains in the water, for the nearshore simulation. Deep-water
+    // height per train, so the simulation starts where the forecast started.
+    partitions: (h.partitions || []).slice(0, 3).map((p) => ({
+      kind: p.kind, hsM: r(p.H0, 3), periodS: r(p.periodS, 1),
+      dirDeg: p.dirDeg == null ? null : r(p.dirDeg, 0),
+    })).filter((p) => p.hsM > 0.02 && p.periodS > 1 && p.dirDeg != null),
   });
   const compactDays = days.map(({ hours, ...rest }) => rest);
 

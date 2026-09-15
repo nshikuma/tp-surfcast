@@ -125,7 +125,7 @@ function breakingForHour(h, bias) {
     dominantPeriodS: dom?.periodS ?? h.periodS,
     dominantDirDeg: dom?.dirDeg ?? h.dirDeg,
     parts: combined.parts.map((p) => ({
-      kind: p.kind, HbM: p.HbM, periodS: p.periodS, dirDeg: p.dirDeg,
+      kind: p.kind, HbM: p.HbM, H0: p.H0, periodS: p.periodS, dirDeg: p.dirDeg,
       faceFt: faceHeights(p.HbM).typicalFt,
     })),
     deepHsM: h.hsM * bias,

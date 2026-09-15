@@ -407,6 +407,68 @@ function renderToday(day, current, wetsuit) {
   return card;
 }
 
+
+/* ---------------------------------------------------- nearshore sim ----- */
+
+/**
+ * A modelled plan view of the north lot: swell refracting over the bars,
+ * peaking, and breaking, for any hour of the selected day.
+ *
+ * Labelled plainly as a simulation. It is driven by the same deep-water swell
+ * the forecast uses, but the seafloor is parameterised rather than surveyed, so
+ * it is honest about behaviour and not about the position of any one sandbar.
+ */
+function renderSim(day) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: `What it should look like \u00b7 ${fmtDate(day.date, { weekday: 'long', month: 'short', day: 'numeric' })}` }));
+  card.appendChild(el('p', { class: 'note', text: 'A model of this stretch of beach, not a camera. Drag the slider through the day to watch the swell change - looking straight down at the water, deep ocean at the top, the sand at the bottom, north to the right.' }));
+
+  if (!window.TPWaveSim) {
+    card.appendChild(el('div', { class: 'alert warn' }, [
+      el('span', { class: 'ic', text: '\u26a0' }),
+      el('div', { text: 'The simulation module did not load, so this panel is unavailable. Everything else on the page is unaffected.' }),
+    ]));
+    return card;
+  }
+
+  const hrs = day.hours.filter((h) => h.localHour >= 5 && h.localHour <= 20);
+  if (!hrs.length) {
+    card.appendChild(el('p', { class: 'note', text: 'No hourly data for this day.' }));
+    return card;
+  }
+  // Open on the crew's window rather than at dawn.
+  let start = hrs.findIndex((h) => h.inWindow);
+  if (start < 0) start = Math.floor(hrs.length / 2);
+
+  let handle = null;
+  const host = el('div');
+  card.appendChild(host);
+  const run = () => {
+    if (handle && handle.destroy) handle.destroy();
+    handle = window.TPWaveSim.mount(host, hrs, start);
+  };
+  rerenderers.push(run);
+  requestAnimationFrame(run);
+
+  card.appendChild(el('div', { class: 'legend' }, [
+    el('span', { class: 'item' }, [el('span', { class: 'swatch', style: 'background:#10344a' }), el('span', { text: 'deeper water' })]),
+    el('span', { class: 'item' }, [el('span', { class: 'swatch', style: 'background:#5ebac4' }), el('span', { text: 'shallow - bars and inside' })]),
+    el('span', { class: 'item' }, [el('span', { class: 'swatch', style: 'background:#fafafa;border:1px solid var(--border)' }), el('span', { text: 'whitewater' })]),
+  ]));
+
+  card.appendChild(el('div', { class: 'alert info' }, [
+    el('span', { class: 'ic', text: 'i' }),
+    el('div', {
+      html: '<b>How much to trust this:</b> the swell, tide and wind driving it are the real forecast, '
+        + 'and the refraction and breaking are real physics. The <b>seafloor is modelled, not surveyed</b> '
+        + '\u2014 an equilibrium beach profile with a sandbar and rip channels at typical spacing. '
+        + 'So read it for behaviour (where it peaks, where it closes out, how the tide changes it), '
+        + 'not for the exact position of any one bank.',
+    }),
+  ]));
+  return card;
+}
+
 /* -------------------------------------------------------- hourly detail -- */
 
 function renderHourly(day) {
@@ -788,6 +850,7 @@ function render() {
   }
 
   app.appendChild(renderToday(days[0], DATA.current, DATA.wetsuit));
+  app.appendChild(renderSim(selected));
   app.appendChild(renderHourly(selected));
 
   const week = el('div', { class: 'card' });

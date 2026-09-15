@@ -1,0 +1,22 @@
+name: probe-bathymetry
+
+# Reconnaissance only, run by hand. The environment this project was authored in
+# cannot reach Dryad or CDIP's catalogue; a runner can. This prints what the real
+# bathymetry sources contain so the parser is written against reality.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Look at the bathymetry sources
+        run: node scripts/probe-bathymetry.js

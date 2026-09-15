@@ -120,6 +120,10 @@ export function transformToBreak(Hs0, T, dir0, opts = {}) {
   return {
     Hb: at.H, depth, angle0, angleB: at.angleB,
     Kr: at.Kr, Ks: at.Ks, exposure, blocked: false,
+    // The effective deep-water height after shadowing and shelf losses. The
+    // 2-D simulation propagates from exactly this, so its breaking heights
+    // agree with the 1-D forecast instead of quietly disagreeing on screen.
+    H0,
   };
 }
 
