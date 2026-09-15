@@ -311,6 +311,7 @@ function spreadChart(host, days) {
 /* ----------------------------------------------------------------- state -- */
 
 let DATA = null;
+let BASEMAP = null;
 let selectedDate = null;
 const rerenderers = [];
 
@@ -408,62 +409,71 @@ function renderToday(day, current, wetsuit) {
 }
 
 
-/* ---------------------------------------------------- nearshore sim ----- */
+/* ------------------------------------------------------------ surf map -- */
 
 /**
- * A modelled plan view of the north lot: swell refracting over the bars,
- * peaking, and breaking, for any hour of the selected day.
+ * The map of this specific piece of coast, with the surf modelled on top.
  *
- * Labelled plainly as a simulation. It is driven by the same deep-water swell
- * the forecast uses, but the seafloor is parameterised rather than surveyed, so
- * it is honest about behaviour and not about the position of any one sandbar.
+ * The coastline, the north lot, the road and the access paths are real
+ * OpenStreetMap geometry. The waves come from CDIP MOP, which publishes height,
+ * period and direction every ~100 m along this beach, refracted over surveyed
+ * bathymetry. What is modelled is the seafloor between the shoreline and the
+ * MOP depth contour, and the last step from there to breaking.
  */
-function renderSim(day) {
+function renderMap(day) {
   const card = el('div', { class: 'card' });
-  card.appendChild(el('h2', { text: `What it should look like \u00b7 ${fmtDate(day.date, { weekday: 'long', month: 'short', day: 'numeric' })}` }));
-  card.appendChild(el('p', { class: 'note', text: 'A model of this stretch of beach, not a camera. Drag the slider through the day to watch the swell change - looking straight down at the water, deep ocean at the top, the sand at the bottom, north to the right.' }));
+  card.appendChild(el('h2', { text: 'The map \u00b7 where it will be breaking' }));
+  card.appendChild(el('p', { class: 'note', text: 'Looking straight down at the north lot. Drag the slider through the next few days and watch which stretch of beach turns on. Hover anywhere on the water for the numbers there.' }));
 
-  if (!window.TPWaveSim) {
+  if (!window.TPSurfMap) {
     card.appendChild(el('div', { class: 'alert warn' }, [
       el('span', { class: 'ic', text: '\u26a0' }),
-      el('div', { text: 'The simulation module did not load, so this panel is unavailable. Everything else on the page is unaffected.' }),
+      el('div', { text: 'The map module did not load. Everything else on the page is unaffected.' }),
+    ]));
+    return card;
+  }
+  if (!DATA.nearshore) {
+    card.appendChild(el('div', { class: 'alert warn' }, [
+      el('span', { class: 'ic', text: '\u26a0' }),
+      el('div', { text: 'CDIP MOP was unavailable on the last run, so there is no alongshore data to map yet. The rest of the forecast is unaffected; the map fills in on the next successful run.' }),
     ]));
     return card;
   }
 
-  const hrs = day.hours.filter((h) => h.localHour >= 5 && h.localHour <= 20);
-  if (!hrs.length) {
-    card.appendChild(el('p', { class: 'note', text: 'No hourly data for this day.' }));
-    return card;
-  }
-  // Open on the crew's window rather than at dawn.
-  let start = hrs.findIndex((h) => h.inWindow);
-  if (start < 0) start = Math.floor(hrs.length / 2);
-
-  let handle = null;
   const host = el('div');
   card.appendChild(host);
+
+  // Open on the crew's window if it falls inside the range.
+  let start = DATA.nearshore.localHours.findIndex((h, i) =>
+    h >= 7.5 && h <= 10 && Date.parse(DATA.nearshore.times[i]) >= Date.now() - 36e5);
+  if (start < 0) start = 0;
+
+  let handle = null;
   const run = () => {
     if (handle && handle.destroy) handle.destroy();
-    handle = window.TPWaveSim.mount(host, hrs, start);
+    handle = window.TPSurfMap.mount(host, {
+      basemap: BASEMAP, nearshore: DATA.nearshore, hourly: DATA.hourly, startIndex: start,
+    });
   };
   rerenderers.push(run);
   requestAnimationFrame(run);
 
-  card.appendChild(el('div', { class: 'legend' }, [
-    el('span', { class: 'item' }, [el('span', { class: 'swatch', style: 'background:#10344a' }), el('span', { text: 'deeper water' })]),
-    el('span', { class: 'item' }, [el('span', { class: 'swatch', style: 'background:#5ebac4' }), el('span', { text: 'shallow - bars and inside' })]),
-    el('span', { class: 'item' }, [el('span', { class: 'swatch', style: 'background:#fafafa;border:1px solid var(--border)' }), el('span', { text: 'whitewater' })]),
+  card.appendChild(el('div', { class: 'map-scale' }, [
+    el('span', { text: 'Face height' }),
+    el('span', { class: 'ramp' }, ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b']
+      .map((c) => el('span', { style: `background:${c}` }))),
+    el('span', { text: '0 \u2192 8 ft' }),
+    el('span', { style: 'margin-left:8px', text: '\u2022 Peaky / walled ribbon: green peaky, amber mixed, red walled' }),
   ]));
 
   card.appendChild(el('div', { class: 'alert info' }, [
     el('span', { class: 'ic', text: 'i' }),
     el('div', {
-      html: '<b>How much to trust this:</b> the swell, tide and wind driving it are the real forecast, '
-        + 'and the refraction and breaking are real physics. The <b>seafloor is modelled, not surveyed</b> '
-        + '\u2014 an equilibrium beach profile with a sandbar and rip channels at typical spacing. '
-        + 'So read it for behaviour (where it peaks, where it closes out, how the tide changes it), '
-        + 'not for the exact position of any one bank.',
+      html: '<b>Real:</b> the map geometry (OpenStreetMap), and the wave height, period and '
+        + 'direction every ~100 m along this beach from CDIP MOP \u2014 Scripps\u2019 own model, '
+        + 'run over surveyed bathymetry. <b>Modelled:</b> the seafloor between the shoreline and '
+        + 'the MOP depth contour, including the sandbar and rip channels, and the final step from '
+        + 'the MOP line to breaking. The endpoints are measured; the shape between them is not.',
     }),
   ]));
   return card;
@@ -850,7 +860,7 @@ function render() {
   }
 
   app.appendChild(renderToday(days[0], DATA.current, DATA.wetsuit));
-  app.appendChild(renderSim(selected));
+  app.appendChild(renderMap(selected));
   app.appendChild(renderHourly(selected));
 
   const week = el('div', { class: 'card' });
@@ -908,8 +918,16 @@ unitBtn.addEventListener('click', () => {
 });
 syncUnitBtn();
 
-fetch(`data/forecast.json?t=${Date.now()}`)
-  .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+Promise.all([
+  fetch(`data/forecast.json?t=${Date.now()}`).then((r) => {
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  }),
+  // The map geometry changes about never, so a failure here must not stop the
+  // forecast from rendering.
+  fetch('data/basemap.json').then((r) => (r.ok ? r.json() : null)).catch(() => null),
+])
+  .then(([forecast, basemap]) => { BASEMAP = basemap; return forecast; })
   .then((j) => {
     DATA = j;
     // Days ship without their hours (it would double the payload); regroup the

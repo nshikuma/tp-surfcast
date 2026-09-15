@@ -45,15 +45,30 @@ export function buildNearshore(transect, hourly) {
   frames.forEach((h) => frameAt.set(new Date(h.time).setMinutes(0, 0, 0), h));
 
   const lines = transect.lines.map((line) => {
-    const byHour = new Map();
-    for (const rec of line.records) {
-      byHour.set(new Date(rec.time).setMinutes(0, 0, 0), rec);
-    }
+    // MOP publishes every three hours; the frames here are hourly where it
+    // matters. Match to the NEAREST record within 90 minutes rather than
+    // demanding an exact hour, which left half the map blank.
+    const sorted = line.records
+      .map((r) => ({ ...r, t: Date.parse(r.time) }))
+      .sort((a, b) => a.t - b.t);
+    const nearestRecord = (t) => {
+      if (!sorted.length) return null;
+      let lo = 0, hi = sorted.length - 1;
+      while (lo < hi) {
+        const mid = (lo + hi) >> 1;
+        if (sorted[mid].t < t) lo = mid + 1; else hi = mid;
+      }
+      const cands = [sorted[lo], sorted[lo - 1]].filter(Boolean);
+      let best = null;
+      for (const c of cands) {
+        if (!best || Math.abs(c.t - t) < Math.abs(best.t - t)) best = c;
+      }
+      return best && Math.abs(best.t - t) <= 90 * 60000 ? best : null;
+    };
 
     const faceFt = [], setFt = [], score = [], dirDeg = [], periodS = [];
     for (const f of frames) {
-      const key = new Date(f.time).setMinutes(0, 0, 0);
-      const rec = byHour.get(key);
+      const rec = nearestRecord(Date.parse(f.time));
       if (!rec || !(rec.hsM > 0) || !(rec.periodS > 0)) {
         faceFt.push(null); setFt.push(null); score.push(null);
         dirDeg.push(null); periodS.push(null);

@@ -238,3 +238,32 @@ footer.site code { font-family: var(--mono); font-size: 11.5px; }
   color: var(--text-secondary); font-variant-numeric: tabular-nums;
 }
 @media (max-width: 520px) { .sim-stamp { flex-basis: 100%; } }
+
+/* ------------------------------------------------------------ surf map -- */
+
+.map-wrap { position: relative; border-radius: 8px; overflow: hidden; background: var(--surface-2); }
+.map-canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
+
+.map-readout {
+  position: absolute; pointer-events: none; opacity: 0; transition: opacity .12s;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 7px;
+  box-shadow: var(--shadow); padding: 7px 9px; font-size: 12px; line-height: 1.45;
+  display: flex; flex-direction: column; min-width: 150px;
+}
+.map-readout b { font-size: 13px; }
+.map-readout span { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+.map-layers { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 12px; }
+.map-toggle {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none;
+  font-size: 13px; color: var(--text-primary);
+  border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px 5px 9px;
+  background: var(--surface);
+}
+.map-toggle:hover { border-color: var(--swell); }
+.map-toggle input { accent-color: var(--swell); width: 14px; height: 14px; margin: 0; cursor: pointer; }
+.map-toggle input:focus-visible { outline: 2px solid var(--swell); outline-offset: 2px; }
+
+.map-scale { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
+.map-scale .ramp { display: inline-flex; height: 10px; border-radius: 3px; overflow: hidden; }
+.map-scale .ramp span { width: 15px; }
