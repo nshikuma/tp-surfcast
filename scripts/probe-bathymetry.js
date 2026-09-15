@@ -319,9 +319,21 @@ async function probeMopStructure() {
   if (slice.ok) log(slice.text.slice(0, 1800));
 }
 
+
+async function probeMopAsciiRaw() {
+  log('\n=== 6. RAW OPeNDAP ascii for a MOP scalar + array query ===');
+  const base = 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore';
+  const url = `${base}/D0590_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal,waveTime[0:1:2],waveHs[0:1:2]`;
+  const r = await get(url);
+  log(`  ${r.info}`);
+  if (!r.ok) return;
+  log('  ---- raw response, line by line, with escapes visible ----');
+  r.text.split(/\r?\n/).forEach((line, i) => log(`  ${String(i).padStart(3)}| ${JSON.stringify(line)}`));
+}
+
 (async () => {
   log(`probe run ${new Date().toISOString()}`);
-  for (const [name, fn] of [['dryad', probeDryad], ['mop', probeMop], ['structure', probeTorreyStructure], ['mop-lines', probeMopLines], ['mop-structure', probeMopStructure]]) {
+  for (const [name, fn] of [['dryad', probeDryad], ['mop', probeMop], ['structure', probeTorreyStructure], ['mop-lines', probeMopLines], ['mop-structure', probeMopStructure], ['mop-raw', probeMopAsciiRaw]]) {
     try { await fn(); } catch (e) { log(`\n!! ${name} probe failed: ${e.message}`); }
   }
   log('\nDone. Paste this output back into the session to have the parser written against it.');
