@@ -337,3 +337,22 @@ test('a wave already breaking at the input depth is reported, not invented', () 
   assert.equal(r.Hb, 0);
   assert.equal(r.blocked, false);
 });
+
+test('OPeNDAP ASCII parses scalar variables that carry no brackets', () => {
+  // Regression: MOP's metaLatitude / metaWaterDepth / metaShoreNormal are
+  // dimensionless, so their header line is a bare name. Missing that returned a
+  // 19-line transect with no positions, depths or shore normals on it.
+  const sample = [
+    'Dataset {', ' Float64 metaLatitude;', '} x;',
+    '---------------------------------------------',
+    'metaLatitude', '32.93341', '',
+    'metaWaterDepth', '10.5', '',
+    'metaShoreNormal', '258.0', '',
+    'waveHs[3]', '0.72, 0.71, 0.69', '',
+  ].join('\n');
+  const v = parseOpendapAscii(sample);
+  assert.deepEqual(v.metaLatitude, [32.93341]);
+  assert.deepEqual(v.metaWaterDepth, [10.5]);
+  assert.deepEqual(v.metaShoreNormal, [258.0]);
+  assert.deepEqual(v.waveHs, [0.72, 0.71, 0.69]);
+});

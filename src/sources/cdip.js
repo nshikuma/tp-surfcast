@@ -38,6 +38,16 @@ export function parseOpendapAscii(text) {
       vars[current] = vars[current] || [];
       continue;
     }
+    // SCALAR variables carry no brackets - the header is just the name on its
+    // own line. MOP's metaLatitude, metaWaterDepth and metaShoreNormal are all
+    // this shape, and skipping them silently returned a transect with no
+    // geography at all.
+    const scalar = line.match(/^([A-Za-z_][A-Za-z0-9_.]*)\s*$/);
+    if (scalar && !/^[-+.\d]/.test(line)) {
+      current = scalar[1].split('.').pop();
+      vars[current] = vars[current] || [];
+      continue;
+    }
     if (!current) continue;
     // Drop a leading row index like "[3], " on 2-D output.
     const cleaned = line.replace(/^\[\d+\](\[\d+\])*\s*,?\s*/, '');
