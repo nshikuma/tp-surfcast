@@ -119,9 +119,141 @@ async function probeMop() {
   }
 }
 
+
+/* -------------------------------------------------------- NetCDF-3 header -- */
+
+/**
+ * Minimal classic-NetCDF header reader. Enough to print dimensions, variables
+ * and attributes so the real parser can be written against the actual layout
+ * instead of a guess. Does not read data, and does not handle NetCDF-4/HDF5.
+ */
+function readNetcdfHeader(buf) {
+  let o = 0;
+  const u32 = () => { const v = buf.readUInt32BE(o); o += 4; return v; };
+  const i32 = () => { const v = buf.readInt32BE(o); o += 4; return v; };
+  const pad = () => { while (o % 4) o++; };
+  const str = () => { const n = u32(); const s = buf.toString('utf8', o, o + n); o += n; pad(); return s; };
+  const TYPES = { 1: 'byte', 2: 'char', 3: 'short', 4: 'int', 5: 'float', 6: 'double' };
+
+  const magic = buf.toString('latin1', 0, 3);
+  if (magic !== 'CDF') return { error: `not classic NetCDF (magic ${magic})` };
+  const version = buf[3];
+  o = 4;
+  i32(); // numrecs
+
+  const listOf = (tag, read) => {
+    const t = u32(); const n = u32();
+    if (t === 0 && n === 0) return [];
+    if (t !== tag) return [];
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(read());
+    return out;
+  };
+
+  const dims = listOf(0x0A, () => ({ name: str(), size: u32() }));
+  const attrs = () => listOf(0x0C, () => {
+    const name = str(); const type = u32(); const n = u32();
+    const size = { 1: 1, 2: 1, 3: 2, 4: 4, 5: 4, 6: 8 }[type] || 1;
+    let value = null;
+    if (type === 2) value = buf.toString('utf8', o, o + n).replace(/\0+$/, '');
+    o += n * size; pad();
+    return { name, type: TYPES[type], value };
+  });
+  const gatts = attrs();
+  const vars = listOf(0x0B, () => {
+    const name = str();
+    const nd = u32(); const d = [];
+    for (let i = 0; i < nd; i++) d.push(i32());
+    const va = attrs();
+    const type = u32(); u32(); version === 2 ? (o += 8) : u32();
+    return { name, dims: d.map((i) => dims[i] && dims[i].name), type: TYPES[type], attrs: va };
+  });
+  return { version, dims, gatts, vars };
+}
+
+async function probeTorreyStructure() {
+  log('\n=== 3. Torrey Pines file structure ===');
+  const doi = encodeURIComponent('doi:10.5061/dryad.n5qb383');
+  const base = 'https://datadryad.org/api/v2';
+  const ds = await get(`${base}/datasets/${doi}`, { json: true });
+  const vHref = ds.json?._links?.['stash:versions']?.href;
+  const versions = await get(`https://datadryad.org${vHref}`, { json: true });
+  const list = versions.json?._embedded?.['stash:versions'] || [];
+  const latest = list[list.length - 1];
+  const fHref = latest?._links?.['stash:files']?.href;
+  let next = `https://datadryad.org${fHref}?per_page=100`;
+  const files = [];
+  while (next && files.length < 400) {
+    const page = await get(next, { json: true });
+    if (!page.ok || !page.json) break;
+    (page.json._embedded?.['stash:files'] || []).forEach((f) => files.push(f));
+    const n = page.json._links?.next?.href;
+    next = n ? `https://datadryad.org${n}` : null;
+  }
+  const byName = {};
+  files.forEach((f) => { byName[f.path] = f; });
+
+  // The READMEs are a few KB and describe the layout exactly.
+  for (const name of [
+    'README.txt',
+    'README_for_torrey_binned_sand_elevations.txt',
+    'README_for_torrey_beach_characteristics.txt',
+    'README_for_torrey_survey_info.txt',
+  ]) {
+    const f = byName[name];
+    if (!f) { log(`\n--- ${name}: not found`); continue; }
+    const dl = f._links?.['stash:file-download']?.href;
+    const r = await get(`https://datadryad.org${dl}`);
+    log(`\n--- ${name} (${r.info}) ---`);
+    log(r.ok ? r.text.slice(0, 4500) : '  (could not read)');
+  }
+
+  // Header of the small survey-info file: names the surveys and coverage.
+  const info = byName['torrey_survey_info.nc'];
+  if (info) {
+    const dl = info._links?.['stash:file-download']?.href;
+    const r = await get(`https://datadryad.org${dl}`, { bytes: 200000 });
+    if (r.ok) {
+      const h = readNetcdfHeader(r.buf);
+      log('\n--- torrey_survey_info.nc header ---');
+      if (h.error) log('  ' + h.error);
+      else {
+        log(`  netcdf version ${h.version}`);
+        log('  dimensions: ' + h.dims.map((d) => `${d.name}=${d.size}`).join(', '));
+        h.gatts.slice(0, 12).forEach((a) => log(`  :${a.name} = ${String(a.value).slice(0, 160)}`));
+        h.vars.forEach((v) => {
+          const units = (v.attrs.find((a) => a.name === 'units') || {}).value || '';
+          log(`  ${v.type} ${v.name}(${v.dims.join(', ')})  ${units}`);
+        });
+      }
+    }
+  }
+}
+
+async function probeMopLines() {
+  log('\n=== 4. Which MOP line is the north lot? ===');
+  // The north lot is at 32.9340 N, -117.2585 E.
+  const TARGET = 32.9340;
+  const base = 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore';
+  const found = [];
+  for (let n = 500; n <= 700; n += 10) {
+    const id = 'D0' + String(n).padStart(3, '0');
+    const r = await get(`${base}/${id}_nowcast.nc.ascii?metaLatitude,metaLongitude`);
+    if (!r.ok) continue;
+    const nums = (r.text.match(/-?\d+\.\d+/g) || []).map(Number);
+    if (nums.length >= 2) found.push({ id, lat: nums[0], lon: nums[1] });
+  }
+  found.sort((a, b) => Math.abs(a.lat - TARGET) - Math.abs(b.lat - TARGET));
+  log(`  sampled ${found.length} lines; closest to the north lot:`);
+  found.slice(0, 6).forEach((f) => log(`    ${f.id}  ${f.lat.toFixed(4)}, ${f.lon.toFixed(4)}  (${((f.lat - TARGET) * 111000).toFixed(0)} m away)`));
+  if (found.length) {
+    log('  MOP lines are ~100 m apart, so the exact line is within a few of the closest sample.');
+  }
+}
+
 (async () => {
   log(`probe run ${new Date().toISOString()}`);
-  for (const [name, fn] of [['dryad', probeDryad], ['mop', probeMop]]) {
+  for (const [name, fn] of [['dryad', probeDryad], ['mop', probeMop], ['structure', probeTorreyStructure], ['mop-lines', probeMopLines]]) {
     try { await fn(); } catch (e) { log(`\n!! ${name} probe failed: ${e.message}`); }
   }
   log('\nDone. Paste this output back into the session to have the parser written against it.');
