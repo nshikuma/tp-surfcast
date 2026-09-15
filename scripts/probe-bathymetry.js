@@ -271,9 +271,57 @@ async function probeMopLines() {
   }
 }
 
+
+async function probeMopStructure() {
+  log('\n=== 5. MOP file structure and the north lot line span ===');
+  const base = 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore';
+
+  // What variables does a MOP forecast carry?
+  for (const kind of ['forecast', 'nowcast']) {
+    const r = await get(`${base}/D0590_${kind}.nc.dds`);
+    log(`\n--- D0590_${kind}.nc.dds (${r.info}) ---`);
+    if (r.ok) log(r.text.slice(0, 2500));
+  }
+
+  // Attributes tell us units, datums and any per-line shore normal.
+  const das = await get(`${base}/D0590_forecast.nc.das`);
+  log(`\n--- D0590_forecast.nc.das (${das.info}) ---`);
+  if (das.ok) {
+    // Keep it to the metadata block and the wave variables we care about.
+    const keep = das.text.split(/\n/).filter((l) => /meta|wave(Hs|Tp|Dp|Time|Ta)|shore|depth|units|datum/i.test(l));
+    log(keep.slice(0, 90).join('\n'));
+  }
+
+  // The real geometry of the beach: every line across the north lot stretch.
+  log('\n--- alongshore line geometry around the north lot ---');
+  const rows = [];
+  for (let n = 583; n <= 601; n++) {
+    const id = 'D0' + String(n).padStart(3, '0');
+    const r = await get(`${base}/${id}_forecast.nc.ascii?metaLatitude,metaLongitude`);
+    if (!r.ok) { log(`  ${id}: ${r.info}`); continue; }
+    const nums = (r.text.match(/-?\d+\.\d+/g) || []).map(Number);
+    if (nums.length >= 2) rows.push({ id, lat: nums[0], lon: nums[1] });
+  }
+  rows.forEach((p, i) => {
+    let bearing = '';
+    if (i > 0) {
+      const prev = rows[i - 1];
+      const dy = (p.lat - prev.lat) * 111320;
+      const dx = (p.lon - prev.lon) * 111320 * Math.cos(p.lat * Math.PI / 180);
+      bearing = `  step ${Math.hypot(dx, dy).toFixed(0)} m, bearing ${((Math.atan2(dx, dy) * 180 / Math.PI + 360) % 360).toFixed(0)}deg`;
+    }
+    log(`  ${p.id}  ${p.lat.toFixed(5)}, ${p.lon.toFixed(5)}${bearing}`);
+  });
+
+  // One small slice of real forecast values, to confirm shape and units.
+  const slice = await get(`${base}/D0590_forecast.nc.ascii?waveTime[0:1:5],waveHs[0:1:5],waveTp[0:1:5],waveDp[0:1:5]`);
+  log(`\n--- D0590 first forecast hours (${slice.info}) ---`);
+  if (slice.ok) log(slice.text.slice(0, 1800));
+}
+
 (async () => {
   log(`probe run ${new Date().toISOString()}`);
-  for (const [name, fn] of [['dryad', probeDryad], ['mop', probeMop], ['structure', probeTorreyStructure], ['mop-lines', probeMopLines]]) {
+  for (const [name, fn] of [['dryad', probeDryad], ['mop', probeMop], ['structure', probeTorreyStructure], ['mop-lines', probeMopLines], ['mop-structure', probeMopStructure]]) {
     try { await fn(); } catch (e) { log(`\n!! ${name} probe failed: ${e.message}`); }
   }
   log('\nDone. Paste this output back into the session to have the parser written against it.');
