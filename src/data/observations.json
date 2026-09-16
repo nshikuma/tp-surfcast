@@ -32,6 +32,7 @@
         "setFt": 2.66,
         "setLabel": "Waist high",
         "windowScore": 43,
+        "makeable": true,
         "peakPeriodS": 11.5,
         "note": "The buoy was simultaneously measuring an 18.2 s south groundswell that neither global wave model carried in its partitions at all."
       }

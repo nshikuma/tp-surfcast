@@ -1441,10 +1441,18 @@ function renderGroundTruth() {
     ]));
     if (sess.matched) {
       row.appendChild(el('div', { class: 'gt-cmp' }, [
-        el('span', { html: `<b>Said</b> ${n1(sess.forecast.typicalFt)} ft, sets ${n1(sess.forecast.setFt)} ft` }),
+        el('span', {
+          html: `<b>Said</b> ${n1(sess.forecast.typicalFt)} ft, sets ${n1(sess.forecast.setFt)} ft`
+            + (sess.forecast.issued
+              ? ` <span class="gt-when">— run of ${fmtTime(sess.forecast.issued, { month: 'short', day: 'numeric' })}</span>`
+              : ''),
+        }),
         el('span', { html: `<b>Was</b> ${n1(sess.observedTypicalFt)} ft, sets ${n1(sess.observedSetFt)} ft` }),
       ]));
       row.appendChild(el('p', { class: 'gt-verdict', text: sess.verdict }));
+      if (sess.forecast.setFromNote || sess.forecast.makeableFromNote) {
+        row.appendChild(el('p', { class: 'cap', text: 'The archived run from before this session predates some of these fields, so the set size and shape call are the numbers written down off the page at the time rather than read back out of the archive.' }));
+      }
       if (sess.forecast.hindcast) {
         row.appendChild(el('p', { class: 'cap', text: 'No run was archived before this session, so this compares against the current model looking backwards \u2014 a hindcast, not a forecast that came true.' }));
       }

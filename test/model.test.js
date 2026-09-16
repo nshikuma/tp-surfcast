@@ -675,3 +675,55 @@ test('groundTruth: a session with no forecast to compare against says so', () =>
   assert.equal(g.sessions[0].matched, false);
   assert.equal(g.summary.n, 0);
 });
+
+test('groundTruth: matches trimmed archives, which carry no local date', () => {
+  // The archive format drops localDate/localHour to keep years of history small.
+  // Matching on those fields could never succeed, so every session silently
+  // fell through to a hindcast and the archive was never really consulted.
+  const hourly = [
+    { time: '2026-02-01T15:00:00.000Z', localDate: '2026-02-01', localHour: 7, faceFt: 2.0, faceSetFt: 3.0, score: 40, periodS: 12 },
+    { time: '2026-02-01T16:00:00.000Z', localDate: '2026-02-01', localHour: 8, faceFt: 2.0, faceSetFt: 3.0, score: 40, periodS: 12 },
+  ];
+  const archive = {
+    issued: '2026-02-01T11:00:00.000Z',           // before the session
+    hourly: [
+      { time: '2026-02-01T15:00:00.000Z', faceFt: 1.5, faceSetFt: 2.0, score: 30, periodS: 11, makeable: true },
+      { time: '2026-02-01T16:00:00.000Z', faceFt: 1.5, faceSetFt: 2.0, score: 30, periodS: 11, makeable: true },
+    ],
+  };
+  const session = { date: '2026-02-01', fromLocalHour: 7, toLocalHour: 8, typicalFt: 3, setFt: 4, makeable: false };
+  const g = gradeSessions([session], hourly, [archive]);
+  const s = g.sessions[0];
+  assert.equal(s.forecast.hindcast, false, 'must use the archive, not fall back to this run');
+  assert.equal(s.forecast.issued, archive.issued);
+  assert.equal(s.forecast.typicalFt, 1.5, 'the archived number, not the current one');
+  assert.equal(s.shapeRight, false);
+});
+
+test('groundTruth: a run issued after the session is not a forecast', () => {
+  const hourly = [{ time: '2026-02-01T15:00:00.000Z', localDate: '2026-02-01', localHour: 7, faceFt: 2, faceSetFt: 3, score: 40, periodS: 12 }];
+  const tooLate = {
+    issued: '2026-02-01T23:00:00.000Z',           // after the session finished
+    hourly: [{ time: '2026-02-01T15:00:00.000Z', faceFt: 3, faceSetFt: 4, score: 60, periodS: 12 }],
+  };
+  const g = gradeSessions([{ date: '2026-02-01', fromLocalHour: 7, toLocalHour: 8, typicalFt: 3, setFt: 4 }], hourly, [tooLate]);
+  assert.equal(g.sessions[0].forecast.hindcast, true,
+    'a run that had already seen the day is a hindcast, however well it scores');
+});
+
+test('groundTruth: falls back to what the page recorded when the archive predates a field', () => {
+  const hourly = [{ time: '2026-02-01T15:00:00.000Z', localDate: '2026-02-01', localHour: 7, faceFt: 2, faceSetFt: 3, score: 40, periodS: 12 }];
+  const oldArchive = {
+    issued: '2026-02-01T11:00:00.000Z',
+    hourly: [{ time: '2026-02-01T15:00:00.000Z', faceFt: 2.0, score: 43, periodS: 11.5 }],  // no faceSetFt
+  };
+  const g = gradeSessions([{
+    date: '2026-02-01', fromLocalHour: 7, toLocalHour: 8,
+    typicalFt: 2.5, setFt: 5.5, makeable: false,
+    modelSaidAtTheTime: { setFt: 2.66, makeable: true },
+  }], hourly, [oldArchive]);
+  const s = g.sessions[0];
+  assert.equal(s.forecast.setFromNote, true, 'flagged as the recorded note, not the archive');
+  assert.ok(Math.abs(s.setRatio - 2.07) < 0.05, `set ratio ${s.setRatio}`);
+  assert.equal(s.shapeRight, false);
+});

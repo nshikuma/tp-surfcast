@@ -607,6 +607,13 @@ async function main() {
         periodS: Math.round(h.periodS * 10) / 10,
         dirDeg: h.dirDeg == null ? null : Math.round(h.dirDeg),
         faceFt: Math.round(h.faceFt * 10) / 10, score: h.score,
+        // The set height and the shape call have to live in the archive too.
+        // Without them a logged session can only ever be graded on the typical
+        // wave - and the typical wave is the part this model was already good
+        // at. The set size is the part it got wrong by a factor of two, and
+        // until now the permanent record had no way to prove it either way.
+        faceSetFt: Math.round(h.faceSetFt * 10) / 10,
+        makeable: h.peel ? h.peel.makeable : null,
       })),
   }));
 

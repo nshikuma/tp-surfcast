@@ -424,3 +424,4 @@ a.cam .cam-note { font-size: 11px; color: var(--muted); }
 .gt-spot { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
 .gt-cmp { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; margin-top: 6px; font-variant-numeric: tabular-nums; }
 .gt-verdict { margin: 6px 0 0; font-size: 13px; color: var(--text-secondary); }
+.gt-when { color: var(--muted); font-weight: 400; }

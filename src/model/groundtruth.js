@@ -31,12 +31,31 @@ export function gradeSessions(sessions, hourly, archives = []) {
       graded.push({ ...summarise(s), matched: false, note: 'No archived forecast covers this session yet.' });
       continue;
     }
-    const typicalRatio = s.typicalFt > 0 && forecast.typicalFt > 0
-      ? clampRatio(s.typicalFt / forecast.typicalFt) : null;
-    const setRatio = s.setFt > 0 && forecast.setFt > 0
-      ? clampRatio(s.setFt / forecast.setFt) : null;
+    // Archives written before a field existed cannot supply it. Where the
+    // session itself recorded what the page said at the time, that hand-written
+    // note is the better evidence - it is a fact about what was on screen, not
+    // a reconstruction - and it is labelled so nobody mistakes it for the
+    // archive talking.
+    const said = s.modelSaidAtTheTime || {};
+    const fill = (fromArchive, fromNote) => (
+      Number.isFinite(fromArchive) ? { v: fromArchive, recorded: false }
+        : Number.isFinite(fromNote) ? { v: fromNote, recorded: true }
+          : { v: null, recorded: false });
+    const typ = fill(forecast.typicalFt, said.typicalFt);
+    const set = fill(forecast.setFt, said.setFt);
+    if (set.recorded) { forecast.setFt = set.v; forecast.setFromNote = true; }
+    if (typ.recorded) { forecast.typicalFt = typ.v; forecast.typicalFromNote = true; }
+
+    const typicalRatio = s.typicalFt > 0 && typ.v > 0
+      ? clampRatio(s.typicalFt / typ.v) : null;
+    const setRatio = s.setFt > 0 && set.v > 0
+      ? clampRatio(s.setFt / set.v) : null;
 
     // Shape is graded as a yes/no: did we say it would be rideable, and was it?
+    if (forecast.makeable == null && typeof said.makeable === 'boolean') {
+      forecast.makeable = said.makeable;
+      forecast.makeableFromNote = true;
+    }
     const shapeSaid = forecast.makeable;
     const shapeWas = s.makeable;
     const shapeRight = shapeSaid == null || shapeWas == null ? null : shapeSaid === shapeWas;
@@ -82,6 +101,17 @@ function forecastFor(s, hourly, archives) {
     && h.localHour >= (s.fromLocalHour ?? 0) - 0.5
     && h.localHour <= (s.toLocalHour ?? 24) + 0.5;
 
+  // Archived hours are trimmed down to save space and carry no local date or
+  // local hour at all - only a UTC timestamp. Matching them on local fields
+  // could never succeed, so every session silently fell through to a hindcast
+  // and the archive was never actually consulted. Derive the session's UTC
+  // window from THIS run's hours, which do carry both, and match on that.
+  const own = (hourly || []).filter(inWindow).map((h) => Date.parse(h.time));
+  const utcFrom = own.length ? Math.min(...own) : null;
+  const utcTo = own.length ? Math.max(...own) : null;
+  const inUtcWindow = (h) => utcFrom != null
+    && Date.parse(h.time) >= utcFrom && Date.parse(h.time) <= utcTo;
+
   // The most recent run ISSUED BEFORE the session started. Comparing against a
   // run issued after the fact would not be a forecast at all - it would be the
   // model being marked on work it had already seen the answer to. The session's
@@ -90,7 +120,7 @@ function forecastFor(s, hourly, archives) {
   let best = null;
   for (const a of archives) {
     if (!a?.issued || !a.hourly) continue;
-    const hrs = a.hourly.filter(inWindow);
+    const hrs = a.hourly.filter((h) => (h.localDate ? inWindow(h) : inUtcWindow(h)));
     if (!hrs.length) continue;
     const sessionStart = Math.min(...hrs.map((h) => Date.parse(h.time)));
     if (Date.parse(a.issued) > sessionStart) continue;
@@ -113,6 +143,10 @@ function pick(hrs, meta) {
     const v = hrs.map(f).filter(Number.isFinite);
     return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
   };
+  // A live hour carries the whole peel object; a trimmed archive hour carries
+  // just the makeable flag. Read either.
+  const calls = hrs.map((h) => (h.peel ? h.peel.makeable : h.makeable))
+    .filter((x) => x === true || x === false);
   const peels = hrs.map((h) => h.peel).filter(Boolean);
   return {
     ...meta,
@@ -120,7 +154,7 @@ function pick(hrs, meta) {
     setFt: round1(mean((h) => h.faceSetFt)),
     score: Math.round(mean((h) => h.score) ?? 0),
     periodS: round1(mean((h) => h.periodS)),
-    makeable: peels.length ? peels.some((p) => p.makeable) : null,
+    makeable: calls.length ? calls.some(Boolean) : null,
     peelSpeedMs: peels.length ? Math.round(mean((h) => h.peel?.speedMs) ?? 0) : null,
   };
 }
