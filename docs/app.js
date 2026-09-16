@@ -452,11 +452,30 @@ function renderMap(day) {
   const run = () => {
     if (handle && handle.destroy) handle.destroy();
     handle = window.TPSurfMap.mount(host, {
-      basemap: BASEMAP, nearshore: DATA.nearshore, hourly: DATA.hourly, startIndex: start,
+      basemap: BASEMAP, nearshore: DATA.nearshore, hourly: DATA.hourly,
+      beach: DATA.beach, startIndex: start,
     });
   };
   rerenderers.push(run);
   requestAnimationFrame(run);
+
+  if (DATA.beach) {
+    const b = DATA.beach;
+    card.appendChild(el('div', { class: 'alert info', style: 'margin-top:12px' }, [
+      el('span', { class: 'ic', text: '\u26f0' }),
+      el('div', {
+        html: `<b>Sand right now:</b> ${b.summary} `
+          + (Math.abs(b.shorelineM) < 0.5
+            ? 'The waterline is sitting about where it normally does. '
+            : `The waterline is about ${Math.abs(b.shorelineM).toFixed(0)} m `
+              + `${b.shorelineM > 0 ? 'further out than usual' : 'further up the beach than usual'}. `)
+          + `${b.consequence}`
+          + (b.spinUpRuns < 40
+            ? ` <i>Still building memory \u2014 ${b.spinUpRuns} run${b.spinUpRuns === 1 ? '' : 's'} of history so far, so treat this as provisional.</i>`
+            : ''),
+      }),
+    ]));
+  }
 
   card.appendChild(el('div', { class: 'map-scale' }, [
     el('span', { text: 'Face height' }),
@@ -464,6 +483,7 @@ function renderMap(day) {
       .map((c) => el('span', { style: `background:${c}` }))),
     el('span', { text: '0 \u2192 8 ft' }),
     el('span', { style: 'margin-left:8px', text: '\u2022 White line: where it breaks. Green stretches are rideable, labelled with how far the section runs and how long the ride lasts.' }),
+    el('span', { style: 'margin-left:8px', text: '\u2022 The darker band along the sand is wet beach \u2014 how far up the sea has been since the last high tide. The waterline moves with the tide and with how much sand the beach is holding.' }),
   ]));
 
   card.appendChild(el('div', { class: 'alert info' }, [
@@ -474,6 +494,9 @@ function renderMap(day) {
         + 'run over surveyed bathymetry. <b>Modelled:</b> the seafloor between the shoreline and '
         + 'the MOP depth contour, including the sandbar and rip channels, and the final step from '
         + 'the MOP line to breaking. The endpoints are measured; the shape between them is not. '
+        + 'The waterline is set by the real tide on its own datum, shifted by a sand budget that '
+        + 'tracks how much energy this beach has taken lately \u2014 storms pull the berm down and '
+        + 'drag the bar offshore, calm spells walk it back. '
         + '<b>Rideable</b> means the break travels along the wave slower than about 11 m/s \u2014 faster than that and the section outruns you, which is a closeout however good it looks.',
     }),
   ]));

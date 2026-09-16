@@ -28,6 +28,7 @@ import {
 } from './model/forecast.js';
 import { scoreSkill, nowcastCheck } from './model/verify.js';
 import { buildNearshore, compareAtHome } from './model/nearshore.js';
+import { stepState, describe, profileFor, COEFFS } from './model/beachstate.js';
 import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel } from './model/waves.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -229,6 +230,51 @@ async function main() {
   // Synthetic runs must never contaminate the drift comparison or the skill
   // scoreboard - they would make the forecast look accurate against data that
   // was never measured.
+  /**
+   * How much sand is on the beach. The state persists between runs so it
+   * accumulates real memory of what the ocean has been doing: a week of swell
+   * pulls the berm down and drags the bar offshore, and a calm spell walks it
+   * back. Starts neutral and earns its history.
+   */
+  const STATE_FILE = path.join(DATA, 'beach-state.json');
+  let beach = null;
+  try {
+    let prev = { s: 0, updatedAt: null, history: [] };
+    if (existsSync(STATE_FILE)) prev = JSON.parse(await readFile(STATE_FILE, 'utf8'));
+    const obs = (data.buoy?.records || []).filter((r) =>
+      !prev.updatedAt || Date.parse(r.time) > Date.parse(prev.updatedAt));
+    const stepped = stepState(prev.s ?? 0, obs, { from: prev.updatedAt });
+    const trend = (stepped.s - (prev.s ?? 0));
+    const words = describe(stepped.s, trend);
+    const history = [...(prev.history || []), {
+      t: startedAt, s: Math.round(stepped.s * 100) / 100,
+      e: stepped.meanEnergy == null ? null : Math.round(stepped.meanEnergy * 1e4) / 1e4,
+    }].slice(-240);
+
+    beach = {
+      shorelineM: Math.round(stepped.s * 100) / 100,
+      trendMPerRun: Math.round(trend * 100) / 100,
+      hoursStepped: stepped.hoursStepped,
+      observations: obs.length,
+      updatedAt: stepped.lastObservation || prev.updatedAt || startedAt,
+      spinUpRuns: history.length,
+      profile: profileFor(stepped.s),
+      coefficients: COEFFS,
+      ...words,
+      note: 'Equilibrium model of the Yates/Guza/O\'Reilly form, driven by measured buoy energy. '
+        + 'Coefficients are plausible, not the published Torrey Pines fits; refit them from the '
+        + 'Ludka survey data. State accumulates across runs, so early runs carry little memory.',
+      history,
+    };
+    await writeFile(STATE_FILE, JSON.stringify({
+      s: stepped.s, updatedAt: beach.updatedAt, history,
+    }, null, 1));
+    log(`beach: shoreline ${beach.shorelineM} m (${words.level}, ${words.moving}), `
+      + `${obs.length} new buoy obs over ${stepped.hoursStepped} h`);
+  } catch (e) {
+    log(`beach state unavailable: ${e.message}`);
+  }
+
   // The alongshore picture: every 100 m of beach, carried to breaking.
   const nearshore = data.transect ? buildNearshore(data.transect, hourly) : null;
   const mopCheck = nearshore ? compareAtHome(nearshore, hourly) : null;
@@ -316,6 +362,7 @@ async function main() {
       biasByModel,
     },
     current,
+    beach,
     nearshore,
     mopCheck,
     wetsuit,

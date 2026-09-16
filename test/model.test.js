@@ -20,6 +20,7 @@ import { scoreHour, scoreTide, scoreWind, scorePeriod, gradeFor } from '../src/m
 import { median, circMean, computeModelBias, waterQuality, wetsuitCall, compass } from '../src/model/forecast.js';
 import { parseOpendapAscii, partitionSpectrum } from '../src/sources/cdip.js';
 import { tideAt, tideRateAt } from '../src/sources/tides.js';
+import { stepState, profileFor, describe } from '../src/model/beachstate.js';
 
 /* ------------------------------------------------------------ wave theory -- */
 
@@ -355,4 +356,65 @@ test('OPeNDAP ASCII parses scalar variables that carry no brackets', () => {
   assert.deepEqual(v.metaWaterDepth, [10.5]);
   assert.deepEqual(v.metaShoreNormal, [258.0]);
   assert.deepEqual(v.waveHs, [0.72, 0.71, 0.69]);
+});
+
+/* ----------------------------------------------------------- beach state -- */
+
+/**
+ * The equilibrium sand model. These tests pin the TIMESCALES, which is the part
+ * that matters: a storm should strip the beach in days, and it should take
+ * weeks of calm to put it back. They do not pin the coefficients themselves -
+ * those are still plausible values rather than the published Torrey Pines fits.
+ */
+
+const hoursOf = (hsM, hours, startMs) => Array.from({ length: hours }, (_, i) => ({
+  time: new Date(startMs + i * 36e5).toISOString(), hsM,
+}));
+
+test('beach state: a storm erodes the beach within days', () => {
+  const t0 = Date.parse('2026-01-01T00:00:00Z');
+  const storm = stepState(0, hoursOf(3.0, 48, t0));
+  assert.ok(storm.s < -6, `two days at 3 m should strip the beach, got ${storm.s.toFixed(1)} m`);
+  assert.ok(storm.s > -20, `and not blow past the physical range, got ${storm.s.toFixed(1)} m`);
+});
+
+test('beach state: recovery is slower than erosion but happens in weeks', () => {
+  const t0 = Date.parse('2026-01-01T00:00:00Z');
+  const storm = stepState(0, hoursOf(3.0, 48, t0));
+  const t1 = t0 + 48 * 36e5;
+  const week = stepState(storm.s, hoursOf(0.7, 24 * 7, t1), { from: storm.updatedAt });
+  const month = stepState(storm.s, hoursOf(0.7, 24 * 30, t1), { from: storm.updatedAt });
+  assert.ok(week.s > storm.s, 'a calm week should rebuild some beach');
+  assert.ok(week.s < storm.s / 2, 'but a single calm week must not undo a storm');
+  assert.ok(month.s > week.s, 'a calm month rebuilds more than a calm week');
+  assert.ok(month.s > -4, `a calm month should be most of the way back, got ${month.s.toFixed(1)} m`);
+});
+
+test('beach state: a long gap in the record does not get integrated', () => {
+  const t0 = Date.parse('2026-01-01T00:00:00Z');
+  // One observation, then a two-week hole, then one more. The hole must not be
+  // treated as a fourteen-day storm.
+  const obs = [
+    { time: new Date(t0).toISOString(), hsM: 3.0 },
+    { time: new Date(t0 + 14 * 24 * 36e5).toISOString(), hsM: 3.0 },
+  ];
+  const out = stepState(0, obs);
+  assert.ok(out.s > -1, `gaps should be skipped, got ${out.s.toFixed(2)} m`);
+});
+
+test('beach state: the profile follows the shoreline', () => {
+  const eroded = profileFor(-15), full = profileFor(15);
+  assert.ok(eroded.barCrestM > full.barCrestM,
+    'an eroded beach pushes the bar offshore');
+  assert.ok(eroded.foreshoreSlope > full.foreshoreSlope,
+    'an eroded beach leaves a steeper, coarser face');
+  assert.ok(eroded.barHeightM < full.barHeightM,
+    'and a flatter bar than a built-up beach');
+  assert.equal(profileFor(0).shorelineOffsetM, 0);
+});
+
+test('beach state: describe reads in plain language', () => {
+  assert.match(describe(-14, -2).level, /strip|eroded|thin|low/i);
+  assert.match(describe(14, 2).level, /built|full|deep|wide/i);
+  assert.ok(describe(0, 0).summary.length > 0);
 });

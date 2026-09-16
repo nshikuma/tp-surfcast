@@ -118,7 +118,11 @@
    * Build the modelled seafloor and the wave field for one hour.
    * `lines` are the MOP lines for this frame with their values at this hour.
    */
-  function buildField(ctxInfo, lines, tideFt, bar) {
+  // Mean high water at this coast, metres above the MLLW tide datum. The mapped
+  // OSM coastline sits about here.
+  var SHORE_ELEV_M = 1.5;
+
+  function buildField(ctxInfo, lines, tideFt, bar, sand) {
     var proj = ctxInfo.proj, frame = ctxInfo.frame, shore = ctxInfo.shore;
     var nx = GRID.nx, ny = GRID.ny;
     var depth = new Float32Array(nx * ny);
@@ -127,12 +131,16 @@
     var foam = new Float32Array(nx * ny);
     var faceFt = new Float32Array(nx * ny);
     var land = new Uint8Array(nx * ny);
+    var wet = new Uint8Array(nx * ny);
     // Where the wave first breaks on each alongshore row, and how deep it is
     // there. This is the whitewater line, and the geometry the peel comes from.
     var breakIx = new Int16Array(ny).fill(-1);
     var breakDepth = new Float32Array(ny);
     var breakAngle = new Float32Array(ny).fill(NaN);
     var tideM = (tideFt || 0) * 0.3048;
+    var highTideM = ((sand && sand.recentHighTideFt) || (tideFt || 0) + 1.6) * 0.3048;
+    var sandOffsetM = (sand && sand.shorelineOffsetM) || 0;
+    var foreshore = (sand && sand.foreshoreSlope) || 0.085;
 
     // Each MOP line, with its real distance offshore, so the profile can be
     // fitted between two measured points instead of assumed outright.
@@ -181,7 +189,7 @@
       var a = blendAt(lat);
       if (!a) continue;
       // Fit h = A * x^(2/3) through the real MOP depth at its real distance.
-      var A = a.depthM / Math.pow(a.dist, 2 / 3);
+      var A = (a.depthM + SHORE_ELEV_M) / Math.pow(Math.max(50, a.dist), 2 / 3);
       var rec = a.rec;
 
       var broken = false;
@@ -190,23 +198,44 @@
         var lon = frame.w + (ix + 0.5) * cellW;
         var g = shoreGeometry(shore, lon, lat);
         if (!g) { land[idx] = 1; continue; }
-        if (!g.seaward) { land[idx] = 1; depth[idx] = -1; continue; }
 
-        var x = g.dist;
-        var h = A * Math.pow(x, 2 / 3);
-        // Sandbar and rip channels: modelled, not surveyed.
-        if (bar) {
+        // Signed cross-shore distance: positive seaward of the mapped coastline,
+        // negative up the beach. The old code treated everything landward as
+        // permanent land, so a rising tide could never flood the beach - the
+        // waterline only ever moved one way.
+        var x = g.seaward ? g.dist : -g.dist;
+        // Sand state shifts the whole profile: build the berm out by S metres
+        // and every elevation moves seaward with it.
+        var xe = x - sandOffsetM;
+
+        // Bed elevation ABOVE THE TIDE DATUM. The mapped coastline is roughly
+        // mean high water, about 1.5 m above MLLW, which is the datum the tide
+        // is quoted in; the old model put the bed at zero there and was a metre
+        // and a half out everywhere as a result.
+        var bedElev;
+        if (xe >= 0) bedElev = SHORE_ELEV_M - A * Math.pow(xe, 2 / 3);
+        else bedElev = SHORE_ELEV_M - foreshore * xe;      // xe < 0 climbs the beach
+
+        // Sandbar and rip channels: modelled, not surveyed. A bar raises the bed.
+        if (bar && xe > 0) {
           var ph = (2 * Math.PI * (lat - frame.s) * 111320) / bar.ripSpacingM;
           var crest = bar.crestM + bar.meanderM * Math.sin(ph);
           var strength = bar.floor + (1 - bar.floor) * (0.5 + 0.5 * Math.cos(ph));
-          var dd = (x - crest) / bar.widthM;
-          h -= bar.heightM * strength * Math.exp(-dd * dd);
-          var dt = (x - (crest - bar.widthM * 1.5)) / (bar.widthM * 0.9);
-          h += 0.3 * strength * Math.exp(-dt * dt);
+          var dd = (xe - crest) / bar.widthM;
+          bedElev += bar.heightM * strength * Math.exp(-dd * dd);
+          var dt2 = (xe - (crest - bar.widthM * 1.5)) / (bar.widthM * 0.9);
+          bedElev -= 0.3 * strength * Math.exp(-dt2 * dt2);
         }
-        h += tideM;
+
+        var h = tideM - bedElev;
         depth[idx] = h;
-        if (h <= 0.12) { land[idx] = 1; continue; }
+        if (h <= 0.12) {
+          land[idx] = 1;
+          // Sand the sea has been over recently: the swash zone between here
+          // and the last high tide, which is where the beach is firm and dark.
+          wet[idx] = (highTideM - bedElev) > 0 ? 1 : 0;
+          continue;
+        }
 
         if (!rec || !(rec.hsM > 0) || !(rec.periodS > 0)) continue;
         var omega = 2 * Math.PI / rec.periodS;
@@ -249,7 +278,8 @@
     }
     return {
       nx: nx, ny: ny, depth: depth, amp: amp, phase: phase, foam: foam,
-      faceFt: faceFt, land: land, anchors: anchors, tideM: tideM,
+      faceFt: faceFt, land: land, wet: wet, anchors: anchors, tideM: tideM,
+      sandOffsetM: sandOffsetM, shoreElevM: SHORE_ELEV_M,
       breakIx: breakIx, breakDepth: breakDepth, breakAngle: breakAngle,
       cellH: cellH, cellW: cellW, frame: frame,
     };
@@ -675,9 +705,30 @@
           faceFt: face, score: l.score[idx],
         };
       });
+      // The bar's shape comes from the beach state, which remembers what the
+      // ocean has been doing to this sand over the past weeks.
+      var sand = (opts.beach && opts.beach.profile) || {};
+      var tideWindow = nearshore.times
+        .map(function (t, i) { return { t: Date.parse(t), h: hourAt(i) }; })
+        .filter(function (r) {
+          var now = Date.parse(nearshore.times[idx]);
+          return r.h && r.t <= now && r.t > now - 14 * 36e5;
+        })
+        .map(function (r) { return r.h.tideFt; });
+      var recentHighTideFt = tideWindow.length ? Math.max.apply(null, tideWindow) : null;
+
       field = API.buildField({ proj: proj, frame: basemap.frame, shore: shore },
         lines, h ? h.tideFt : 2,
-        { crestM: 95, heightM: 1.0, widthM: 38, ripSpacingM: 185, floor: 0.55, meanderM: 20 });
+        {
+          crestM: sand.barCrestM || 95,
+          heightM: sand.barHeightM || 1.0,
+          widthM: 38, ripSpacingM: 185, floor: 0.55, meanderM: 20,
+        },
+        {
+          shorelineOffsetM: sand.shorelineOffsetM || 0,
+          foreshoreSlope: sand.foreshoreSlope || 0.085,
+          recentHighTideFt: recentHighTideFt,
+        });
       img = bctx.createImageData(API.GRID.nx, API.GRID.ny);
 
       var when = new Date(nearshore.times[idx]).toLocaleString('en-US', {
@@ -694,7 +745,8 @@
             + ' m, ' + bestRide.seconds.toFixed(0) + 's'
           : '  ·  nothing rideable')
         + (pe ? '  ·  ' + pe.quality : '')
-        + (pk ? '  ·  ' + pk.label : '');
+        + (pk ? '  ·  ' + pk.label : '')
+        + (opts.beach ? '  ·  sand ' + opts.beach.level : '');
       canvas.setAttribute('aria-label', 'Modelled surf map for ' + when
         + (pk ? '. ' + pk.label : '') + '.');
       draw();
@@ -704,7 +756,11 @@
       var d = img.data, nx = field.nx, ny = field.ny;
       for (var i = 0; i < nx * ny; i++) {
         var p = i * 4;
-        if (field.land[i]) { d[p + 3] = 0; continue; }
+        if (field.land[i]) {
+          if (field.wet[i]) { d[p] = 168; d[p + 1] = 154; d[p + 2] = 132; d[p + 3] = 190; }
+          else d[p + 3] = 0;
+          continue;
+        }
         var h = field.depth[i];
         var shallow = Math.max(0, Math.min(1, 1 - h / 8));
         var r = 77 + (169 - 77) * shallow * shallow;

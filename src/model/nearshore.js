@@ -39,7 +39,7 @@ export function sampleTimes(hourly, { denseHours = 48, totalDays = 7 } = {}) {
 export function buildNearshore(transect, hourly) {
   if (!transect?.lines?.length || !hourly?.length) return null;
 
-  const frames = sampleTimes(hourly);
+  let frames = sampleTimes(hourly);
   if (!frames.length) return null;
   const frameAt = new Map();
   frames.forEach((h) => frameAt.set(new Date(h.time).setMinutes(0, 0, 0), h));
@@ -116,6 +116,21 @@ export function buildNearshore(transect, hourly) {
   });
 
   const home = lines.find((l) => l.id === transect.home?.id) || lines[Math.floor(lines.length / 2)];
+
+  // MOP forecasts run about five and a half days out, but the hourly grid runs
+  // further. That left a tail of frames where every line was null: the map
+  // slider could land on them and show an empty ocean. Drop the dead tail so
+  // the slider only offers frames the nearshore model can actually answer for.
+  let last = best.length - 1;
+  while (last >= 0 && best[last] == null) last--;
+  const keep = last + 1;
+  if (keep > 0 && keep < frames.length) {
+    frames = frames.slice(0, keep);
+    for (const l of lines) {
+      for (const k of ['faceFt', 'setFt', 'score', 'dirDeg', 'periodS']) l[k] = l[k].slice(0, keep);
+    }
+    best.length = keep;
+  }
 
   return {
     source: 'CDIP MOP alongshore (Scripps), refracted over surveyed bathymetry',
