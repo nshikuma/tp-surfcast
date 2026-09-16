@@ -266,10 +266,10 @@ export function reliabilityFor(daysAhead, confidence = 1, worstSoFar = null) {
 }
 
 export const RELIABILITY = {
-  solid: { label: 'Solid', note: 'Inside two days - this is about as good as a wave forecast gets.' },
-  likely: { label: 'Likely', note: 'Two to three days out. Size usually holds; wind is the part that moves.' },
-  planning: { label: 'Planning only', note: 'Four to five days out. Use it to pick which day to keep free, not to commit.' },
-  rough: { label: 'Rough shape', note: 'Beyond five days this is a trend, not a forecast.' },
+  solid: { label: 'Solid', note: 'Close in and the models agree - about as good as a wave forecast gets.' },
+  likely: { label: 'Likely', note: 'The size usually holds from here; the wind is the part that moves.' },
+  planning: { label: 'Planning only', note: 'Use it to pick which day to keep free, not to commit to one.' },
+  rough: { label: 'Rough shape', note: 'A trend rather than a forecast.' },
 };
 
 /** Is this hour inside the crew's window? */

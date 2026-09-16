@@ -500,11 +500,18 @@ function tideWord(day) {
   return t < lo ? 'lower than this swell wants' : 'higher than this swell wants';
 }
 
+/**
+ * Wording describes CONFIDENCE, not lead time. The two usually track each
+ * other, but a day where the models disagree drops a notch on its own - and
+ * once that happens the days after it inherit the lower rating, because
+ * certainty cannot come back. Labelling that day "four to five days out" when
+ * it is Friday would be plainly wrong.
+ */
 const RELIABILITY_TEXT = {
-  solid: { label: 'Solid forecast', chip: 'Solid — inside 2 days', note: 'Inside two days — about as good as a wave forecast gets.' },
-  likely: { label: 'Likely', chip: 'Likely — size holds, wind may move', note: 'Two to three days out. Size usually holds; the wind is the part that moves.' },
-  planning: { label: 'Planning only', chip: 'Planning only — do not commit', note: 'Four to five days out. Pick which day to keep free, do not commit to it.' },
-  rough: { label: 'Rough shape', chip: 'Rough shape — a trend, not a forecast', note: 'Beyond five days this is a trend, not a forecast.' },
+  solid: { label: 'Solid forecast', chip: 'Solid — models agree', note: 'Close in and the models agree. About as good as a wave forecast gets.' },
+  likely: { label: 'Likely', chip: 'Likely — size holds, wind may move', note: 'The size usually holds from here; the wind is the part that moves.' },
+  planning: { label: 'Planning only', chip: 'Planning only — do not commit', note: 'Far enough out, or the models disagree enough, that this is for picking which day to keep free rather than committing to one.' },
+  rough: { label: 'Rough shape', chip: 'Rough shape — a trend, not a forecast', note: 'A trend rather than a forecast. Expect it to move.' },
 };
 
 /* ============================================================== the week ==
@@ -577,7 +584,13 @@ function weekTile(d, i, isBest, scale) {
     windArrow(d.windDirDeg ?? 0, d.windLabel),
     el('span', { text: ` ${n0(d.windKt)} kt ${d.windCompass} ${d.windLabel}` }),
   ]));
-  meta.appendChild(el('span', { text: `${n1(d.periodS)}s ${d.dirCompass}` }));
+  // The dominant swell, not the median of everything in the water. The median
+  // reported "6.7s W" on a day the mix bar directly below it called 77% south
+  // swell, because a fat slice of short-period chop drags the median down.
+  const lead = d.mix?.parts?.[0];
+  meta.appendChild(el('span', {
+    text: lead ? `${n1(lead.periodS)}s ${lead.dirCompass}` : `${n1(d.periodS)}s ${d.dirCompass}`,
+  }));
   meta.appendChild(el('span', { text: `tide ${n1(d.tideAtWindowFt)} ft` }));
   tile.appendChild(meta);
 
