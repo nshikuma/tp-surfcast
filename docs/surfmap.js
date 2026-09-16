@@ -446,15 +446,27 @@
     if (b < 0 || !isFinite(field.breakAngle[iy])) return null;
     var alongM = field.cellH * 111320;
 
-    // Bearing of the breaking line itself, from its neighbours.
-    var lo = iy, hi = iy;
-    while (lo > 0 && field.breakIx[lo - 1] < 0) lo--;
-    while (hi < field.ny - 1 && field.breakIx[hi + 1] < 0) hi++;
-    var a0 = field.breakIx[Math.max(0, iy - 3)];
-    var a1 = field.breakIx[Math.min(field.ny - 1, iy + 3)];
-    var dCross = (a1 >= 0 && a0 >= 0) ? (a1 - a0) * field.cellW * 111320 * 0.84 : 0;
-    var dAlong = 6 * alongM;
-    var lineTilt = Math.atan2(dCross, dAlong) * 180 / Math.PI;
+    // Tilt of the breaking line, fitted by least squares over a window either
+    // side. Taking two endpoints three rows apart was measuring quantisation
+    // noise as much as bathymetry: rows are 6 m apart and the break point moves
+    // in whole cells, so a single-cell step read as a 10-degree swing.
+    var WIN = 8;
+    var n = 0, sx = 0, sy = 0, sxy = 0, sxx = 0;
+    for (var j = -WIN; j <= WIN; j++) {
+      var r = iy + j;
+      if (r < 0 || r >= field.ny) continue;
+      var bi = field.breakIx[r];
+      if (bi < 0) continue;
+      var xa = j * alongM;
+      var yc = bi * field.cellW * 111320 * 0.84;
+      n++; sx += xa; sy += yc; sxy += xa * yc; sxx += xa * xa;
+    }
+    var slope = 0;
+    if (n >= 4) {
+      var den = n * sxx - sx * sx;
+      if (Math.abs(den) > 1e-6) slope = (n * sxy - sx * sy) / den;
+    }
+    var lineTilt = Math.atan(slope) * 180 / Math.PI;
 
     var crestAngle = field.breakAngle[iy];          // + = from north of normal
     // Angle between the crest and the breaking line.
@@ -471,6 +483,49 @@
       quality: alpha < 4 ? 'closeout' : alpha < 11 ? 'fast' : alpha < 32 ? 'makeable' : 'slow',
       ix: b,
     };
+  }
+
+
+  // The fastest a surfer realistically travels along a wall, metres/second.
+  // Past this the section outruns you, and the wave is a closeout however good
+  // it looks from the beach.
+  var MAX_RIDE_SPEED = 11;
+
+  /**
+   * Rideable sections: runs along the break where the peel stays slow enough to
+   * make and the wave stays big enough to ride.
+   *
+   * Length is how far the section runs along the beach. Duration is that length
+   * divided by the peel speed, because a surfer keeps pace with the pocket - so
+   * a slower-peeling wave gives a longer ride over the same distance.
+   */
+  function rideSections(field) {
+    var alongM = field.cellH * 111320;
+    var runs = [], cur = null;
+    for (var iy = 0; iy < field.ny; iy++) {
+      var p = peelAt(field, iy);
+      var b = field.breakIx[iy];
+      var face = b >= 0 ? field.faceFt[iy * field.nx + b] : 0;
+      var ok = p && p.speedMs <= MAX_RIDE_SPEED && face >= 1.2 && p.dir !== 'both';
+      if (ok) {
+        if (cur && cur.dir === p.dir) { cur.end = iy; cur.speeds.push(p.speedMs); cur.faces.push(face); }
+        else { if (cur) runs.push(cur); cur = { dir: p.dir, start: iy, end: iy, speeds: [p.speedMs], faces: [face] }; }
+      } else if (cur) { runs.push(cur); cur = null; }
+    }
+    if (cur) runs.push(cur);
+
+    return runs.map(function (r) {
+      var n = r.speeds.length;
+      var meanSpeed = r.speeds.reduce(function (a, b) { return a + b; }, 0) / n;
+      var meanFace = r.faces.reduce(function (a, b) { return a + b; }, 0) / n;
+      var lengthM = (r.end - r.start + 1) * alongM;
+      return {
+        dir: r.dir, start: r.start, end: r.end, lengthM: lengthM,
+        seconds: lengthM / Math.max(1.2, meanSpeed),
+        speedMs: meanSpeed, faceFt: meanFace,
+      };
+    }).filter(function (r) { return r.lengthM >= 15; })
+      .sort(function (a, b) { return b.lengthM - a.lengthM; });
   }
 
   /** The dominant peel across the frame, for the headline. */
@@ -491,6 +546,12 @@
       quality: med < 4 ? 'closing out' : med < 11 ? 'fast' : med < 32 ? 'makeable' : 'slow and fat',
     };
   }
+
+  // Exposed for inspection: the peel and ride maths are the easiest thing in
+  // here to get quietly wrong, and eyeballing a canvas does not catch it.
+  API.peelAt = peelAt;
+  API.rideSections = rideSections;
+  API.MAX_RIDE_SPEED = MAX_RIDE_SPEED;
 
   API.mount = function (host, opts) {
     var basemap = opts.basemap, nearshore = opts.nearshore, hourly = opts.hourly || [];
@@ -623,8 +684,16 @@
         timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit',
       });
       var pk = peakiness(nearshore.lines, idx);
+      API.lastField = field;      // inspection hook
+      var pe = peelSummary(field);
+      var bestRide = rideSections(field)[0];
       stamp.textContent = when
         + (h ? '  ·  tide ' + h.tideFt.toFixed(1) + ' ft  ·  wind ' + Math.round(h.windKt) + ' kt ' + h.windCompass : '')
+        + (bestRide
+          ? '  ·  best ride ' + bestRide.dir + ' ' + Math.round(bestRide.lengthM)
+            + ' m, ' + bestRide.seconds.toFixed(0) + 's'
+          : '  ·  nothing rideable')
+        + (pe ? '  ·  ' + pe.quality : '')
         + (pk ? '  ·  ' + pk.label : '');
       canvas.setAttribute('aria-label', 'Modelled surf map for ' + when
         + (pk ? '. ' + pk.label : '') + '.');
@@ -693,6 +762,31 @@
           ctx.stroke();
           ctx.strokeStyle = 'rgba(18,60,80,.35)'; ctx.lineWidth = 1; ctx.stroke();
 
+          // Rideable sections: the stretches you could actually make.
+          var rides = rideSections(field);
+          var byRow = {};
+          pts.forEach(function (p) { byRow[p.iy] = p; });
+          rides.slice(0, 4).forEach(function (rd, ri) {
+            var seg = [];
+            for (var q = rd.start; q <= rd.end; q++) if (byRow[q]) seg.push(byRow[q]);
+            if (seg.length < 2) return;
+            ctx.beginPath();
+            seg.forEach(function (p, i) { i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); });
+            ctx.strokeStyle = ri === 0 ? 'rgba(28,111,63,.95)' : 'rgba(28,111,63,.5)';
+            ctx.lineWidth = ri === 0 ? 7 : 5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            var mid = seg[seg.length >> 1];
+            ctx.font = '700 11px system-ui, sans-serif';
+            ctx.textAlign = 'left';
+            var tag = (rd.dir === 'right' ? 'RIGHT' : 'LEFT') + '  '
+              + Math.round(rd.lengthM) + ' m · ' + rd.seconds.toFixed(0) + 's';
+            ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(255,255,255,.95)';
+            ctx.strokeText(tag, mid.x + 12, mid.y + 4);
+            ctx.fillStyle = '#14301f'; ctx.fillText(tag, mid.x + 12, mid.y + 4);
+          });
+
           // Peel arrows along it: direction the break runs.
           var step = Math.max(6, Math.round(pts.length / 9));
           for (var pi = step; pi < pts.length - step; pi += step) {
@@ -734,7 +828,11 @@
           var len = 16 + Math.min(26, tr.hsFt * 6);
           ctx.save();
           ctx.translate(ox, y);
-          ctx.rotate((tr.dirDeg + 180) * Math.PI / 180);
+          // Canvas rotate(t) sends local (0,1) to (-sin t, cos t), and on
+          // screen +y is south. Rotating by dirDeg therefore points the arrow
+          // along dirDeg + 180 - the way the swell TRAVELS. Rotating by
+          // dirDeg + 180 pointed it back at where the swell came from.
+          ctx.rotate(tr.dirDeg * Math.PI / 180);
           ctx.beginPath();
           ctx.moveTo(0, -len); ctx.lineTo(0, len * 0.5);
           ctx.moveTo(0, len * 0.5); ctx.lineTo(-7, len * 0.5 - 9);
@@ -846,8 +944,15 @@
       });
       readout.innerHTML = '<b>' + (field.faceFt[i] > 0.3 ? field.faceFt[i].toFixed(1) + ' ft face' : 'outside the break') + '</b>'
         + '<span>depth ' + field.depth[i].toFixed(1) + ' m</span>'
-        + '<span>' + near.id + ': ' + (near.periodS[idx] || '--') + 's from ' + (near.dirDeg[idx] || '--') + '°</span>'
-        + '<span>score ' + (near.score[idx] != null ? near.score[idx] : '--') + '</span>';
+        + (function () {
+          var pr = peelAt(field, gy);
+          if (!pr) return '<span>not breaking here</span>';
+          return '<span>peels ' + (pr.dir === 'both' ? 'both ways' : pr.dir)
+            + ' at ' + pr.speedMs.toFixed(0) + ' m/s</span>'
+            + '<span>' + (pr.speedMs <= MAX_RIDE_SPEED ? 'makeable' : 'outruns you, closeout') + '</span>';
+        })()
+        + '<span>' + near.id + ' · ' + (near.periodS[idx] || '--') + 's · score '
+        + (near.score[idx] != null ? near.score[idx] : '--') + '</span>';
       readout.style.opacity = 1;
       readout.style.left = Math.min(px + 14, canvas.width - 170) + 'px';
       readout.style.top = Math.max(6, py - 66) + 'px';

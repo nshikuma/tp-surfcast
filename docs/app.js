@@ -463,7 +463,7 @@ function renderMap(day) {
     el('span', { class: 'ramp' }, ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b']
       .map((c) => el('span', { style: `background:${c}` }))),
     el('span', { text: '0 \u2192 8 ft' }),
-    el('span', { style: 'margin-left:8px', text: '\u2022 Peaky / walled ribbon: green peaky, amber mixed, red walled' }),
+    el('span', { style: 'margin-left:8px', text: '\u2022 White line: where it breaks. Green stretches are rideable, labelled with how far the section runs and how long the ride lasts.' }),
   ]));
 
   card.appendChild(el('div', { class: 'alert info' }, [
@@ -473,7 +473,8 @@ function renderMap(day) {
         + 'direction every ~100 m along this beach from CDIP MOP \u2014 Scripps\u2019 own model, '
         + 'run over surveyed bathymetry. <b>Modelled:</b> the seafloor between the shoreline and '
         + 'the MOP depth contour, including the sandbar and rip channels, and the final step from '
-        + 'the MOP line to breaking. The endpoints are measured; the shape between them is not.',
+        + 'the MOP line to breaking. The endpoints are measured; the shape between them is not. '
+        + '<b>Rideable</b> means the break travels along the wave slower than about 11 m/s \u2014 faster than that and the section outruns you, which is a closeout however good it looks.',
     }),
   ]));
   return card;
