@@ -1,0 +1,40 @@
+{
+  "_what": "Sessions the crew actually surfed, written down so the model can be graded against them. This file is edited by hand and is the only thing in the repository that is not either measured by an instrument or produced by a model.",
+  "_why": "The buoy tells us what the swell was doing eight miles out. It cannot tell us how big the wave looked from the sand, whether it peeled or shut down, or where the sand was that week. Nothing can except somebody who was standing in it. Every calibration constant in config.js is ultimately answerable to this file.",
+  "_howToAdd": "Copy the block from the session log at the bottom of the page and paste it in, or write one by hand. Rough is fine - 'head high sets, walled' is far more useful than nothing. What matters most is the SPOT and the SET size, because those are the two the model is worst at.",
+  "_fields": {
+    "date": "local date, YYYY-MM-DD",
+    "fromLocalHour / toLocalHour": "the window actually surfed, 24 h local",
+    "spot": "rivermouth | north-lot | south-end - the bar varies a lot along this beach and the model does not know that",
+    "typicalFt": "face height of the ordinary waves, feet",
+    "setFt": "face height of the set waves, feet - the number the model is worst at",
+    "sizeWords": "how you would describe it to someone: knee, waist, chest, head, overhead",
+    "shape": "peeling | mixed | walled | closeout",
+    "makeable": "could you actually get into them and go somewhere",
+    "barNote": "anything about where the sand was - this is the single biggest thing the model cannot see",
+    "notes": "free text"
+  },
+  "sessions": [
+    {
+      "date": "2026-09-16",
+      "fromLocalHour": 7,
+      "toLocalHour": 8,
+      "spot": "rivermouth",
+      "typicalFt": 2.5,
+      "setFt": 5.5,
+      "sizeWords": "windswell chop through it, big head-high sets",
+      "shape": "walled",
+      "makeable": false,
+      "barNote": "Sandbar at and just north of the rivermouth was very shallow - thigh to waist deep.",
+      "notes": "Sets walled up and broke all at once. A few corners here and there but fast and difficult to get into. The model said 2.0 ft typical with 2.7 ft sets (waist high) and called it makeable: the typical size was about right, the SET size was out by roughly a factor of two, and the shape call was wrong in the way that matters.",
+      "modelSaidAtTheTime": {
+        "typicalFt": 2.04,
+        "setFt": 2.66,
+        "setLabel": "Waist high",
+        "windowScore": 43,
+        "peakPeriodS": 11.5,
+        "note": "The buoy was simultaneously measuring an 18.2 s south groundswell that neither global wave model carried in its partitions at all."
+      }
+    }
+  ]
+}

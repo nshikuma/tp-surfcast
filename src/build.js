@@ -30,14 +30,26 @@ import { scoreSkill, nowcastCheck } from './model/verify.js';
 import { buildNearshore, compareAtHome } from './model/nearshore.js';
 import { stepState, describe, profileFor, COEFFS } from './model/beachstate.js';
 import { mixForHour, mixForDay, smoothShares, CLASS_ORDER as MIX_ORDER } from './model/mix.js';
-import { callFor, reliabilityFor } from './model/score.js';
-import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel } from './model/waves.js';
+import { callFor, reliabilityFor, scoreHour } from './model/score.js';
+import { gradeSessions } from './model/groundtruth.js';
+import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel, combineFaces } from './model/waves.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DOCS = path.join(__dirname, '..', 'docs');
 const DATA = path.join(DOCS, 'data');
 const ARCHIVE = path.join(DATA, 'archive');
 const SYNTHETIC = process.argv.includes('--synthetic');
+
+/**
+ * How long a measured buoy spectrum stays the best description of what is in
+ * the water. Swell takes many hours to change, so for the first half-day the
+ * thing eight miles offshore beats a global model's guess at the same water -
+ * and on 2026-09-16 it was carrying an 18.2 s south groundswell that neither
+ * model had at all.
+ */
+const BUOY_ANCHOR_HOURS = 12;
+
+const round1 = (x) => (Number.isFinite(x) ? Math.round(x * 10) / 10 : null);
 const MAX_ARCHIVE_FILES = 160;
 
 const log = (...a) => console.log('[tp-surfcast2]', ...a);
@@ -164,6 +176,11 @@ function buildCurrent(buoy, spectrum, ndbcSpec, tides) {
 
   const whole = transformToBreak(b.hsM, b.tpS || 12, b.dirDeg ?? SITE.shoreNormalDeg, { origin: 'buoy' });
   const face = faceHeights(whole.Hb);
+  // Sets from the measured partitions, not from a flat multiple of the whole
+  // sea: when three trains are running, the set waves are the ones where they
+  // coincide, and that is a far bigger number than 1.3 times the average.
+  const combined = breaking.length ? combineFaces(breaking.map((t) => t.faceFt)) : null;
+  const setFt = combined ? Math.max(face.setFt, combined.setFt) : face.setFt;
   const nowIso = new Date().toISOString();
 
   return {
@@ -177,9 +194,10 @@ function buildCurrent(buoy, spectrum, ndbcSpec, tides) {
     dirCompass: compass(b.dirDeg),
     powerKwPerM: wavePowerKwPerM(b.hsM, b.tpS || 12),
     faceFt: face.typicalFt,
-    faceSetFt: face.setFt,
+    faceSetFt: setFt,
     sizeLabel: sizeLabel(face.typicalFt).label,
-    setSizeLabel: sizeLabel(face.setFt).label,
+    setSizeLabel: sizeLabel(setFt).label,
+    superposition: combined ? Math.round(combined.superposition * 100) / 100 : 1,
     tideFt: tides ? tidesSrc.tideAt(tides, nowIso) : null,
     tideRate: tides ? tidesSrc.tideRateAt(tides, nowIso) : null,
     trains: breaking,
@@ -224,10 +242,6 @@ async function main() {
   const firstWind = data.weather.byModel[data.weather.models[0]] || [];
   const rainHistory = firstWind.map((r) => ({ time: r.time, precipIn: r.precipIn }));
 
-  const allDays = buildDaily(hourly, { weatherDaily: data.weather.daily, rainHistory });
-  const todayLocal = hourly.find((h) => Date.parse(h.time) >= Date.now() - 36e5)?.localDate
-    ?? allDays[0]?.date;
-  const days = allDays.filter((d) => d.date >= todayLocal).slice(0, FORECAST_DAYS.outlook);
 
   // What each day's swell is MADE of, and the one-word call. Computed here
   // rather than in the page so the browser never has to run wave physics to
@@ -258,10 +272,118 @@ async function main() {
     log('WARNING: no partitioned swell trains in this run - the swell breakdown will be empty.');
   }
 
+  // The buoy is eight miles straight out and measures the real spectrum. On
+  // 2026-09-16 it was reading an 18.2 s south groundswell that NEITHER global
+  // model had in its partitions - they showed 12.8 s and nothing longer - and
+  // the page called a head-high-sets morning waist high partly because of it.
+  // For the hours close to an observation, what is in the water IS what the
+  // buoy just measured, so use that instead of the models' guess at it.
+  const current = buildCurrent(data.buoy, data.spectrum, data.ndbcSpec, data.tides);
+
+  /**
+   * Are the buoy and the global models describing the same ocean?
+   *
+   * On 2026-09-16 they were not: the buoy's peak period was 18.2 s and the
+   * models' was 11.5 s, because neither model had the south groundswell in its
+   * partitions at all. That is not a small error to average away - it is the
+   * difference between a clean long-period pulse and a lump of windswell, and
+   * it is worth saying out loud on the page rather than quietly splitting the
+   * difference.
+   */
+  let buoyCheck = null;
+  if (current && hourly.length) {
+    const nearest = hourly.reduce((a, b) => (
+      Math.abs(Date.parse(b.time) - Date.parse(current.observedAt))
+        < Math.abs(Date.parse(a.time) - Date.parse(current.observedAt)) ? b : a));
+    const dT = (current.periodS ?? 0) - (nearest.periodS ?? 0);
+    const dH = (current.deepHsFt ?? 0) - (nearest.deepHsFt ?? 0);
+    buoyCheck = {
+      observedAt: current.observedAt,
+      buoyPeriodS: round1(current.periodS),
+      modelPeriodS: round1(nearest.periodS),
+      periodGapS: round1(dT),
+      buoyHsFt: round1(current.deepHsFt),
+      modelHsFt: round1(nearest.deepHsFt),
+      heightGapFt: round1(dH),
+      // Four seconds of peak period is a different swell, not a tuning error.
+      periodDisagrees: Math.abs(dT) >= 4,
+      note: Math.abs(dT) >= 4
+        ? `The buoy is reading a ${round1(current.periodS)} s peak and the models are on `
+          + `${round1(nearest.periodS)} s. A gap that size usually means the models are `
+          + 'missing a swell the buoy can already see, so the near-term size and shape here '
+          + 'are taken from the buoy rather than from them.'
+        : 'Buoy and models agree on the period to within a few seconds.',
+    };
+    log(`buoy check: Tp buoy ${round1(current.periodS)}s vs model ${round1(nearest.periodS)}s`
+      + `${buoyCheck.periodDisagrees ? '  <-- DISAGREE, models may be missing a swell' : ''}`);
+  }
+
+  const buoyTrains = current?.trains?.length ? current.trains : null;
+  const buoyAt = current?.observedAt ? Date.parse(current.observedAt) : null;
+  let anchoredHours = 0;
+  if (buoyTrains && buoyAt) {
+    for (const h of hourly) {
+      const ageH = Math.abs(Date.parse(h.time) - buoyAt) / 36e5;
+      if (ageH > BUOY_ANCHOR_HOURS) continue;
+      // Substituted whole rather than blended: the two lists are measured at
+      // different places (the buoy sits inside the island shadow, the models
+      // publish deep water before it) and averaging them would be the
+      // double-counting bug this model has already been bitten by once.
+      h.trains = buoyTrains.map((t) => ({
+        kind: t.kind, hsM: t.hsM, hsFt: t.hsFt,
+        periodS: t.periodS, dirDeg: t.dirDeg, dirCompass: t.dirCompass,
+        origin: 'buoy',
+      }));
+      h.trainsFrom = 'buoy';
+      anchoredHours++;
+    }
+    log(`buoy anchor: ${anchoredHours} hours using measured partitions (within ${BUOY_ANCHOR_HOURS} h of the obs)`);
+  }
+
   // Hourly mixes first, then smoothed, so the daily rollup and the chart are
   // built from exactly the same numbers.
   for (const h of hourly) h.mix = mixForHour(h);
   smoothShares(hourly);
+
+  // Set height now comes from the partitions rather than from a flat multiple
+  // of the typical wave: the sets are the moments the trains coincide, and a
+  // crossed sea makes far bigger sets than a clean one of the same height.
+  for (const h of hourly) {
+    if (!h.mix?.setFt) continue;
+    h.faceSetFt = Math.max(h.faceSetFt, h.mix.setFt);
+    h.setSizeLabel = sizeLabel(h.faceSetFt).label;
+    h.peel = h.mix.peel;
+  }
+
+  // Re-score every hour now that the closeout geometry is known. The first pass
+  // in buildHourly cannot do this: the swell partitions it needs are fetched
+  // separately and attached above. Scoring a morning of walls as if it peeled
+  // is most of why this page called a closed-out day "makeable".
+  for (const h of hourly) {
+    if (!h.peel) continue;
+    const rescored = scoreHour({
+      HbM: h.HbM,
+      faceTypicalFt: h.faceFt,
+      faceSetFt: h.faceSetFt,
+      Tp: h.periodS,
+      swellDirDeg: h.dirDeg ?? SITE.shoreNormalDeg,
+      tideFt: h.tideFt ?? 2,
+      tideRate: h.tideRate ?? 0,
+      windKt: h.windKt,
+      windDirDeg: h.windDirDeg,
+      powerKwPerM: h.powerKwPerM,
+      peel: h.peel,
+    });
+    h.score = rescored.total;
+    h.grade = rescored.grade;
+    h.parts = rescored.parts;
+    h.board = rescored.board;
+  }
+
+  const allDays = buildDaily(hourly, { weatherDaily: data.weather.daily, rainHistory });
+  const todayLocal = hourly.find((h) => Date.parse(h.time) >= Date.now() - 36e5)?.localDate
+    ?? allDays[0]?.date;
+  const days = allDays.filter((d) => d.date >= todayLocal).slice(0, FORECAST_DAYS.outlook);
   // Measured against the hours that HAVE trains, not against the whole grid.
   // The partitioned fields run about eight days and the hourly grid runs
   // fifteen, so comparing to hourly.length would have the assertion tripping
@@ -343,8 +465,25 @@ async function main() {
   const archives = (await loadArchives()).filter((r) => !r.synthetic);
   const drift = computeDrift(days, pickForDrift(archives));
   const skill = scoreSkill(archives, data.buoy?.records || []);
+
+  // Graded against sessions the crew actually surfed. The buoy comparison above
+  // grades the swell; this grades the SURF, which is a different and harder
+  // thing, and it is the only check that can see the parts of this model with
+  // no instrument behind them - set size, shape, and where the sand is.
+  let groundTruth = null;
+  try {
+    const obsFile = path.join(__dirname, 'data', 'observations.json');
+    if (existsSync(obsFile)) {
+      const obs = JSON.parse(await readFile(obsFile, 'utf8'));
+      groundTruth = gradeSessions(obs.sessions || [], hourly, archives);
+      const g = groundTruth.summary;
+      log(`ground truth: ${g.n} logged session(s)`
+        + (g.setBiasRatio ? `, sets running x${g.setBiasRatio} vs forecast` : ''));
+    }
+  } catch (e) {
+    log(`ground truth unavailable: ${e.message}`);
+  }
   const nowcast = data.buoy ? nowcastCheck(hourly, data.buoy.records) : null;
-  const current = buildCurrent(data.buoy, data.spectrum, data.ndbcSpec, data.tides);
 
   const windowHoursToday = hourly.filter((h) => h.localDate === todayLocal && h.inWindow);
   const waterF = data.waterTemp?.f ?? null;
@@ -396,6 +535,14 @@ async function main() {
       : null,
     crossing: h.mix ? h.mix.crossing : null,
     chopFt: h.mix ? h.mix.chopFt : null,
+    // How much bigger the sets are than the average wave, because the trains
+    // coincide. 1.0 is a single clean swell; 1.4 is a properly crossed sea.
+    superposition: h.mix ? h.mix.superposition : null,
+    peel: h.peel ? {
+      alphaDeg: h.peel.alphaDeg, speedMs: h.peel.speedMs,
+      makeable: h.peel.makeable, closeoutRatio: h.peel.closeoutRatio,
+    } : null,
+    trainsFrom: h.trainsFrom || 'model',
   });
   const compactDays = days.map(({ hours, ...rest }) => rest);
 
@@ -425,6 +572,7 @@ async function main() {
       biasByModel,
     },
     current,
+    buoyCheck,
     beach,
     nearshore,
     mopCheck,
@@ -433,6 +581,7 @@ async function main() {
     days: compactDays,
     drift,
     skill,
+    groundTruth,
     hourly: hourly
       .filter((h) => Date.parse(h.time) >= Date.now() - 12 * 36e5)
       .map(compactHour),

@@ -102,6 +102,22 @@ export const CALIBRATION = {
   // sea; 1.30 is that rounded, and matches "occasional bigger ones".
   setFactor: 1.30,
 
+  // How far the sandbanks sit off shore-parallel, in degrees.
+  //
+  // This is the parameter that decides whether a wave peels or closes out, and
+  // the wave model cannot supply it: refraction turns every swell toward
+  // shore-normal, so over a perfectly straight bottom the answer is always
+  // "closeout". Rideable waves exist because banks are crooked. 12 degrees is
+  // an estimate for a beach with a working bar-and-rip system; a scoured,
+  // straight winter bar is closer to 4 and closes out on everything, which is
+  // what a flat, featureless sandbar feels like to surf.
+  barSkewDeg: 12,
+
+  // Above this the break outruns the rider and the wave is a closeout however
+  // good it looks from the sand. Roughly the top speed a surfer holds down the
+  // line on a beach break.
+  maxRideSpeedMs: 11,
+
   /**
    * Energy lost between the buoy line and the surf zone that plain refraction
    * and shoaling do not capture: directional spreading (the buoy's Hs is spread

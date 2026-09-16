@@ -16,7 +16,7 @@
  */
 
 import { SITE } from '../config.js';
-import { transformToBreak, faceHeights, angleDiff } from './waves.js';
+import { transformToBreak, faceHeights, angleDiff, combineFaces, peelAtBreak } from './waves.js';
 
 /**
  * A groundswell has travelled far enough to sort itself into clean, evenly
@@ -60,11 +60,16 @@ export const CHOP_PERIOD_S = 6;
 const SOUTH_MAX_DEG = 240;
 
 /**
- * Two partitions within this of each other are one swell that the model split
- * in two. Without this, a 12.1s SSW and an 11.9s SSW get reported as a
- * groundswell "crossing" a windswell, which is both wrong and alarming.
+ * Two partitions this close together are one swell the model split in two.
+ *
+ * The tolerance is FRACTIONAL, not a fixed number of seconds. Two seconds apart
+ * means something completely different at twelve seconds than at eight: 12.1s
+ * and 11.9s are one swell, but 9.1s and 7.1s are two separate wind seas that
+ * beat against each other, and merging those threw away exactly the
+ * superposition that produces the set waves. A fixed 2 s window merged both
+ * pairs and quietly cost about a foot of set height on every crossed morning.
  */
-const SAME_SWELL_PERIOD_S = 2.0;
+const SAME_SWELL_PERIOD_FRAC = 0.12;
 const SAME_SWELL_DIR_DEG = 25;
 
 export const CLASSES = {
@@ -160,7 +165,10 @@ export function mixForHour(hour) {
   }
 
   const carried = trains.map((t) => {
-    const br = transformToBreak(t.hsM, t.periodS, t.dirDeg, { origin: 'model' });
+    // Buoy partitions are measured INSIDE the island shadow; model partitions
+    // are deep water before it. Applying the shadow twice is a bug this model
+    // has already shipped once, so the origin travels with the train.
+    const br = transformToBreak(t.hsM, t.periodS, t.dirDeg, { origin: t.origin || 'model' });
     const face = br.blocked ? 0 : faceHeights(br.Hb).typicalFt;
     return {
       weights: classWeights(t),
@@ -170,6 +178,8 @@ export function mixForHour(hour) {
       deepFt: t.hsFt,
       faceFt: face,
       energy: face * face,
+      angleBDeg: br.angleB,
+      breakDepthM: br.depth,
       // How square-on it hits. A swell arriving 40 degrees off the beach
       // refracts hard and loses most of what it looked like offshore.
       offAngleDeg: Math.abs(angleDiff(t.dirDeg, SITE.shoreNormalDeg)),
@@ -207,6 +217,18 @@ export function mixForHour(hour) {
     }
   }
 
+  // Set height and closeout risk are computed from the RAW trains, before the
+  // class merge. Two windswell trains ten degrees apart are one class but they
+  // are still two trains, and they still superpose - merging them first would
+  // throw away exactly the coincidence that makes the set waves.
+  const combined = combineFaces(carried.map((c) => c.faceFt * k));
+  const peels = carried.map((c) => ({
+    faceFt: c.faceFt * k,
+    peel: peelAtBreak(c.angleBDeg, c.breakDepthM),
+  }));
+  // The wave you have to make is the biggest one. Closeout risk is that train's.
+  const lead = peels.reduce((a, b) => (b.faceFt > a.faceFt ? b : a), peels[0]);
+
   const scaledTotal = [...byClass.values()].reduce((s, e) => s + e.energy, 0);
   const parts = CLASS_ORDER
     .filter((id) => byClass.has(id))
@@ -238,6 +260,18 @@ export function mixForHour(hour) {
     trainCount: trains.length,
     chopFt: round1(chopFt),
     allChop: false,
+    // Typical height (root-sum-square) and set height (partly linear, because
+    // the sets are the coincidences). See combineFaces.
+    typicalFt: round1(combined.typicalFt),
+    setFt: round1(combined.setFt),
+    superposition: Math.round(combined.superposition * 100) / 100,
+    peel: {
+      alphaDeg: Math.round(lead.peel.alphaDeg * 10) / 10,
+      refractedAlphaDeg: Math.round(lead.peel.refractedAlphaDeg * 10) / 10,
+      speedMs: Number.isFinite(lead.peel.speedMs) ? Math.round(lead.peel.speedMs) : null,
+      makeable: lead.peel.makeable,
+      closeoutRatio: Math.round(lead.peel.closeoutRatio * 100) / 100,
+    },
   };
 }
 
@@ -246,10 +280,15 @@ export function mixForHour(hour) {
  * swell system across "primary" and "secondary" when its spectrum is broad, and
  * a naive reading turns that into two swells fighting each other.
  */
+function samePeriod(a, b) {
+  const mean = (a + b) / 2;
+  return mean > 0 && Math.abs(a - b) / mean <= SAME_SWELL_PERIOD_FRAC;
+}
+
 function mergeSameSwell(trains) {
   const out = [];
   for (const t of [...trains].sort((a, b) => b.hsM - a.hsM)) {
-    const twin = out.find((o) => Math.abs(o.periodS - t.periodS) <= SAME_SWELL_PERIOD_S
+    const twin = out.find((o) => samePeriod(o.periodS, t.periodS)
       && Math.abs(angleDiff(o.dirDeg, t.dirDeg)) <= SAME_SWELL_DIR_DEG);
     if (twin) {
       // Energies add; the bigger partition keeps the period and direction.
@@ -488,7 +527,7 @@ function nearestPart(hours, i, cls) {
 function mergeDayParts(parts) {
   const out = [];
   for (const p of parts) {
-    const twin = out.find((o) => Math.abs(o.periodS - p.periodS) <= SAME_SWELL_PERIOD_S
+    const twin = out.find((o) => samePeriod(o.periodS, p.periodS)
       && Math.abs(angleDiff(o.dirDeg, p.dirDeg)) <= SAME_SWELL_DIR_DEG);
     if (twin) {
       twin.share += p.share;

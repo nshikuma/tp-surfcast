@@ -424,12 +424,28 @@ function renderCall(days, current, wetsuit) {
     el('div', { class: 'call-gloss', text: day.gloss || '' }),
   ]);
 
+  // Sets get equal billing with the ordinary wave. They are the waves people
+  // actually decide on - and on 2026-09-16 this page called a head-high-sets
+  // morning "waist high" by quoting one number and burying the other.
   const size = el('div', { class: 'call-size' }, [
-    el('div', { class: 'figure' }, [
-      document.createTextNode(range1(sizeVal(day.faceMinFt), sizeVal(day.faceMaxFt))),
-      el('span', { class: 'unit', text: ` ${sizeUnit()}` }),
+    el('div', { class: 'size-pair' }, [
+      el('div', { class: 'size-one' }, [
+        el('div', { class: 'size-k', text: 'Most waves' }),
+        el('div', { class: 'figure sm' }, [
+          document.createTextNode(range1(sizeVal(day.faceMinFt), sizeVal(day.faceMaxFt))),
+          el('span', { class: 'unit', text: ` ${sizeUnit()}` }),
+        ]),
+        el('div', { class: 'figure-label', text: day.sizeLabel }),
+      ]),
+      el('div', { class: 'size-one' }, [
+        el('div', { class: 'size-k', text: 'Sets' }),
+        el('div', { class: 'figure' }, [
+          document.createTextNode(n1(sizeVal(day.setMaxFt))),
+          el('span', { class: 'unit', text: ` ${sizeUnit()}` }),
+        ]),
+        el('div', { class: 'figure-label', text: day.setSizeLabel || '' }),
+      ]),
     ]),
-    el('div', { class: 'figure-label', text: `${day.sizeLabel} · sets ${n1(sizeVal(day.setMaxFt))} ft (${(day.setSizeLabel || '').toLowerCase()})` }),
   ]);
 
   card.appendChild(el('div', { class: 'call-top' }, [verdict, size]));
@@ -451,6 +467,18 @@ function renderCall(days, current, wetsuit) {
     lead ? `${n1(lead.periodS)}s ${lead.dirCompass}` : `${n1(day.periodS)}s ${day.dirCompass}`,
     `${n0(day.powerKwPerM)} kW/m of push`);
   card.appendChild(facts);
+
+  const peel = peelForDay(day);
+  if (peel) {
+    card.appendChild(el('div', { class: `call-peel ${peel.makeable ? 'ok' : 'bad'}` }, [
+      el('span', { class: 'ic', text: peel.makeable ? '✓' : '⚠' }),
+      el('div', {
+        html: peel.makeable
+          ? `<b>Should be rideable.</b> The break runs along the wave at about ${Math.round(peel.speedMs)} m/s — slow enough to stay with it.`
+          : `<b>Expect walls and closeouts.</b> The break runs along the wave at about ${peel.speedMs ? Math.round(peel.speedMs) : 'over 100'} m/s, faster than anyone paddles into. Corners will be short and hard to get into.`,
+      }),
+    ]));
+  }
 
   if (day.mix) {
     card.appendChild(el('div', { class: 'call-look' }, [
@@ -489,6 +517,22 @@ function renderCall(days, current, wetsuit) {
     : 'For today, skip the model and look:'));
 
   return card;
+}
+
+/**
+ * The peel call for a day, taken from the hours inside the session window.
+ * A morning is a closeout if most of the window is: one rideable hour at the
+ * end of it does not make the dawn patrol worth it.
+ */
+function peelForDay(day) {
+  const hrs = (day.hours || []).filter((h) => h.inWindow && h.peel);
+  if (!hrs.length) return null;
+  const makeable = hrs.filter((h) => h.peel.makeable).length;
+  const speeds = hrs.map((h) => h.peel.speedMs).filter(Number.isFinite);
+  return {
+    makeable: makeable > hrs.length / 2,
+    speedMs: speeds.length ? speeds.reduce((a, b) => a + b, 0) / speeds.length : null,
+  };
 }
 
 /** Whether the tide is helping, in three words rather than a number. */
@@ -594,6 +638,10 @@ function weekTile(d, i, isBest, scale) {
   meta.appendChild(el('span', { text: `tide ${n1(d.tideAtWindowFt)} ft` }));
   tile.appendChild(meta);
 
+  const tp = peelForDay(d);
+  if (tp && !tp.makeable) {
+    tile.appendChild(el('div', { class: 'tile-closeout', text: '⚠ Walls / closeouts' }));
+  }
   if (d.mix) tile.appendChild(el('div', { class: 'tile-mix' }, [mixBar(d.mix, d)]));
 
   tile.appendChild(el('div', {
@@ -1289,6 +1337,21 @@ function render() {
     ]));
   }
 
+  // The buoy and the models describing different oceans is the single most
+  // diagnostic thing this page can tell you, and it belongs above everything.
+  if (DATA.buoyCheck?.periodDisagrees) {
+    app.appendChild(el('div', { class: 'alert warn' }, [
+      el('span', { class: 'ic', text: '⚠' }),
+      el('div', {
+        html: `<b>The buoy and the models disagree about what is in the water.</b> `
+          + `CDIP 100p1 is measuring a <b>${n1(DATA.buoyCheck.buoyPeriodS)} s</b> peak period; the wave models are on `
+          + `<b>${n1(DATA.buoyCheck.modelPeriodS)} s</b>. A gap that size normally means the models are missing a swell `
+          + `the buoy can already see. The next ${12} hours here are taken from the buoy instead of from them; `
+          + `further out, the models are all there is.`,
+      }),
+    ]));
+  }
+
   // Order is the argument: the call, then the week, then why - and the model's
   // own track record before any of the pretty pictures.
   app.appendChild(renderCall(days, DATA.current, DATA.wetsuit));
@@ -1334,8 +1397,70 @@ function collapsible(title, body, blurb) {
   return wrap;
 }
 
+/**
+ * How the forecast did against sessions people actually surfed.
+ *
+ * The buoy scoreboard below grades the swell, which this model is decent at.
+ * This grades the SURF, which is harder and is where it has been caught out:
+ * on the first logged session it had the ordinary waves about right and the
+ * sets out by a factor of two.
+ */
+function renderGroundTruth() {
+  const g = DATA.groundTruth;
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h3', { text: 'Graded against sessions we actually surfed' }));
+  card.appendChild(el('p', { class: 'cap', text: 'The buoy check below grades the swell. This grades the surf — set size, shape, and whether the call was right — which no instrument can do.' }));
+
+  if (!g || !g.sessions?.length) {
+    card.appendChild(el('div', { class: 'alert info' }, [
+      el('span', { class: 'ic', text: 'i' }),
+      el('div', { text: 'No sessions logged yet. Use the log at the bottom of the page — this is the only thing that can tell the model it is wrong about the surf rather than about the swell.' }),
+    ]));
+    return card;
+  }
+
+  const sm = g.summary;
+  if (sm.n) {
+    const stats = el('div', { class: 'statrow' });
+    const stat = (k, v, sub) => stats.appendChild(el('div', { class: 'stat' }, [
+      el('div', { class: 'k', text: k }), el('div', { class: 'v', text: v }), el('div', { class: 's', text: sub }),
+    ]));
+    stat('Ordinary waves', sm.typicalBiasRatio ? `×${sm.typicalBiasRatio}` : '—', 'observed vs forecast');
+    stat('Sets', sm.setBiasRatio ? `×${sm.setBiasRatio}` : '—', 'observed vs forecast');
+    stat('Shape call', sm.shapeRightPct != null ? `${sm.shapeRightPct}%` : '—', 'right / wrong');
+    stat('Sessions', String(sm.n), 'logged so far');
+    card.appendChild(stats);
+    card.appendChild(el('p', { class: 'cap', style: 'margin-top:10px', text: sm.note }));
+  }
+
+  for (const sess of g.sessions) {
+    const row = el('div', { class: 'gt-row' });
+    row.appendChild(el('div', { class: 'gt-head' }, [
+      el('b', { text: `${fmtDate(sess.date, { weekday: 'short', month: 'short', day: 'numeric' })} · ${sess.window}` }),
+      el('span', { class: 'gt-spot', text: sess.spot || '' }),
+    ]));
+    if (sess.matched) {
+      row.appendChild(el('div', { class: 'gt-cmp' }, [
+        el('span', { html: `<b>Said</b> ${n1(sess.forecast.typicalFt)} ft, sets ${n1(sess.forecast.setFt)} ft` }),
+        el('span', { html: `<b>Was</b> ${n1(sess.observedTypicalFt)} ft, sets ${n1(sess.observedSetFt)} ft` }),
+      ]));
+      row.appendChild(el('p', { class: 'gt-verdict', text: sess.verdict }));
+      if (sess.forecast.hindcast) {
+        row.appendChild(el('p', { class: 'cap', text: 'No run was archived before this session, so this compares against the current model looking backwards \u2014 a hindcast, not a forecast that came true.' }));
+      }
+    } else {
+      row.appendChild(el('p', { class: 'cap', text: sess.note }));
+    }
+    if (sess.sizeWords) row.appendChild(el('p', { class: 'cap', text: `“${sess.sizeWords}”` }));
+    if (sess.barNote) row.appendChild(el('p', { class: 'cap', text: sess.barNote }));
+    card.appendChild(row);
+  }
+  return card;
+}
+
 function trustCard() {
   const box = el('div');
+  box.appendChild(renderGroundTruth());
   box.appendChild(renderSkill());
   box.appendChild(renderDrift());
   box.appendChild(renderBuoy(DATA.current));

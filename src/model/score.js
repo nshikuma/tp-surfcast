@@ -110,8 +110,19 @@ export function scorePeriod(Tp) {
   return { score: 1 - 0.3 * ramp(Tp, p.goodBand[1], 22), reason: `${Tp.toFixed(0)}s - long period, watch for closeouts` };
 }
 
-/** Breaker shape from the Iribarren number plus how the angle hits the bars. */
-export function scoreShape(HbM, Tp, swellDirDeg) {
+/**
+ * Breaker shape: what the wave does when it breaks, and whether you can make it.
+ *
+ * The second half of this is new, and it is the half that matters. A wave that
+ * breaks along its whole length at once is a closeout however good its takeoff
+ * would have been, and whether that happens is set by the angle between the
+ * crest and the line it is breaking along. The wave model has always computed
+ * that angle - `transformToBreak` returns it - and the score used to ignore it
+ * completely, which is how a morning of walls got called makeable.
+ *
+ * @param {object} [peel]  from peelAtBreak: the closeout geometry, when known
+ */
+export function scoreShape(HbM, Tp, swellDirDeg, peel = null) {
   const xi = iribarren(HbM, Tp);
   const bt = breakerType(xi);
   // Plunging (xi ~ 0.5-1.4) is what we want; spilling mush and surging
@@ -122,9 +133,31 @@ export function scoreShape(HbM, Tp, swellDirDeg) {
   else s = 1 - 0.5 * ramp(xi, 1.4, 2.6);
   const align = barAlignmentFor(swellDirDeg);
   s = clamp01(s * Math.min(1.12, align));
+
+  let closeout = null;
+  if (peel && Number.isFinite(peel.closeoutRatio)) {
+    // At the limit the wave is just makeable; well past it there is nothing to
+    // ride. This is a steep penalty on purpose - a closeout is not a slightly
+    // worse wave, it is not a wave.
+    // A closeout is not a slightly worse wave, it is not a wave, so this bites
+    // hard and bites early: fully applied by the time the break is running half
+    // again as fast as a rider can go.
+    const over = Math.max(0, peel.closeoutRatio - 1);
+    s = clamp01(s * (1 - 0.75 * ramp(over, 0, 0.6)));
+    closeout = {
+      makeable: peel.makeable,
+      speedMs: peel.speedMs,
+      alphaDeg: peel.alphaDeg,
+      note: peel.makeable
+        ? `peels at about ${Math.round(peel.speedMs)} m/s - makeable`
+        : `the break runs along the wave at ${peel.speedMs ? Math.round(peel.speedMs) : '>99'} m/s, faster than you can ride - expect walls and closeouts`,
+    };
+  }
+
   return {
-    score: s, xi, breakerType: bt.type,
-    reason: `${bt.type} (${bt.desc}); swell angle ${align >= 1.05 ? 'lines up well with the bars' : align < 0.9 ? 'hits the bars poorly' : 'is workable'}`,
+    score: s, xi, breakerType: bt.type, closeout,
+    reason: `${bt.type} (${bt.desc}); swell angle ${align >= 1.05 ? 'lines up well with the bars' : align < 0.9 ? 'hits the bars poorly' : 'is workable'}`
+      + (closeout ? `; ${closeout.note}` : ''),
   };
 }
 
@@ -184,11 +217,11 @@ const WEIGHTS = { size: 0.28, wind: 0.26, shape: 0.16, tide: 0.20, period: 0.10 
  * One hour, fully scored.
  * @returns {{total:number, grade:string, parts:object, board:object, size:object}}
  */
-export function scoreHour({ HbM, faceTypicalFt, faceSetFt, Tp, swellDirDeg, tideFt, tideRate, windKt, windDirDeg, powerKwPerM }) {
+export function scoreHour({ HbM, faceTypicalFt, faceSetFt, Tp, swellDirDeg, tideFt, tideRate, windKt, windDirDeg, powerKwPerM, peel = null }) {
   const parts = {
     size: scoreSize(faceTypicalFt),
     wind: scoreWind(windKt, windDirDeg),
-    shape: scoreShape(HbM, Tp, swellDirDeg),
+    shape: scoreShape(HbM, Tp, swellDirDeg, peel),
     tide: scoreTide(tideFt, tideRate),
     period: scorePeriod(Tp),
   };
@@ -204,6 +237,11 @@ export function scoreHour({ HbM, faceTypicalFt, faceSetFt, Tp, swellDirDeg, tide
     sizeCeiling,
     parts.wind.score < 0.25 ? 0.42 : 1,
     parts.size.score < 0.2 ? 0.30 : 1,
+    // Waves you cannot make are not a good day however big and clean they are.
+    // Ruled by the same logic as the wind cap: one thing being ruinous is not
+    // something the other four get to average away.
+    parts.shape.closeout && parts.shape.closeout.makeable === false
+      && parts.shape.score < 0.45 ? 0.45 : 1,
   );
   total = Math.min(total, cap);
 

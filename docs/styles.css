@@ -403,3 +403,24 @@ a.cam .cam-note { font-size: 11px; color: var(--muted); }
 .fold-blurb { font-size: 13px; color: var(--text-secondary); padding-right: 20px; }
 .fold-body { padding: 0 18px 18px; }
 .fold-body > .card { box-shadow: none; border: none; padding: 0; margin: 0 0 18px; background: transparent; }
+
+/* ---------------------------------------------- sets, peel, ground truth --- */
+.size-pair { display: flex; gap: 26px; justify-content: flex-end; }
+@media (max-width: 520px) { .size-pair { justify-content: flex-start; gap: 22px; } }
+.size-one { text-align: inherit; }
+.size-k { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 1px; }
+.figure.sm { font-size: 30px; }
+.figure.sm .unit { font-size: 13px; }
+
+.call-peel { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; padding: 11px 13px; border-radius: 10px; font-size: 14px; }
+.call-peel .ic { flex: none; font-weight: 700; }
+.call-peel.ok { background: var(--tide-soft); }
+.call-peel.bad { background: var(--wind-soft); }
+
+.tile-closeout { font-size: 11px; font-weight: 600; color: var(--wind); }
+
+.gt-row { border-top: 1px solid var(--border); padding-top: 11px; margin-top: 12px; }
+.gt-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 13px; }
+.gt-spot { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.gt-cmp { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.gt-verdict { margin: 6px 0 0; font-size: 13px; color: var(--text-secondary); }

@@ -13,7 +13,7 @@ import assert from 'node:assert/strict';
 import {
   transformToBreak, transformFromDepth, faceHeights, sizeLabel, wavePowerKwPerM,
   iribarren, breakerType, combinePartitions, exposureFor, modelExposureFor,
-  angleDiff, wavelengthAt, groupVelocity, deepWavelength,
+  angleDiff, wavelengthAt, groupVelocity, deepWavelength, combineFaces, peelAtBreak,
 } from '../src/model/waves.js';
 import { CALIBRATION } from '../src/config.js';
 import { scoreHour, scoreTide, scoreWind, scorePeriod, gradeFor, callFor, reliabilityFor } from '../src/model/score.js';
@@ -22,6 +22,7 @@ import { parseOpendapAscii, partitionSpectrum } from '../src/sources/cdip.js';
 import { tideAt, tideRateAt } from '../src/sources/tides.js';
 import { stepState, profileFor, describe } from '../src/model/beachstate.js';
 import { classifyTrain, classWeights, mixForHour, mixForDay, tideShiftFor } from '../src/model/mix.js';
+import { gradeSessions } from '../src/model/groundtruth.js';
 
 /* ------------------------------------------------------------ wave theory -- */
 
@@ -559,4 +560,118 @@ test('mix: consumes the train shape the build actually attaches', () => {
 test('mix: an hour with no trains yields no breakdown rather than a fake one', () => {
   assert.equal(mixForHour({ faceFt: 3, trains: [] }), null);
   assert.equal(mixForHour({ faceFt: 3 }), null);
+});
+
+/* ================================================== crossed-sea set height ==
+ *
+ * From the session of 2026-09-16 at the rivermouth: the ordinary waves were
+ * thigh-to-waist, which the model had about right, and the sets were head high,
+ * which the model called waist high. These tests pin the mechanism that was
+ * missing - that the set waves in a crossed sea are the moments the trains
+ * coincide, and coinciding crests add linearly rather than in energy.
+ */
+
+test('combineFaces: one clean swell gets no superposition at all', () => {
+  const c = combineFaces([3.0]);
+  assert.equal(c.typicalFt, 3.0);
+  assert.equal(c.superposition, 1, 'a single train cannot superpose with itself');
+  assert.ok(Math.abs(c.setFt - 3.0 * CALIBRATION.setFactor) < 1e-9);
+});
+
+test('combineFaces: typical height is root-sum-square, not the sum', () => {
+  const c = combineFaces([2, 2]);
+  assert.ok(Math.abs(c.typicalFt - Math.SQRT2 * 2) < 1e-9,
+    'two 2 ft trains make a 2.8 ft sea, not a 4 ft one');
+});
+
+test('combineFaces: a crossed sea has much bigger sets than a clean one of the same height', () => {
+  // The comparison only means anything if both seas are the SAME size, so the
+  // three trains are scaled until their root-sum-square matches the single one.
+  const raw = [1.76, 1.04, 0.98];
+  const target = 2.83;
+  const k = target / Math.hypot(...raw);
+  const clean = combineFaces([target]);
+  const crossed = combineFaces(raw.map((x) => x * k));
+
+  assert.ok(Math.abs(clean.typicalFt - crossed.typicalFt) < 0.01,
+    `same size by construction: ${clean.typicalFt.toFixed(2)} vs ${crossed.typicalFt.toFixed(2)}`);
+  assert.ok(crossed.setFt > clean.setFt * 1.25,
+    `crossed sets ${crossed.setFt.toFixed(2)} should clearly beat clean ${clean.setFt.toFixed(2)} `
+    + 'at identical significant height');
+  assert.ok(crossed.superposition > 1.2 && crossed.superposition < 1.7,
+    `superposition ${crossed.superposition.toFixed(2)} out of range`);
+});
+
+test('combineFaces: set height never exceeds every train arriving in phase', () => {
+  const f = [1.76, 1.04, 0.98];
+  const c = combineFaces(f);
+  const linear = f.reduce((a, b) => a + b, 0);
+  assert.ok(c.setFt <= linear * CALIBRATION.setFactor + 1e-9,
+    'the sets cannot beat all of them coinciding');
+  assert.ok(c.setFt >= c.typicalFt, 'and cannot be smaller than the typical wave');
+});
+
+/* ------------------------------------------------------ peel and closeout -- */
+
+test('peel: refraction alone closes everything out - the bar is what makes it rideable', () => {
+  // A long-period swell refracts to within a few degrees of shore-normal. Over
+  // a perfectly straight bottom that is a closeout, and the only thing that
+  // saves it is the bank sitting at an angle to the beach.
+  const straight = peelAtBreak(4.3, 0.51, 0);
+  assert.equal(straight.makeable, false);
+  assert.ok(straight.speedMs > 25, `${straight.speedMs} m/s over a straight bar`);
+
+  const banked = peelAtBreak(4.3, 0.51, 25);
+  assert.ok(banked.speedMs < straight.speedMs, 'a crooked bank gives the crest something to peel along');
+});
+
+test('peel: the morning of 2026-09-16 comes out as a closeout', () => {
+  // The real refracted crest angles that morning, from the buoy partitions.
+  const p = peelAtBreak(1.4, 0.91);
+  assert.equal(p.makeable, false, `called makeable at ${p.speedMs} m/s`);
+  assert.ok(p.closeoutRatio > 1, 'the break outruns the rider');
+});
+
+test('peel: a swell that still has angle on it at the break is makeable', () => {
+  const p = peelAtBreak(18, 1.4);
+  assert.equal(p.makeable, true, `${p.speedMs} m/s should be rideable`);
+});
+
+test('score: a closeout cannot be a good day however clean the takeoff', () => {
+  const base = {
+    HbM: 1.0, faceTypicalFt: 4, faceSetFt: 6, Tp: 14, swellDirDeg: 265,
+    tideFt: 2.4, tideRate: 0.2, windKt: 3, windDirDeg: 85, powerKwPerM: 14,
+  };
+  const peels = scoreHour({ ...base, peel: peelAtBreak(20, 1.4) });
+  const shuts = scoreHour({ ...base, peel: peelAtBreak(0.5, 1.4) });
+  assert.ok(shuts.total < peels.total - 8,
+    `closeout ${shuts.total} should score well under peeling ${peels.total}`);
+  assert.match(shuts.parts.shape.closeout.note, /walls and closeouts/);
+});
+
+/* ---------------------------------------------------------- ground truth -- */
+
+test('groundTruth: grades typical and set size separately', () => {
+  // The whole point: on the logged session the typical wave was close and the
+  // sets were out by a factor of two. One combined error number hides that.
+  const hourly = [{
+    localDate: '2026-02-01', localHour: 7.5, faceFt: 2.0, faceSetFt: 2.7,
+    score: 43, periodS: 11.6, peel: { makeable: true, speedMs: 8 },
+  }];
+  const g = gradeSessions([{
+    date: '2026-02-01', fromLocalHour: 7, toLocalHour: 8,
+    spot: 'rivermouth', typicalFt: 2.5, setFt: 5.5, makeable: false,
+  }], hourly, []);
+  const s = g.sessions[0];
+  assert.equal(s.matched, true);
+  assert.ok(Math.abs(s.typicalRatio - 1.25) < 0.02, `typical ratio ${s.typicalRatio}`);
+  assert.ok(Math.abs(s.setRatio - 2.04) < 0.02, `set ratio ${s.setRatio}`);
+  assert.equal(s.shapeRight, false, 'we said makeable, it was not');
+  assert.match(s.verdict, /sets were 2\.0x/);
+});
+
+test('groundTruth: a session with no forecast to compare against says so', () => {
+  const g = gradeSessions([{ date: '2019-01-01', fromLocalHour: 7, toLocalHour: 8, typicalFt: 3, setFt: 4 }], [], []);
+  assert.equal(g.sessions[0].matched, false);
+  assert.equal(g.summary.n, 0);
 });

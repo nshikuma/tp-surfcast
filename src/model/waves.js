@@ -252,6 +252,91 @@ export function faceHeights(HbM) {
   return { typicalFt: typical, setFt: typical * CALIBRATION.setFactor };
 }
 
+/**
+ * Combine several swell trains into ONE typical height and ONE set height.
+ *
+ * These are two different operations, and collapsing them into "typical times a
+ * constant" is where this model was most badly wrong. On 2026-09-16 it called a
+ * morning waist-high-sets that was actually running head-high sets, and this is
+ * most of the reason why.
+ *
+ * TYPICAL height: energies add, so heights combine in root-sum-square. Two 2 ft
+ * trains make a 2.8 ft sea, not a 4 ft one. That part was already right.
+ *
+ * SET height: the waves you notice are the ones where the trains COINCIDE, and
+ * when crests coincide the heights add LINEARLY. A sea made of one clean swell
+ * has sets at the usual Rayleigh ratio over its own significant height. A sea
+ * made of three comparable trains has sets reaching toward the arithmetic sum
+ * of all three, because every few minutes they all turn up at once - which is
+ * exactly what "windswell chop with big sets through it" is describing.
+ *
+ * How far toward the linear sum depends on how spread the energy is. The blend
+ * uses a Herfindahl index over the trains' energy shares: concentration 1 is a
+ * single train and gets no superposition at all, concentration 1/N is N equal
+ * trains and gets the whole of it. That keeps every single-swell calibration
+ * anchor exactly where it was and only changes crossed seas - which, at this
+ * beach, is most mornings.
+ *
+ * @param {number[]} faceFts  each train's own face height, already at breaking
+ */
+export function combineFaces(faceFts) {
+  const f = (faceFts || []).filter((x) => Number.isFinite(x) && x > 0);
+  if (!f.length) return { typicalFt: 0, setFt: 0, concentration: 1, superposition: 1, trains: 0 };
+
+  const energies = f.map((x) => x * x);
+  const total = energies.reduce((a, b) => a + b, 0);
+  const rss = Math.sqrt(total);
+  const linear = f.reduce((a, b) => a + b, 0);
+  const concentration = energies.reduce((a, e) => a + (e / total) ** 2, 0);
+
+  // rss when one train carries everything; linear when the energy is spread.
+  const setBase = rss + (linear - rss) * (1 - concentration);
+  return {
+    typicalFt: rss,
+    setFt: setBase * CALIBRATION.setFactor,
+    concentration,
+    superposition: rss > 0 ? setBase / rss : 1,
+    trains: f.length,
+  };
+}
+
+/**
+ * Peel speed, and therefore whether a wave is rideable or a closeout.
+ *
+ * The break travels along the crest at c / sin(alpha), where alpha is the angle
+ * between the crest and the line the wave is breaking along. Refraction turns
+ * every wave toward shore-normal on the way in, so over a straight, shore-
+ * parallel bottom alpha goes to nearly zero and EVERYTHING closes out. Real
+ * peeling waves exist because the bar is not shore-parallel: a bank that sits
+ * at an angle to the beach is what gives the crest something to peel along.
+ *
+ * So the two terms are the refracted crest angle, which the wave model knows,
+ * and the bar's own skew, which it does not. The skew is an assumption and is
+ * labelled as one.
+ *
+ * @param {number} angleBDeg     crest angle off the depth contours at breaking
+ * @param {number} breakDepthM   depth where it breaks
+ * @param {number} barSkewDeg    how far the bank sits off shore-parallel
+ */
+export function peelAtBreak(angleBDeg, breakDepthM, barSkewDeg = CALIBRATION.barSkewDeg) {
+  const c = Math.sqrt(9.81 * Math.max(0.15, breakDepthM));
+  // The bar's skew and the swell's residual angle can add or partly cancel;
+  // taking the sum is the favourable case and is what a surfer walks to.
+  const alphaDeg = Math.abs(angleBDeg) + Math.abs(barSkewDeg);
+  const alpha = (alphaDeg * Math.PI) / 180;
+  const speedMs = Math.sin(alpha) > 1e-3 ? c / Math.sin(alpha) : Infinity;
+  const max = CALIBRATION.maxRideSpeedMs;
+  return {
+    alphaDeg,
+    refractedAlphaDeg: Math.abs(angleBDeg),
+    speedMs,
+    celerityMs: c,
+    makeable: speedMs <= max,
+    // How far past "too fast to make" it is. 1 is exactly at the limit.
+    closeoutRatio: speedMs / max,
+  };
+}
+
 /** Face height in feet -> the body-scale phrase the crew actually uses. */
 export function sizeLabel(faceFt) {
   for (const step of SIZE_LADDER) {
