@@ -348,6 +348,585 @@ function windowBands(hours) {
   return bands;
 }
 
+/* ========================================================= the instruments ==
+ *
+ * This half of the page has no opinions in it. It is the measurements, the
+ * model runs each on their own line, and enough reference material to read them
+ * with - so the crew can look at the same numbers a forecaster would and make
+ * their own call. What the model thinks is further down, and clearly labelled
+ * as one more opinion rather than the answer.
+ */
+
+const SRC = {
+  buoy: {
+    name: 'CDIP 100p1 · Torrey Pines Outer',
+    what: 'Measured. A wave buoy in 550 m of water about 8 miles straight out from the lineup, run by Scripps.',
+    url: 'https://cdip.ucsd.edu/m/products/?stn=100p1',
+  },
+  tide: {
+    name: 'NOAA CO-OPS 9410230 · La Jolla',
+    what: 'Measured and predicted tide at Scripps Pier, 4 miles south.',
+    url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9410230',
+  },
+  mop: {
+    name: 'CDIP MOP · Scripps nearshore model',
+    what: 'Modelled by Scripps: swell refracted over surveyed bathymetry, published every ~100 m along this beach.',
+    url: 'https://cdip.ucsd.edu/m/models/mop_alongshore/',
+  },
+  waves: {
+    name: 'ECMWF-WAM · GFS-Wave · Météo-France WAM',
+    what: 'Global wave model forecasts, fetched through Open-Meteo. Each is a separate physical model, not three views of one.',
+    url: 'https://open-meteo.com/en/docs/marine-weather-api',
+  },
+  wind: {
+    name: 'ECMWF IFS · NOAA GFS',
+    what: 'Global weather model forecasts, fetched through Open-Meteo.',
+    url: 'https://open-meteo.com/en/docs',
+  },
+};
+
+/** The attribution strip every data panel carries. Nothing on this half of the
+ *  page is allowed to appear without saying where it came from. */
+function sourceBar(src, when) {
+  return el('div', { class: 'srcbar' }, [
+    el('a', { class: 'src-name', href: src.url, target: '_blank', rel: 'noopener noreferrer', text: src.name }),
+    el('span', { class: 'src-what', text: src.what }),
+    when ? el('span', { class: 'src-when', text: when }) : null,
+  ]);
+}
+
+const agoText = (iso) => {
+  if (!iso) return '';
+  const mins = Math.round((Date.now() - Date.parse(iso)) / 60000);
+  if (mins < 90) return `${mins} min ago`;
+  const h = Math.round(mins / 60);
+  return h < 36 ? `${h} h ago` : `${Math.round(h / 24)} d ago`;
+};
+
+/* ------------------------------------------------------------ measured now -- */
+
+function renderNow(current, hourly, wetsuit) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'Measured right now' }));
+  card.appendChild(el('p', { class: 'note', text: 'Instruments, not forecasts. These are readings off a buoy and a tide gauge — the same numbers a forecaster starts from.' }));
+
+  const now = hourly.find((h) => Date.parse(h.time) >= Date.now() - 36e5) || hourly[0];
+  const grid = el('div', { class: 'readings' });
+
+  const reading = (k, big, sub, extra, cls) => {
+    grid.appendChild(el('div', { class: `reading ${cls || ''}` }, [
+      el('div', { class: 'r-k', text: k }),
+      el('div', { class: 'r-v', text: big }),
+      el('div', { class: 'r-s', text: sub }),
+      extra ? el('div', { class: 'r-x', text: extra }) : null,
+    ]));
+  };
+
+  if (current) {
+    reading('Swell height', `${n1(current.deepHsFt)} ft`, 'significant height at the buoy',
+      `${n1(sizeVal(current.faceFt))} ${sizeUnit()} at the beach`, 'swell');
+    reading('Peak period', `${n1(current.periodS)} s`, periodMeaning(current.periodS), null, 'swell');
+    reading('Swell from', `${current.dirCompass} ${n0(current.dirDeg)}°`,
+      `${Math.round(Math.abs(angleOff(current.dirDeg)))}° off straight-in`, exposureNote(current.dirDeg), 'swell');
+    reading('Tide', `${n1(current.tideFt)} ft`,
+      current.tideRate > 0 ? 'rising' : 'falling', 'MLLW datum', 'tide');
+  }
+  if (now) {
+    reading('Wind', `${n0(now.windKt)} kt`, `${now.windCompass} · ${now.windLabel}`,
+      now.gustKt ? `gusting ${n0(now.gustKt)}` : null, 'wind');
+  }
+  if (wetsuit?.waterF) {
+    reading('Water', `${n0(wetsuit.waterF)}°F`, wetsuit.call, null, 'tide');
+  }
+  card.appendChild(grid);
+  card.appendChild(sourceBar(SRC.buoy, current ? `observed ${fmtTime(current.observedAt)} · ${agoText(current.observedAt)}` : null));
+  return card;
+}
+
+/** Shore normal here is 265°; this is how far off square a swell is arriving. */
+const angleOff = (dirDeg) => {
+  if (!Number.isFinite(dirDeg)) return 0;
+  return ((dirDeg - (DATA.meta.site?.shoreNormalDeg ?? 265) + 540) % 360) - 180;
+};
+
+function periodMeaning(T) {
+  if (!(T > 0)) return '';
+  if (T >= 16) return 'long-period groundswell — real push';
+  if (T >= 13) return 'groundswell — organised';
+  if (T >= 10) return 'mid-period — some organisation';
+  if (T >= 7) return 'windswell — short and lumpy';
+  return 'chop, not surf';
+}
+
+/** What this beach does with a swell from that angle, from the exposure table
+ *  the model uses - stated as a fact about the coastline, not as a verdict. */
+function exposureNote(dirDeg) {
+  if (!Number.isFinite(dirDeg)) return null;
+  if (dirDeg < 185) return 'deep south — heavily shadowed by Point Loma';
+  if (dirDeg < 215) return 'south — screened by Baja and Point Loma';
+  if (dirDeg < 240) return 'SW — partly open';
+  if (dirDeg < 275) return 'W/WSW — the open window, nothing in the way';
+  if (dirDeg < 300) return 'WNW — clips San Clemente Island';
+  return 'NW — shadowed by the Channel Islands';
+}
+
+/* -------------------------------------------------- swell trains, measured -- */
+
+function renderTrains(current) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'What is actually in the water' }));
+  card.appendChild(el('p', { class: 'note', text: 'The buoy’s own spectrum, split into separate swell trains. A single wave height cannot tell these apart, and the difference between them is most of what decides how the morning looks.' }));
+
+  if (!current?.trains?.length) {
+    card.appendChild(el('div', { class: 'alert warn' }, [
+      el('span', { class: 'ic', text: '⚠' }),
+      el('div', { text: 'No spectral partitions on the last run.' }),
+    ]));
+    return card;
+  }
+
+  const wrap = el('div', { class: 'trains' });
+  for (const [i, t] of current.trains.entries()) {
+    const off = angleOff(t.dirDeg);
+    wrap.appendChild(el('div', { class: 'train' }, [
+      el('div', { class: 'train-arrow' }, [dirArrow(t.dirDeg, t.periodS)]),
+      el('div', { class: 'train-body' }, [
+        el('div', { class: 'train-top' }, [
+          el('b', { text: `${n1(t.hsFt)} ft @ ${n1(t.periodS)} s` }),
+          el('span', { class: 'train-dir', text: `from ${t.dirCompass} ${n0(t.dirDeg)}°` }),
+        ]),
+        el('div', { class: 'train-meta', text: `${periodMeaning(t.periodS)} · ${Math.abs(Math.round(off))}° off straight-in` }),
+        el('div', { class: 'train-meta', text: exposureNote(t.dirDeg) || '' }),
+        el('div', { class: 'train-bar' }, [
+          el('div', { class: 'train-fill', style: `width:${Math.round((t.energyFraction ?? 0) * 100)}%` }),
+        ]),
+        el('div', { class: 'train-meta', text: t.energyFraction != null
+          ? `${Math.round(t.energyFraction * 100)}% of the sea’s energy · ${n1(sizeVal(t.faceFt))} ${sizeUnit()} at the beach on its own`
+          : `${n1(sizeVal(t.faceFt))} ${sizeUnit()} at the beach on its own` }),
+      ]),
+    ]));
+  }
+  card.appendChild(wrap);
+  card.appendChild(el('p', { class: 'note', style: 'margin-top:12px', text: 'Heights add as energy, not end to end: a 3 ft and a 2 ft train together make a 3.6 ft sea. The set waves are bigger than that, because every so often the trains arrive on top of each other.' }));
+  card.appendChild(sourceBar(SRC.buoy, `observed ${fmtTime(current.observedAt)} · ${agoText(current.observedAt)}`));
+  return card;
+}
+
+/** Arrow pointing the way the swell is travelling, shaded by period. */
+function dirArrow(dirDeg, periodS) {
+  const svg = el('svg', { class: 'dir-arrow', width: 44, height: 44, viewBox: '0 0 44 44', role: 'img' });
+  svg.appendChild(el('circle', { cx: 22, cy: 22, r: 20, fill: 'none', stroke: 'var(--grid)', 'stroke-width': 1 }));
+  for (const [deg, lbl] of [[0, 'N'], [90, 'E'], [180, 'S'], [270, 'W']]) {
+    const a = ((deg - 90) * Math.PI) / 180;
+    svg.appendChild(el('text', {
+      class: 'rose-tick', x: 22 + Math.cos(a) * 16.5, y: 22 + Math.sin(a) * 16.5 + 2.5,
+      'text-anchor': 'middle', text: lbl,
+    }));
+  }
+  svg.appendChild(el('g', { transform: `translate(22,22) rotate(${(dirDeg + 180) % 360})` }, [
+    el('path', { d: 'M0,-11 L5,7 L0,4 L-5,7 Z', fill: periodColor(periodS), stroke: 'var(--surface-1)', 'stroke-width': 1 }),
+  ]));
+  svg.appendChild(el('title', { text: `From ${Math.round(dirDeg)}°, travelling toward ${Math.round((dirDeg + 180) % 360)}°` }));
+  return svg;
+}
+
+/* ------------------------------------------------- buoy trend, last 48 h --- */
+
+function renderBuoyTrend(current) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'The buoy, last 48 hours' }));
+  card.appendChild(el('p', { class: 'note', text: 'Building or dropping, and whether the period is lengthening — a rising period with a steady height means a new groundswell is filling in underneath the old one.' }));
+  const hist = current?.history || [];
+  if (hist.length < 3) {
+    card.appendChild(el('p', { class: 'cap', text: 'Not enough history on this run.' }));
+    return card;
+  }
+  const pts = (f) => hist.map((r) => ({ t: Date.parse(r.time), v: f(r), h: r }));
+  const rows = (p) => [
+    ['Height', `${n1(p.h.hsFt)} ft`], ['Period', `${n1(p.h.periodS)} s`],
+    ['From', `${n0(p.h.dirDeg)}°`], ['Power', `${n0(p.h.powerKwPerM)} kW/m`],
+  ];
+  card.appendChild(panel('Significant wave height', 'Feet, measured', (host) => timeChart(host, {
+    points: pts((r) => r.hsFt), color: 'var(--swell)', softColor: 'var(--swell-soft)',
+    unit: 'ft', decimals: 1, labelExtremes: true, tooltipRows: rows,
+  })));
+  card.appendChild(panel('Peak period', 'Seconds, measured — the number that tells you what kind of swell it is', (host) => timeChart(host, {
+    points: pts((r) => r.periodS), color: 'var(--swell)', softColor: 'var(--swell-soft)',
+    unit: 's', decimals: 1, area: false, zeroBase: false, labelExtremes: true, tooltipRows: rows,
+  })));
+  card.appendChild(panel('Direction', 'Degrees the swell is coming FROM', (host) => timeChart(host, {
+    points: pts((r) => r.dirDeg), color: 'var(--swell)', softColor: 'var(--swell-soft)',
+    unit: '°', decimals: 0, area: false, zeroBase: false, tooltipRows: rows,
+  })));
+  card.appendChild(sourceBar(SRC.buoy, `through ${fmtTime(hist[hist.length - 1].time)}`));
+  return card;
+}
+
+/* ------------------------------------------- the models, each on its own --- */
+
+const MODEL_LABEL = {
+  ecmwf_wam025: 'ECMWF-WAM',
+  ncep_gfswave025: 'GFS-Wave',
+  meteofrance_wave: 'Météo-France',
+  ecmwf_ifs025: 'ECMWF IFS',
+  gfs_seamless: 'NOAA GFS',
+  best_match: 'Open-Meteo best match',
+};
+const MODEL_COLORS = ['var(--mix-west)', 'var(--mix-wind)', 'var(--mix-south)'];
+
+/**
+ * Several series on one axis, each labelled, with a crosshair that reads out
+ * every series at once. This is the whole point of the panel: you can see where
+ * the models agree and where one of them is off on its own, which a single
+ * blended line deliberately hides.
+ */
+function multiLine(host, opts) {
+  const { series, unit, decimals = 1, height = 168, bands = [], zeroBase = true } = opts;
+  host.innerHTML = '';
+  const live = series.filter((s) => s.points.some((p) => Number.isFinite(p.v)));
+  if (!live.length) { host.appendChild(el('p', { class: 'cap', text: 'No data' })); return; }
+
+  const W = Math.max(280, host.clientWidth || 320);
+  const H = height;
+  const all = live.flatMap((s) => s.points).filter((p) => Number.isFinite(p.v));
+  const x0 = Math.min(...all.map((p) => p.t)), x1 = Math.max(...all.map((p) => p.t));
+  let y0 = zeroBase ? 0 : Math.min(...all.map((p) => p.v));
+  let y1 = Math.max(...all.map((p) => p.v));
+  if (y1 - y0 < 1e-6) y1 = y0 + 1;
+  y1 += (y1 - y0) * 0.14;
+  if (!zeroBase) y0 -= (y1 - y0) * 0.08;
+
+  const X = (t) => PAD.l + ((t - x0) / (x1 - x0 || 1)) * (W - PAD.l - PAD.r);
+  const Y = (v) => H - PAD.b - ((v - y0) / (y1 - y0)) * (H - PAD.t - PAD.b);
+  const svg = el('svg', { class: 'chart', width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img' });
+
+  for (const b of bands) {
+    const bx0 = X(Math.max(b.from, x0)), bx1 = X(Math.min(b.to, x1));
+    if (bx1 > bx0) svg.appendChild(el('rect', { class: 'band-window', x: bx0, y: PAD.t, width: bx1 - bx0, height: H - PAD.t - PAD.b }));
+  }
+  for (const tv of niceTicks(y0, y1, 3)) {
+    svg.appendChild(el('line', { class: 'grid-line', x1: PAD.l, x2: W - PAD.r, y1: Y(tv), y2: Y(tv) }));
+    svg.appendChild(el('text', { class: 'axis-label', x: PAD.l - 6, y: Y(tv) + 3.5, 'text-anchor': 'end', text: decimals ? tv.toFixed(decimals) : String(Math.round(tv)) }));
+  }
+  svg.appendChild(el('text', { class: 'axis-label', x: PAD.l - 6, y: PAD.t - 1, 'text-anchor': 'end', text: unit }));
+
+  // Day labels across the WHOLE x range. Taking them from the first series
+  // labelled only the two days the buoy covers and left ten days of forecast
+  // with no dates under them at all.
+  const seen = new Set();
+  for (let t = x0; t <= x1; t += 36e5) {
+    const key = new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date(t));
+    const hour = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric' }).format(new Date(t));
+    if (hour !== '12 PM' || seen.has(key)) continue;
+    seen.add(key);
+    svg.appendChild(el('text', { class: 'axis-label', x: X(t), y: H - 7, 'text-anchor': 'middle', text: fmtDate(key, { weekday: 'short' }) }));
+  }
+  svg.appendChild(el('line', { class: 'axis-line', x1: PAD.l, x2: W - PAD.r, y1: H - PAD.b, y2: H - PAD.b }));
+
+  for (const s of live) {
+    const pts = s.points.filter((p) => Number.isFinite(p.v));
+    const d = pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(' ');
+    svg.appendChild(el('path', {
+      d, fill: 'none', stroke: s.color, 'stroke-width': s.emphasis ? 3 : 2,
+      'stroke-linejoin': 'round', 'stroke-linecap': 'round',
+      'stroke-dasharray': s.dashed ? '5 4' : null,
+    }));
+  }
+
+  const cross = el('line', { class: 'axis-line', y1: PAD.t, y2: H - PAD.b, opacity: 0 });
+  svg.appendChild(cross);
+  svg.style.touchAction = 'pan-y';
+  const move = (ev) => {
+    const box = svg.getBoundingClientRect();
+    const cx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - box.left;
+    const t = x0 + ((cx - PAD.l) / (W - PAD.l - PAD.r)) * (x1 - x0);
+    cross.setAttribute('x1', X(t)); cross.setAttribute('x2', X(t)); cross.setAttribute('opacity', .5);
+    const rows = [];
+    for (const s of live) {
+      const pts = s.points.filter((p) => Number.isFinite(p.v));
+      if (!pts.length) continue;
+      const p = pts.reduce((a, b) => (Math.abs(b.t - t) < Math.abs(a.t - t) ? b : a));
+      if (Math.abs(p.t - t) > 3 * 36e5) continue;
+      rows.push([s.name, `${p.v.toFixed(decimals)} ${unit}`]);
+    }
+    const e = ev.touches ? ev.touches[0] : ev;
+    showTip(e.clientX, e.clientY, fmtTime(new Date(t).toISOString(), { weekday: 'short' }), rows);
+  };
+  svg.addEventListener('mousemove', move);
+  svg.addEventListener('touchstart', move, { passive: true });
+  svg.addEventListener('touchmove', move, { passive: true });
+  const leave = () => { cross.setAttribute('opacity', 0); hideTip(); };
+  svg.addEventListener('mouseleave', leave);
+  svg.addEventListener('touchend', leave);
+  host.appendChild(svg);
+}
+
+function seriesLegend(series) {
+  const leg = el('div', { class: 'legend' });
+  for (const s of series) {
+    leg.appendChild(el('span', { class: 'lg' }, [
+      el('span', { class: 'sw', style: `background:${s.color}${s.dashed ? ';opacity:.6' : ''}` }),
+      el('span', { text: s.name }),
+    ]));
+  }
+  return leg;
+}
+
+function renderModelCompare(hourly) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'The models, side by side' }));
+  card.appendChild(el('p', {
+    class: 'note',
+    text: 'Each global model on its own line rather than averaged into one. Where they sit on top of each other, the forecast is settled; where they fan out, nobody knows yet and the honest answer is to wait. The heavy dark line is the buoy — measured, so it stops at now.',
+  }));
+
+  // Seven days. Past that the models are describing a pattern, and fourteen
+  // days of striped session-window bands is noise rather than information.
+  const cutoff = Date.now() + 7 * 24 * 36e5;
+  const hrs = hourly.filter((h) => Date.parse(h.time) <= cutoff);
+  const waveModels = [...new Set(hrs.flatMap((h) => (h.byModel?.waves || []).map((m) => m.model)))];
+  const windModels = [...new Set(hrs.flatMap((h) => (h.byModel?.wind || []).map((m) => m.model)))];
+  const bands = windowBands(hrs);
+
+  if (waveModels.length) {
+    const series = waveModels.map((m, i) => ({
+      name: MODEL_LABEL[m] || m,
+      color: MODEL_COLORS[i % MODEL_COLORS.length],
+      points: hrs.map((h) => ({
+        t: Date.parse(h.time),
+        v: sizeVal((h.byModel?.waves || []).find((x) => x.model === m)?.faceFt),
+      })),
+    }));
+    const hist = (DATA.current?.history || []);
+    if (hist.length) {
+      series.unshift({
+        name: 'CDIP buoy (measured)', color: 'var(--text-primary)', emphasis: true,
+        points: hist.map((r) => ({ t: Date.parse(r.time), v: sizeVal(buoyFace(r)) })),
+      });
+    }
+    card.appendChild(panel('Surf size by model', `Face height at the north lot, ${sizeUnit()}. Shaded band is your ${DATA.meta.sessionWindow.label} window.`,
+      (host) => multiLine(host, { series, unit: sizeUnit(), decimals: 1, bands }), seriesLegend(series)));
+  }
+
+  if (windModels.length) {
+    const series = windModels.map((m, i) => ({
+      name: MODEL_LABEL[m] || m,
+      color: MODEL_COLORS[i % MODEL_COLORS.length],
+      points: hrs.map((h) => ({
+        t: Date.parse(h.time),
+        v: (h.byModel?.wind || []).find((x) => x.model === m)?.windKt,
+      })),
+    }));
+    card.appendChild(panel('Wind by model', 'Knots. Wind is the part of a forecast that moves most, so two models disagreeing here matters more than they look.',
+      (host) => multiLine(host, { series, unit: 'kt', decimals: 0, bands }), seriesLegend(series)));
+  }
+
+  card.appendChild(sourceBar(SRC.waves));
+  card.appendChild(sourceBar(SRC.wind));
+  return card;
+}
+
+/** Undo the calibration to get a comparable face height from a raw buoy record. */
+function buoyFace(r) {
+  if (!Number.isFinite(r.hsFt)) return null;
+  const c = DATA.meta.calibration || {};
+  // Same chain the forecast uses, applied to the measured height.
+  return r.hsFt * (c.shelfLoss ?? 0.88) * (c.faceFactor ?? 0.74) * 1.35;
+}
+
+/* ------------------------------------------------------------------ tide --- */
+
+function renderTide(hourly) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'Tide' }));
+  card.appendChild(el('p', { class: 'note', text: 'Height above the MLLW datum at Scripps Pier. What matters here is how much water is over the bar: a long-period swell will stand up on less, short-period windswell needs more or it dumps on the inside.' }));
+  const hrs = hourly.filter((h) => Date.parse(h.time) <= Date.now() + 5 * 24 * 36e5);
+  card.appendChild(panel('Next five days', 'Feet, MLLW', (host) => timeChart(host, {
+    points: hrs.map((h) => ({ t: Date.parse(h.time), v: h.tideFt, h })),
+    color: 'var(--tide)', softColor: 'var(--tide-soft)', unit: 'ft', decimals: 1,
+    zeroBase: false, bands: windowBands(hrs), labelExtremes: true,
+    tooltipRows: (p) => [['Tide', `${n1(p.h.tideFt)} ft`], ['Moving', p.h.tideRate > 0 ? 'rising' : 'falling']],
+  })));
+
+  const turns = tideTurns(hrs).slice(0, 8);
+  if (turns.length) {
+    const t = el('table');
+    t.appendChild(el('tr', {}, ['When', 'High / low', 'Height'].map((h) => el('th', { text: h }))));
+    for (const x of turns) {
+      t.appendChild(el('tr', {}, [
+        el('td', { text: fmtTime(x.time, { weekday: 'short' }) }),
+        el('td', { text: x.kind }),
+        el('td', { text: `${n1(x.ft)} ft` }),
+      ]));
+    }
+    card.appendChild(el('div', { class: 'table-wrap' }, [t]));
+  }
+  card.appendChild(sourceBar(SRC.tide));
+  return card;
+}
+
+function tideTurns(hrs) {
+  const out = [];
+  for (let i = 1; i < hrs.length - 1; i++) {
+    const a = hrs[i - 1].tideFt, b = hrs[i].tideFt, c = hrs[i + 1].tideFt;
+    if (!Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(c)) continue;
+    if (b >= a && b >= c && b > a) out.push({ time: hrs[i].time, kind: 'High', ft: b });
+    else if (b <= a && b <= c && b < a) out.push({ time: hrs[i].time, kind: 'Low', ft: b });
+  }
+  return out;
+}
+
+/* ------------------------------------------------------- along the beach --- */
+
+function renderAlongshore(nearshore) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'Along the beach' }));
+  card.appendChild(el('p', { class: 'note', text: 'Scripps’ own nearshore model, published every ~100 m of sand and refracted over surveyed bathymetry. Rows run north to south; darker means bigger. It shows which stretch the swell favours — it cannot see this week’s sandbars.' }));
+  if (!nearshore?.lines?.length) {
+    card.appendChild(el('p', { class: 'cap', text: 'MOP data unavailable on this run.' }));
+    return card;
+  }
+  card.appendChild(panel('Face height by position and time', `${sizeUnit()} · hover for the numbers`,
+    (host) => alongshoreHeatmap(host, nearshore), heatLegend(nearshore)));
+
+  // The colour scale is dominated by the swell rising and falling through the
+  // week, which can make the beach look more uniform than it is. State the
+  // within-the-hour spread as a number so it is not left to the eye.
+  const spreads = nearshore.times.map((_, i) => {
+    const v = nearshore.lines.map((l) => l.faceFt[i]).filter(Number.isFinite);
+    return v.length > 1 ? Math.max(...v) / Math.min(...v) - 1 : null;
+  }).filter(Number.isFinite);
+  if (spreads.length) {
+    const sorted = spreads.slice().sort((a, b) => a - b);
+    const typical = sorted[Math.floor(sorted.length / 2)];
+    const worst = sorted[sorted.length - 1];
+    card.appendChild(el('p', { class: 'note', style: 'margin-top:10px', html:
+      '<b>How much walking matters:</b> at a typical hour the biggest stretch of this beach is '
+      + `<b>${Math.round(typical * 100)}%</b> bigger than the smallest, and at the most uneven hour this week `
+      + `<b>${Math.round(worst * 100)}%</b>. That is the refraction pattern over surveyed bathymetry — `
+      + 'real, but far smaller than the difference a good sandbar makes, which this cannot see.' }));
+  }
+  card.appendChild(sourceBar(SRC.mop));
+  return card;
+}
+
+const HEAT = ['#eef4fb', '#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
+
+function alongshoreHeatmap(host, near) {
+  host.innerHTML = '';
+  const lines = [...near.lines].sort((a, b) => b.lat - a.lat);   // north at the top
+  const times = near.times;
+  const W = Math.max(280, host.clientWidth || 320);
+  const L = 64, R = 8, T = 16, B = 22;
+  const rowH = 16;
+  const H = lines.length * rowH + T + B;
+  const cellW = (W - L - R) / times.length;
+  const all = lines.flatMap((l) => l.faceFt).filter(Number.isFinite);
+  if (!all.length) { host.appendChild(el('p', { class: 'cap', text: 'No data' })); return; }
+  const lo = Math.min(...all), hi = Math.max(...all);
+  const shade = (v) => HEAT[Math.max(0, Math.min(HEAT.length - 1,
+    Math.floor(((v - lo) / (hi - lo || 1)) * HEAT.length)))];
+
+  const svg = el('svg', { class: 'chart', width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img' });
+  lines.forEach((l, iy) => {
+    const y = T + iy * rowH;
+    const home = l.id === near.homeLine;
+    svg.appendChild(el('text', {
+      class: 'axis-label', x: L - 6, y: y + rowH / 2 + 3.5, 'text-anchor': 'end',
+      'font-weight': home ? 700 : 400,
+      text: home ? `${l.id} ← lot` : l.id,
+    }));
+    times.forEach((tm, ix) => {
+      const v = l.faceFt[ix];
+      if (!Number.isFinite(v)) return;
+      const cell = el('rect', {
+        x: L + ix * cellW, y: y + 1, width: Math.max(1, cellW - 0.5), height: rowH - 2,
+        fill: shade(v),
+      });
+      cell.appendChild(el('title', {
+        text: `${l.id} · ${fmtTime(tm, { weekday: 'short' })} · ${n1(sizeVal(v))} ${sizeUnit()}`,
+      }));
+      svg.appendChild(cell);
+    });
+  });
+  const seen = new Set();
+  times.forEach((tm, ix) => {
+    const key = new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date(tm));
+    const hour = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric' }).format(new Date(tm));
+    if (hour === '12 PM' && !seen.has(key)) {
+      seen.add(key);
+      svg.appendChild(el('text', { class: 'axis-label', x: L + ix * cellW, y: H - 7, 'text-anchor': 'middle', text: fmtDate(key, { weekday: 'short' }) }));
+    }
+  });
+  svg.appendChild(el('text', { class: 'axis-label', x: L - 6, y: T - 4, 'text-anchor': 'end', text: 'north' }));
+  host.appendChild(svg);
+}
+
+function heatLegend(near) {
+  const all = near.lines.flatMap((l) => l.faceFt).filter(Number.isFinite);
+  if (!all.length) return null;
+  const lo = Math.min(...all), hi = Math.max(...all);
+  return el('div', { class: 'map-scale' }, [
+    el('span', { text: `${n1(sizeVal(lo))}` }),
+    el('span', { class: 'ramp' }, HEAT.map((c) => el('span', { style: `background:${c}` }))),
+    el('span', { text: `${n1(sizeVal(hi))} ${sizeUnit()}` }),
+  ]);
+}
+
+/* --------------------------------------------------------- how to read it -- */
+
+function renderHowToRead() {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'How to read the numbers' }));
+  card.appendChild(el('p', { class: 'note', text: 'Reference for this beach specifically. Nothing here is a forecast — it is what each number tends to mean at the north lot, so you can make the call yourself.' }));
+
+  const table = (title, head, rows) => {
+    const box = el('div', { class: 'ref' });
+    box.appendChild(el('h3', { text: title }));
+    const t = el('table');
+    t.appendChild(el('tr', {}, head.map((h) => el('th', { text: h }))));
+    for (const r of rows) t.appendChild(el('tr', {}, r.map((c) => el('td', { html: c }))));
+    box.appendChild(el('div', { class: 'table-wrap' }, [t]));
+    card.appendChild(box);
+  };
+
+  table('Period — what kind of swell it is', ['Seconds', 'What it is', 'What it does here'], [
+    ['<b>6 s and under</b>', 'Surface chop', 'Not surf. Texture on the water, no push.'],
+    ['<b>7–10 s</b>', 'Windswell', 'Raised inside the Bight. Short walls, closes out on a low tide, needs water on the bar.'],
+    ['<b>11–13 s</b>', 'Mid-period', 'Organised but rolling through steadily rather than in distinct sets.'],
+    ['<b>14–16 s</b>', 'Groundswell', 'Real sets with gaps. Starts to feel the outer bar and stand up.'],
+    ['<b>17 s+</b>', 'Long-period', 'Breaks well outside, much more push than the height suggests, long lulls.'],
+  ]);
+
+  table('Direction — what this coastline does to it', ['From', 'Exposure', 'Note'], [
+    ['<b>160–185°</b> S', '~20%', 'Heavily shadowed by Point Loma. Mostly refracted scraps.'],
+    ['<b>185–215°</b> SSW', '35–55%', 'The usual summer south angle. Screened, and refracts hard on the way in.'],
+    ['<b>215–240°</b> SW', '~70%', 'A decent window. Still arrives well off square.'],
+    ['<b>240–275°</b> W/WSW', '85–100%', 'Straight in, nothing in the way. The best angle this beach gets.'],
+    ['<b>275–300°</b> WNW', '~90%', 'Clips San Clemente Island.'],
+    ['<b>300°+</b> NW', 'falls off', 'Shadowed by the Channel Islands.'],
+  ]);
+
+  table('Wind', ['Direction', 'Effect'], [
+    ['<b>E / NE</b> (offshore)', 'Grooms the face. Light offshore is the best it gets; over ~16 kt it starts holding waves up and blowing you back.'],
+    ['<b>Under 3 kt</b>', 'Glassy. Direction stops mattering.'],
+    ['<b>W / SW</b> (onshore)', 'Puts chop on the face. Past about 13 kt it is wind-blown junk.'],
+  ]);
+
+  table('Tide at this beach', ['State', 'Effect'], [
+    ['<b>Under 0 ft</b>', 'Drained. Closeouts on dry sand.'],
+    ['<b>1.2–3.6 ft</b>', 'The usual working band for the bars.'],
+    ['<b>Over 5 ft</b>', 'Fat and backwashy off the upper beach.'],
+    ['<b>Filling vs draining</b>', 'A filling tide is usually a little better than a draining one at the same height.'],
+  ]);
+
+  card.appendChild(el('div', { class: 'alert info' }, [
+    el('span', { class: 'ic', text: 'i' }),
+    el('div', { html: '<b>The thing none of this can tell you</b> is where the sand is. The bars at the rivermouth move with every swell, and no instrument or model here can see them — which is why the same swell can be a closeout one week and a peak the next. That gap is what the session log is for.' }),
+  ]));
+  return card;
+}
+
 /* ============================================================== the call ==
  *
  * The page answers one question before it answers any other: is it worth
@@ -1354,14 +1933,25 @@ function render() {
 
   // Order is the argument: the call, then the week, then why - and the model's
   // own track record before any of the pretty pictures.
-  app.appendChild(renderCall(days, DATA.current, DATA.wetsuit));
-  app.appendChild(renderWeek(days));
-  app.appendChild(renderMix(days));
+  // Instruments first, models second, opinions last. The measurements are the
+  // part that is not up for argument, so they lead; what this page THINKS is
+  // one more view and sits with the rest of the opinions at the bottom.
+  app.appendChild(renderNow(DATA.current, DATA.hourly, DATA.wetsuit));
+  app.appendChild(camCard());
+  app.appendChild(renderTrains(DATA.current));
+  app.appendChild(renderBuoyTrend(DATA.current));
+  app.appendChild(renderModelCompare(DATA.hourly));
+  app.appendChild(renderTide(DATA.hourly));
+  app.appendChild(renderAlongshore(DATA.nearshore));
   app.appendChild(renderHourly(selected));
+  app.appendChild(renderHowToRead());
+
+  app.appendChild(collapsible('If you want a second opinion: what this page\u2019s own model makes of it', modelOpinion(days, selected),
+    'One reading of the same data, with a track record you can check. Treat it as a crew member with views, not as the answer.'));
   app.appendChild(collapsible('Where it will break', renderMap(selected),
     'A model of this exact stretch of sand. Useful for picking which end of the beach to walk to; not a substitute for looking.'));
-  app.appendChild(collapsible('How this forecast has actually done', trustCard(),
-    'Every run is checked against the buoy. If this page is wrong, this is where it shows.'));
+  app.appendChild(collapsible('How this page has actually done', trustCard(),
+    'Every run checked against the buoy, and against sessions people actually surfed. If this page is wrong, this is where it shows.'));
   app.appendChild(collapsible('Longer outlook, 14 days', outlookCard(days),
     'Beyond about a week a wave model is spotting patterns, not days.'));
   app.appendChild(renderLog());
@@ -1463,6 +2053,25 @@ function renderGroundTruth() {
     if (sess.barNote) row.appendChild(el('p', { class: 'cap', text: sess.barNote }));
     card.appendChild(row);
   }
+  return card;
+}
+
+/** Everything this page thinks, in one place, behind one fold. */
+function modelOpinion(days, selected) {
+  const box = el('div');
+  box.appendChild(renderCall(days, null, DATA.wetsuit));
+  box.appendChild(renderWeek(days));
+  box.appendChild(renderMix(days));
+  return box;
+}
+
+/** The cams, promoted out of the old headline card: for today they beat
+ *  everything else on this page and always will. */
+function camCard() {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'Look at it' }));
+  card.appendChild(el('p', { class: 'note', text: 'For what the ocean is doing right now, a picture beats every number above. The instruments are for working out what it will be doing tomorrow, which no camera can tell you.' }));
+  card.appendChild(camRow(''));
   return card;
 }
 

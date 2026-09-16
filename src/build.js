@@ -514,6 +514,9 @@ async function main() {
     board: h.board.board,
     parts: { tide: r(h.parts.tide.score), wind: r(h.parts.wind.score), size: r(h.parts.size.score), shape: r(h.parts.shape.score) },
     modelSpread: { heightFt: h.modelSpread.heightFt.map((m) => ({ model: m.model, faceFt: r(m.faceFt) })) },
+    // Each source's own numbers, unaveraged, so the page can show the spread
+    // rather than a single figure that hides which models are guessing.
+    byModel: h.byModel,
     // Swell trains in the water, for the nearshore simulation. Deep-water
     // height per train, so the simulation starts where the forecast started.
     // Deep-water swell trains at this hour. The nearshore direction MOP

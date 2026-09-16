@@ -208,6 +208,25 @@ export function buildHourly({ marine, weather, tides, biasByModel }) {
 
     const face = faceHeights(HbM);
     const powerKwPerM = wavePowerKwPerM(deepHsM, periodS);
+
+    // Every model's own numbers, kept rather than averaged away. The page shows
+    // these side by side so you can see where the models agree and where they
+    // are guessing, instead of being handed one blended figure that hides it.
+    const byModel = {
+      waves: modelNames.map((m) => ({
+        model: m,
+        deepHsFt: round1((entry.models[m].deepHsM ?? 0) * M_TO_FT),
+        periodS: round1(entry.models[m].dominantPeriodS),
+        dirDeg: entry.models[m].dominantDirDeg == null ? null : Math.round(entry.models[m].dominantDirDeg),
+        faceFt: round1(faceHeights(entry.models[m].HbM).typicalFt),
+      })),
+      wind: windModels.map((m) => ({
+        model: m,
+        windKt: round1(wind.models[m].windKt),
+        gustKt: round1(wind.models[m].gustKt),
+        dirDeg: wind.models[m].windDirDeg == null ? null : Math.round(wind.models[m].windDirDeg),
+      })),
+    };
     const scored = scoreHour({
       HbM,
       faceTypicalFt: face.typicalFt,
@@ -228,6 +247,7 @@ export function buildHourly({ marine, weather, tides, biasByModel }) {
       inWindow: inSessionWindow(entry.stamps.localHour),
       deepHsM,
       deepHsFt: deepHsM * M_TO_FT,
+      byModel,
       HbM,
       faceFt: face.typicalFt,
       faceSetFt: face.setFt,

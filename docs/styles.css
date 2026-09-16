@@ -425,3 +425,42 @@ a.cam .cam-note { font-size: 11px; color: var(--muted); }
 .gt-cmp { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; margin-top: 6px; font-variant-numeric: tabular-nums; }
 .gt-verdict { margin: 6px 0 0; font-size: 13px; color: var(--text-secondary); }
 .gt-when { color: var(--muted); font-weight: 400; }
+
+/* ======================================================== the instruments ===
+   The data half of the page. Everything here carries a source line. */
+
+.srcbar {
+  display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline;
+  margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text-secondary);
+}
+.srcbar .src-name { font-weight: 600; color: var(--swell); text-decoration: none; }
+.srcbar .src-name:hover { text-decoration: underline; }
+.srcbar .src-what { flex: 1 1 260px; color: var(--muted); }
+.srcbar .src-when { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.readings { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.reading { border-top: 2px solid var(--grid); padding-top: 9px; }
+.reading.swell { border-top-color: var(--swell); }
+.reading.wind { border-top-color: var(--wind); }
+.reading.tide { border-top-color: var(--tide); }
+.reading .r-k { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.reading .r-v { font-size: 24px; font-weight: 650; letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin-top: 1px; }
+.reading .r-s { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.reading .r-x { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+.trains { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+.train { display: flex; gap: 12px; align-items: flex-start; border-top: 1px solid var(--border); padding-top: 12px; }
+.train-arrow { flex: none; }
+.dir-arrow { display: block; }
+.rose-tick { font-size: 7px; fill: var(--muted); }
+.train-body { min-width: 0; flex: 1; }
+.train-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 15px; }
+.train-dir { font-size: 12px; color: var(--text-secondary); }
+.train-meta { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.train-bar { height: 5px; border-radius: 3px; background: var(--grid); margin: 7px 0 4px; overflow: hidden; }
+.train-fill { height: 100%; background: var(--swell); }
+
+.ref { margin-top: 18px; }
+.ref h3 { font-size: 13px; margin: 0 0 6px; }
+.ref table td:first-child { white-space: nowrap; }
