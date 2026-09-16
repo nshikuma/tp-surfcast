@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-16T20:41:17.947Z",
-  "finishedAt": "2026-09-16T20:41:35.908Z",
+  "generatedAt": "2026-09-16T20:43:16.080Z",
+  "finishedAt": "2026-09-16T20:43:35.813Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -78,8 +78,8 @@
   "faceSetFt": 2.5033932326624813,
   "sizeLabel": "Knee high",
   "setSizeLabel": "Waist high",
-  "tideFt": 4.72212851,
-  "tideRate": -0.38074702111111147,
+  "tideFt": 4.71103739,
+  "tideRate": -0.38897376777777826,
   "trains": [
    {
     "hsM": 0.5318266613850795,
@@ -799,7 +799,7 @@
   "hoursStepped": 0,
   "observations": 0,
   "updatedAt": "2026-09-16T20:00:00.000Z",
-  "spinUpRuns": 6,
+  "spinUpRuns": 7,
   "profile": {
    "shorelineOffsetM": 0.004092585035975326,
    "barCrestM": 94.99345186394244,
@@ -847,6 +847,11 @@
    },
    {
     "t": "2026-09-16T20:41:17.947Z",
+    "s": 0,
+    "e": null
+   },
+   {
+    "t": "2026-09-16T20:43:16.080Z",
     "s": 0,
     "e": null
    }
