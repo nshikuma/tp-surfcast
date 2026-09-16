@@ -232,10 +232,46 @@ async function main() {
   // What each day's swell is MADE of, and the one-word call. Computed here
   // rather than in the page so the browser never has to run wave physics to
   // render a headline.
+  // Attach the partitioned swell trains to the hourly objects BEFORE anything
+  // reads them. They used to be bolted on during payload compaction, which runs
+  // a hundred lines below this - so the mix model saw every hour as trainless
+  // and shipped an empty swell breakdown while the build went green.
+  const trains = data.trains || null;
+  for (const h of hourly) {
+    h.trains = (trains?.get(h.time) || []).slice(0, 4).map((p) => ({
+      kind: p.kind,
+      hsM: p.hsM,
+      hsFt: p.hsM * M_TO_FT,
+      periodS: p.periodS,
+      dirDeg: p.dirDeg,
+      dirCompass: compass(p.dirDeg),
+    }));
+  }
+  // A source outage is survivable; wiring the source to nothing is not. If the
+  // trains came back but none of them reached an hour, that is a bug in this
+  // file and the build should say so rather than quietly publishing a page with
+  // the swell breakdown missing - which is exactly what happened the first time.
+  if (trains?.size && !hourly.some((h) => h.trains.length)) {
+    throw new Error(`Fatal: ${trains.size} swell-train records fetched but none matched an hourly timestamp.`);
+  }
+  if (!trains?.size) {
+    log('WARNING: no partitioned swell trains in this run - the swell breakdown will be empty.');
+  }
+
   // Hourly mixes first, then smoothed, so the daily rollup and the chart are
   // built from exactly the same numbers.
   for (const h of hourly) h.mix = mixForHour(h);
   smoothShares(hourly);
+  // Measured against the hours that HAVE trains, not against the whole grid.
+  // The partitioned fields run about eight days and the hourly grid runs
+  // fifteen, so comparing to hourly.length would have the assertion tripping
+  // on a perfectly healthy run.
+  const withTrains = hourly.filter((h) => h.trains.length).length;
+  const classified = hourly.filter((h) => h.mix?.parts?.length).length;
+  log(`mix: ${classified} classified of ${withTrains} hours with trains (${hourly.length} hours total)`);
+  if (withTrains && classified < withTrains * 0.5) {
+    throw new Error(`Fatal: ${withTrains} hours carry swell trains but only ${classified} got a breakdown.`);
+  }
 
   let worstReliability = null;
   days.forEach((d, i) => {
@@ -324,7 +360,6 @@ async function main() {
    * `days` and blows the JSON up past a megabyte. The page regroups hours by
    * local date from the single `hourly` array instead.
    */
-  const trainsByTime = data.trains || null;
   const r = (x, d = 2) => (Number.isFinite(x) ? Math.round(x * 10 ** d) / 10 ** d : x ?? null);
   const compactHour = (h) => ({
     time: h.time, localDate: h.localDate, localHour: r(h.localHour, 2), inWindow: h.inWindow,
@@ -346,10 +381,9 @@ async function main() {
     // publishes barely moves - refraction compresses everything toward
     // shore-normal - so the offshore direction is what tells you where the
     // swell is from and how it will hit.
-    trains: (trainsByTime?.get(h.time) || []).slice(0, 4).map((p) => ({
-      kind: p.kind, hsM: r(p.hsM, 2), hsFt: r(p.hsM * M_TO_FT, 1),
-      periodS: r(p.periodS, 1), dirDeg: r(p.dirDeg, 0),
-      dirCompass: compass(p.dirDeg),
+    trains: (h.trains || []).map((p) => ({
+      kind: p.kind, hsM: r(p.hsM, 2), hsFt: r(p.hsFt, 1),
+      periodS: r(p.periodS, 1), dirDeg: r(p.dirDeg, 0), dirCompass: p.dirCompass,
     })),
     // Each swell class's SHARE of this hour's face height, in the fixed order
     // [south, W/NW, windswell]. These are shares of the real wave, not each

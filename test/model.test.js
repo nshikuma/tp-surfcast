@@ -521,3 +521,42 @@ test('mix: the class boundary crossfades instead of flipping', () => {
   assert.equal(classWeights({ periodS: 16, dirDeg: 205 }).southGround, 1);
   assert.equal(classWeights({ periodS: 6.5, dirDeg: 205 }).windswell, 1);
 });
+
+/**
+ * The wiring contract between the swell-train fetcher and the mix model.
+ *
+ * This exists because the first version of that wiring shipped a completely
+ * empty swell breakdown and CI went green: the trains were attached to the
+ * hour objects during payload compaction, a hundred lines AFTER the mix model
+ * read them, so every hour looked trainless. Nothing threw, nothing failed, the
+ * page just quietly lost a whole section. This test pins the shape the mix
+ * model needs so that mismatch fails here instead of in production.
+ */
+test('mix: consumes the train shape the build actually attaches', () => {
+  // Exactly what src/build.js builds from openmeteo.fetchSwellTrains().
+  const M_TO_FT_ = 3.28084;
+  const fetched = [
+    { kind: 'primary swell', hsM: 0.61, periodS: 14.2, dirDeg: 203 },
+    { kind: 'wind waves', hsM: 0.4, periodS: 7.1, dirDeg: 272 },
+  ];
+  const hour = {
+    time: '2026-02-01T15:00:00.000Z',
+    faceFt: 3.2,
+    trains: fetched.map((p) => ({
+      kind: p.kind, hsM: p.hsM, hsFt: p.hsM * M_TO_FT_,
+      periodS: p.periodS, dirDeg: p.dirDeg, dirCompass: compass(p.dirDeg),
+    })),
+  };
+  const m = mixForHour(hour);
+  assert.ok(m, 'the mix model must accept the build\'s train objects');
+  assert.equal(m.parts.length, 2);
+  assert.deepEqual(m.parts.map((p) => p.cls).sort(), ['southGround', 'windswell']);
+  // And the shares must reconstruct the hour's face height when laid end to end.
+  const stacked = m.parts.reduce((s, p) => s + p.share * hour.faceFt, 0);
+  assert.ok(Math.abs(stacked - hour.faceFt) < 1e-6, `stack ${stacked} != ${hour.faceFt}`);
+});
+
+test('mix: an hour with no trains yields no breakdown rather than a fake one', () => {
+  assert.equal(mixForHour({ faceFt: 3, trains: [] }), null);
+  assert.equal(mixForHour({ faceFt: 3 }), null);
+});
