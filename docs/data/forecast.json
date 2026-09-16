@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-16T20:37:35.361Z",
-  "finishedAt": "2026-09-16T20:37:54.287Z",
+  "generatedAt": "2026-09-16T20:41:17.947Z",
+  "finishedAt": "2026-09-16T20:41:35.908Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -78,8 +78,8 @@
   "faceSetFt": 2.5033932326624813,
   "sizeLabel": "Knee high",
   "setSizeLabel": "Waist high",
-  "tideFt": 4.7426284525,
-  "tideRate": -0.3655413580555553,
+  "tideFt": 4.72212851,
+  "tideRate": -0.38074702111111147,
   "trains": [
    {
     "hsM": 0.5318266613850795,
@@ -795,11 +795,11 @@
  },
  "beach": {
   "shorelineM": 0,
-  "trendMPerRun": 0.01,
-  "hoursStepped": 4,
-  "observations": 8,
+  "trendMPerRun": 0,
+  "hoursStepped": 0,
+  "observations": 0,
   "updatedAt": "2026-09-16T20:00:00.000Z",
-  "spinUpRuns": 5,
+  "spinUpRuns": 6,
   "profile": {
    "shorelineOffsetM": 0.004092585035975326,
    "barCrestM": 94.99345186394244,
@@ -844,6 +844,11 @@
     "t": "2026-09-16T20:37:35.361Z",
     "s": 0,
     "e": 0.0707
+   },
+   {
+    "t": "2026-09-16T20:41:17.947Z",
+    "s": 0,
+    "e": null
    }
   ]
  },
@@ -6312,7 +6317,36 @@
     "reason": "0.00 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Marginal. 2.2 ft (thigh high) but it lacks punch. Models disagree on this day - treat it as provisional.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "southGround",
+      "share": 0.6215245957996017,
+      "peakFaceFt": 1.9,
+      "periodS": 13.6,
+      "dirCompass": "SSW",
+      "dirDeg": 204,
+      "offAngleDeg": 61
+     },
+     {
+      "cls": "windswell",
+      "share": 0.37847540420039794,
+      "peakFaceFt": 2.2,
+      "periodS": 8.5,
+      "dirCompass": "WSW",
+      "dirDeg": 249,
+      "offAngleDeg": 16
+     }
+    ],
+    "dominant": "southGround",
+    "dominantShare": 0.6215245957996017,
+    "crossing": true,
+    "chopFt": 1,
+    "tideShiftFt": 0,
+    "tideNote": null,
+    "read": "Two swells crossing: 62% south swell (13.6s SSW) against 38% short-period windswell (8.5s WSW). Plus 1 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "Crossed-up and hard to read: wedging peaks where the two swells meet, then flat spots. Good for a wave-count session, bad for picking off set waves."
+   },
    "call": "MAYBE",
    "tone": "warning",
    "gloss": "Check the cam before you drive.",
@@ -6364,7 +6398,36 @@
     "reason": "0.00 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Skip. 1.9 ft (knee high), cross-shore 1.5 kt.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "southGround",
+      "share": 0.8857551284786238,
+      "peakFaceFt": 1.9,
+      "periodS": 12.3,
+      "dirCompass": "SSW",
+      "dirDeg": 196,
+      "offAngleDeg": 69
+     },
+     {
+      "cls": "windswell",
+      "share": 0.11424487152137576,
+      "peakFaceFt": 1.1,
+      "periodS": 6.1,
+      "dirCompass": "WNW",
+      "dirDeg": 284,
+      "offAngleDeg": 19
+     }
+    ],
+    "dominant": "southGround",
+    "dominantShare": 0.8857551284786238,
+    "crossing": false,
+    "chopFt": 1.1,
+    "tideShiftFt": 0,
+    "tideNote": null,
+    "read": "Almost all south swell - 89% of the energy, 12.3s from the SSW. Plus 1.1 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "Clean organised 12.3s lines in recognisable sets. It arrives 69° off the beach, so it refracts down hard on the way in and will favour one end of the sand."
+   },
    "call": "SKIP",
    "tone": "serious",
    "gloss": "Not worth the paddle.",
@@ -6416,7 +6479,36 @@
     "reason": "0.00 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Marginal. 1.9 ft (knee high) but it lacks punch. Models disagree on this day - treat it as provisional.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "southGround",
+      "share": 0.7417629070871617,
+      "peakFaceFt": 2.6,
+      "periodS": 11.8,
+      "dirCompass": "SSW",
+      "dirDeg": 199,
+      "offAngleDeg": 66
+     },
+     {
+      "cls": "windswell",
+      "share": 0.2582370929128382,
+      "peakFaceFt": 2.3,
+      "periodS": 6.6,
+      "dirCompass": "WSW",
+      "dirDeg": 249,
+      "offAngleDeg": 16
+     }
+    ],
+    "dominant": "southGround",
+    "dominantShare": 0.7417629070871617,
+    "crossing": false,
+    "chopFt": 2.3,
+    "tideShiftFt": 0,
+    "tideNote": null,
+    "read": "Mostly south swell at 74% (11.8s SSW), with 26% short-period windswell. Plus 2.3 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "Clean 11.8s lines - organised, but rolling through steadily rather than in distinct sets. It arrives 66° off the beach, so it refracts down hard on the way in and will favour one end of the sand."
+   },
    "call": "MAYBE",
    "tone": "warning",
    "gloss": "Check the cam before you drive.",
@@ -6468,7 +6560,45 @@
     "reason": "0.00 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Worth it. 2.7 ft (waist high), cross-shore 2.3 kt, tide 3.6 ft.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "southGround",
+      "share": 0.7733711097223739,
+      "peakFaceFt": 2.7,
+      "periodS": 11.5,
+      "dirCompass": "SSW",
+      "dirDeg": 203,
+      "offAngleDeg": 62
+     },
+     {
+      "cls": "windswell",
+      "share": 0.17997217384811615,
+      "peakFaceFt": 2.2,
+      "periodS": 6.4,
+      "dirCompass": "WSW",
+      "dirDeg": 257,
+      "offAngleDeg": 8
+     },
+     {
+      "cls": "westGround",
+      "share": 0.04640258694023012,
+      "peakFaceFt": 1.7,
+      "periodS": 13.2,
+      "dirCompass": "WSW",
+      "dirDeg": 252,
+      "offAngleDeg": 13
+     }
+    ],
+    "dominant": "southGround",
+    "dominantShare": 0.7733711097223739,
+    "crossing": false,
+    "chopFt": 2.4,
+    "tideShiftFt": 0,
+    "tideNote": null,
+    "read": "Mostly south swell at 77% (11.5s SSW), with 18% short-period windswell, 5% west-northwest swell. Plus 2.4 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "Clean 11.5s lines - organised, but rolling through steadily rather than in distinct sets. It arrives 62° off the beach, so it refracts down hard on the way in and will favour one end of the sand."
+   },
    "call": "WORTH IT",
    "tone": "good",
    "gloss": "Solid session if you are up.",
@@ -6520,7 +6650,36 @@
     "reason": "0.00 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Worth it. 2.7 ft (waist high), onshore 2.4 kt, tide 3.7 ft.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "southGround",
+      "share": 0.5118956566709106,
+      "peakFaceFt": 2.6,
+      "periodS": 15.8,
+      "dirCompass": "SW",
+      "dirDeg": 214,
+      "offAngleDeg": 51
+     },
+     {
+      "cls": "windswell",
+      "share": 0.46574625814527365,
+      "peakFaceFt": 2.3,
+      "periodS": 6.3,
+      "dirCompass": "W",
+      "dirDeg": 264,
+      "offAngleDeg": 1
+     }
+    ],
+    "dominant": "southGround",
+    "dominantShare": 0.5118956566709106,
+    "crossing": true,
+    "chopFt": 2.2,
+    "tideShiftFt": -0.6,
+    "tideNote": "Long-period swell will stand up on the outer bar - it can take a lower tide than usual.",
+    "read": "Two swells crossing: 51% south swell (15.8s SW) against 47% short-period windswell (6.3s W). Plus 2.2 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "Crossed-up and hard to read: wedging peaks where the two swells meet, then flat spots. Good for a wave-count session, bad for picking off set waves."
+   },
    "call": "WORTH IT",
    "tone": "good",
    "gloss": "Solid session if you are up.",
@@ -6572,7 +6731,36 @@
     "reason": "0.00 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Worth it. 2.8 ft (waist high), cross-shore 3.3 kt, tide 3.8 ft.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "windswell",
+      "share": 0.5335555911846928,
+      "peakFaceFt": 2.9,
+      "periodS": 10.5,
+      "dirCompass": "WSW",
+      "dirDeg": 258,
+      "offAngleDeg": 7
+     },
+     {
+      "cls": "southGround",
+      "share": 0.44867721308333813,
+      "peakFaceFt": 2.7,
+      "periodS": 13.6,
+      "dirCompass": "SW",
+      "dirDeg": 218,
+      "offAngleDeg": 47
+     }
+    ],
+    "dominant": "windswell",
+    "dominantShare": 0.5335555911846928,
+    "crossing": false,
+    "chopFt": 2.2,
+    "tideShiftFt": 0.7,
+    "tideNote": "Short-period swell needs water on the bar - this wants the higher end of the tide.",
+    "read": "Mostly short-period windswell at 53% (10.5s WSW), with 45% south swell. Plus 2.2 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "10.5s short-period windswell with 53% windswell sitting on top of it - the sets will be organised, the waves between them will not be."
+   },
    "call": "WORTH IT",
    "tone": "good",
    "gloss": "Solid session if you are up.",
@@ -6624,7 +6812,36 @@
     "reason": "0.01 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Worth it. 2.8 ft (waist high), onshore 1.5 kt, tide 4.1 ft.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "southGround",
+      "share": 0.7223869847631884,
+      "peakFaceFt": 2.6,
+      "periodS": 13.7,
+      "dirCompass": "SW",
+      "dirDeg": 216,
+      "offAngleDeg": 49
+     },
+     {
+      "cls": "windswell",
+      "share": 0.2776130152368114,
+      "peakFaceFt": 2.8,
+      "periodS": 8.6,
+      "dirCompass": "WSW",
+      "dirDeg": 253,
+      "offAngleDeg": 12
+     }
+    ],
+    "dominant": "southGround",
+    "dominantShare": 0.7223869847631884,
+    "crossing": false,
+    "chopFt": 2.2,
+    "tideShiftFt": 0,
+    "tideNote": null,
+    "read": "Mostly south swell at 72% (13.7s SW), with 28% short-period windswell. Plus 2.2 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "Clean organised 13.7s lines in recognisable sets. It arrives 49° off the beach, so it refracts down hard on the way in and will favour one end of the sand."
+   },
    "call": "WORTH IT",
    "tone": "good",
    "gloss": "Solid session if you are up.",
@@ -6676,7 +6893,36 @@
     "reason": "0.01 in in the last 72 h - below the 0.2 in advisory threshold."
    },
    "verdict": "Marginal. 2.3 ft (thigh high) but the wind is on it.",
-   "mix": null,
+   "mix": {
+    "parts": [
+     {
+      "cls": "southGround",
+      "share": 0.8540437366262531,
+      "peakFaceFt": 2.3,
+      "periodS": 12.4,
+      "dirCompass": "SSW",
+      "dirDeg": 212,
+      "offAngleDeg": 53
+     },
+     {
+      "cls": "windswell",
+      "share": 0.145956263373747,
+      "peakFaceFt": 1.1,
+      "periodS": 10.1,
+      "dirCompass": "WNW",
+      "dirDeg": 298,
+      "offAngleDeg": 33
+     }
+    ],
+    "dominant": "southGround",
+    "dominantShare": 0.8540437366262531,
+    "crossing": false,
+    "chopFt": 1.5,
+    "tideShiftFt": 0,
+    "tideNote": null,
+    "read": "Almost all south swell - 85% of the energy, 12.4s from the SSW. Plus 1.5 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "Clean organised 12.4s lines in recognisable sets. It arrives 53° off the beach, so it refracts down hard on the way in and will favour one end of the sand."
+   },
    "call": "MAYBE",
    "tone": "warning",
    "gloss": "Check the cam before you drive.",
@@ -7371,9 +7617,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.98,
+    0,
+    1.1
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T10:00:00.000Z",
@@ -7438,9 +7688,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.03,
+    0,
+    1.04
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T11:00:00.000Z",
@@ -7505,9 +7759,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.12,
+    0,
+    0.96
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T12:00:00.000Z",
@@ -7572,9 +7830,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.15,
+    0,
+    0.9
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T13:00:00.000Z",
@@ -7639,9 +7901,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.19,
+    0,
+    0.85
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T14:00:00.000Z",
@@ -7706,9 +7972,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.22,
+    0,
+    0.83
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T15:00:00.000Z",
@@ -7773,9 +8043,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.17,
+    0,
+    0.88
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T16:00:00.000Z",
@@ -7840,9 +8114,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.18,
+    0,
+    0.87
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T17:00:00.000Z",
@@ -7907,9 +8185,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.36,
+    0,
+    0.81
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T18:00:00.000Z",
@@ -7974,9 +8256,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.45,
+    0,
+    0.71
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T19:00:00.000Z",
@@ -7994,9 +8280,9 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.6,
-   "windKt": 6.2,
-   "gustKt": 11.1,
-   "windDirDeg": 253,
+   "windKt": 5.8,
+   "gustKt": 10.5,
+   "windDirDeg": 251,
    "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 5,
@@ -8007,7 +8293,7 @@
    "board": "Longboard",
    "parts": {
     "tide": 0.18,
-    "wind": 0.87,
+    "wind": 0.93,
     "size": 0.36,
     "shape": 0.85
    },
@@ -8041,9 +8327,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.39,
+    0,
+    0.74
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-16T20:00:00.000Z",
@@ -8061,9 +8351,9 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 7,
-   "gustKt": 13,
-   "windDirDeg": 249,
+   "windKt": 6.5,
+   "gustKt": 12.5,
+   "windDirDeg": 252,
    "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 4.95,
@@ -8074,7 +8364,7 @@
    "board": "Longboard",
    "parts": {
     "tide": 0.15,
-    "wind": 0.79,
+    "wind": 0.85,
     "size": 0.33,
     "shape": 0.85
    },
@@ -8116,9 +8406,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.29,
+    0,
+    0.76
+   ],
+   "crossing": true,
+   "chopFt": 0.2
   },
   {
    "time": "2026-09-16T21:00:00.000Z",
@@ -8136,9 +8430,9 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.2,
    "energyKjPerM2": 0.7,
-   "windKt": 8.1,
-   "gustKt": 14.8,
-   "windDirDeg": 250,
+   "windKt": 7.8,
+   "gustKt": 14.6,
+   "windDirDeg": 253,
    "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 4.62,
@@ -8149,7 +8443,7 @@
    "board": "Longboard",
    "parts": {
     "tide": 0.36,
-    "wind": 0.67,
+    "wind": 0.69,
     "size": 0.32,
     "shape": 0.85
    },
@@ -8191,9 +8485,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.29,
+    0,
+    0.73
+   ],
+   "crossing": true,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-16T22:00:00.000Z",
@@ -8213,7 +8511,7 @@
    "energyKjPerM2": 0.7,
    "windKt": 8.1,
    "gustKt": 15.1,
-   "windDirDeg": 252,
+   "windDirDeg": 249,
    "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 4.04,
@@ -8224,7 +8522,7 @@
    "board": "Longboard",
    "parts": {
     "tide": 0.73,
-    "wind": 0.66,
+    "wind": 0.67,
     "size": 0.32,
     "shape": 0.85
    },
@@ -8266,9 +8564,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.34,
+    0,
+    0.67
+   ],
+   "crossing": true,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-16T23:00:00.000Z",
@@ -8286,9 +8588,9 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.7,
-   "windKt": 8,
-   "gustKt": 14.6,
-   "windDirDeg": 253,
+   "windKt": 7.7,
+   "gustKt": 14.1,
+   "windDirDeg": 255,
    "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 3.31,
@@ -8299,7 +8601,7 @@
    "board": "Longboard",
    "parts": {
     "tide": 1,
-    "wind": 0.67,
+    "wind": 0.69,
     "size": 0.33,
     "shape": 0.85
    },
@@ -8341,9 +8643,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.33,
+    0,
+    0.72
+   ],
+   "crossing": true,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-17T00:00:00.000Z",
@@ -8361,8 +8667,8 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.7,
-   "windKt": 7,
-   "gustKt": 13.3,
+   "windKt": 6.7,
+   "gustKt": 13,
    "windDirDeg": 258,
    "windCompass": "WSW",
    "windLabel": "onshore",
@@ -8374,7 +8680,7 @@
    "board": "Longboard",
    "parts": {
     "tide": 1,
-    "wind": 0.77,
+    "wind": 0.8,
     "size": 0.33,
     "shape": 0.85
    },
@@ -8416,9 +8722,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.3,
+    0,
+    0.75
+   ],
+   "crossing": true,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-17T01:00:00.000Z",
@@ -8436,9 +8746,9 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.7,
-   "windKt": 6.4,
-   "gustKt": 11.5,
-   "windDirDeg": 266,
+   "windKt": 5.8,
+   "gustKt": 11.2,
+   "windDirDeg": 263,
    "windCompass": "W",
    "windLabel": "onshore",
    "tideFt": 1.9,
@@ -8449,7 +8759,7 @@
    "board": "Longboard",
    "parts": {
     "tide": 1,
-    "wind": 0.84,
+    "wind": 0.91,
     "size": 0.29,
     "shape": 0.85
    },
@@ -8491,9 +8801,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.45,
+    0,
+    0.48
+   ],
+   "crossing": true,
+   "chopFt": 0.2
   },
   {
    "time": "2026-09-17T02:00:00.000Z",
@@ -8511,9 +8825,9 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 4.1,
-   "gustKt": 8.6,
-   "windDirDeg": 269,
+   "windKt": 4.2,
+   "gustKt": 8.4,
+   "windDirDeg": 265,
    "windCompass": "W",
    "windLabel": "onshore",
    "tideFt": 1.45,
@@ -8558,9 +8872,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.67,
+    0,
+    0.24
+   ],
+   "crossing": false,
+   "chopFt": 1
   },
   {
    "time": "2026-09-17T03:00:00.000Z",
@@ -8578,9 +8896,9 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 3.3,
-   "gustKt": 6.9,
-   "windDirDeg": 269,
+   "windKt": 2.7,
+   "gustKt": 6.6,
+   "windDirDeg": 262,
    "windCompass": "W",
    "windLabel": "onshore",
    "tideFt": 1.23,
@@ -8625,9 +8943,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.9,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1
   },
   {
    "time": "2026-09-17T04:00:00.000Z",
@@ -8645,10 +8967,10 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 1.7,
-   "gustKt": 4.5,
-   "windDirDeg": 265,
-   "windCompass": "W",
+   "windKt": 2.2,
+   "gustKt": 4.9,
+   "windDirDeg": 253,
+   "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 1.28,
    "tideRate": 0.16,
@@ -8692,9 +9014,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.7,
+    0,
+    0.22
+   ],
+   "crossing": false,
+   "chopFt": 1
   },
   {
    "time": "2026-09-17T05:00:00.000Z",
@@ -8712,10 +9038,10 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.7,
-   "windKt": 0.8,
-   "gustKt": 3.1,
-   "windDirDeg": 234,
-   "windCompass": "SW",
+   "windKt": 1.2,
+   "gustKt": 2.9,
+   "windDirDeg": 212,
+   "windCompass": "SSW",
    "windLabel": "cross-shore",
    "tideFt": 1.52,
    "tideRate": 0.3,
@@ -8759,9 +9085,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.52,
+    0,
+    0.42
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-17T06:00:00.000Z",
@@ -8779,10 +9109,10 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.7,
-   "windKt": 1.1,
-   "gustKt": 2.5,
-   "windDirDeg": 188,
-   "windCompass": "S",
+   "windKt": 1.8,
+   "gustKt": 2.8,
+   "windDirDeg": 163,
+   "windCompass": "SSE",
    "windLabel": "cross-shore",
    "tideFt": 1.87,
    "tideRate": 0.36,
@@ -8826,9 +9156,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.33,
+    0,
+    0.62
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-17T07:00:00.000Z",
@@ -8846,11 +9180,11 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.7,
-   "windKt": 0.8,
-   "gustKt": 1.7,
-   "windDirDeg": 195,
-   "windCompass": "SSW",
-   "windLabel": "cross-shore",
+   "windKt": 2.1,
+   "gustKt": 2.6,
+   "windDirDeg": 134,
+   "windCompass": "SE",
+   "windLabel": "offshore",
    "tideFt": 2.25,
    "tideRate": 0.34,
    "score": 40,
@@ -8893,9 +9227,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.32,
+    0,
+    0.62
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-17T08:00:00.000Z",
@@ -8913,11 +9251,11 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.2,
    "energyKjPerM2": 0.7,
-   "windKt": 1.4,
-   "gustKt": 2.3,
-   "windDirDeg": 187,
-   "windCompass": "S",
-   "windLabel": "cross-shore",
+   "windKt": 2,
+   "gustKt": 3,
+   "windDirDeg": 113,
+   "windCompass": "ESE",
+   "windLabel": "offshore",
    "tideFt": 2.56,
    "tideRate": 0.26,
    "score": 40,
@@ -8960,9 +9298,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.3,
+    0,
+    0.64
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-17T09:00:00.000Z",
@@ -8980,11 +9322,11 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 2.4,
-   "gustKt": 3.6,
-   "windDirDeg": 7,
-   "windCompass": "N",
-   "windLabel": "cross-shore",
+   "windKt": 1.6,
+   "gustKt": 3.4,
+   "windDirDeg": 120,
+   "windCompass": "ESE",
+   "windLabel": "offshore",
    "tideFt": 2.77,
    "tideRate": 0.15,
    "score": 40,
@@ -9027,9 +9369,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.5,
+    0,
+    0.44
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-17T10:00:00.000Z",
@@ -9047,10 +9393,10 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 1.9,
-   "gustKt": 3.2,
-   "windDirDeg": 202,
-   "windCompass": "SSW",
+   "windKt": 1.8,
+   "gustKt": 2.9,
+   "windDirDeg": 145,
+   "windCompass": "SE",
    "windLabel": "cross-shore",
    "tideFt": 2.86,
    "tideRate": 0.05,
@@ -9094,9 +9440,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.72,
+    0,
+    0.22
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-17T11:00:00.000Z",
@@ -9114,11 +9464,11 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.2,
    "energyKjPerM2": 0.7,
-   "windKt": 1.9,
-   "gustKt": 2.9,
-   "windDirDeg": 222,
-   "windCompass": "SW",
-   "windLabel": "onshore",
+   "windKt": 1.5,
+   "gustKt": 3.1,
+   "windDirDeg": 175,
+   "windCompass": "S",
+   "windLabel": "cross-shore",
    "tideFt": 2.88,
    "tideRate": 0,
    "score": 40,
@@ -9161,9 +9511,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.92,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1
   },
   {
    "time": "2026-09-17T12:00:00.000Z",
@@ -9181,10 +9535,10 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.2,
    "energyKjPerM2": 0.7,
-   "windKt": 0.5,
-   "gustKt": 2.5,
-   "windDirDeg": 236,
-   "windCompass": "SW",
+   "windKt": 1.6,
+   "gustKt": 3.1,
+   "windDirDeg": 171,
+   "windCompass": "S",
    "windLabel": "cross-shore",
    "tideFt": 2.87,
    "tideRate": 0.01,
@@ -9228,9 +9582,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.92,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.1
   },
   {
    "time": "2026-09-17T13:00:00.000Z",
@@ -9248,10 +9606,10 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.2,
    "energyKjPerM2": 0.7,
-   "windKt": 0.8,
-   "gustKt": 2.6,
-   "windDirDeg": 177,
-   "windCompass": "S",
+   "windKt": 0.7,
+   "gustKt": 2.7,
+   "windDirDeg": 162,
+   "windCompass": "SSE",
    "windLabel": "cross-shore",
    "tideFt": 2.9,
    "tideRate": 0.08,
@@ -9295,9 +9653,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.92,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.1
   },
   {
    "time": "2026-09-17T14:00:00.000Z",
@@ -9362,9 +9724,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.9,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1
   },
   {
    "time": "2026-09-17T15:00:00.000Z",
@@ -9429,9 +9795,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.9,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1
   },
   {
    "time": "2026-09-17T16:00:00.000Z",
@@ -9496,9 +9866,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.75,
+    0,
+    0.14
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-17T17:00:00.000Z",
@@ -9563,9 +9937,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.62,
+    0,
+    0.27
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-17T18:00:00.000Z",
@@ -9630,9 +10008,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.49,
+    0,
+    0.39
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-17T19:00:00.000Z",
@@ -9705,9 +10087,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.51,
+    0,
+    0.38
+   ],
+   "crossing": false,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-17T20:00:00.000Z",
@@ -9780,9 +10166,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.52,
+    0,
+    0.39
+   ],
+   "crossing": false,
+   "chopFt": 0.4
   },
   {
    "time": "2026-09-17T21:00:00.000Z",
@@ -9855,9 +10245,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.54,
+    0,
+    0.4
+   ],
+   "crossing": false,
+   "chopFt": 0.6
   },
   {
    "time": "2026-09-17T22:00:00.000Z",
@@ -9930,9 +10324,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.52,
+    0,
+    0.41
+   ],
+   "crossing": false,
+   "chopFt": 0.6
   },
   {
    "time": "2026-09-17T23:00:00.000Z",
@@ -10005,9 +10403,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.52,
+    0,
+    0.44
+   ],
+   "crossing": false,
+   "chopFt": 0.7
   },
   {
    "time": "2026-09-18T00:00:00.000Z",
@@ -10080,9 +10482,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.64,
+    0,
+    0.31
+   ],
+   "crossing": false,
+   "chopFt": 0.7
   },
   {
    "time": "2026-09-18T01:00:00.000Z",
@@ -10155,9 +10561,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.77,
+    0,
+    0.16
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-18T02:00:00.000Z",
@@ -10222,9 +10632,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.89,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-18T03:00:00.000Z",
@@ -10289,9 +10703,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.89,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-18T04:00:00.000Z",
@@ -10356,9 +10774,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.9,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 0.8
   },
   {
    "time": "2026-09-18T05:00:00.000Z",
@@ -10423,9 +10845,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.87,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 0.8
   },
   {
    "time": "2026-09-18T06:00:00.000Z",
@@ -10490,9 +10916,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.88,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 0.7
   },
   {
    "time": "2026-09-18T07:00:00.000Z",
@@ -10557,9 +10987,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.71,
+    0,
+    0.17
+   ],
+   "crossing": false,
+   "chopFt": 0.7
   },
   {
    "time": "2026-09-18T08:00:00.000Z",
@@ -10624,9 +11058,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.7,
+    0,
+    0.17
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-18T09:00:00.000Z",
@@ -10691,9 +11129,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.7,
+    0,
+    0.17
+   ],
+   "crossing": false,
+   "chopFt": 0.7
   },
   {
    "time": "2026-09-18T10:00:00.000Z",
@@ -10758,9 +11200,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.86,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-18T11:00:00.000Z",
@@ -10825,9 +11271,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.88,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-18T12:00:00.000Z",
@@ -10892,9 +11342,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.87,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1
   },
   {
    "time": "2026-09-18T13:00:00.000Z",
@@ -10959,9 +11413,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.48,
+    0,
+    0.36
+   ],
+   "crossing": false,
+   "chopFt": 1.2
   },
   {
    "time": "2026-09-18T14:00:00.000Z",
@@ -11026,9 +11484,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.08,
+    0,
+    0.77
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-18T15:00:00.000Z",
@@ -11093,9 +11555,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.8,
+    0,
+    1.11
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-18T16:00:00.000Z",
@@ -11160,9 +11626,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.93,
+    0,
+    1.01
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-18T17:00:00.000Z",
@@ -11227,9 +11697,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.13,
+    0,
+    0.8
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-18T18:00:00.000Z",
@@ -11294,9 +11768,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.17,
+    0,
+    0.78
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-18T19:00:00.000Z",
@@ -11369,9 +11847,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.07,
+    0,
+    0.91
+   ],
+   "crossing": true,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-18T20:00:00.000Z",
@@ -11444,9 +11926,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.97,
+    0,
+    1.04
+   ],
+   "crossing": true,
+   "chopFt": 0.5
   },
   {
    "time": "2026-09-18T21:00:00.000Z",
@@ -11519,9 +12005,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.21,
+    0,
+    0.85
+   ],
+   "crossing": true,
+   "chopFt": 0.7
   },
   {
    "time": "2026-09-18T22:00:00.000Z",
@@ -11594,9 +12084,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.65,
+    0,
+    0.55
+   ],
+   "crossing": false,
+   "chopFt": 0.8
   },
   {
    "time": "2026-09-18T23:00:00.000Z",
@@ -11669,9 +12163,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.94,
+    0,
+    0.25
+   ],
+   "crossing": false,
+   "chopFt": 0.8
   },
   {
    "time": "2026-09-19T00:00:00.000Z",
@@ -11744,9 +12242,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.99,
+    0,
+    0.2
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-19T01:00:00.000Z",
@@ -11819,9 +12321,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.04,
+    0,
+    0.12
+   ],
+   "crossing": false,
+   "chopFt": 0.6
   },
   {
    "time": "2026-09-19T02:00:00.000Z",
@@ -11894,9 +12400,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.13,
+    0,
+    0.06
+   ],
+   "crossing": false,
+   "chopFt": 0.4
   },
   {
    "time": "2026-09-19T03:00:00.000Z",
@@ -11961,9 +12471,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.8,
+    0,
+    0.39
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-19T04:00:00.000Z",
@@ -12028,9 +12542,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.49,
+    0,
+    1.08
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-19T05:00:00.000Z",
@@ -12095,9 +12613,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.6,
+    0,
+    1.1
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-19T06:00:00.000Z",
@@ -12162,9 +12684,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.9,
+    0,
+    0.74
+   ],
+   "crossing": false,
+   "chopFt": 2.3
   },
   {
    "time": "2026-09-19T07:00:00.000Z",
@@ -12229,9 +12755,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.45,
+    0,
+    0.16
+   ],
+   "crossing": false,
+   "chopFt": 2.3
   },
   {
    "time": "2026-09-19T08:00:00.000Z",
@@ -12296,9 +12826,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.4,
+    0,
+    0.17
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-19T09:00:00.000Z",
@@ -12363,9 +12897,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.46,
+    0,
+    0.13
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-19T10:00:00.000Z",
@@ -12430,9 +12968,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.42,
+    0,
+    0.17
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-19T11:00:00.000Z",
@@ -12497,9 +13039,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.32,
+    0,
+    0.29
+   ],
+   "crossing": false,
+   "chopFt": 2.3
   },
   {
    "time": "2026-09-19T12:00:00.000Z",
@@ -12564,9 +13110,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.22,
+    0,
+    0.39
+   ],
+   "crossing": false,
+   "chopFt": 2.3
   },
   {
    "time": "2026-09-19T13:00:00.000Z",
@@ -12631,9 +13181,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.17,
+    0,
+    0.45
+   ],
+   "crossing": false,
+   "chopFt": 2.3
   },
   {
    "time": "2026-09-19T14:00:00.000Z",
@@ -12698,9 +13252,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.22,
+    0,
+    0.46
+   ],
+   "crossing": false,
+   "chopFt": 2.4
   },
   {
    "time": "2026-09-19T15:00:00.000Z",
@@ -12765,9 +13323,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.38,
+    0,
+    0.31
+   ],
+   "crossing": false,
+   "chopFt": 2.4
   },
   {
    "time": "2026-09-19T16:00:00.000Z",
@@ -12832,9 +13394,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.54,
+    0,
+    0.15
+   ],
+   "crossing": false,
+   "chopFt": 2.4
   },
   {
    "time": "2026-09-19T17:00:00.000Z",
@@ -12899,9 +13465,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.68,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.4
   },
   {
    "time": "2026-09-19T18:00:00.000Z",
@@ -12966,9 +13536,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.69,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.4
   },
   {
    "time": "2026-09-19T19:00:00.000Z",
@@ -13033,9 +13607,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.67,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.3
   },
   {
    "time": "2026-09-19T20:00:00.000Z",
@@ -13108,9 +13686,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.63,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-19T21:00:00.000Z",
@@ -13183,9 +13765,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.62,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.1
   },
   {
    "time": "2026-09-19T22:00:00.000Z",
@@ -13258,9 +13844,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2,
+    0,
+    0.66
+   ],
+   "crossing": false,
+   "chopFt": 2
   },
   {
    "time": "2026-09-19T23:00:00.000Z",
@@ -13333,9 +13923,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.34,
+    0,
+    1.27
+   ],
+   "crossing": false,
+   "chopFt": 0.2
   },
   {
    "time": "2026-09-20T00:00:00.000Z",
@@ -13408,9 +14002,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.86,
+    0,
+    1.65
+   ],
+   "crossing": true,
+   "chopFt": 0.1
   },
   {
    "time": "2026-09-20T01:00:00.000Z",
@@ -13475,9 +14073,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.95,
+    0.37,
+    1.15
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T02:00:00.000Z",
@@ -13542,9 +14144,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.95,
+    0.67,
+    0.74
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T03:00:00.000Z",
@@ -13609,9 +14215,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.78,
+    0.99,
+    0.4
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T04:00:00.000Z",
@@ -13676,9 +14286,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1,
+    0.71,
+    0.61
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T05:00:00.000Z",
@@ -13743,9 +14357,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.11,
+    0.42,
+    0.9
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T06:00:00.000Z",
@@ -13810,9 +14428,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.16,
+    0,
+    1.28
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T07:00:00.000Z",
@@ -13877,9 +14499,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.01,
+    0,
+    1.42
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T08:00:00.000Z",
@@ -13944,9 +14570,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.02,
+    0,
+    1.44
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T09:00:00.000Z",
@@ -14011,9 +14641,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.99,
+    0,
+    1.48
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T10:00:00.000Z",
@@ -14078,9 +14712,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.98,
+    0,
+    1.52
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T11:00:00.000Z",
@@ -14145,9 +14783,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.94,
+    0,
+    1.56
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T12:00:00.000Z",
@@ -14212,9 +14854,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.91,
+    0,
+    1.61
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T13:00:00.000Z",
@@ -14279,9 +14925,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.47,
+    0,
+    1.13
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T14:00:00.000Z",
@@ -14346,9 +14996,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.03,
+    0,
+    0.58
+   ],
+   "crossing": false,
+   "chopFt": 2
   },
   {
    "time": "2026-09-20T15:00:00.000Z",
@@ -14413,9 +15067,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2,
+    0,
+    0.64
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-20T16:00:00.000Z",
@@ -14480,9 +15138,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.35,
+    0,
+    1.3
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T17:00:00.000Z",
@@ -14547,9 +15209,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.69,
+    0,
+    1.99
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T18:00:00.000Z",
@@ -14614,9 +15280,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.33,
+    0,
+    1.33
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T19:00:00.000Z",
@@ -14681,9 +15351,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.51,
+    0.13,
+    0.94
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-20T20:00:00.000Z",
@@ -14756,9 +15430,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.55,
+    0.26,
+    0.67
+   ],
+   "crossing": true,
+   "chopFt": 0.4
   },
   {
    "time": "2026-09-20T21:00:00.000Z",
@@ -14831,9 +15509,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.01,
+    0.44,
+    0.87
+   ],
+   "crossing": true,
+   "chopFt": 0.6
   },
   {
    "time": "2026-09-20T22:00:00.000Z",
@@ -14906,9 +15588,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.2,
+    0.35,
+    0.9
+   ],
+   "crossing": true,
+   "chopFt": 0.4
   },
   {
    "time": "2026-09-20T23:00:00.000Z",
@@ -14973,9 +15659,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.18,
+    0.21,
+    1.08
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T00:00:00.000Z",
@@ -15040,9 +15730,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.12,
+    0,
+    1.42
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T01:00:00.000Z",
@@ -15107,9 +15801,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.87,
+    0,
+    1.73
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T02:00:00.000Z",
@@ -15174,9 +15872,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.46,
+    0,
+    1.16
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T03:00:00.000Z",
@@ -15241,9 +15943,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.02,
+    0,
+    0.54
+   ],
+   "crossing": false,
+   "chopFt": 2
   },
   {
    "time": "2026-09-21T04:00:00.000Z",
@@ -15308,9 +16014,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.04,
+    0,
+    0.52
+   ],
+   "crossing": false,
+   "chopFt": 2
   },
   {
    "time": "2026-09-21T05:00:00.000Z",
@@ -15375,9 +16085,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.5,
+    0,
+    1.05
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T06:00:00.000Z",
@@ -15442,9 +16156,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1,
+    0,
+    1.57
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T07:00:00.000Z",
@@ -15509,9 +16227,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.02,
+    0,
+    1.52
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T08:00:00.000Z",
@@ -15576,9 +16298,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.1,
+    0,
+    1.4
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T09:00:00.000Z",
@@ -15643,9 +16369,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.08,
+    0,
+    1.3
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T10:00:00.000Z",
@@ -15710,9 +16440,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.82,
+    0,
+    1.79
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T11:00:00.000Z",
@@ -15777,9 +16511,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.7,
+    0,
+    2
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T12:00:00.000Z",
@@ -15844,9 +16582,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.29,
+    0,
+    2.32
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T13:00:00.000Z",
@@ -15911,9 +16653,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.67,
+    0,
+    2.03
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T14:00:00.000Z",
@@ -15978,9 +16724,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.78,
+    0,
+    1.93
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T15:00:00.000Z",
@@ -16045,9 +16795,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.02,
+    0,
+    1.46
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T16:00:00.000Z",
@@ -16112,9 +16866,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.96,
+    0,
+    1.69
+   ],
+   "crossing": true,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T17:00:00.000Z",
@@ -16179,9 +16937,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.59,
+    0.03,
+    2.16
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T18:00:00.000Z",
@@ -16246,9 +17008,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.25,
+    0.19,
+    2.39
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-21T19:00:00.000Z",
@@ -16321,9 +17087,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0,
+    0.35,
+    2.49
+   ],
+   "crossing": false,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-21T20:00:00.000Z",
@@ -16396,9 +17166,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0,
+    0.32,
+    2.57
+   ],
+   "crossing": false,
+   "chopFt": 0.4
   },
   {
    "time": "2026-09-21T21:00:00.000Z",
@@ -16471,9 +17245,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.25,
+    0.16,
+    2.47
+   ],
+   "crossing": false,
+   "chopFt": 0.5
   },
   {
    "time": "2026-09-21T22:00:00.000Z",
@@ -16546,9 +17324,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.58,
+    0,
+    2.26
+   ],
+   "crossing": false,
+   "chopFt": 0.5
   },
   {
    "time": "2026-09-21T23:00:00.000Z",
@@ -16621,9 +17403,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.5,
+    0,
+    1.29
+   ],
+   "crossing": true,
+   "chopFt": 0.5
   },
   {
    "time": "2026-09-22T00:00:00.000Z",
@@ -16696,9 +17482,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.09,
+    0,
+    0.57
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T01:00:00.000Z",
@@ -16771,9 +17561,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.62,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T02:00:00.000Z",
@@ -16838,9 +17632,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.61,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T03:00:00.000Z",
@@ -16905,9 +17703,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.61,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T04:00:00.000Z",
@@ -16972,9 +17774,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.59,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T05:00:00.000Z",
@@ -17039,9 +17845,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.57,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T06:00:00.000Z",
@@ -17106,9 +17916,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.61,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T07:00:00.000Z",
@@ -17173,9 +17987,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.61,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T08:00:00.000Z",
@@ -17240,9 +18058,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.59,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T09:00:00.000Z",
@@ -17307,9 +18129,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.6,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T10:00:00.000Z",
@@ -17374,9 +18200,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.59,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.2
   },
   {
    "time": "2026-09-22T11:00:00.000Z",
@@ -17441,9 +18271,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.51,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.1
   },
   {
    "time": "2026-09-22T12:00:00.000Z",
@@ -17508,9 +18342,13 @@
      "dirCompass": "SSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.53,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 2.1
   },
   {
    "time": "2026-09-22T13:00:00.000Z",
@@ -17575,9 +18413,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.93,
+    0,
+    0.71
+   ],
+   "crossing": false,
+   "chopFt": 2
   },
   {
    "time": "2026-09-22T14:00:00.000Z",
@@ -17642,9 +18484,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.09,
+    0,
+    1.66
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-22T15:00:00.000Z",
@@ -17709,9 +18555,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.18,
+    0,
+    2.61
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-22T16:00:00.000Z",
@@ -17776,9 +18626,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0,
+    0,
+    2.81
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-22T17:00:00.000Z",
@@ -17843,9 +18697,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0,
+    0,
+    2.76
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-22T18:00:00.000Z",
@@ -17910,9 +18768,13 @@
      "dirCompass": "SW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0,
+    0,
+    2.77
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-22T19:00:00.000Z",
@@ -17977,9 +18839,13 @@
      "dirCompass": "WSW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    0.9,
+    0,
+    1.8
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-22T20:00:00.000Z",
@@ -18044,9 +18910,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.74,
+    0,
+    0.87
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-22T21:00:00.000Z",
@@ -18111,9 +18981,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.45,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-22T22:00:00.000Z",
@@ -18186,9 +19060,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.45,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.7
   },
   {
    "time": "2026-09-22T23:00:00.000Z",
@@ -18261,9 +19139,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.48,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-23T00:00:00.000Z",
@@ -18336,9 +19218,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.49,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-23T01:00:00.000Z",
@@ -18411,9 +19297,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.47,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-23T02:00:00.000Z",
@@ -18486,9 +19376,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.44,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-23T03:00:00.000Z",
@@ -18553,9 +19447,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.44,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-23T04:00:00.000Z",
@@ -18620,9 +19518,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.41,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.8
   },
   {
    "time": "2026-09-23T05:00:00.000Z",
@@ -18687,9 +19589,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.42,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.7
   },
   {
    "time": "2026-09-23T06:00:00.000Z",
@@ -18754,9 +19660,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.29,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.6
   },
   {
    "time": "2026-09-23T07:00:00.000Z",
@@ -18821,9 +19731,13 @@
      "dirCompass": "W"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.29,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.5
   },
   {
    "time": "2026-09-23T08:00:00.000Z",
@@ -18888,9 +19802,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.29,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.4
   },
   {
    "time": "2026-09-23T09:00:00.000Z",
@@ -18955,9 +19873,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.3,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.3
   },
   {
    "time": "2026-09-23T10:00:00.000Z",
@@ -19022,9 +19944,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.3,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.2
   },
   {
    "time": "2026-09-23T11:00:00.000Z",
@@ -19089,9 +20015,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.27,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.2
   },
   {
    "time": "2026-09-23T12:00:00.000Z",
@@ -19156,9 +20086,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.28,
+    0,
+    0
+   ],
+   "crossing": false,
+   "chopFt": 1.1
   },
   {
    "time": "2026-09-23T13:00:00.000Z",
@@ -19223,9 +20157,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.14,
+    0,
+    0.14
+   ],
+   "crossing": false,
+   "chopFt": 0.9
   },
   {
    "time": "2026-09-23T14:00:00.000Z",
@@ -19290,9 +20228,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    2.06,
+    0,
+    0.23
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-23T15:00:00.000Z",
@@ -19357,9 +20299,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.94,
+    0,
+    0.35
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-23T16:00:00.000Z",
@@ -19424,9 +20370,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.97,
+    0,
+    0.32
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-23T17:00:00.000Z",
@@ -19491,9 +20441,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.9,
+    0,
+    0.36
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-23T18:00:00.000Z",
@@ -19558,9 +20512,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.88,
+    0,
+    0.39
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-23T19:00:00.000Z",
@@ -19625,9 +20583,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.86,
+    0,
+    0.43
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-23T20:00:00.000Z",
@@ -19700,9 +20662,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.83,
+    0,
+    0.46
+   ],
+   "crossing": false,
+   "chopFt": 0.1
   },
   {
    "time": "2026-09-23T21:00:00.000Z",
@@ -19775,9 +20741,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.83,
+    0,
+    0.48
+   ],
+   "crossing": false,
+   "chopFt": 0.1
   },
   {
    "time": "2026-09-23T22:00:00.000Z",
@@ -19850,9 +20820,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.8,
+    0,
+    0.51
+   ],
+   "crossing": false,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-23T23:00:00.000Z",
@@ -19925,9 +20899,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.8,
+    0,
+    0.54
+   ],
+   "crossing": false,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-24T00:00:00.000Z",
@@ -20000,9 +20978,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.78,
+    0,
+    0.56
+   ],
+   "crossing": false,
+   "chopFt": 0.5
   },
   {
    "time": "2026-09-24T01:00:00.000Z",
@@ -20075,9 +21057,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.79,
+    0,
+    0.55
+   ],
+   "crossing": false,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-24T02:00:00.000Z",
@@ -20150,9 +21136,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.79,
+    0,
+    0.54
+   ],
+   "crossing": false,
+   "chopFt": 0.3
   },
   {
    "time": "2026-09-24T03:00:00.000Z",
@@ -20217,9 +21207,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.8,
+    0,
+    0.53
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-24T04:00:00.000Z",
@@ -20284,9 +21278,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.8,
+    0,
+    0.54
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-24T05:00:00.000Z",
@@ -20351,9 +21349,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.75,
+    0,
+    0.54
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-24T06:00:00.000Z",
@@ -20418,9 +21420,13 @@
      "dirCompass": "WNW"
     }
    ],
-   "mixFt": null,
-   "crossing": null,
-   "chopFt": null
+   "mixFt": [
+    1.75,
+    0,
+    0.55
+   ],
+   "crossing": false,
+   "chopFt": 0
   },
   {
    "time": "2026-09-24T07:00:00.000Z",
