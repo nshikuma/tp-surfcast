@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-16T21:17:11.830Z",
-  "finishedAt": "2026-09-16T21:17:31.225Z",
+  "generatedAt": "2026-09-16T21:21:55.839Z",
+  "finishedAt": "2026-09-16T21:22:14.280Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -79,8 +79,8 @@
   "sizeLabel": "Thigh high",
   "setSizeLabel": "Chest high",
   "superposition": 1.34,
-  "tideFt": 4.4507780722222225,
-  "tideRate": -0.5285652002777779,
+  "tideFt": 4.405215044444445,
+  "tideRate": -0.5479687655555558,
   "trains": [
    {
     "hsM": 0.6153029305959788,
@@ -808,10 +808,10 @@
  "beach": {
   "shorelineM": 0.01,
   "trendMPerRun": 0,
-  "hoursStepped": 0.5,
-  "observations": 1,
+  "hoursStepped": 0,
+  "observations": 0,
   "updatedAt": "2026-09-16T20:30:00.000Z",
-  "spinUpRuns": 9,
+  "spinUpRuns": 10,
   "profile": {
    "shorelineOffsetM": 0.005208561496688993,
    "barCrestM": 94.99166630160529,
@@ -876,6 +876,11 @@
     "t": "2026-09-16T21:17:11.830Z",
     "s": 0.01,
     "e": 0.0689
+   },
+   {
+    "t": "2026-09-16T21:21:55.839Z",
+    "s": 0.01,
+    "e": null
    }
   ]
  },
@@ -7541,28 +7546,30 @@
     "notes": "Sets walled up and broke all at once. A few corners here and there but fast and difficult to get into. The model said 2.0 ft typical with 2.7 ft sets (waist high) and called it makeable: the typical size was about right, the SET size was out by roughly a factor of two, and the shape call was wrong in the way that matters.",
     "matched": true,
     "forecast": {
-     "issued": null,
-     "hindcast": true,
+     "issued": "2026-09-16T11:25:23.239Z",
+     "hindcast": false,
      "typicalFt": 2,
-     "setFt": 3.6,
-     "score": 43,
-     "periodS": 11.5,
-     "makeable": false,
-     "peelSpeedMs": 15
+     "setFt": 2.66,
+     "score": 42,
+     "periodS": 11.7,
+     "makeable": true,
+     "peelSpeedMs": null,
+     "setFromNote": true,
+     "makeableFromNote": true
     },
     "typicalErrFt": 0.5,
-    "setErrFt": 1.9,
+    "setErrFt": 2.8,
     "typicalRatio": 1.25,
-    "setRatio": 1.53,
-    "shapeRight": true,
-    "verdict": "the ordinary waves were about right, the sets were 1.5x what we said, and the shape call was right."
+    "setRatio": 2.07,
+    "shapeRight": false,
+    "verdict": "the ordinary waves were about right, the sets were 2.1x what we said, and the shape call was wrong."
    }
   ],
   "summary": {
    "n": 1,
    "typicalBiasRatio": 1.25,
-   "setBiasRatio": 1.53,
-   "shapeRightPct": 100,
+   "setBiasRatio": 2.07,
+   "shapeRightPct": 0,
    "note": "Only 1 logged session so far - enough to spot a bad miss, nowhere near enough to retune anything."
   }
  },
