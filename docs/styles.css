@@ -267,3 +267,139 @@ footer.site code { font-family: var(--mono); font-size: 11.5px; }
 .map-scale { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
 .map-scale .ramp { display: inline-flex; height: 10px; border-radius: 3px; overflow: hidden; }
 .map-scale .ramp span { width: 15px; }
+
+/* ============================================================= the call ===
+   The thirty-second read. One word, one number, three facts, one sentence. */
+
+.call-card { padding: 22px; }
+.call-when {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+  padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.call-when .when { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-primary); }
+.call-when .when-date { font-size: 13px; color: var(--text-secondary); }
+.call-when .when-win { font-size: 12px; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.call-top { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 22px 32px; }
+.call-verdict { flex: 1 1 200px; min-width: 0; }
+.call-word {
+  display: flex; align-items: center; gap: 11px;
+  font-size: clamp(34px, 8vw, 52px); font-weight: 750; line-height: 1;
+  letter-spacing: -.03em; color: var(--tone);
+}
+.call-word .call-dot { width: 15px; height: 15px; border-radius: 50%; flex: none; }
+.call-gloss { color: var(--text-secondary); font-size: 14px; margin-top: 8px; }
+.call-size { flex: 0 1 auto; text-align: right; }
+@media (max-width: 520px) { .call-size { text-align: left; } }
+
+.call-facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 14px; margin-top: 22px;
+}
+.fact { border-top: 2px solid var(--grid); padding-top: 9px; }
+.fact.swell { border-top-color: var(--swell); }
+.fact.wind  { border-top-color: var(--wind); }
+.fact.tide  { border-top-color: var(--tide); }
+.fact .k { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.fact .v { font-size: 19px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -.01em; margin-top: 1px; }
+.fact .s { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+
+.call-look { margin-top: 20px; padding: 14px 16px; background: var(--plane); border-radius: 10px; }
+.call-look .look-head { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.call-look .look-body { margin: 0; font-size: 16px; line-height: 1.45; }
+.call-look .look-sub { margin: 7px 0 0; font-size: 13px; color: var(--text-secondary); }
+
+.call-kit { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip-soft { background: transparent; color: var(--text-secondary); border-style: dashed; }
+.chip-bad { background: var(--critical); border-color: transparent; color: #fff; }
+
+/* Cams. The honest admission that a picture beats a model for today. */
+.cams { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.cams-label { flex: 1 1 100%; font-size: 13px; color: var(--text-secondary); margin-bottom: 2px; }
+a.cam {
+  display: inline-flex; flex-direction: column; gap: 1px; text-decoration: none;
+  padding: 7px 12px; border-radius: 9px; border: 1px solid var(--border); background: var(--plane);
+}
+a.cam:hover { border-color: var(--swell); }
+a.cam .cam-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+a.cam .cam-note { font-size: 11px; color: var(--muted); }
+
+/* ============================================================= the week ===
+   Five tiles. Which day do we plan around. */
+
+.week { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
+.tile {
+  position: relative; text-align: left; font: inherit; cursor: pointer;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 11px;
+  padding: 14px 13px 12px; display: flex; flex-direction: column; gap: 7px;
+}
+.tile:hover { border-color: var(--swell); background: var(--surface-1); }
+.tile.sel { border-color: var(--swell); box-shadow: 0 0 0 1px var(--swell); }
+.tile.best { border-color: var(--good); box-shadow: 0 0 0 1px var(--good); padding-top: 24px; }
+.tile-ribbon {
+  position: absolute; top: 0; left: 0; right: 0;
+  background: var(--good); color: #fff; font-size: 10px; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; text-align: center;
+  padding: 3px 0; border-radius: 10px 10px 0 0;
+}
+.tile-day { display: flex; align-items: baseline; gap: 6px; }
+.tile-day .wd { font-size: 14px; font-weight: 700; }
+.tile-day .md { font-size: 12px; color: var(--muted); }
+.tile-call { display: flex; align-items: center; gap: 7px; font-size: 17px; font-weight: 700; letter-spacing: -.01em; color: var(--tone); }
+.tile-call .call-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+
+.tile-bar { position: relative; height: 9px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.tile-bar .bar-set { position: absolute; inset: 0 auto 0 0; background: var(--swell-soft); }
+.tile-bar .bar-typ { position: absolute; inset: 0 auto 0 0; background: var(--swell); border-radius: 0 4px 4px 0; }
+.tile-size { font-size: 14px; font-variant-numeric: tabular-nums; }
+.tile-size span { color: var(--text-secondary); font-size: 12px; }
+.tile-word { font-size: 12px; color: var(--text-secondary); margin-top: -4px; }
+.tile-meta { display: flex; flex-direction: column; gap: 2px; font-size: 12px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.tile-meta > span { display: flex; align-items: center; gap: 3px; }
+.wind-arrow { flex: none; }
+.tile-mix { margin-top: 2px; }
+.tile-rel { font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-top: auto; padding-top: 4px; }
+.tile-rel.rel-solid { color: var(--good); }
+.tile-rel.rel-planning, .tile-rel.rel-rough { font-style: italic; }
+
+/* ========================================================== the mix ======
+   Three swell classes. Validated all-pairs in both modes; every use carries a
+   legend or a direct label, because aqua and orange sit close under tritan. */
+
+:root { --mix-south: #1baf7a; --mix-west: #2a78d6; --mix-wind: #eb6834; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --mix-south: #199e70; --mix-west: #3987e5; --mix-wind: #d95926; }
+}
+:root[data-theme="dark"] { --mix-south: #199e70; --mix-west: #3987e5; --mix-wind: #d95926; }
+
+.mixbar-wrap { display: flex; flex-direction: column; gap: 3px; }
+.mixbar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--grid); gap: 2px; }
+.mixseg { height: 100%; }
+.mixbar-label { font-size: 11px; color: var(--text-secondary); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-size: 12px; color: var(--text-secondary); }
+.legend .lg { display: inline-flex; align-items: center; gap: 6px; }
+.legend .sw { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+.legend .sw-chop { background: transparent; border: 1.5px dashed var(--muted); }
+
+.mixdays { display: grid; gap: 12px; margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.mixday { border-top: 1px solid var(--border); padding-top: 11px; }
+.mixday-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 13px; margin-bottom: 7px; }
+.mixday-call { font-size: 11px; font-weight: 700; letter-spacing: .05em; }
+.mixday-read { margin: 8px 0 0; font-size: 13px; }
+.mixday-look { margin: 5px 0 0; font-size: 13px; color: var(--text-secondary); }
+
+/* ============================================================ folded ====== */
+.fold { padding: 0; }
+.fold > summary {
+  cursor: pointer; padding: 16px 18px; display: flex; flex-direction: column; gap: 2px;
+  list-style: none; border-radius: var(--radius);
+}
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary::before { content: '▸'; float: right; color: var(--muted); font-size: 13px; }
+.fold[open] > summary::before { content: '▾'; }
+.fold > summary:hover { background: var(--plane); }
+.fold-title { font-size: 15px; font-weight: 650; }
+.fold-blurb { font-size: 13px; color: var(--text-secondary); padding-right: 20px; }
+.fold-body { padding: 0 18px 18px; }
+.fold-body > .card { box-shadow: none; border: none; padding: 0; margin: 0 0 18px; background: transparent; }

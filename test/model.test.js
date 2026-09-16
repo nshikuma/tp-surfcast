@@ -16,11 +16,12 @@ import {
   angleDiff, wavelengthAt, groupVelocity, deepWavelength,
 } from '../src/model/waves.js';
 import { CALIBRATION } from '../src/config.js';
-import { scoreHour, scoreTide, scoreWind, scorePeriod, gradeFor } from '../src/model/score.js';
+import { scoreHour, scoreTide, scoreWind, scorePeriod, gradeFor, callFor, reliabilityFor } from '../src/model/score.js';
 import { median, circMean, computeModelBias, waterQuality, wetsuitCall, compass } from '../src/model/forecast.js';
 import { parseOpendapAscii, partitionSpectrum } from '../src/sources/cdip.js';
 import { tideAt, tideRateAt } from '../src/sources/tides.js';
 import { stepState, profileFor, describe } from '../src/model/beachstate.js';
+import { classifyTrain, classWeights, mixForHour, mixForDay, tideShiftFor } from '../src/model/mix.js';
 
 /* ------------------------------------------------------------ wave theory -- */
 
@@ -417,4 +418,106 @@ test('beach state: describe reads in plain language', () => {
   assert.match(describe(-14, -2).level, /strip|eroded|thin|low/i);
   assert.match(describe(14, 2).level, /built|full|deep|wide/i);
   assert.ok(describe(0, 0).summary.length > 0);
+});
+
+/* ------------------------------------------------------------- swell mix -- */
+
+const train = (hsFt, periodS, dirDeg) => ({
+  hsM: hsFt / 3.28084, hsFt, periodS, dirDeg, dirCompass: compass(dirDeg),
+});
+
+test('mix: a south swell is a groundswell at a shorter period than a west one', () => {
+  // Nothing local can raise an 11s SSW; an 11s WNW is raised inside the Bight.
+  assert.equal(classifyTrain({ periodS: 11, dirDeg: 200 }), 'southGround');
+  assert.equal(classifyTrain({ periodS: 11, dirDeg: 285 }), 'windswell');
+  assert.equal(classifyTrain({ periodS: 14, dirDeg: 285 }), 'westGround');
+  assert.equal(classifyTrain({ periodS: 8, dirDeg: 200 }), 'windswell');
+});
+
+test('mix: surface chop is reported separately, never as surf', () => {
+  const m = mixForHour({ faceFt: 2, trains: [train(1.2, 4.2, 270), train(2.0, 14, 200)] });
+  assert.equal(m.parts.length, 1, 'the 4.2s train must not appear as a swell');
+  assert.equal(m.parts[0].cls, 'southGround');
+  assert.ok(m.chopFt > 1, `chop should be reported, got ${m.chopFt}`);
+});
+
+test('mix: nothing but chop reports no surf at all', () => {
+  const m = mixForHour({ faceFt: 1, trains: [train(1.5, 4.5, 270)] });
+  assert.equal(m.allChop, true);
+  assert.equal(m.parts.length, 0);
+});
+
+test('mix: one swell split across two partitions is reported as one', () => {
+  // A broad-spectrum swell the model happened to split at 11.9 / 12.1 s.
+  const m = mixForHour({ faceFt: 3, trains: [train(2.0, 12.1, 205), train(1.8, 11.9, 208)] });
+  assert.equal(m.parts.length, 1, 'these are the same swell, not two');
+  assert.equal(m.crossing, false);
+});
+
+test('mix: two genuinely different swells are flagged as crossing', () => {
+  const m = mixForHour({ faceFt: 3, trains: [train(2.0, 16, 200), train(2.0, 8, 280)] });
+  assert.equal(m.parts.length, 2);
+  assert.equal(m.crossing, true);
+});
+
+test('mix: shares are energy shares and reconstruct the face height', () => {
+  const m = mixForHour({ faceFt: 4, trains: [train(2.0, 16, 200), train(2.0, 9, 275)] });
+  const total = Math.hypot(...m.parts.map((p) => p.faceFt));
+  assert.ok(Math.abs(total - 4) < 0.15, `parts should RSS back to 4 ft, got ${total.toFixed(2)}`);
+  const shareSum = m.parts.reduce((s, p) => s + p.share, 0);
+  assert.ok(Math.abs(shareSum - 1) < 1e-6);
+});
+
+test('mix: the ideal tide depends on the period, not just the spot', () => {
+  assert.ok(tideShiftFor(8, 'windswell').shiftFt > 0, 'short period wants more water');
+  assert.ok(tideShiftFor(17, 'southGround').shiftFt < 0, 'long period can take a lower tide');
+  assert.equal(tideShiftFor(13, 'southGround').shiftFt, 0);
+});
+
+test('mix: prose never promises set gaps a short period cannot deliver', () => {
+  const short = mixForDay([{ faceFt: 3, trains: [train(3, 10.5, 200)] }]);
+  assert.ok(!/gaps between sets/.test(short.look), short.look);
+  const long = mixForDay([{ faceFt: 3, trains: [train(3, 17, 200)] }]);
+  assert.match(long.look, /gaps between sets/);
+});
+
+/* ------------------------------------------------------ call and horizon -- */
+
+test('call: a flat week returns skips rather than promoting its best bad day', () => {
+  assert.equal(callFor(20).call, 'SKIP');
+  assert.equal(callFor(38).call, 'SKIP');
+  assert.equal(callFor(45).call, 'MAYBE');
+  assert.equal(callFor(60).call, 'WORTH IT');
+  assert.equal(callFor(80).call, 'GO');
+});
+
+test('reliability: degrades with lead time, and with models disagreeing', () => {
+  assert.equal(reliabilityFor(0, 1), 'solid');
+  assert.equal(reliabilityFor(2, 1), 'likely');
+  assert.equal(reliabilityFor(4, 1), 'planning');
+  assert.equal(reliabilityFor(0, 0.3), 'likely', 'disagreement costs a notch');
+});
+
+test('reliability: confidence never improves with lead time', () => {
+  // Day 1 has models disagreeing; day 2 does not. Day 2 must not come back
+  // looking more trustworthy than the day before it.
+  const d0 = reliabilityFor(0, 0.3, null);
+  const d1 = reliabilityFor(1, 1.0, d0);
+  const d2 = reliabilityFor(2, 1.0, d1);
+  const rank = ['solid', 'likely', 'planning', 'rough'];
+  assert.ok(rank.indexOf(d1) >= rank.indexOf(d0), `${d0} -> ${d1}`);
+  assert.ok(rank.indexOf(d2) >= rank.indexOf(d1), `${d1} -> ${d2}`);
+});
+
+test('mix: the class boundary crossfades instead of flipping', () => {
+  // A 9.4s and a 10.6s SSW are the same swell wobbling over the 10s line.
+  // Neither should be 100% of one class, and the two must not be opposites.
+  const a = classWeights({ periodS: 9.4, dirDeg: 205 });
+  const b = classWeights({ periodS: 10.6, dirDeg: 205 });
+  assert.ok(a.southGround > 0 && a.windswell > 0, JSON.stringify(a));
+  assert.ok(b.southGround > a.southGround, 'longer period leans further toward groundswell');
+  assert.ok(Math.abs((a.southGround ?? 0) + (a.windswell ?? 0) - 1) < 1e-9);
+  // Well clear of the boundary it is still unambiguous.
+  assert.equal(classWeights({ periodS: 16, dirDeg: 205 }).southGround, 1);
+  assert.equal(classWeights({ periodS: 6.5, dirDeg: 205 }).windswell, 1);
 });

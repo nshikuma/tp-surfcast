@@ -225,6 +225,53 @@ export function gradeFor(t) {
   return 'Flat / blown';
 }
 
+/**
+ * The one word the page leads with. A grade tells you how the day rates against
+ * every other day; a CALL tells you whether to set an alarm, which is the only
+ * question anybody is actually asking at 9pm the night before.
+ *
+ * The thresholds are the grade thresholds, deliberately: "Go" means the day
+ * reached Good in your window, not that it was the best of a bad week. A flat
+ * week should return five Skips rather than promote its least-bad day, because
+ * a forecast that never says no is worth nothing.
+ */
+export function callFor(windowScore) {
+  const t = windowScore / 100;
+  if (t >= 0.72) return { call: 'GO', tone: 'good', gloss: 'Set the alarm.' };
+  if (t >= 0.56) return { call: 'WORTH IT', tone: 'good', gloss: 'Solid session if you are up.' };
+  if (t >= 0.40) return { call: 'MAYBE', tone: 'warning', gloss: 'Check the cam before you drive.' };
+  if (t >= 0.25) return { call: 'SKIP', tone: 'serious', gloss: 'Not worth the paddle.' };
+  return { call: 'SKIP', tone: 'critical', gloss: 'Nothing there.' };
+}
+
+/**
+ * How much to trust a day this far out. Wave models hold up well for two days,
+ * drift on the third, and past five they are a planning tool rather than a
+ * forecast. Saying so is more useful than pretending day seven is day one.
+ */
+const RELIABILITY_RANK = ['solid', 'likely', 'planning', 'rough'];
+
+export function reliabilityFor(daysAhead, confidence = 1, worstSoFar = null) {
+  const base = daysAhead <= 1 ? 'solid'
+    : daysAhead <= 3 ? 'likely'
+      : daysAhead <= 5 ? 'planning' : 'rough';
+  let rank = RELIABILITY_RANK.indexOf(base);
+  // Models disagreeing pulls the label down one notch regardless of lead time.
+  if (confidence < 0.5) rank += 1;
+  // Certainty cannot IMPROVE with lead time. Without this, one day where the
+  // models happen to disagree makes tomorrow look less trustworthy than the day
+  // after it, which reads as a broken page rather than as a real signal.
+  if (worstSoFar) rank = Math.max(rank, RELIABILITY_RANK.indexOf(worstSoFar));
+  return RELIABILITY_RANK[Math.min(rank, RELIABILITY_RANK.length - 1)];
+}
+
+export const RELIABILITY = {
+  solid: { label: 'Solid', note: 'Inside two days - this is about as good as a wave forecast gets.' },
+  likely: { label: 'Likely', note: 'Two to three days out. Size usually holds; wind is the part that moves.' },
+  planning: { label: 'Planning only', note: 'Four to five days out. Use it to pick which day to keep free, not to commit.' },
+  rough: { label: 'Rough shape', note: 'Beyond five days this is a trend, not a forecast.' },
+};
+
 /** Is this hour inside the crew's window? */
 export const inSessionWindow = (hourFloat) =>
   hourFloat >= SESSION_WINDOW.startHour && hourFloat <= SESSION_WINDOW.endHour;

@@ -348,66 +348,484 @@ function windowBands(hours) {
   return bands;
 }
 
-/* ------------------------------------------------------------ today hero -- */
+/* ============================================================== the call ==
+ *
+ * The page answers one question before it answers any other: is it worth
+ * getting up tomorrow? Everything below this card is supporting evidence.
+ *
+ * A webcam beats any model for what the ocean is doing RIGHT NOW, and pretending
+ * otherwise is how forecasts lose people's trust. So the card says which it is:
+ * for the session that is already within sight, it points at the cams; for the
+ * days past the cam's horizon, the model is the only thing there is.
+ */
 
-function renderToday(day, current, wetsuit) {
-  const card = el('div', { class: 'card' });
-  const left = el('div');
-  const right = el('div');
+const CAMS = [
+  { name: 'Surfline · Torrey Pines', url: 'https://www.surfline.com/surf-report/torrey-pines-state-beach/584204204e65fad6a7709994', note: 'the north lot cam' },
+  { name: 'Scripps Pier', url: 'https://scripps.ucsd.edu/piercam', note: 'free, 4 miles south' },
+  { name: 'Surf-forecast · N Torrey Pines', url: 'https://www.surf-forecast.com/breaks/North-Torrey-Pines/webcams/latest', note: 'stills, no login' },
+];
 
-  left.appendChild(el('h2', { text: `Today · ${fmtDate(day.date, { weekday: 'long', month: 'short', day: 'numeric' })}` }));
-  left.appendChild(el('p', { class: 'note', text: `Scored for your 7:30–10:00am window. Day's best window score, not the day's peak.` }));
+function camRow(reason) {
+  const row = el('div', { class: 'cams' });
+  row.appendChild(el('span', { class: 'cams-label', text: reason }));
+  for (const c of CAMS) {
+    row.appendChild(el('a', {
+      class: 'cam', href: c.url, target: '_blank', rel: 'noopener noreferrer',
+      title: c.note,
+    }, [
+      el('span', { class: 'cam-name', text: c.name }),
+      el('span', { class: 'cam-note', text: c.note }),
+    ]));
+  }
+  return row;
+}
 
-  const sizeLine = el('div', { class: 'figure' }, [
-    document.createTextNode(range1(sizeVal(day.faceMinFt), sizeVal(day.faceMaxFt))),
-    el('span', { class: 'unit', text: ` ${sizeUnit()}` }),
+/**
+ * Which session the page should lead with. Before about 10am the call is for
+ * this morning; after that this morning is over and the only useful answer is
+ * tomorrow. A forecast that is still headlining a session you have missed is
+ * just decoration.
+ */
+function leadSession(days) {
+  const nowHour = Number(new Intl.DateTimeFormat('en-US', {
+    timeZone: TZ, hour: 'numeric', hour12: false,
+  }).format(new Date()));
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date());
+  const i = days.findIndex((d) => d.date === today);
+  if (i < 0) return { day: days[0], index: 0, when: 'Next session' };
+  if (nowHour < 10) return { day: days[i], index: i, when: 'This morning' };
+  const next = days[i + 1];
+  return next
+    ? { day: next, index: i + 1, when: 'Tomorrow morning' }
+    : { day: days[i], index: i, when: 'Today' };
+}
+
+const TONE_VAR = {
+  good: 'var(--good)', warning: 'var(--warning)',
+  serious: 'var(--serious)', critical: 'var(--critical)',
+};
+
+function renderCall(days, current, wetsuit) {
+  const { day, when } = leadSession(days);
+  const card = el('div', { class: 'card call-card' });
+
+  card.appendChild(el('div', { class: 'call-when' }, [
+    el('span', { class: 'when', text: when }),
+    el('span', { class: 'when-date', text: fmtDate(day.date, { weekday: 'long', month: 'short', day: 'numeric' }) }),
+    el('span', { class: 'when-win', text: DATA.meta.sessionWindow.label }),
+  ]));
+
+  const tone = TONE_VAR[day.tone] || 'var(--muted)';
+  const verdict = el('div', { class: 'call-verdict' }, [
+    el('div', { class: 'call-word', style: `--tone:${tone}` }, [
+      el('span', { class: 'call-dot', style: `background:${tone}` }),
+      el('span', { text: day.call || '—' }),
+    ]),
+    el('div', { class: 'call-gloss', text: day.gloss || '' }),
   ]);
-  left.appendChild(sizeLine);
-  left.appendChild(el('div', { class: 'figure-label', text: `${day.sizeLabel}, sets to ${n1(sizeVal(day.setMaxFt))} ft (${day.setSizeLabel.toLowerCase()})` }));
-  left.appendChild(el('div', { style: 'margin-top:10px;display:flex;gap:8px;flex-wrap:wrap' }, [
-    gradeChip(day.windowScore, day.windowGrade, true),
-    el('span', { class: 'chip', text: day.board.board }),
-    el('span', { class: 'chip', text: `${Math.round((day.confidence ?? 0) * 100)}% model agreement` }),
-  ]));
-  left.appendChild(el('p', { class: 'call', text: day.verdict }));
-  left.appendChild(el('p', { class: 'note', style: 'margin-top:6px', text: day.board.note }));
 
-  const stats = el('div', { class: 'statrow' });
-  const stat = (cls, k, v, s) => stats.appendChild(el('div', { class: `stat ${cls}` }, [
-    el('div', { class: 'k', text: k }), el('div', { class: 'v', text: v }), el('div', { class: 's', text: s }),
+  const size = el('div', { class: 'call-size' }, [
+    el('div', { class: 'figure' }, [
+      document.createTextNode(range1(sizeVal(day.faceMinFt), sizeVal(day.faceMaxFt))),
+      el('span', { class: 'unit', text: ` ${sizeUnit()}` }),
+    ]),
+    el('div', { class: 'figure-label', text: `${day.sizeLabel} · sets ${n1(sizeVal(day.setMaxFt))} ft (${(day.setSizeLabel || '').toLowerCase()})` }),
+  ]);
+
+  card.appendChild(el('div', { class: 'call-top' }, [verdict, size]));
+
+  // The three numbers that decide it, in the order they decide it.
+  const facts = el('div', { class: 'call-facts' });
+  const fact = (cls, k, v, s) => facts.appendChild(el('div', { class: `fact ${cls}` }, [
+    el('div', { class: 'k', text: k }),
+    el('div', { class: 'v', text: v }),
+    el('div', { class: 's', text: s }),
   ]));
-  stat('swell', 'Swell', `${day.dirCompass} ${n1(day.periodS)}s`, `${n0(day.dirDeg)}° in the window`);
-  stat('swell', 'Energy', `${n0(day.powerKwPerM)} kW/m`, 'wave power per metre of crest');
-  stat('wind', 'Wind', `${n0(day.windKt)} kt ${day.windCompass}`, day.windLabel);
-  stat('tide', 'Tide', `${n1(day.tideAtWindowFt)} ft`, 'at 7:30–10:00, MLLW');
-  right.appendChild(stats);
+  fact('wind', 'Wind', `${n0(day.windKt)} kt ${day.windCompass}`, day.windLabel);
+  fact('tide', 'Tide', `${n1(day.tideAtWindowFt)} ft`, tideWord(day));
+  // Quote the DOMINANT swell, not the median of everything in the water: the
+  // sentence below the fold names that swell, and the two disagreeing by half a
+  // second on the same card reads as a bug.
+  const lead = day.mix?.parts?.[0];
+  fact('swell', 'Swell',
+    lead ? `${n1(lead.periodS)}s ${lead.dirCompass}` : `${n1(day.periodS)}s ${day.dirCompass}`,
+    `${n0(day.powerKwPerM)} kW/m of push`);
+  card.appendChild(facts);
+
+  if (day.mix) {
+    card.appendChild(el('div', { class: 'call-look' }, [
+      el('div', { class: 'look-head', text: 'What it should look like' }),
+      el('p', { class: 'look-body', text: day.mix.look }),
+      el('p', { class: 'look-sub', text: day.mix.read }),
+      day.mix.tideNote ? el('p', { class: 'look-sub', text: day.mix.tideNote }) : null,
+    ]));
+  }
+
+  const kit = el('div', { class: 'call-kit' }, [
+    el('span', { class: 'chip', text: `Board: ${day.board.board}` }),
+    el('span', { class: 'chip', text: `${wetsuit.call}${wetsuit.waterF ? ` · ${n0(wetsuit.waterF)}°F` : ''}` }),
+    el('span', {
+      class: `chip ${day.reliability === 'solid' ? '' : 'chip-soft'}`,
+      title: (RELIABILITY_TEXT[day.reliability] || {}).note || '',
+      text: (RELIABILITY_TEXT[day.reliability] || {}).chip || '',
+    }),
+    day.water?.advisory ? el('span', { class: 'chip chip-bad', text: '⚠ Rain advisory — stay out' }) : null,
+  ]);
+  card.appendChild(kit);
 
   if (current) {
-    right.appendChild(el('div', { class: 'alert info' }, [
+    card.appendChild(el('div', { class: 'alert info' }, [
       el('span', { class: 'ic', text: '⛵' }),
       el('div', {
         html: `<b>Buoy right now</b> (CDIP ${current.station}, ${fmtTime(current.observedAt)}): `
-          + `${n1(current.deepHsFt)} ft @ ${n1(current.periodS)}s from ${current.dirCompass}. `
-          + `That works out to <b>${n1(sizeVal(current.faceFt))} ${sizeUnit()}</b> (${current.sizeLabel.toLowerCase()}) on the sand, `
-          + `sets ${n1(sizeVal(current.faceSetFt))}. Tide ${n1(current.tideFt)} ft and ${current.tideRate > 0 ? 'filling' : 'draining'}.`,
+          + `${n1(current.deepHsFt)} ft @ ${n1(current.periodS)}s from ${current.dirCompass}, `
+          + `which is <b>${n1(sizeVal(current.faceFt))} ${sizeUnit()}</b> (${(current.sizeLabel || '').toLowerCase()}) on the sand right now.`,
       }),
     ]));
   }
 
-  const w = day.water;
-  right.appendChild(el('div', { class: `alert ${w.advisory ? 'bad' : 'info'}` }, [
-    el('span', { class: 'ic', text: w.advisory ? '⚠' : '✓' }),
-    el('div', { html: `<b>Water quality:</b> ${w.reason}` }),
-  ]));
-  right.appendChild(el('div', { class: 'alert info' }, [
-    el('span', { class: 'ic', text: '❄' }),
-    el('div', { html: `<b>Wetsuit:</b> ${wetsuit.call}${wetsuit.waterF ? ` · water ${n1(wetsuit.waterF)}°F` : ''}` }),
-  ]));
+  card.appendChild(camRow(when === 'This morning'
+    ? 'This one is close enough to just look at — the cam beats any model for today:'
+    : 'For today, skip the model and look:'));
 
-  card.appendChild(el('div', { class: 'hero' }, [left, right]));
   return card;
 }
 
+/** Whether the tide is helping, in three words rather than a number. */
+function tideWord(day) {
+  const shift = day.mix?.tideShiftFt ?? 0;
+  const t = day.tideAtWindowFt;
+  const lo = 1.2 + shift, hi = 3.6 + shift;
+  if (t >= lo && t <= hi) return 'in the sweet spot';
+  return t < lo ? 'lower than this swell wants' : 'higher than this swell wants';
+}
+
+const RELIABILITY_TEXT = {
+  solid: { label: 'Solid forecast', chip: 'Solid — inside 2 days', note: 'Inside two days — about as good as a wave forecast gets.' },
+  likely: { label: 'Likely', chip: 'Likely — size holds, wind may move', note: 'Two to three days out. Size usually holds; the wind is the part that moves.' },
+  planning: { label: 'Planning only', chip: 'Planning only — do not commit', note: 'Four to five days out. Pick which day to keep free, do not commit to it.' },
+  rough: { label: 'Rough shape', chip: 'Rough shape — a trend, not a forecast', note: 'Beyond five days this is a trend, not a forecast.' },
+};
+
+/* ============================================================== the week ==
+ *
+ * Five tiles, one job: which day do we plan the week around. Sorted by date,
+ * not by score, because the answer has to stay in calendar order to be usable -
+ * but the best day of the five is marked, so the eye lands on it first.
+ */
+
+function renderWeek(days) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'The week' }));
+  card.appendChild(el('p', { class: 'note', text: `Every day scored for your ${DATA.meta.sessionWindow.label} window — not the day's peak, which is usually some hour you will be at work. Tap a day for the detail.` }));
+
+  const five = days.slice(0, 5);
+  const bestScore = Math.max(...five.map((d) => d.windowScore));
+  // Only crown a day if it is actually worth crowning. A flat week has no best
+  // day, and saying so is the honest answer.
+  const worthCrowning = bestScore >= 56;
+  const scale = Math.max(3, ...five.map((d) => sizeVal(d.setMaxFt)));
+
+  const grid = el('div', { class: 'week' });
+  five.forEach((d, i) => grid.appendChild(weekTile(d, i, worthCrowning && d.windowScore === bestScore, scale)));
+  card.appendChild(grid);
+
+  if (!worthCrowning) {
+    card.appendChild(el('div', { class: 'alert info' }, [
+      el('span', { class: 'ic', text: 'i' }),
+      el('div', { html: '<b>No standout day in the next five.</b> Nothing here reaches Good in your window. Plan the week around something else and check back — this page would rather tell you that than talk up the least bad morning.' }),
+    ]));
+  }
+  return card;
+}
+
+function weekTile(d, i, isBest, scale) {
+  const tone = TONE_VAR[d.tone] || 'var(--muted)';
+  const tile = el('button', {
+    class: `tile${isBest ? ' best' : ''}${d.date === selectedDate ? ' sel' : ''}`,
+    type: 'button',
+    'aria-label': `${fmtDate(d.date, { weekday: 'long' })}: ${d.call}, ${n1(sizeVal(d.faceMaxFt))} ${sizeUnit()}, ${d.sizeLabel}`,
+  });
+  if (isBest) tile.appendChild(el('div', { class: 'tile-ribbon', text: 'Best of the five' }));
+
+  tile.appendChild(el('div', { class: 'tile-day' }, [
+    el('span', { class: 'wd', text: i === 0 ? 'Today' : fmtDate(d.date, { weekday: 'short' }) }),
+    el('span', { class: 'md', text: fmtDate(d.date, { month: 'short', day: 'numeric' }) }),
+  ]));
+
+  tile.appendChild(el('div', { class: 'tile-call', style: `--tone:${tone}` }, [
+    el('span', { class: 'call-dot', style: `background:${tone}` }),
+    el('span', { text: d.call }),
+  ]));
+
+  // Size as a bar as well as a number: five bars side by side answer "which day
+  // is biggest" in one glance, which five numbers do not.
+  const frac = Math.max(0.04, Math.min(1, sizeVal(d.faceMaxFt) / scale));
+  const setFrac = Math.max(frac, Math.min(1, sizeVal(d.setMaxFt) / scale));
+  tile.appendChild(el('div', { class: 'tile-bar' }, [
+    el('div', { class: 'bar-set', style: `width:${setFrac * 100}%` }),
+    el('div', { class: 'bar-typ', style: `width:${frac * 100}%` }),
+  ]));
+  tile.appendChild(el('div', { class: 'tile-size' }, [
+    el('b', { text: `${n1(sizeVal(d.faceMaxFt))} ${sizeUnit()}` }),
+    el('span', { text: ` · sets ${n1(sizeVal(d.setMaxFt))}` }),
+  ]));
+  tile.appendChild(el('div', { class: 'tile-word', text: d.sizeLabel }));
+
+  const meta = el('div', { class: 'tile-meta' });
+  meta.appendChild(el('span', {}, [
+    windArrow(d.windDirDeg ?? 0, d.windLabel),
+    el('span', { text: ` ${n0(d.windKt)} kt ${d.windCompass} ${d.windLabel}` }),
+  ]));
+  meta.appendChild(el('span', { text: `${n1(d.periodS)}s ${d.dirCompass}` }));
+  meta.appendChild(el('span', { text: `tide ${n1(d.tideAtWindowFt)} ft` }));
+  tile.appendChild(meta);
+
+  if (d.mix) tile.appendChild(el('div', { class: 'tile-mix' }, [mixBar(d.mix, d)]));
+
+  tile.appendChild(el('div', {
+    class: `tile-rel rel-${d.reliability}`,
+    text: (RELIABILITY_TEXT[d.reliability] || {}).label || '',
+  }));
+
+  tile.addEventListener('click', () => {
+    selectedDate = d.date;
+    render();
+    const h = document.querySelector('#hourly');
+    if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  return tile;
+}
+
+/** A small inline arrow for wind, pointing the way the wind blows. */
+function windArrow(fromDeg, label) {
+  const svg = el('svg', { class: 'wind-arrow', width: 13, height: 13, viewBox: '0 0 13 13', 'aria-hidden': 'true' });
+  const colour = label === 'offshore' ? 'var(--good)' : label === 'onshore' ? 'var(--serious)' : 'var(--muted)';
+  svg.appendChild(el('g', { transform: `translate(6.5,6.5) rotate(${(fromDeg + 180) % 360})` }, [
+    el('path', { d: 'M0,-5 L3,4 L0,2.2 L-3,4 Z', fill: colour }),
+  ]));
+  return svg;
+}
+
+/* ========================================================= the swell mix ==
+ *
+ * The reason this beach is hard to call. Two feet of clean fourteen-second
+ * south and two feet of eight-second windswell are the same number and a
+ * completely different morning, and a combined height cannot tell them apart.
+ */
+
+const MIX_COLORS = {
+  southGround: 'var(--mix-south)',
+  westGround: 'var(--mix-west)',
+  windswell: 'var(--mix-wind)',
+};
+const MIX_LABEL = {
+  southGround: 'South swell',
+  westGround: 'W/NW swell',
+  windswell: 'Windswell',
+};
+const MIX_ORDER = ['southGround', 'westGround', 'windswell'];
+
+/** A single stacked bar showing a day's energy split. Always direct-labelled,
+ *  because the aqua/orange pair is hard to separate for a tritan viewer. */
+function mixBar(mix, day) {
+  const wrap = el('div', { class: 'mixbar-wrap' });
+  const bar = el('div', { class: 'mixbar', role: 'img', 'aria-label': mix.read });
+  for (const p of mix.parts) {
+    if (p.share < 0.02) continue;
+    const seg = el('div', {
+      class: 'mixseg',
+      style: `width:${p.share * 100}%;background:${MIX_COLORS[p.cls]}`,
+      title: `${MIX_LABEL[p.cls]} — ${Math.round(p.share * 100)}% of the energy, ${n1(p.periodS)}s from the ${p.dirCompass}`,
+    });
+    bar.appendChild(seg);
+  }
+  wrap.appendChild(bar);
+  const dom = mix.parts[0];
+  if (dom) {
+    wrap.appendChild(el('div', {
+      class: 'mixbar-label',
+      text: `${Math.round(dom.share * 100)}% ${MIX_LABEL[dom.cls].toLowerCase()}`
+        + (mix.crossing ? ' · crossed up' : ''),
+    }));
+  }
+  return wrap;
+}
+
+function renderMix(days) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'What the swell is made of' }));
+  card.appendChild(el('p', {
+    class: 'note',
+    text: 'The part a single wave height cannot tell you, and the reason this beach is hard to call. '
+      + 'Two feet of clean 14-second south and two feet of 8-second windswell are the same number '
+      + 'and a completely different morning. Each band is that swell’s share of the wave, so the '
+      + 'bands add up to the face height rather than to some bigger number — real swells combine '
+      + 'as energy, which is why two 2 ft swells make a 2.8 ft wave and not a 4 ft one.',
+  }));
+
+  const five = days.slice(0, 5);
+  const hours = five.flatMap((d) => d.hours || []).filter((h) => h.mixFt);
+  if (hours.length) {
+    card.appendChild(panel(
+      'Swell by type, through the week',
+      'Each band is that swell\u2019s share of the wave, so the top of the stack is the whole wave. The dashed line is surface chop on top. Hover for the numbers.',
+      (host) => stackedMix(host, hours, five),
+      mixLegend(),
+    ));
+  }
+
+  const list = el('div', { class: 'mixdays' });
+  for (const d of five) {
+    if (!d.mix) continue;
+    const row = el('div', { class: 'mixday' });
+    row.appendChild(el('div', { class: 'mixday-head' }, [
+      el('b', { text: fmtDate(d.date, { weekday: 'short', month: 'short', day: 'numeric' }) }),
+      el('span', { class: 'mixday-call', style: `color:${TONE_VAR[d.tone]}`, text: d.call }),
+    ]));
+    row.appendChild(mixBar(d.mix, d));
+    row.appendChild(el('p', { class: 'mixday-read', text: d.mix.read }));
+    row.appendChild(el('p', { class: 'mixday-look', text: d.mix.look }));
+    list.appendChild(row);
+  }
+  card.appendChild(list);
+  return card;
+}
+
+function mixLegend() {
+  const leg = el('div', { class: 'legend' });
+  for (const id of MIX_ORDER) {
+    leg.appendChild(el('span', { class: 'lg' }, [
+      el('span', { class: 'sw', style: `background:${MIX_COLORS[id]}` }),
+      el('span', { text: MIX_LABEL[id] }),
+    ]));
+  }
+  leg.appendChild(el('span', { class: 'lg' }, [
+    el('span', { class: 'sw sw-chop' }),
+    el('span', { text: 'Sub-6s chop (not surf)' }),
+  ]));
+  return leg;
+}
+
+/**
+ * Stacked area of each swell class's contribution to the breaking face.
+ *
+ * Segments are separated by a 2px surface-coloured stroke so adjacent bands
+ * never touch: the aqua/orange pair is close under tritan vision, and the gap
+ * plus the legend plus the direct day labels carry the identity rather than
+ * the hue alone.
+ */
+function stackedMix(host, hours, days) {
+  host.innerHTML = '';
+  const W = Math.max(280, host.clientWidth || 320);
+  const H = 190;
+  const P = { l: 40, r: 12, t: 12, b: 26 };
+
+  const pts = hours.map((h) => ({
+    t: Date.parse(h.time),
+    v: MIX_ORDER.map((_, i) => sizeVal(h.mixFt[i] || 0)),
+    hour: h,
+  })).sort((a, b) => a.t - b.t);
+
+  const x0 = pts[0].t, x1 = pts[pts.length - 1].t;
+  // The axis is scaled to the SURF. Chop is drawn on the same axis so you can
+  // see how it compares, but a 3 ft chop day must not squash a 2 ft swell into
+  // the bottom third of the chart - that would hide the thing being plotted.
+  const top = Math.max(0.5, ...pts.map((p) => p.v.reduce((a, b) => a + b, 0)));
+  const y1 = top * 1.24;
+  const X = (t) => P.l + ((t - x0) / (x1 - x0 || 1)) * (W - P.l - P.r);
+  const Y = (v) => H - P.b - (v / y1) * (H - P.t - P.b);
+
+  const svg = el('svg', { class: 'chart', width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img' });
+
+  for (const tv of niceTicks(0, y1, 3)) {
+    svg.appendChild(el('line', { class: 'grid-line', x1: P.l, x2: W - P.r, y1: Y(tv), y2: Y(tv) }));
+    svg.appendChild(el('text', { class: 'axis-label', x: P.l - 6, y: Y(tv) + 3.5, 'text-anchor': 'end', text: tv.toFixed(1) }));
+  }
+  svg.appendChild(el('text', { class: 'axis-label', x: P.l - 6, y: P.t - 1, 'text-anchor': 'end', text: sizeUnit() }));
+
+  // Day separators and labels, so the week is legible without reading the axis.
+  for (const d of days) {
+    const t = Date.parse(`${d.date}T12:00:00-07:00`);
+    if (t < x0 || t > x1) continue;
+    svg.appendChild(el('text', {
+      class: 'axis-label', x: X(t), y: H - 8, 'text-anchor': 'middle',
+      text: fmtDate(d.date, { weekday: 'short' }),
+    }));
+    const start = Date.parse(`${d.date}T00:00:00-07:00`);
+    if (start > x0 && start < x1) {
+      svg.appendChild(el('line', { class: 'grid-line', x1: X(start), x2: X(start), y1: P.t, y2: H - P.b }));
+    }
+  }
+
+  // Bottom-up stack. The band order is fixed so a class never changes position
+  // when another one drops to zero.
+  const base = pts.map(() => 0);
+  const tops = [];
+  MIX_ORDER.forEach((id, si) => {
+    const lower = pts.map((_, i) => base[i]);
+    pts.forEach((p, i) => { base[i] += p.v[si]; });
+    if (!pts.some((_, i) => base[i] - lower[i] > 0.01)) return;
+    const upPath = pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.t).toFixed(1)},${Y(base[i]).toFixed(1)}`).join(' ');
+    const downPath = pts.map((p, i) => `L${X(pts[pts.length - 1 - i].t).toFixed(1)},${Y(lower[pts.length - 1 - i]).toFixed(1)}`).join(' ');
+    // Fill only. Stroking the closed band paints a white outline all the way
+    // round it, and wherever a band pinches to nothing - one hour where a swell
+    // drops out - that outline collapses into a vertical sliver straight
+    // through the bands underneath. The 2px separator is drawn as a top edge
+    // instead, which cannot do that.
+    svg.appendChild(el('path', { d: `${upPath} ${downPath} Z`, fill: MIX_COLORS[id], stroke: 'none' }));
+    tops.push(upPath);
+  });
+  for (const d of tops.slice(0, -1)) {
+    svg.appendChild(el('path', {
+      d, fill: 'none', stroke: 'var(--surface-1)', 'stroke-width': 2, 'stroke-linejoin': 'round',
+    }));
+  }
+
+  // Chop rides on top as a dashed outline: present, visible, and unmistakably
+  // not part of the stack.
+  const chop = pts.map((p, i) => ({
+    t: p.t,
+    v: Math.min(y1, base[i] + sizeVal(p.hour.chopFt || 0)),
+    clipped: base[i] + sizeVal(p.hour.chopFt || 0) > y1,
+  }));
+  if (chop.some((c, i) => c.v - base[i] > 0.15)) {
+    svg.appendChild(el('path', {
+      d: chop.map((c, i) => `${i ? 'L' : 'M'}${X(c.t).toFixed(1)},${Y(c.v).toFixed(1)}`).join(' '),
+      fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1.5, 'stroke-dasharray': '3 3',
+    }));
+  }
+
+  svg.appendChild(el('line', { class: 'axis-line', x1: P.l, x2: W - P.r, y1: H - P.b, y2: H - P.b }));
+
+  const cross = el('line', { class: 'axis-line', y1: P.t, y2: H - P.b, opacity: 0 });
+  svg.appendChild(cross);
+  svg.style.touchAction = 'pan-y';
+  const move = (ev) => {
+    const box = svg.getBoundingClientRect();
+    const cx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - box.left;
+    const t = x0 + ((cx - P.l) / (W - P.l - P.r)) * (x1 - x0);
+    const p = pts.reduce((a, b) => (Math.abs(b.t - t) < Math.abs(a.t - t) ? b : a));
+    cross.setAttribute('x1', X(p.t)); cross.setAttribute('x2', X(p.t)); cross.setAttribute('opacity', .5);
+    const rows = MIX_ORDER
+      .map((id, i) => [MIX_LABEL[id], p.v[i]])
+      .filter(([, v]) => v > 0.05)
+      .map(([k, v]) => [k, `${v.toFixed(1)} ${sizeUnit()}`]);
+    const total = p.v.reduce((a, b) => a + b, 0);
+    rows.push(['Together', `${total.toFixed(1)} ${sizeUnit()}`]);
+    if ((p.hour.chopFt || 0) > 0.5) rows.push(['Surface chop', `${n1(sizeVal(p.hour.chopFt))} ft`]);
+    if (p.hour.crossing) rows.push(['', 'crossed-up sea']);
+    const e = ev.touches ? ev.touches[0] : ev;
+    showTip(e.clientX, e.clientY, fmtTime(new Date(p.t).toISOString(), { weekday: 'short' }), rows);
+  };
+  svg.addEventListener('mousemove', move);
+  svg.addEventListener('touchstart', move, { passive: true });
+  svg.addEventListener('touchmove', move, { passive: true });
+  const leave = () => { cross.setAttribute('opacity', 0); hideTip(); };
+  svg.addEventListener('mouseleave', leave);
+  svg.addEventListener('touchend', leave);
+  host.appendChild(svg);
+}
 
 /* ------------------------------------------------------------ surf map -- */
 
@@ -506,7 +924,7 @@ function renderMap(day) {
 /* -------------------------------------------------------- hourly detail -- */
 
 function renderHourly(day) {
-  const card = el('div', { class: 'card' });
+  const card = el('div', { class: 'card', id: 'hourly' });
   card.appendChild(el('h2', { text: `Hour by hour · ${fmtDate(day.date, { weekday: 'long', month: 'short', day: 'numeric' })}` }));
   card.appendChild(el('p', { class: 'note', text: 'The shaded band is your 7:30–10:00am window. Each panel carries one measure on its own axis — hover or drag for exact values.' }));
 
@@ -635,45 +1053,16 @@ function renderBuoy(current) {
   return card;
 }
 
-/* ------------------------------------------------------------ day cards -- */
-
-function dayCard(d, isToday) {
-  const c = el('div', { class: `daycard${isToday ? ' today' : ''}` });
-  c.appendChild(el('div', { class: 'top' }, [
-    el('div', {}, [
-      el('span', { class: 'date', text: fmtDate(d.date, { weekday: 'short' }) }),
-      el('span', { class: 'dow', text: ` ${fmtDate(d.date, { month: 'short', day: 'numeric' })}` }),
-    ]),
-    gradeChip(d.windowScore, d.windowGrade),
-  ]));
-  c.appendChild(el('div', { class: 'size', text: `${range1(sizeVal(d.faceMinFt), sizeVal(d.faceMaxFt))} ${sizeUnit()}` }));
-  c.appendChild(el('div', { class: 'sizelabel', text: `${d.sizeLabel} · sets ${n1(sizeVal(d.setMaxFt))}` }));
-  c.appendChild(el('div', { class: 'meta' }, [
-    el('span', { html: `Swell <b>${d.dirCompass} ${n1(d.periodS)}s</b>` }),
-    el('span', { html: `Energy <b>${n0(d.powerKwPerM)}</b> kW/m` }),
-    el('span', { html: `Wind <b>${n0(d.windKt)} kt</b> ${d.windCompass}` }),
-    el('span', { html: `Tide <b>${n1(d.tideAtWindowFt)} ft</b>` }),
-    el('span', { html: `Board <b>${d.board.board}</b>` }),
-  ]));
-  c.appendChild(el('p', { class: 'verdict', text: d.verdict }));
-  if (d.water?.advisory) {
-    c.appendChild(el('div', { class: 'alert bad', style: 'margin-top:8px' }, [
-      el('span', { class: 'ic', text: '⚠' }), el('div', { text: 'Post-rain water quality advisory' }),
-    ]));
-  }
-  c.style.cursor = 'pointer';
-  c.addEventListener('click', () => { selectedDate = d.date; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  return c;
-}
-
 /* ---------------------------------------------------------- what changed -- */
 
 function renderDrift() {
   const card = el('div', { class: 'card' });
   card.appendChild(el('h2', { text: 'What changed since the last runs' }));
   card.appendChild(el('p', { class: 'note', text: 'Every run is archived, so each day can be compared against what we were saying 24, 48 and 120 hours ago. A day that keeps moving is not a forecast yet — a day that has held steady is worth planning around.' }));
-  const moved = (DATA.drift || []).filter((d) => !d.stable);
   const rows = (DATA.drift || []).slice(0, 7);
+  // Count within the rows actually shown. Counting the full 14-day drift array
+  // produced "10 of the next 7 days moved meaningfully".
+  const moved = rows.filter((d) => !d.stable);
   if (!rows.length || rows.every((r) => r.headline === 'No prior run to compare')) {
     card.appendChild(el('div', { class: 'alert info' }, [
       el('span', { class: 'ic', text: 'i' }),
@@ -682,7 +1071,8 @@ function renderDrift() {
     return card;
   }
   card.appendChild(el('p', { style: 'margin:0 0 10px;font-size:14px' , text:
-    moved.length ? `${moved.length} of the next 7 days moved meaningfully.` : 'All seven days are holding steady across runs.' }));
+    moved.length ? `${moved.length} of the next ${rows.length} days moved meaningfully.`
+      : `All ${rows.length} days are holding steady across runs.` }));
   const t = el('table');
   t.appendChild(el('tr', {}, ['Day', 'Now', 'vs 24 h ago', 'vs 48 h ago', 'What changed'].map((h) => el('th', { text: h }))));
   for (const r of rows) {
@@ -865,57 +1255,90 @@ function render() {
   const app = $('#app');
   app.innerHTML = '';
   const days = DATA.days;
-  if (!days?.length) { app.appendChild(el('div', { class: 'alert bad' }, [el('div', { text: 'The last run produced no forecast days.' })])); return; }
+  if (!days?.length) {
+    app.appendChild(el('div', { class: 'alert bad' }, [el('div', { text: 'The last run produced no forecast days.' })]));
+    return;
+  }
   if (!selectedDate || !days.some((d) => d.date === selectedDate)) selectedDate = days[0].date;
   const selected = days.find((d) => d.date === selectedDate);
 
   if (DATA.meta.synthetic) {
     app.appendChild(el('div', { class: 'alert warn' }, [
-      el('span', { class: 'ic', text: '⚠' }),
-      el('div', { html: '<b>Synthetic data.</b> This page was built without live feeds — the numbers are physically plausible placeholders for layout review, not a real forecast.' }),
+      el('span', { class: 'ic', text: '\u26a0' }),
+      el('div', { html: '<b>Synthetic data.</b> This page was built without live feeds \u2014 the numbers are physically plausible placeholders for layout review, not a real forecast.' }),
     ]));
   }
   const errs = Object.keys(DATA.meta.errors || {});
   if (errs.length) {
     app.appendChild(el('div', { class: 'alert warn' }, [
-      el('span', { class: 'ic', text: '⚠' }),
+      el('span', { class: 'ic', text: '\u26a0' }),
       el('div', { html: `<b>Some sources failed on the last run:</b> ${errs.join(', ')}. The forecast is still built from what did come back.` }),
     ]));
   }
 
-  app.appendChild(renderToday(days[0], DATA.current, DATA.wetsuit));
-  app.appendChild(renderMap(selected));
+  // Order is the argument: the call, then the week, then why - and the model's
+  // own track record before any of the pretty pictures.
+  app.appendChild(renderCall(days, DATA.current, DATA.wetsuit));
+  app.appendChild(renderWeek(days));
+  app.appendChild(renderMix(days));
   app.appendChild(renderHourly(selected));
-
-  const week = el('div', { class: 'card' });
-  week.appendChild(el('h2', { text: '7-day forecast' }));
-  week.appendChild(el('p', { class: 'note', text: 'Each day scored for the 7:30–10:00am window. Tap a day to see it hour by hour.' }));
-  const daysHost = el('div', { class: 'days' });
-  days.slice(0, 7).forEach((d, i) => daysHost.appendChild(dayCard(d, i === 0)));
-  week.appendChild(daysHost);
-  app.appendChild(week);
-
-  const outlook = el('div', { class: 'card' });
-  outlook.appendChild(el('h2', { text: '14-day outlook' }));
-  outlook.appendChild(el('p', { class: 'note', text: 'Beyond about a week a wave model is spotting patterns, not days. Use this to see swell arriving, not to plan a session.' }));
-  outlook.appendChild(panel('Window score by day', 'Score for 7:30–10:00am, 0–100', (host) => scoreBars(host, days, days[0].date, (d) => { selectedDate = d.date; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); })));
-  outlook.appendChild(panel('Model agreement', `Range of face heights across ${DATA.meta.sources.waveModels.length} wave models, ${sizeUnit()}. A wide bar means the models disagree and the day is not settled.`, (host) => spreadChart(host, days)));
-  app.appendChild(outlook);
-
-  app.appendChild(renderDrift());
-  app.appendChild(renderBuoy(DATA.current));
-  app.appendChild(renderSkill());
+  app.appendChild(collapsible('Where it will break', renderMap(selected),
+    'A model of this exact stretch of sand. Useful for picking which end of the beach to walk to; not a substitute for looking.'));
+  app.appendChild(collapsible('How this forecast has actually done', trustCard(),
+    'Every run is checked against the buoy. If this page is wrong, this is where it shows.'));
+  app.appendChild(collapsible('Longer outlook, 14 days', outlookCard(days),
+    'Beyond about a week a wave model is spotting patterns, not days.'));
   app.appendChild(renderLog());
 
   $('#sources').innerHTML = [
     `Buoy: ${DATA.meta.sources.buoy}`,
     `Tides: ${DATA.meta.sources.tides}`,
+    `Nearshore: ${DATA.meta.sources.nearshore}`,
     `Wave models: ${DATA.meta.sources.waveModels.join(', ')}`,
     `Wind models: ${DATA.meta.sources.windModels.join(', ')}`,
-    `Surfline: ${DATA.meta.sources.surfline}`,
   ].map((s) => `<span>${s}</span>`).join('');
-  $('#genline').textContent = `Built ${fmtTime(DATA.meta.generatedAt, { weekday: 'short', month: 'short', day: 'numeric' })} Pacific. Rebuilds on a schedule; reload for the latest.`;
-  $('#subtitle').textContent = `Surf-only forecast for the 7:30–10:00am window · updated ${fmtTime(DATA.meta.generatedAt, { month: 'short', day: 'numeric' })}`;
+  $('#genline').textContent = `Built ${fmtTime(DATA.meta.generatedAt, { weekday: 'short', month: 'short', day: 'numeric' })} Pacific. Rebuilds every three hours; reload for the latest.`;
+  $('#subtitle').textContent = `Surf only, ${DATA.meta.sessionWindow.label}, north lot \u00b7 updated ${fmtTime(DATA.meta.generatedAt, { month: 'short', day: 'numeric' })}`;
+}
+
+/**
+ * Everything past the week is evidence rather than headline, so it ships folded
+ * away. The thirty-second read is the first three cards; the rest is there when
+ * somebody wants to argue with it.
+ */
+function collapsible(title, body, blurb) {
+  const wrap = el('details', { class: 'card fold' });
+  wrap.appendChild(el('summary', {}, [
+    el('span', { class: 'fold-title', text: title }),
+    blurb ? el('span', { class: 'fold-blurb', text: blurb }) : null,
+  ]));
+  const inner = el('div', { class: 'fold-body' });
+  inner.appendChild(body);
+  wrap.appendChild(inner);
+  // Charts measure their host, which is zero-width while folded, so they have
+  // to be drawn again the first time the fold opens.
+  wrap.addEventListener('toggle', () => { if (wrap.open) rerenderers.forEach((fn) => fn()); }, { once: true });
+  return wrap;
+}
+
+function trustCard() {
+  const box = el('div');
+  box.appendChild(renderSkill());
+  box.appendChild(renderDrift());
+  box.appendChild(renderBuoy(DATA.current));
+  return box;
+}
+
+function outlookCard(days) {
+  const box = el('div');
+  box.appendChild(panel('Window score by day', 'Score for your window, 0\u2013100',
+    (host) => scoreBars(host, days, days[0].date, (d) => {
+      selectedDate = d.date; render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    })));
+  box.appendChild(panel('Model agreement',
+    `Range of face heights across ${DATA.meta.sources.waveModels.length} wave models, ${sizeUnit()}. A wide bar means the models disagree and the day is not settled.`,
+    (host) => spreadChart(host, days)));
+  return box;
 }
 
 /* ----------------------------------------------------------------- boot -- */

@@ -29,6 +29,8 @@ import {
 import { scoreSkill, nowcastCheck } from './model/verify.js';
 import { buildNearshore, compareAtHome } from './model/nearshore.js';
 import { stepState, describe, profileFor, COEFFS } from './model/beachstate.js';
+import { mixForHour, mixForDay, smoothShares, CLASS_ORDER as MIX_ORDER } from './model/mix.js';
+import { callFor, reliabilityFor } from './model/score.js';
 import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel } from './model/waves.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -227,6 +229,22 @@ async function main() {
     ?? allDays[0]?.date;
   const days = allDays.filter((d) => d.date >= todayLocal).slice(0, FORECAST_DAYS.outlook);
 
+  // What each day's swell is MADE of, and the one-word call. Computed here
+  // rather than in the page so the browser never has to run wave physics to
+  // render a headline.
+  // Hourly mixes first, then smoothed, so the daily rollup and the chart are
+  // built from exactly the same numbers.
+  for (const h of hourly) h.mix = mixForHour(h);
+  smoothShares(hourly);
+
+  let worstReliability = null;
+  days.forEach((d, i) => {
+    d.mix = mixForDay(d.hours);
+    Object.assign(d, callFor(d.windowScore));
+    d.reliability = reliabilityFor(i, d.confidence ?? 1, worstReliability);
+    worstReliability = d.reliability;
+  });
+
   // Synthetic runs must never contaminate the drift comparison or the skill
   // scoreboard - they would make the forecast look accurate against data that
   // was never measured.
@@ -333,6 +351,17 @@ async function main() {
       periodS: r(p.periodS, 1), dirDeg: r(p.dirDeg, 0),
       dirCompass: compass(p.dirDeg),
     })),
+    // Each swell class's SHARE of this hour's face height, in the fixed order
+    // [south, W/NW, windswell]. These are shares of the real wave, not each
+    // class's independent height, so they sum LINEARLY back to faceFt and a
+    // stacked chart of them has the whole wave at the top of the stack.
+    // (Independent heights would not: energies add, so two 2 ft swells make a
+    // 2.8 ft wave and a stack of their own heights would claim 4 ft.)
+    mixFt: h.mix
+      ? MIX_ORDER.map((id) => r((h.mix.parts.find((q) => q.cls === id)?.share ?? 0) * (h.faceFt ?? 0), 2))
+      : null,
+    crossing: h.mix ? h.mix.crossing : null,
+    chopFt: h.mix ? h.mix.chopFt : null,
   });
   const compactDays = days.map(({ hours, ...rest }) => rest);
 

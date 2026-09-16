@@ -549,13 +549,50 @@
       var meanSpeed = r.speeds.reduce(function (a, b) { return a + b; }, 0) / n;
       var meanFace = r.faces.reduce(function (a, b) { return a + b; }, 0) / n;
       var lengthM = (r.end - r.start + 1) * alongM;
+
+      // A ride cannot outlive the wave. Whatever the peel geometry says, the
+      // wave stops being rideable when it has crossed the surf zone and hit
+      // the sand, so the surf zone divided by the shoreward speed is a hard
+      // ceiling on the ride. Without it a slow peel over a long, straight
+      // stretch of break reported a 300 m, 34-second ride on a two-foot day,
+      // which no one who surfs here would believe for a second - and rightly.
+      var transitS = surfZoneSeconds(field, r.start, r.end);
+      var seconds = Math.min(lengthM / Math.max(1.2, meanSpeed), transitS);
       return {
-        dir: r.dir, start: r.start, end: r.end, lengthM: lengthM,
-        seconds: lengthM / Math.max(1.2, meanSpeed),
-        speedMs: meanSpeed, faceFt: meanFace,
+        dir: r.dir, start: r.start, end: r.end,
+        lengthM: Math.min(lengthM, seconds * Math.max(1.2, meanSpeed)),
+        seconds: seconds, speedMs: meanSpeed, faceFt: meanFace,
+        peelLengthM: lengthM,
       };
-    }).filter(function (r) { return r.lengthM >= 15; })
+    }).filter(function (r) { return r.lengthM >= 15 && r.seconds >= 3; })
       .sort(function (a, b) { return b.lengthM - a.lengthM; });
+  }
+
+  /**
+   * How long a wave stays alive across the surf zone on these rows: the width
+   * from where it first breaks to where the water meets the sand, over the
+   * shoreward celerity in that depth.
+   */
+  function surfZoneSeconds(field, iy0, iy1) {
+    var widths = [], depths = [];
+    for (var iy = iy0; iy <= iy1; iy++) {
+      var b = field.breakIx[iy];
+      if (b < 0) continue;
+      var land = -1;
+      for (var ix = b; ix < field.nx; ix++) {
+        if (field.land[iy * field.nx + ix]) { land = ix; break; }
+      }
+      if (land < 0) continue;
+      widths.push((land - b) * field.cellW * 111320 * Math.cos(field.frame.n * Math.PI / 180));
+      depths.push(Math.max(0.3, field.breakDepth[iy]));
+    }
+    if (!widths.length) return 12;
+    var w = widths.reduce(function (a, b) { return a + b; }, 0) / widths.length;
+    var h = depths.reduce(function (a, b) { return a + b; }, 0) / depths.length;
+    // Shallow-water celerity: broken waves travel at sqrt(g*h), slowing as they
+    // run in, so the mean speed over the run is a bit under the value at break.
+    var c = 0.8 * Math.sqrt(9.81 * h);
+    return Math.max(2, w / Math.max(0.8, c));
   }
 
   /** The dominant peel across the frame, for the headline. */

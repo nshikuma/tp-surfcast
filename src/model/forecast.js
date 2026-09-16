@@ -19,7 +19,7 @@ import {
   transformToBreak, combinePartitions, faceHeights, sizeLabel,
   wavePowerKwPerM, energyDensityKjPerM2, iribarren, M_TO_FT, angleDiff,
 } from './waves.js';
-import { scoreHour, gradeFor, inSessionWindow } from './score.js';
+import { scoreHour, scoreWind, gradeFor, inSessionWindow } from './score.js';
 import { tideAt, tideRateAt } from '../sources/tides.js';
 
 /* ------------------------------------------------------------- utilities -- */
@@ -309,7 +309,14 @@ export function buildDaily(hours, { weatherDaily = [], rainHistory = [] } = {}) 
       powerKwPerM: round1(median(pool.map((h) => h.powerKwPerM))),
       windKt: round1(median(pool.map((h) => h.windKt))),
       windCompass: compass(circMean(pool.map((h) => h.windDirDeg))),
-      windLabel: best.windLabel,
+      // From the SAME circular mean that produced windCompass. Taking the
+      // label off the best single hour instead let a day report "SSE onshore"
+      // while the day beside it reported "SSE offshore" - the compass came
+      // from the window, the word came from one hour inside it.
+      windLabel: scoreWind(
+        median(win.length ? win.map((h) => h.windKt) : pool.map((h) => h.windKt)) ?? 0,
+        circMean(win.length ? win.map((h) => h.windDirDeg) : pool.map((h) => h.windDirDeg)),
+      ).label,
       tideAtWindowFt: round1(median(win.length ? win.map((h) => h.tideFt) : pool.map((h) => h.tideFt))),
       board: best.board,
       bestHour: { time: best.time, localHour: round1(best.localHour), score: best.score },
