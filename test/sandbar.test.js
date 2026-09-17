@@ -99,7 +99,7 @@ test('sandbar: movement is reported against the previous pass', () => {
 test('sandbar: with nothing logged it says so rather than inventing a bar', () => {
   const out = summarise({ scenes: [] });
   assert.equal(out.scenes, 0);
-  assert.match(out.note, /No usable satellite pass/);
+  assert.match(out.note, /No satellite pass to read yet/);
 });
 
 test('sandbar: how far out it breaks is a median of differences, not a difference of medians', () => {
@@ -124,4 +124,26 @@ test('sandbar: how far out it breaks is a median of differences, not a differenc
   assert.equal(out.transectsDropped, 0, 'none of these is an outlier, they are the beach');
   assert.equal(out.barOffsetM, 20);
   assert.equal(out.barM - out.waterlineM, 70, 'what differencing the medians would have claimed');
+});
+
+test('sandbar: a rejected pass says why, rather than looking like no pass at all', () => {
+  // "No usable satellite pass yet" is true both when the satellite has not come
+  // over and when it came over and the picture was cloud. Those call for
+  // completely different responses, so the record keeps the reason.
+  const cloudy = summariseScene({
+    sceneId: 'cloudy-1', time: '2026-09-16T18:35:00Z',
+    looksLikeWater: false, transects: [],
+  });
+  const state = accumulate(null, cloudy);
+  assert.equal(state.scenes.length, 0);
+  assert.equal(state.skipped.length, 1);
+
+  const out = summarise(state);
+  assert.equal(out.scenes, 0);
+  assert.equal(out.skipped, 1);
+  assert.match(out.note, /thrown out/);
+  assert.match(out.note, /near-infrared|open water/);
+
+  // And the same scene skipped twice is still one skipped scene.
+  assert.equal(accumulate(state, cloudy).skipped.length, 1);
 });

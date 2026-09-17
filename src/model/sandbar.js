@@ -135,10 +135,22 @@ export function accumulate(prev, summary) {
   const state = {
     version: 1,
     scenes: [...(prev?.scenes || [])],
+    skipped: [...(prev?.skipped || [])],
     updatedAt: new Date().toISOString(),
   };
-  if (!summary?.usable) return state;
+  // A rejected pass is worth recording. The first live run threw one away and
+  // left a record that said only "no usable pass yet", which is indistinguishable
+  // from the satellite never having come over - and the two call for completely
+  // different responses.
+  if (!summary?.usable) {
+    if (summary?.sceneId && !state.skipped.some((x) => x.sceneId === summary.sceneId)) {
+      state.skipped.push({ sceneId: summary.sceneId, time: summary.time, reason: summary.reason });
+      state.skipped = state.skipped.slice(-12);
+    }
+    return state;
+  }
   if (state.scenes.some((s) => s.sceneId === summary.sceneId)) return state;
+  state.skipped = state.skipped.filter((x) => x.sceneId !== summary.sceneId);
 
   state.scenes.push(summary);
   state.scenes.sort((a, b) => String(a.time).localeCompare(String(b.time)));
@@ -161,10 +173,17 @@ export function accumulate(prev, summary) {
  */
 export function summarise(state) {
   const scenes = (state?.scenes || []).filter((s) => s.usable);
+  const skipped = state?.skipped || [];
+  const lastSkipped = skipped.length ? skipped[skipped.length - 1] : null;
   if (!scenes.length) {
     return {
       scenes: 0,
-      note: 'No usable satellite pass yet. Sentinel-2 comes over every day or two but cloud and the morning marine layer take out a fair share of them.',
+      skipped: skipped.length,
+      lastSkipped,
+      note: skipped.length
+        ? `Nothing readable yet. ${skipped.length} pass${skipped.length === 1 ? ' has' : 'es have'} been looked at and thrown out - `
+          + `the most recent because ${lastSkipped.reason}. Cloud and the morning marine layer take out a fair share of them.`
+        : 'No satellite pass to read yet. Sentinel-2 comes over every day or two.',
     };
   }
   const latest = scenes[scenes.length - 1];
@@ -181,6 +200,8 @@ export function summarise(state) {
 
   return {
     scenes: scenes.length,
+    skipped: skipped.length,
+    lastSkipped,
     latest,
     previous: previous ? { time: previous.time, barM: previous.barM, waterlineM: previous.waterlineM } : null,
     barMovedM: previous ? round1(latest.barM - previous.barM) : null,

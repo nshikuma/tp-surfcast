@@ -605,12 +605,19 @@ async function main() {
     const prevSand = existsSync(SAND_FILE) ? JSON.parse(await readFile(SAND_FILE, 'utf8')) : null;
     let nextSand = prevSand;
     if (!SYNTHETIC) {
-      const scenes = await searchScenes({ maxCloudPct: 40, sinceDays: 14, limit: 5 });
-      const seen = new Set((prevSand?.scenes || []).map((x) => x.sceneId));
-      const fresh = scenes.find((f) => !seen.has(f.id));
-      if (!fresh) {
-        log(`sandbar: no new satellite pass (${scenes.length} recent scene(s), all already read)`);
-      } else {
+      const scenes = await searchScenes({ maxCloudPct: 40, sinceDays: 14, limit: 6 });
+      const seen = new Set([
+        ...(prevSand?.scenes || []).map((x) => x.sceneId),
+        ...(prevSand?.skipped || []).map((x) => x.sceneId),
+      ]);
+      const unseen = scenes.filter((f) => !seen.has(f.id));
+      if (!unseen.length) {
+        log(`sandbar: no new satellite pass (${scenes.length} recent scene(s), all already looked at)`);
+      }
+      // Newest first, but a cloudy scene is often unreadable, so if the first
+      // one comes back as cloud rather than water, try the next. Two is the
+      // limit: each is a few megabytes and this runs every three hours.
+      for (const fresh of unseen.slice(0, 2)) {
         const analysis = await analyseScene(fresh);
         // The waterline moves further in one tide cycle than it does in a
         // season, so the tide at the moment of the overpass is recorded with
@@ -618,15 +625,16 @@ async function main() {
         // with each other at all.
         const tideFt = data.tides ? tidesSrc.tideAt(data.tides, analysis.time) : null;
         const summary = summariseScene(analysis, { tideFt });
-        nextSand = accumulateSand(prevSand, summary);
-        await writeFile(SAND_FILE, JSON.stringify(nextSand, null, 1));
+        nextSand = accumulateSand(nextSand, summary);
         log(`sandbar: ${fresh.id} ${analysis.time}, cloud ${Math.round(analysis.cloudPct)}%`
           + `, ${(analysis.bytesRead / 1e6).toFixed(1)} MB read`
           + (summary.usable
-            ? `, waterline ${summary.waterlineM} m, bar ${summary.barM} m, scatter ${summary.barSpreadM} m`
-              + `, ${summary.rhythmic ? 'rhythmic' : 'straight'}`
-            : `, unusable: ${summary.reason}`));
+            ? `, waterline ${summary.waterlineM} m, bar ${summary.barM} m, ${summary.barOffsetM} m off the sand`
+              + `, scatter ${summary.barSpreadM} m, ${summary.rhythmic ? 'rhythmic' : 'straight'}`
+            : `, UNUSABLE: ${summary.reason}`));
+        if (summary.usable) break;
       }
+      if (nextSand !== prevSand) await writeFile(SAND_FILE, JSON.stringify(nextSand, null, 1));
     }
     sandbar = nextSand ? summariseSand(nextSand) : null;
   } catch (e) {
