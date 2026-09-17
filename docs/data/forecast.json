@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-17T03:23:12.572Z",
-  "finishedAt": "2026-09-17T03:23:56.508Z",
+  "generatedAt": "2026-09-17T03:31:00.223Z",
+  "finishedAt": "2026-09-17T03:31:46.295Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -57,76 +57,69 @@
     "note": "no overlapping hours"
    },
    "meteofrance_wave": {
-    "factor": 1.2682926829268293,
+    "factor": 1.2625,
     "n": 47,
-    "raw": 1.2682926829268293,
-    "note": "buoy ran 27% above this model over the last 24 h (47 matched hours)"
+    "raw": 1.2625,
+    "note": "buoy ran 26% above this model over the last 24 h (47 matched hours)"
    }
   }
  },
  "current": {
-  "observedAt": "2026-09-17T02:30:00.000Z",
+  "observedAt": "2026-09-17T03:00:00.000Z",
   "source": "cdip-thredds",
   "station": "100p1",
-  "deepHsM": 0.93,
-  "deepHsFt": 3.0511812000000003,
-  "periodS": 16.666668,
-  "dirDeg": 186.78125,
+  "deepHsM": 0.94,
+  "deepHsFt": 3.0839895999999998,
+  "periodS": 18.181818,
+  "dirDeg": 189.59375,
   "dirCompass": "S",
-  "powerKwPerM": 6.3648654068721555,
-  "faceFt": 1.8610977604095233,
-  "faceSetFt": 3.7981686715691607,
-  "sizeLabel": "Knee high",
+  "powerKwPerM": 7.093614060294162,
+  "faceFt": 2.113507048538684,
+  "faceSetFt": 3.6307426875213213,
+  "sizeLabel": "Thigh high",
   "setSizeLabel": "Chest high",
-  "superposition": 1.41,
-  "tideFt": 1.2298197585692938,
-  "tideRate": 0.015795113333333388,
+  "superposition": 1.31,
+  "tideFt": 1.2397457773981735,
+  "tideRate": 0.05277919739817327,
   "trains": [
    {
-    "hsM": 0.47527066982930893,
-    "hsFt": 1.5592870244027899,
-    "periodS": 8.333333333333334,
-    "dirDeg": 250.31769142916374,
+    "hsM": 0.510830970870013,
+    "hsFt": 1.6759546824691733,
+    "periodS": 9.090909090909092,
+    "dirDeg": 258.12111181763396,
     "dirCompass": "WSW",
-    "energyFraction": 0.25940874090446203,
-    "powerKwPerM": 0.8311421822719998,
-    "faceFt": 1.5427361679603535,
+    "energyFraction": 0.2931485813238272,
+    "powerKwPerM": 1.047457227367097,
+    "faceFt": 1.708032658133488,
     "sizeLabel": "Knee high",
     "kind": "windswell"
    },
    {
-    "hsM": 0.3651251336185993,
-    "hsFt": 1.1979171433812452,
-    "periodS": 16.666666666666668,
-    "dirDeg": 192.75069478785605,
-    "dirCompass": "SSW",
-    "energyFraction": 0.15310382336402448,
-    "powerKwPerM": 0.9810852588951698,
-    "faceFt": 1.0316775824559081,
+    "hsM": 0.4036933650185497,
+    "hsFt": 1.3244533396874585,
+    "periodS": 18.181818181818183,
+    "dirDeg": 190.85168946237332,
+    "dirCompass": "S",
+    "energyFraction": 0.18307817725976414,
+    "powerKwPerM": 1.3083233019783853,
+    "faceFt": 1.1075231214269752,
     "sizeLabel": "Shin high",
     "kind": "groundswell"
    },
    {
-    "hsM": 0.32097648512001625,
-    "hsFt": 1.0530724914411542,
-    "periodS": 13.333333333333334,
-    "dirDeg": 197.16234216503733,
-    "dirCompass": "SSW",
-    "energyFraction": 0.11831750753860157,
-    "powerKwPerM": 0.606540372224909,
-    "faceFt": 0.9277688965063682,
+    "hsM": 0.2863121639050636,
+    "hsFt": 0.9393443998262888,
+    "periodS": 12.5,
+    "dirDeg": 185.9075575288575,
+    "dirCompass": "S",
+    "energyFraction": 0.09209010230961402,
+    "powerKwPerM": 0.45244329290855356,
+    "faceFt": 0.6256963193642897,
     "sizeLabel": "Ankle high",
     "kind": "groundswell"
    }
   ],
   "history": [
-   {
-    "time": "2026-09-15T03:00:00.000Z",
-    "hsFt": 4.2979004000000005,
-    "periodS": 9.090909,
-    "dirDeg": 282.40625,
-    "powerKwPerM": 6.888496541914222
-   },
    {
     "time": "2026-09-15T03:30:00.000Z",
     "hsFt": 4.0682416,
@@ -791,32 +784,39 @@
     "periodS": 16.666668,
     "dirDeg": 186.78125,
     "powerKwPerM": 6.3648654068721555
+   },
+   {
+    "time": "2026-09-17T03:00:00.000Z",
+    "hsFt": 3.0839895999999998,
+    "periodS": 18.181818,
+    "dirDeg": 189.59375,
+    "powerKwPerM": 7.093614060294162
    }
   ]
  },
  "buoyCheck": {
-  "observedAt": "2026-09-17T02:30:00.000Z",
-  "buoyPeriodS": 16.7,
+  "observedAt": "2026-09-17T03:00:00.000Z",
+  "buoyPeriodS": 18.2,
   "modelPeriodS": 11.4,
-  "periodGapS": 5.3,
+  "periodGapS": 6.8,
   "buoyHsFt": 3.1,
   "modelHsFt": 3.3,
-  "heightGapFt": -0.3,
+  "heightGapFt": -0.2,
   "periodDisagrees": true,
-  "note": "The buoy is reading a 16.7 s peak and the models are on 11.4 s. A gap that size usually means the models are missing a swell the buoy can already see, so the near-term size and shape here are taken from the buoy rather than from them."
+  "note": "The buoy is reading a 18.2 s peak and the models are on 11.4 s. A gap that size usually means the models are missing a swell the buoy can already see, so the near-term size and shape here are taken from the buoy rather than from them."
  },
  "beach": {
   "shorelineM": 0.03,
   "trendMPerRun": 0,
-  "hoursStepped": 0.1,
+  "hoursStepped": 0.5,
   "observations": 1,
-  "updatedAt": "2026-09-17T02:30:00.000Z",
-  "spinUpRuns": 14,
+  "updatedAt": "2026-09-17T03:00:00.000Z",
+  "spinUpRuns": 15,
   "profile": {
-   "shorelineOffsetM": 0.02976213186345764,
-   "barCrestM": 94.95238058901847,
-   "barHeightM": 1.000654766900996,
-   "foreshoreSlope": 0.08496428544176386
+   "shorelineOffsetM": 0.032683013942272146,
+   "barCrestM": 94.94770717769237,
+   "barHeightM": 1.00071902630673,
+   "foreshoreSlope": 0.08496078038326928
   },
   "coefficients": {
    "a": -0.002,
@@ -901,6 +901,11 @@
     "t": "2026-09-17T03:23:12.572Z",
     "s": 0.03,
     "e": 0.0541
+   },
+   {
+    "t": "2026-09-17T03:31:00.223Z",
+    "s": 0.03,
+    "e": 0.0552
    }
   ]
  },
@@ -6630,31 +6635,31 @@
   "waterF": 73.8
  },
  "nowcast": {
-  "time": "2026-09-17T02:30:00.000Z",
-  "buoyHsFt": 3.05,
-  "forecastHsFt": 3.35,
-  "errorFt": 0.3,
-  "buoyTpS": 16.666668,
-  "forecastTpS": 11.35
+  "time": "2026-09-17T03:00:00.000Z",
+  "buoyHsFt": 3.08,
+  "forecastHsFt": 3.3,
+  "errorFt": 0.22,
+  "buoyTpS": 18.181818,
+  "forecastTpS": 11.4
  },
  "days": [
   {
    "date": "2026-09-16",
    "weekday": "Wed",
-   "windowScore": 43,
+   "windowScore": 42,
    "windowGrade": "Fair",
-   "score": 43,
+   "score": 42,
    "grade": "Fair",
    "confidence": 0.4,
    "faceMinFt": 2,
    "faceMaxFt": 2,
-   "setMaxFt": 3.7,
+   "setMaxFt": 3.5,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 11.6,
    "dirDeg": 218.8,
    "dirCompass": "SW",
-   "powerKwPerM": 5.2,
+   "powerKwPerM": 5.1,
    "windKt": 3.2,
    "windCompass": "SSW",
    "windLabel": "cross-shore",
@@ -6667,7 +6672,7 @@
    "bestHour": {
     "time": "2026-09-16T15:00:00.000Z",
     "localHour": 8,
-    "score": 43
+    "score": 42
    },
    "bestHourAnyTime": {
     "time": "2026-09-16T14:00:00.000Z",
@@ -6688,7 +6693,7 @@
     "parts": [
      {
       "cls": "windswell",
-      "share": 0.539010576794887,
+      "share": 0.594966781570836,
       "peakFaceFt": 2.2,
       "periodS": 8.5,
       "dirCompass": "WSW",
@@ -6697,7 +6702,7 @@
      },
      {
       "cls": "southGround",
-      "share": 0.4609894232051128,
+      "share": 0.4050332184291641,
       "peakFaceFt": 1.7,
       "periodS": 11.2,
       "dirCompass": "SW",
@@ -6706,12 +6711,12 @@
      }
     ],
     "dominant": "windswell",
-    "dominantShare": 0.539010576794887,
+    "dominantShare": 0.594966781570836,
     "crossing": true,
     "chopFt": 0,
     "tideShiftFt": 0.7,
     "tideNote": "Short-period swell needs water on the bar - this wants the higher end of the tide.",
-    "read": "Two swells crossing: 54% short-period windswell (8.5s WSW) against 46% south swell (11.2s SW).",
+    "read": "Two swells crossing: 59% short-period windswell (8.5s WSW) against 41% south swell (11.2s SW).",
     "look": "Crossed-up and hard to read: wedging peaks where the two swells meet, then flat spots. Good for a wave-count session, bad for picking off set waves."
    },
    "call": "MAYBE",
@@ -6729,7 +6734,7 @@
    "confidence": 0.7,
    "faceMinFt": 1.9,
    "faceMaxFt": 1.9,
-   "setMaxFt": 2.8,
+   "setMaxFt": 3.2,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -6769,7 +6774,7 @@
     "parts": [
      {
       "cls": "southGround",
-      "share": 0.7190569771151164,
+      "share": 0.6740593542480635,
       "peakFaceFt": 2,
       "periodS": 12.1,
       "dirCompass": "SSW",
@@ -6778,22 +6783,22 @@
      },
      {
       "cls": "windswell",
-      "share": 0.28094302288488343,
-      "peakFaceFt": 1.5,
-      "periodS": 8.3,
+      "share": 0.3259406457519364,
+      "peakFaceFt": 1.6,
+      "periodS": 9.1,
       "dirCompass": "WSW",
-      "dirDeg": 250,
-      "offAngleDeg": 15
+      "dirDeg": 258,
+      "offAngleDeg": 7
      }
     ],
     "dominant": "southGround",
-    "dominantShare": 0.7190569771151164,
+    "dominantShare": 0.6740593542480635,
     "crossing": false,
     "chopFt": 0.9,
     "tideShiftFt": 0,
     "tideNote": null,
-    "read": "Mostly south swell at 72% (12.1s SSW), with 28% short-period windswell. Plus 0.9 ft of sub-6s chop on the surface, which is texture, not surf.",
-    "look": "Clean organised 12.1s lines in recognisable sets. It arrives 68° off the beach, so it refracts down hard on the way in and will favour one end of the sand."
+    "read": "Mostly south swell at 67% (12.1s SSW), with 33% short-period windswell. Plus 0.9 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "12.1s south swell with 33% windswell sitting on top of it - the sets will be organised, the waves between them will not be."
    },
    "call": "SKIP",
    "tone": "serious",
@@ -6816,7 +6821,7 @@
    "periodS": 11.4,
    "dirDeg": 219.2,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "windKt": 2.6,
    "windCompass": "NNW",
    "windLabel": "cross-shore",
@@ -6850,7 +6855,7 @@
     "parts": [
      {
       "cls": "southGround",
-      "share": 0.8795149033770908,
+      "share": 0.8795209926040141,
       "peakFaceFt": 2.2,
       "periodS": 12.5,
       "dirCompass": "SSW",
@@ -6859,7 +6864,7 @@
      },
      {
       "cls": "windswell",
-      "share": 0.12048509662290911,
+      "share": 0.12047900739598577,
       "peakFaceFt": 1.2,
       "periodS": 6.8,
       "dirCompass": "SSW",
@@ -6868,7 +6873,7 @@
      }
     ],
     "dominant": "southGround",
-    "dominantShare": 0.8795149033770908,
+    "dominantShare": 0.8795209926040141,
     "crossing": false,
     "chopFt": 1.5,
     "tideShiftFt": 0,
@@ -6931,7 +6936,7 @@
     "parts": [
      {
       "cls": "southGround",
-      "share": 0.6356526499297512,
+      "share": 0.6356413202515417,
       "peakFaceFt": 2.6,
       "periodS": 11.9,
       "dirCompass": "SSW",
@@ -6940,7 +6945,7 @@
      },
      {
       "cls": "windswell",
-      "share": 0.3643473500702483,
+      "share": 0.3643586797484582,
       "peakFaceFt": 2.5,
       "periodS": 6.5,
       "dirCompass": "W",
@@ -6949,7 +6954,7 @@
      }
     ],
     "dominant": "southGround",
-    "dominantShare": 0.6356526499297512,
+    "dominantShare": 0.6356413202515417,
     "crossing": false,
     "chopFt": 2.3,
     "tideShiftFt": 0,
@@ -7012,7 +7017,7 @@
     "parts": [
      {
       "cls": "windswell",
-      "share": 0.500205660142498,
+      "share": 0.5001737104871287,
       "peakFaceFt": 2.3,
       "periodS": 10.2,
       "dirCompass": "WSW",
@@ -7021,7 +7026,7 @@
      },
      {
       "cls": "southGround",
-      "share": 0.4997943398575022,
+      "share": 0.49982628951287134,
       "peakFaceFt": 3,
       "periodS": 11.8,
       "dirCompass": "WSW",
@@ -7030,7 +7035,7 @@
      }
     ],
     "dominant": "windswell",
-    "dominantShare": 0.500205660142498,
+    "dominantShare": 0.5001737104871287,
     "crossing": false,
     "chopFt": 0.3,
     "tideShiftFt": 0.7,
@@ -7051,7 +7056,7 @@
    "score": 54,
    "grade": "Fair",
    "confidence": 0.6,
-   "faceMinFt": 2.5,
+   "faceMinFt": 2.4,
    "faceMaxFt": 2.5,
    "setMaxFt": 3.2,
    "sizeLabel": "Thigh high",
@@ -7093,7 +7098,7 @@
     "parts": [
      {
       "cls": "southGround",
-      "share": 0.777010081936452,
+      "share": 0.777042794664718,
       "peakFaceFt": 2.6,
       "periodS": 13.6,
       "dirCompass": "SSW",
@@ -7102,7 +7107,7 @@
      },
      {
       "cls": "windswell",
-      "share": 0.1948358278232798,
+      "share": 0.1948103589674161,
       "peakFaceFt": 2.3,
       "periodS": 10.9,
       "dirCompass": "WSW",
@@ -7111,7 +7116,7 @@
      }
     ],
     "dominant": "southGround",
-    "dominantShare": 0.777010081936452,
+    "dominantShare": 0.777042794664718,
     "crossing": false,
     "chopFt": 2.2,
     "tideShiftFt": 0,
@@ -7140,7 +7145,7 @@
    "periodS": 6.5,
    "dirDeg": 268.8,
    "dirCompass": "W",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "windKt": 1.4,
    "windCompass": "S",
    "windLabel": "cross-shore",
@@ -7174,7 +7179,7 @@
     "parts": [
      {
       "cls": "southGround",
-      "share": 0.5124353575927176,
+      "share": 0.512544168376537,
       "peakFaceFt": 2.6,
       "periodS": 12.8,
       "dirCompass": "SSW",
@@ -7183,7 +7188,7 @@
      },
      {
       "cls": "windswell",
-      "share": 0.48756464240728214,
+      "share": 0.48745583162346295,
       "peakFaceFt": 2.8,
       "periodS": 8.6,
       "dirCompass": "WSW",
@@ -7192,7 +7197,7 @@
      }
     ],
     "dominant": "southGround",
-    "dominantShare": 0.5124353575927176,
+    "dominantShare": 0.512544168376537,
     "crossing": false,
     "chopFt": 2.2,
     "tideShiftFt": 0,
@@ -7208,7 +7213,7 @@
   {
    "date": "2026-09-23",
    "weekday": "Wed",
-   "windowScore": 49,
+   "windowScore": 48,
    "windowGrade": "Fair",
    "score": 49,
    "grade": "Fair",
@@ -7221,7 +7226,7 @@
    "periodS": 11.2,
    "dirDeg": 230,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "windKt": 2.8,
    "windCompass": "W",
    "windLabel": "onshore",
@@ -7232,14 +7237,14 @@
     "note": "Too small and soft for a shortboard - glide-friendly."
    },
    "bestHour": {
-    "time": "2026-09-23T15:00:00.000Z",
-    "localHour": 8,
+    "time": "2026-09-23T16:00:00.000Z",
+    "localHour": 9,
     "score": 49
    },
    "bestHourAnyTime": {
-    "time": "2026-09-23T23:00:00.000Z",
-    "localHour": 16,
-    "score": 50
+    "time": "2026-09-23T16:00:00.000Z",
+    "localHour": 9,
+    "score": 49
    },
    "betterOutsideWindow": false,
    "sunrise": null,
@@ -7293,7 +7298,7 @@
    "periodS": 11.4,
    "dirDeg": 231,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "windKt": 2.2,
    "windCompass": "WNW",
    "windLabel": "onshore",
@@ -7356,8 +7361,8 @@
     "note": "Too small and soft for a shortboard - glide-friendly."
    },
    "bestHour": {
-    "time": "2026-09-25T15:00:00.000Z",
-    "localHour": 8,
+    "time": "2026-09-25T16:00:00.000Z",
+    "localHour": 9,
     "score": 52
    },
    "bestHourAnyTime": {
@@ -7596,20 +7601,20 @@
    "changes": [
     {
      "ageHours": 24,
-     "scoreDelta": 3,
+     "scoreDelta": 2,
      "faceDeltaFt": 0.1,
      "periodDeltaS": -0.2,
      "prevScore": 40
     },
     {
      "ageHours": 48,
-     "scoreDelta": 24,
+     "scoreDelta": 23,
      "faceDeltaFt": 0.8,
      "periodDeltaS": 1.2,
      "prevScore": 19
     }
    ],
-   "headline": "Upgraded 24 pts vs 48 h ago (19 -> 43), size +0.8 ft",
+   "headline": "Upgraded 23 pts vs 48 h ago (19 -> 42), size +0.8 ft",
    "stable": false
   },
   {
@@ -7743,20 +7748,20 @@
    "changes": [
     {
      "ageHours": 24,
-     "scoreDelta": 2,
+     "scoreDelta": 1,
      "faceDeltaFt": 0.1,
      "periodDeltaS": -0.3,
      "prevScore": 47
     },
     {
      "ageHours": 48,
-     "scoreDelta": -9,
+     "scoreDelta": -10,
      "faceDeltaFt": -0.3,
      "periodDeltaS": 5.2,
      "prevScore": 58
     }
    ],
-   "headline": "Downgraded 9 pts vs 48 h ago (58 -> 49)",
+   "headline": "Downgraded 10 pts vs 48 h ago (58 -> 48)",
    "stable": false
   },
   {
@@ -7870,10 +7875,10 @@
     "label": "0-12 h",
     "n": 308,
     "hsMaeM": 0.07,
-    "hsMaeFt": 0.23,
+    "hsMaeFt": 0.22,
     "hsBiasM": -0.04,
-    "tpMaeS": 2.4,
-    "dirMaeDeg": 22.17
+    "tpMaeS": 2.45,
+    "dirMaeDeg": 22.08
    },
    {
     "label": "12-24 h",
@@ -7881,8 +7886,8 @@
     "hsMaeM": 0.07,
     "hsMaeFt": 0.23,
     "hsBiasM": -0.06,
-    "tpMaeS": 3.64,
-    "dirMaeDeg": 33.22
+    "tpMaeS": 3.66,
+    "dirMaeDeg": 33.18
    },
    {
     "label": "24-48 h",
@@ -7890,22 +7895,22 @@
     "hsMaeM": 0.08,
     "hsMaeFt": 0.26,
     "hsBiasM": -0.06,
-    "tpMaeS": 4.88,
-    "dirMaeDeg": 34.16
+    "tpMaeS": 5.02,
+    "dirMaeDeg": 33.9
    },
    {
     "label": "48-72 h",
     "n": 11,
     "hsMaeM": 0.07,
-    "hsMaeFt": 0.21,
+    "hsMaeFt": 0.22,
     "hsBiasM": -0.07,
-    "tpMaeS": 7.26,
-    "dirMaeDeg": 57.58
+    "tpMaeS": 7.54,
+    "dirMaeDeg": 57.07
    }
   ],
   "overall": {
    "n": 736,
-   "hsMaeFt": 0.24,
+   "hsMaeFt": 0.23,
    "hsBiasFt": -0.17
   },
   "n": 736,
@@ -7954,29 +7959,29 @@
   }
  },
  "shelf": {
-  "observations": 1,
+  "observations": 2,
   "firstAt": "2026-09-17T02:30:00.000Z",
-  "lastAt": "2026-09-17T02:30:00.000Z",
+  "lastAt": "2026-09-17T03:00:00.000Z",
   "bins": [
    {
     "periodBand": "chop",
     "dirBand": "SW",
-    "n": 3,
-    "measuredHeightRatio": 0.8,
+    "n": 7,
+    "measuredHeightRatio": 0.9,
     "predictedHeightRatio": 1,
-    "residual": 0.8,
-    "residualSd": 0.12,
+    "residual": 0.9,
+    "residualSd": 0.15,
     "dirErrorDeg": 7,
     "settled": false
    },
    {
     "periodBand": "chop",
     "dirBand": "W",
-    "n": 13,
+    "n": 27,
     "measuredHeightRatio": 0.76,
     "predictedHeightRatio": 0.98,
-    "residual": 0.77,
-    "residualSd": 0.14,
+    "residual": 0.78,
+    "residualSd": 0.15,
     "dirErrorDeg": -5,
     "settled": false
    },
@@ -7994,45 +7999,56 @@
    {
     "periodBand": "ground",
     "dirBand": "S",
-    "n": 1,
-    "measuredHeightRatio": 0.54,
-    "predictedHeightRatio": 0.67,
-    "residual": 0.8,
-    "residualSd": 0,
-    "dirErrorDeg": 8,
+    "n": 3,
+    "measuredHeightRatio": 0.57,
+    "predictedHeightRatio": 0.52,
+    "residual": 1.32,
+    "residualSd": 0.75,
+    "dirErrorDeg": 9,
     "settled": false
    },
    {
     "periodBand": "ground",
     "dirBand": "SSW",
-    "n": 2,
-    "measuredHeightRatio": 0.7,
-    "predictedHeightRatio": 0.82,
-    "residual": 0.83,
-    "residualSd": 0.18,
+    "n": 3,
+    "measuredHeightRatio": 0.78,
+    "predictedHeightRatio": 0.8,
+    "residual": 0.96,
+    "residualSd": 0.24,
     "dirErrorDeg": 2,
     "settled": false
    },
    {
     "periodBand": "long",
     "dirBand": "S",
-    "n": 3,
-    "measuredHeightRatio": 0.48,
-    "predictedHeightRatio": 0.53,
-    "residual": 0.9,
-    "residualSd": 0.13,
-    "dirErrorDeg": 4,
+    "n": 5,
+    "measuredHeightRatio": 0.43,
+    "predictedHeightRatio": 0.54,
+    "residual": 0.79,
+    "residualSd": 0.25,
+    "dirErrorDeg": 3,
+    "settled": false
+   },
+   {
+    "periodBand": "long",
+    "dirBand": "SSW",
+    "n": 1,
+    "measuredHeightRatio": 1.1,
+    "predictedHeightRatio": 1.06,
+    "residual": 1.03,
+    "residualSd": 0,
+    "dirErrorDeg": -10,
     "settled": false
    },
    {
     "periodBand": "mid",
     "dirBand": "S",
-    "n": 3,
-    "measuredHeightRatio": 0.62,
-    "predictedHeightRatio": 0.56,
-    "residual": 1.15,
-    "residualSd": 0.35,
-    "dirErrorDeg": 5,
+    "n": 7,
+    "measuredHeightRatio": 0.5,
+    "predictedHeightRatio": 0.55,
+    "residual": 0.94,
+    "residualSd": 0.31,
+    "dirErrorDeg": 9,
     "settled": false
    },
    {
@@ -8044,6 +8060,17 @@
     "residual": 0.49,
     "residualSd": 0,
     "dirErrorDeg": 11,
+    "settled": false
+   },
+   {
+    "periodBand": "windswell",
+    "dirBand": "SSW",
+    "n": 1,
+    "measuredHeightRatio": 0.44,
+    "predictedHeightRatio": 0.86,
+    "residual": 0.52,
+    "residualSd": 0,
+    "dirErrorDeg": 22,
     "settled": false
    },
    {
@@ -8060,62 +8087,62 @@
    {
     "periodBand": "windswell",
     "dirBand": "W",
-    "n": 3,
-    "measuredHeightRatio": 0.51,
+    "n": 7,
+    "measuredHeightRatio": 0.48,
     "predictedHeightRatio": 0.91,
-    "residual": 0.56,
-    "residualSd": 0.12,
-    "dirErrorDeg": 3,
+    "residual": 0.53,
+    "residualSd": 0.09,
+    "dirErrorDeg": 2,
     "settled": false
    }
   ],
   "settledBins": 0,
   "note": "Still collecting. Nothing here is being applied to the forecast yet - a bin needs 200 band-samples before it is allowed to argue with the physics.",
   "latest": {
-   "time": "2026-09-17T02:30:00.000Z",
+   "time": "2026-09-17T03:00:00.000Z",
    "byPeriod": {
     "chop": {
-     "n": 17,
-     "energy": 2.0490196750000003,
-     "measuredHeightRatio": 0.7444099449378807,
-     "predictedHeightRatio": 0.9780364697533488,
-     "residual": 0.7595625248054222,
-     "dirErrorDeg": -3.9953672359651375
+     "n": 18,
+     "energy": 1.8243329830000004,
+     "measuredHeightRatio": 0.7999807474820662,
+     "predictedHeightRatio": 0.9778176014639082,
+     "residual": 0.8161636736165299,
+     "dirErrorDeg": -2.9716690964882555
     },
     "windswell": {
      "n": 5,
-     "energy": 1.3745545399999999,
-     "measuredHeightRatio": 0.48800948257433613,
-     "predictedHeightRatio": 0.9107297737414569,
-     "residual": 0.5354440620389809,
-     "dirErrorDeg": 7.905776867028564
+     "energy": 1.5276412,
+     "measuredHeightRatio": 0.46658194399094166,
+     "predictedHeightRatio": 0.9083063843786017,
+     "residual": 0.5135672326733175,
+     "dirErrorDeg": 4.502572366071803
     },
     "mid": {
      "n": 4,
-     "energy": 0.6134890000000001,
-     "measuredHeightRatio": 0.583668919149366,
-     "predictedHeightRatio": 0.6120859014172095,
-     "residual": 1.0286477941984125,
-     "dirErrorDeg": 6.2085128279641255
+     "energy": 1.00378867,
+     "measuredHeightRatio": 0.44734198880887466,
+     "predictedHeightRatio": 0.542780890529003,
+     "residual": 0.8371971756339945,
+     "dirErrorDeg": 10.558813110616153
     },
     "ground": {
      "n": 3,
-     "energy": 1.16614159,
-     "measuredHeightRatio": 0.6379044683149511,
-     "predictedHeightRatio": 0.7644541451800839,
-     "residual": 0.8205736492405518,
-     "dirErrorDeg": 3.932354460108986
+     "energy": 0.96052874,
+     "measuredHeightRatio": 0.7129188525399983,
+     "predictedHeightRatio": 0.530760489619674,
+     "residual": 1.5386181807726462,
+     "dirErrorDeg": 7.453484903097569
     },
     "long": {
      "n": 3,
-     "energy": 1.37508594,
-     "measuredHeightRatio": 0.48323991702296976,
-     "predictedHeightRatio": 0.5340750195629186,
-     "residual": 0.8981415844899988,
-     "dirErrorDeg": 4.117150762827756
+     "energy": 1.7437553499999998,
+     "measuredHeightRatio": 0.4023294145286387,
+     "predictedHeightRatio": 0.5657954076955262,
+     "residual": 0.719585654718099,
+     "dirErrorDeg": 2.561637689663117
     }
    },
-   "bands": 32
+   "bands": 33
   },
   "unusable": null,
   "outerStation": "100p1",
@@ -8700,16 +8727,37 @@
    }
   ]
  },
+ "morphology": {
+  "id": "longshoreBarTrough",
+  "order": 5,
+  "label": "Longshore bar and trough",
+  "bars": "One straight continuous bar parallel to the beach, with a trough inside it.",
+  "waves": "Walls. The bar is straight so the whole line trips at once - long closeouts on the bar, then reform in the trough.",
+  "skewDeg": 5,
+  "ripSpacingM": 400,
+  "closeoutProne": true,
+  "omega": 5.3,
+  "rtr": 1.8,
+  "regime": "wave-dominated",
+  "meanBreakerM": 1.01,
+  "tideRangeM": 1.83,
+  "settlingVelocityMs": 0.02,
+  "d50mm": 0.18,
+  "samples": 144,
+  "spunUp": false,
+  "summary": "Longshore bar and trough. One straight continuous bar parallel to the beach, with a trough inside it.",
+  "note": "Wright & Short (1984) beach-state classification with the Masselink & Short (1993) tide-modified extension - the distilled result of years of daily visual observations of how waves break on sandbars. Driven here by an energy-weighted running mean of measured buoy conditions with a four-day half-life, because bars respond over weeks rather than hours. It is a statistical expectation, not a picture of this particular sandbar."
+ },
  "hourly": [
   {
    "time": "2026-09-16T16:00:00.000Z",
    "localDate": "2026-09-16",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
-   "faceFt": 2.03,
-   "faceSetFt": 3.7,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
+   "faceFt": 2.02,
+   "faceSetFt": 3.5,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 11.6,
@@ -8726,15 +8774,15 @@
    "tideRate": 0.56,
    "waterF": 74.5,
    "airF": 71.7,
-   "score": 43,
+   "score": 42,
    "grade": "Fair",
-   "confidence": 0.42,
+   "confidence": 0.41,
    "board": "Longboard",
    "parts": {
     "tide": 0.99,
     "wind": 1,
     "size": 0.32,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -8762,7 +8810,7 @@
       "deepHsFt": 3.3,
       "periodS": 12.7,
       "dirDeg": 197,
-      "faceFt": 1.3
+      "faceFt": 1.2
      }
     ],
     "wind": [
@@ -8783,42 +8831,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.91,
+    0.72,
     0,
-    1.12
+    1.3
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -8827,12 +8875,12 @@
    "localDate": "2026-09-16",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
+   "deepHsM": 0.993,
+   "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.6,
+   "faceSetFt": 3.4,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.7,
    "dirDeg": 218,
    "dirCompass": "SW",
@@ -8847,7 +8895,7 @@
    "tideRate": 0.52,
    "waterF": 74.7,
    "airF": 72.8,
-   "score": 42,
+   "score": 41,
    "grade": "Fair",
    "confidence": 0.43,
    "board": "Longboard",
@@ -8855,7 +8903,7 @@
     "tide": 0.63,
     "wind": 1,
     "size": 0.31,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -8865,7 +8913,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.24
+      "faceFt": 1.23
      }
     ]
    },
@@ -8904,42 +8952,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.89,
+    0.71,
     0,
-    1.1
+    1.28
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -8948,12 +8996,12 @@
    "localDate": "2026-09-16",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
+   "deepHsM": 0.993,
+   "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.6,
+   "faceSetFt": 3.4,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.8,
    "dirDeg": 217,
    "dirCompass": "SW",
@@ -8976,7 +9024,7 @@
     "tide": 0.34,
     "wind": 0.98,
     "size": 0.31,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9025,42 +9073,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.89,
+    0.71,
     0,
-    1.1
+    1.28
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9069,12 +9117,12 @@
    "localDate": "2026-09-16",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
+   "deepHsM": 0.993,
+   "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.6,
+   "faceSetFt": 3.4,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.6,
    "dirDeg": 217,
    "dirCompass": "SW",
@@ -9089,7 +9137,7 @@
    "tideRate": 0.14,
    "waterF": 74.8,
    "airF": 75.1,
-   "score": 42,
+   "score": 41,
    "grade": "Fair",
    "confidence": 0.46,
    "board": "Longboard",
@@ -9097,7 +9145,7 @@
     "tide": 0.18,
     "wind": 0.93,
     "size": 0.31,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9107,7 +9155,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.27
+      "faceFt": 1.26
      }
     ]
    },
@@ -9146,42 +9194,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.89,
+    0.71,
     0,
-    1.1
+    1.28
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9190,12 +9238,12 @@
    "localDate": "2026-09-16",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 2.01,
-   "faceSetFt": 3.7,
+   "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.5,
    "dirDeg": 217,
    "dirCompass": "SW",
@@ -9218,7 +9266,7 @@
     "tide": 0.15,
     "wind": 0.83,
     "size": 0.32,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9267,42 +9315,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.9,
+    0.72,
     0,
-    1.11
+    1.29
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9311,12 +9359,12 @@
    "localDate": "2026-09-16",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 2.02,
-   "faceSetFt": 3.7,
+   "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.3,
    "dirDeg": 217,
    "dirCompass": "SW",
@@ -9339,7 +9387,7 @@
     "tide": 0.36,
     "wind": 0.69,
     "size": 0.32,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9349,7 +9397,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.32
+      "faceFt": 1.31
      }
     ]
    },
@@ -9388,42 +9436,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.9,
+    0.72,
     0,
-    1.12
+    1.3
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9432,12 +9480,12 @@
    "localDate": "2026-09-16",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
-   "faceFt": 2.02,
-   "faceSetFt": 3.7,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
+   "faceFt": 2.01,
+   "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.3,
    "dirDeg": 217,
    "dirCompass": "SW",
@@ -9460,7 +9508,7 @@
     "tide": 0.73,
     "wind": 0.64,
     "size": 0.32,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9470,7 +9518,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.32
+      "faceFt": 1.31
      }
     ]
    },
@@ -9509,42 +9557,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.9,
+    0.72,
     0,
-    1.11
+    1.3
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9553,10 +9601,10 @@
    "localDate": "2026-09-16",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.033,
-   "deepHsFt": 3.39,
-   "faceFt": 2.04,
-   "faceSetFt": 3.7,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
+   "faceFt": 2.03,
+   "faceSetFt": 3.5,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 11.2,
@@ -9581,7 +9629,7 @@
     "tide": 1,
     "wind": 0.67,
     "size": 0.33,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9630,42 +9678,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.91,
+    0.73,
     0,
-    1.13
+    1.31
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9674,10 +9722,10 @@
    "localDate": "2026-09-16",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.033,
-   "deepHsFt": 3.39,
-   "faceFt": 2.04,
-   "faceSetFt": 3.7,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
+   "faceFt": 2.03,
+   "faceSetFt": 3.5,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 11.2,
@@ -9702,7 +9750,7 @@
     "tide": 1,
     "wind": 0.82,
     "size": 0.33,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9751,42 +9799,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.91,
+    0.73,
     0,
-    1.13
+    1.31
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9795,12 +9843,12 @@
    "localDate": "2026-09-16",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
    "faceFt": 1.91,
-   "faceSetFt": 3.5,
+   "faceSetFt": 3.3,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.3,
    "dirDeg": 215,
    "dirCompass": "SW",
@@ -9817,13 +9865,13 @@
    "airF": 72.9,
    "score": 39,
    "grade": "Poor",
-   "confidence": 0.58,
+   "confidence": 0.57,
    "board": "Longboard",
    "parts": {
     "tide": 1,
     "wind": 0.94,
-    "size": 0.29,
-    "shape": 0.85
+    "size": 0.28,
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9833,7 +9881,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.33
+      "faceFt": 1.32
      }
     ]
    },
@@ -9872,42 +9920,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.85,
+    0.68,
     0,
-    1.06
+    1.23
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -9916,12 +9964,12 @@
    "localDate": "2026-09-16",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
    "faceFt": 1.89,
-   "faceSetFt": 3.5,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.4,
    "dirDeg": 214,
    "dirCompass": "SW",
@@ -9944,7 +9992,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -9993,42 +10041,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.85,
+    0.68,
     0,
-    1.05
+    1.22
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10037,10 +10085,10 @@
    "localDate": "2026-09-16",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 1.88,
-   "faceSetFt": 3.4,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
@@ -10065,7 +10113,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10114,42 +10162,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.84,
+    0.67,
     0,
-    1.04
+    1.21
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10158,10 +10206,10 @@
    "localDate": "2026-09-16",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 1.88,
-   "faceSetFt": 3.4,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -10185,8 +10233,8 @@
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.28,
-    "shape": 0.85
+    "size": 0.27,
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10235,42 +10283,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.84,
+    0.67,
     0,
-    1.04
+    1.21
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10279,12 +10327,12 @@
    "localDate": "2026-09-16",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.019,
+   "deepHsFt": 3.34,
    "faceFt": 1.89,
-   "faceSetFt": 3.5,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.5,
    "dirDeg": 213,
    "dirCompass": "SSW",
@@ -10307,7 +10355,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10317,7 +10365,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.35
+      "faceFt": 1.34
      }
     ]
    },
@@ -10356,42 +10404,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.85,
+    0.67,
     0,
-    1.05
+    1.22
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10400,12 +10448,12 @@
    "localDate": "2026-09-16",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.019,
+   "deepHsFt": 3.34,
    "faceFt": 1.89,
-   "faceSetFt": 3.5,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.5,
    "dirDeg": 212,
    "dirCompass": "SSW",
@@ -10428,7 +10476,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10438,7 +10486,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.35
+      "faceFt": 1.34
      }
     ]
    },
@@ -10477,42 +10525,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.85,
+    0.67,
     0,
-    1.04
+    1.21
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10521,12 +10569,12 @@
    "localDate": "2026-09-17",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
-   "faceFt": 1.89,
-   "faceSetFt": 3.5,
+   "deepHsM": 1.019,
+   "deepHsFt": 3.34,
+   "faceFt": 1.88,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.5,
    "dirDeg": 212,
    "dirCompass": "SSW",
@@ -10543,13 +10591,13 @@
    "airF": 68.9,
    "score": 39,
    "grade": "Poor",
-   "confidence": 0.63,
+   "confidence": 0.62,
    "board": "Longboard",
    "parts": {
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10598,42 +10646,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.84,
+    0.67,
     0,
-    1.04
+    1.21
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10642,12 +10690,12 @@
    "localDate": "2026-09-17",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.019,
+   "deepHsFt": 3.34,
    "faceFt": 1.9,
-   "faceSetFt": 3.5,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.6,
    "dirDeg": 211,
    "dirCompass": "SSW",
@@ -10670,7 +10718,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10719,42 +10767,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.85,
+    0.68,
     0,
-    1.05
+    1.22
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10763,16 +10811,16 @@
    "localDate": "2026-09-17",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
-   "faceFt": 1.9,
-   "faceSetFt": 3.5,
+   "deepHsM": 1.019,
+   "deepHsFt": 3.34,
+   "faceFt": 1.89,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.6,
    "dirDeg": 211,
    "dirCompass": "SSW",
-   "powerKwPerM": 5.4,
+   "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
    "windKt": 1.6,
    "gustKt": 2.6,
@@ -10791,7 +10839,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10801,7 +10849,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.38
+      "faceFt": 1.37
      }
     ]
    },
@@ -10840,42 +10888,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.85,
+    0.68,
     0,
-    1.05
+    1.22
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -10884,12 +10932,12 @@
    "localDate": "2026-09-17",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.019,
+   "deepHsFt": 3.34,
    "faceFt": 1.91,
-   "faceSetFt": 3.5,
+   "faceSetFt": 3.3,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.8,
    "dirDeg": 212,
    "dirCompass": "SSW",
@@ -10906,13 +10954,13 @@
    "airF": 66,
    "score": 39,
    "grade": "Poor",
-   "confidence": 0.68,
+   "confidence": 0.67,
    "board": "Longboard",
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.29,
-    "shape": 0.85
+    "size": 0.28,
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -10922,7 +10970,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.41
+      "faceFt": 1.4
      }
     ]
    },
@@ -10961,42 +11009,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.85,
+    0.68,
     0,
-    1.06
+    1.23
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -11005,10 +11053,10 @@
    "localDate": "2026-09-17",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 2.05,
-   "faceSetFt": 3.8,
+   "faceSetFt": 3.5,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 12.1,
@@ -11033,7 +11081,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.33,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -11082,42 +11130,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.92,
+    0.73,
     0,
-    1.13
+    1.32
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -11126,16 +11174,16 @@
    "localDate": "2026-09-17",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 2.05,
-   "faceSetFt": 3.8,
+   "faceSetFt": 3.5,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 12.2,
    "dirDeg": 214,
    "dirCompass": "SSW",
-   "powerKwPerM": 5.5,
+   "powerKwPerM": 5.4,
    "energyKjPerM2": 0.6,
    "windKt": 1.9,
    "gustKt": 3.8,
@@ -11154,7 +11202,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.33,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -11164,7 +11212,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.7
+      "faceFt": 1.69
      }
     ]
    },
@@ -11203,42 +11251,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.92,
+    0.73,
     0,
-    1.13
+    1.32
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -11247,10 +11295,10 @@
    "localDate": "2026-09-17",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 2.04,
-   "faceSetFt": 3.7,
+   "faceSetFt": 3.5,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 12,
@@ -11269,13 +11317,13 @@
    "airF": 67.6,
    "score": 43,
    "grade": "Fair",
-   "confidence": 0.79,
+   "confidence": 0.78,
    "board": "Longboard",
    "parts": {
     "tide": 1,
     "wind": 1,
     "size": 0.33,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -11324,42 +11372,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.91,
+    0.73,
     0,
-    1.13
+    1.31
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -11368,16 +11416,16 @@
    "localDate": "2026-09-17",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
+   "deepHsM": 0.994,
+   "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.6,
+   "faceSetFt": 3.4,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.8,
    "dirDeg": 212,
    "dirCompass": "SSW",
-   "powerKwPerM": 5.2,
+   "powerKwPerM": 5.1,
    "energyKjPerM2": 0.6,
    "windKt": 2,
    "gustKt": 3.6,
@@ -11396,7 +11444,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.31,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -11406,7 +11454,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -11445,42 +11493,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.48,
-     "hsFt": 1.6,
-     "periodS": 8.3,
-     "dirDeg": 250,
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.37,
-     "hsFt": 1.2,
-     "periodS": 16.7,
-     "dirDeg": 193,
-     "dirCompass": "SSW"
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.32,
-     "hsFt": 1.1,
-     "periodS": 13.3,
-     "dirDeg": 197,
-     "dirCompass": "SSW"
+     "hsM": 0.29,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    1.07,
+    0.71,
     0,
-    0.93
+    1.28
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.41,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 15.1,
-    "speedMs": 11,
-    "makeable": true,
-    "closeoutRatio": 0.97
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
    "trainsFrom": "buoy"
   },
@@ -11489,16 +11537,16 @@
    "localDate": "2026-09-17",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
+   "deepHsM": 0.994,
+   "deepHsFt": 3.26,
    "faceFt": 1.87,
-   "faceSetFt": 2.8,
+   "faceSetFt": 3.2,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.6,
    "dirDeg": 211,
    "dirCompass": "SSW",
-   "powerKwPerM": 5.1,
+   "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
    "windKt": 2.2,
    "gustKt": 4.3,
@@ -11517,7 +11565,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.27,
-    "shape": 0.85
+    "shape": 0.69
    },
    "modelSpread": {
     "heightFt": [
@@ -11527,7 +11575,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.38
+      "faceFt": 1.37
      }
     ]
    },
@@ -11565,45 +11613,53 @@
    },
    "trains": [
     {
-     "kind": "primary swell",
-     "hsM": 0.7,
-     "hsFt": 2.3,
-     "periodS": 12.1,
-     "dirDeg": 198,
-     "dirCompass": "SSW"
+     "kind": "windswell",
+     "hsM": 0.51,
+     "hsFt": 1.7,
+     "periodS": 9.1,
+     "dirDeg": 258,
+     "dirCompass": "WSW"
     },
     {
-     "kind": "secondary swell",
-     "hsM": 0.26,
+     "kind": "groundswell",
+     "hsM": 0.4,
+     "hsFt": 1.3,
+     "periodS": 18.2,
+     "dirDeg": 191,
+     "dirCompass": "S"
+    },
+    {
+     "kind": "groundswell",
+     "hsM": 0.29,
      "hsFt": 0.9,
-     "periodS": 7.1,
-     "dirDeg": 293,
-     "dirCompass": "WNW"
+     "periodS": 12.5,
+     "dirDeg": 186,
+     "dirCompass": "S"
     }
    ],
    "mixFt": [
-    1.18,
+    0.9,
     0,
-    0.68
+    0.96
    ],
    "crossing": true,
    "chopFt": 0,
-   "superposition": 1.16,
+   "superposition": 1.31,
    "peel": {
-    "alphaDeg": 18.7,
-    "speedMs": 7,
-    "makeable": true,
-    "closeoutRatio": 0.68
+    "alphaDeg": 13.4,
+    "speedMs": 13,
+    "makeable": false,
+    "closeoutRatio": 1.15
    },
-   "trainsFrom": "model"
+   "trainsFrom": "buoy"
   },
   {
    "time": "2026-09-17T16:00:00.000Z",
    "localDate": "2026-09-17",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
+   "deepHsM": 0.994,
+   "deepHsFt": 3.26,
    "faceFt": 1.87,
    "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
@@ -11640,7 +11696,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.38
+      "faceFt": 1.37
      }
     ]
    },
@@ -11695,9 +11751,9 @@
     }
    ],
    "mixFt": [
-    1.4,
+    1.18,
     0,
-    0.47
+    0.69
    ],
    "crossing": false,
    "chopFt": 0,
@@ -11715,9 +11771,9 @@
    "localDate": "2026-09-17",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
-   "faceFt": 1.9,
+   "deepHsM": 0.993,
+   "deepHsFt": 3.26,
+   "faceFt": 1.89,
    "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
@@ -11753,7 +11809,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.39
+      "faceFt": 1.38
      }
     ]
    },
@@ -11828,9 +11884,9 @@
    "localDate": "2026-09-17",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 0.996,
-   "deepHsFt": 3.27,
-   "faceFt": 1.9,
+   "deepHsM": 0.993,
+   "deepHsFt": 3.26,
+   "faceFt": 1.89,
    "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
@@ -11941,8 +11997,8 @@
    "localDate": "2026-09-17",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 1.92,
    "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
@@ -11950,7 +12006,7 @@
    "periodS": 11.3,
    "dirDeg": 212,
    "dirCompass": "SSW",
-   "powerKwPerM": 5.1,
+   "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
    "windKt": 6.3,
    "gustKt": 11,
@@ -12054,8 +12110,8 @@
    "localDate": "2026-09-17",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 1.93,
    "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
@@ -12092,7 +12148,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.41
+      "faceFt": 1.4
      }
     ]
    },
@@ -12175,8 +12231,8 @@
    "localDate": "2026-09-17",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
    "faceFt": 1.96,
    "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
@@ -12197,7 +12253,7 @@
    "airF": 74.3,
    "score": 41,
    "grade": "Fair",
-   "confidence": 0.62,
+   "confidence": 0.61,
    "board": "Longboard",
    "parts": {
     "tide": 0.37,
@@ -12213,7 +12269,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.43
+      "faceFt": 1.42
      }
     ]
    },
@@ -12296,9 +12352,9 @@
    "localDate": "2026-09-17",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
-   "faceFt": 1.97,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
+   "faceFt": 1.96,
    "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
@@ -12417,8 +12473,8 @@
    "localDate": "2026-09-17",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
+   "deepHsM": 1.043,
+   "deepHsFt": 3.42,
    "faceFt": 2.1,
    "faceSetFt": 3,
    "sizeLabel": "Thigh high",
@@ -12439,7 +12495,7 @@
    "airF": 73.1,
    "score": 45,
    "grade": "Fair",
-   "confidence": 0.54,
+   "confidence": 0.53,
    "board": "Longboard",
    "parts": {
     "tide": 0.83,
@@ -12455,7 +12511,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.47
+      "faceFt": 1.46
      }
     ]
    },
@@ -12538,8 +12594,8 @@
    "localDate": "2026-09-17",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
+   "deepHsM": 1.043,
+   "deepHsFt": 3.42,
    "faceFt": 2.11,
    "faceSetFt": 3.1,
    "sizeLabel": "Thigh high",
@@ -12547,7 +12603,7 @@
    "periodS": 10.7,
    "dirDeg": 216,
    "dirCompass": "SW",
-   "powerKwPerM": 5.2,
+   "powerKwPerM": 5.1,
    "energyKjPerM2": 0.7,
    "windKt": 7.7,
    "gustKt": 14.6,
@@ -12576,7 +12632,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.48
+      "faceFt": 1.47
      }
     ]
    },
@@ -12639,7 +12695,7 @@
     }
    ],
    "mixFt": [
-    1.83,
+    1.82,
     0,
     0.29
    ],
@@ -12659,10 +12715,10 @@
    "localDate": "2026-09-17",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.033,
-   "deepHsFt": 3.39,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
    "faceFt": 1.96,
-   "faceSetFt": 2.55,
+   "faceSetFt": 2.54,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 10.8,
@@ -12780,8 +12836,8 @@
    "localDate": "2026-09-17",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
    "faceFt": 1.92,
    "faceSetFt": 2.5,
    "sizeLabel": "Knee high",
@@ -12901,8 +12957,8 @@
    "localDate": "2026-09-17",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 1.89,
    "faceSetFt": 2.5,
    "sizeLabel": "Knee high",
@@ -12910,7 +12966,7 @@
    "periodS": 11.1,
    "dirDeg": 213,
    "dirCompass": "SSW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 4.7,
    "gustKt": 8.4,
@@ -13014,12 +13070,12 @@
    "localDate": "2026-09-17",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
-   "faceFt": 1.89,
-   "faceSetFt": 2.5,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
+   "faceFt": 1.88,
+   "faceSetFt": 2.45,
    "sizeLabel": "Knee high",
-   "setSizeLabel": "Waist high",
+   "setSizeLabel": "Thigh high",
    "periodS": 11.1,
    "dirDeg": 212,
    "dirCompass": "SSW",
@@ -13107,7 +13163,7 @@
     }
    ],
    "mixFt": [
-    1.89,
+    1.88,
     0,
     0
    ],
@@ -13127,8 +13183,8 @@
    "localDate": "2026-09-17",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 0.983,
-   "deepHsFt": 3.23,
+   "deepHsM": 0.981,
+   "deepHsFt": 3.22,
    "faceFt": 1.85,
    "faceSetFt": 2.41,
    "sizeLabel": "Knee high",
@@ -13136,7 +13192,7 @@
    "periodS": 11.1,
    "dirDeg": 213,
    "dirCompass": "SSW",
-   "powerKwPerM": 4.8,
+   "powerKwPerM": 4.7,
    "energyKjPerM2": 0.6,
    "windKt": 3.8,
    "gustKt": 6.1,
@@ -13240,8 +13296,8 @@
    "localDate": "2026-09-17",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 0.983,
-   "deepHsFt": 3.23,
+   "deepHsM": 0.981,
+   "deepHsFt": 3.22,
    "faceFt": 1.85,
    "faceSetFt": 2.4,
    "sizeLabel": "Knee high",
@@ -13249,7 +13305,7 @@
    "periodS": 11.1,
    "dirDeg": 212,
    "dirCompass": "SSW",
-   "powerKwPerM": 4.8,
+   "powerKwPerM": 4.7,
    "energyKjPerM2": 0.6,
    "windKt": 2.9,
    "gustKt": 4.4,
@@ -13262,7 +13318,7 @@
    "airF": 68.7,
    "score": 38,
    "grade": "Poor",
-   "confidence": 0.69,
+   "confidence": 0.68,
    "board": "Longboard",
    "parts": {
     "tide": 1,
@@ -13278,7 +13334,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.37
+      "faceFt": 1.36
      }
     ]
    },
@@ -13353,8 +13409,8 @@
    "localDate": "2026-09-18",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 0.983,
-   "deepHsFt": 3.23,
+   "deepHsM": 0.981,
+   "deepHsFt": 3.22,
    "faceFt": 1.85,
    "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
@@ -13362,7 +13418,7 @@
    "periodS": 11.2,
    "dirDeg": 212,
    "dirCompass": "SSW",
-   "powerKwPerM": 4.8,
+   "powerKwPerM": 4.7,
    "energyKjPerM2": 0.6,
    "windKt": 2,
    "gustKt": 2.8,
@@ -13391,7 +13447,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.37
+      "faceFt": 1.36
      }
     ]
    },
@@ -13466,9 +13522,9 @@
    "localDate": "2026-09-18",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 0.959,
+   "deepHsM": 0.956,
    "deepHsFt": 3.14,
-   "faceFt": 1.83,
+   "faceFt": 1.82,
    "faceSetFt": 2.6,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
@@ -13488,7 +13544,7 @@
    "airF": 68.1,
    "score": 37,
    "grade": "Poor",
-   "confidence": 0.71,
+   "confidence": 0.7,
    "board": "Longboard",
    "parts": {
     "tide": 1,
@@ -13504,7 +13560,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.37
+      "faceFt": 1.36
      }
     ]
    },
@@ -13561,7 +13617,7 @@
    "mixFt": [
     1.44,
     0,
-    0.39
+    0.38
    ],
    "crossing": false,
    "chopFt": 0,
@@ -13579,7 +13635,7 @@
    "localDate": "2026-09-18",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 0.959,
+   "deepHsM": 0.956,
    "deepHsFt": 3.14,
    "faceFt": 1.83,
    "faceSetFt": 2.6,
@@ -13588,7 +13644,7 @@
    "periodS": 11.3,
    "dirDeg": 212,
    "dirCompass": "SSW",
-   "powerKwPerM": 4.6,
+   "powerKwPerM": 4.5,
    "energyKjPerM2": 0.6,
    "windKt": 1.3,
    "gustKt": 2.2,
@@ -13617,7 +13673,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.37
+      "faceFt": 1.36
      }
     ]
    },
@@ -13692,9 +13748,9 @@
    "localDate": "2026-09-18",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 0.959,
+   "deepHsM": 0.956,
    "deepHsFt": 3.14,
-   "faceFt": 1.83,
+   "faceFt": 1.82,
    "faceSetFt": 2.4,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Thigh high",
@@ -13730,7 +13786,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.36
+      "faceFt": 1.35
      }
     ]
    },
@@ -13785,7 +13841,7 @@
     }
    ],
    "mixFt": [
-    1.72,
+    1.71,
     0,
     0.11
    ],
@@ -13805,7 +13861,7 @@
    "localDate": "2026-09-18",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 0.959,
+   "deepHsM": 0.956,
    "deepHsFt": 3.14,
    "faceFt": 1.83,
    "faceSetFt": 2.4,
@@ -13843,7 +13899,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.36
+      "faceFt": 1.35
      }
     ]
    },
@@ -13918,7 +13974,7 @@
    "localDate": "2026-09-18",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 0.959,
+   "deepHsM": 0.956,
    "deepHsFt": 3.14,
    "faceFt": 1.93,
    "faceSetFt": 2.51,
@@ -13956,7 +14012,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.56
+      "faceFt": 1.55
      }
     ]
    },
@@ -14031,7 +14087,7 @@
    "localDate": "2026-09-18",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 0.959,
+   "deepHsM": 0.956,
    "deepHsFt": 3.14,
    "faceFt": 1.95,
    "faceSetFt": 2.53,
@@ -14053,7 +14109,7 @@
    "airF": 66.7,
    "score": 40,
    "grade": "Fair",
-   "confidence": 0.77,
+   "confidence": 0.76,
    "board": "Longboard",
    "parts": {
     "tide": 1,
@@ -14069,7 +14125,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.57
+      "faceFt": 1.56
      }
     ]
    },
@@ -14144,16 +14200,16 @@
    "localDate": "2026-09-18",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 0.983,
-   "deepHsFt": 3.23,
-   "faceFt": 2,
+   "deepHsM": 0.981,
+   "deepHsFt": 3.22,
+   "faceFt": 1.99,
    "faceSetFt": 2.6,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
    "dirDeg": 217,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.6,
    "windKt": 2.3,
    "gustKt": 4.3,
@@ -14237,7 +14293,7 @@
     }
    ],
    "mixFt": [
-    2,
+    1.99,
     0,
     0
    ],
@@ -14257,16 +14313,16 @@
    "localDate": "2026-09-18",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 0.983,
-   "deepHsFt": 3.23,
-   "faceFt": 2.01,
-   "faceSetFt": 2.61,
+   "deepHsM": 0.981,
+   "deepHsFt": 3.22,
+   "faceFt": 2,
+   "faceSetFt": 2.6,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
    "dirDeg": 219,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.6,
    "windKt": 2.6,
    "gustKt": 4.8,
@@ -14295,7 +14351,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.61
+      "faceFt": 1.6
      }
     ]
    },
@@ -14370,8 +14426,8 @@
    "localDate": "2026-09-18",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 0.983,
-   "deepHsFt": 3.23,
+   "deepHsM": 0.981,
+   "deepHsFt": 3.22,
    "faceFt": 1.98,
    "faceSetFt": 3,
    "sizeLabel": "Knee high",
@@ -14379,7 +14435,7 @@
    "periodS": 11.4,
    "dirDeg": 219,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.6,
    "windKt": 2.5,
    "gustKt": 5.8,
@@ -14408,7 +14464,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.55
+      "faceFt": 1.54
      }
     ]
    },
@@ -14426,7 +14482,7 @@
       "deepHsFt": 3.3,
       "periodS": 12.4,
       "dirDeg": 204,
-      "faceFt": 1.6
+      "faceFt": 1.5
      }
     ],
     "wind": [
@@ -14483,8 +14539,8 @@
    "localDate": "2026-09-18",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
    "faceFt": 2.11,
    "faceSetFt": 3.2,
    "sizeLabel": "Thigh high",
@@ -14521,7 +14577,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.55
+      "faceFt": 1.54
      }
     ]
    },
@@ -14539,7 +14595,7 @@
       "deepHsFt": 3.4,
       "periodS": 12.4,
       "dirDeg": 204,
-      "faceFt": 1.6
+      "faceFt": 1.5
      }
     ],
     "wind": [
@@ -14596,16 +14652,16 @@
    "localDate": "2026-09-18",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 1.008,
-   "deepHsFt": 3.31,
-   "faceFt": 2.09,
-   "faceSetFt": 3.2,
+   "deepHsM": 1.006,
+   "deepHsFt": 3.3,
+   "faceFt": 2.08,
+   "faceSetFt": 3.1,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.3,
    "dirDeg": 220,
    "dirCompass": "SW",
-   "powerKwPerM": 5.1,
+   "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
    "windKt": 5,
    "gustKt": 9.4,
@@ -14618,7 +14674,7 @@
    "airF": 73.9,
    "score": 44,
    "grade": "Fair",
-   "confidence": 0.58,
+   "confidence": 0.57,
    "board": "Longboard",
    "parts": {
     "tide": 0.85,
@@ -14634,7 +14690,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.49
+      "faceFt": 1.48
      }
     ]
    },
@@ -14709,9 +14765,9 @@
    "localDate": "2026-09-18",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 1.021,
-   "deepHsFt": 3.35,
-   "faceFt": 2.12,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
+   "faceFt": 2.11,
    "faceSetFt": 3.2,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -14810,7 +14866,7 @@
     }
    ],
    "mixFt": [
-    1.7,
+    1.69,
     0,
     0.42
    ],
@@ -14830,8 +14886,8 @@
    "localDate": "2026-09-18",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.058,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.055,
+   "deepHsFt": 3.46,
    "faceFt": 2.17,
    "faceSetFt": 2.82,
    "sizeLabel": "Thigh high",
@@ -14850,7 +14906,7 @@
    "tideRate": 0.14,
    "waterF": 75,
    "airF": 75.4,
-   "score": 47,
+   "score": 46,
    "grade": "Fair",
    "confidence": 0.51,
    "board": "Longboard",
@@ -14951,10 +15007,10 @@
    "localDate": "2026-09-18",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.07,
-   "deepHsFt": 3.51,
-   "faceFt": 2.22,
-   "faceSetFt": 3.4,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
+   "faceFt": 2.21,
+   "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.6,
@@ -15054,7 +15110,7 @@
    "mixFt": [
     1.84,
     0,
-    0.38
+    0.37
    ],
    "crossing": false,
    "chopFt": 0.7,
@@ -15072,8 +15128,8 @@
    "localDate": "2026-09-18",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.083,
-   "deepHsFt": 3.55,
+   "deepHsM": 1.08,
+   "deepHsFt": 3.54,
    "faceFt": 2.17,
    "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
@@ -15092,7 +15148,7 @@
    "tideRate": -0.09,
    "waterF": 75,
    "airF": 75,
-   "score": 47,
+   "score": 46,
    "grade": "Fair",
    "confidence": 0.47,
    "board": "Longboard",
@@ -15193,8 +15249,8 @@
    "localDate": "2026-09-18",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.095,
-   "deepHsFt": 3.59,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
    "faceFt": 2.18,
    "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
@@ -15202,8 +15258,8 @@
    "periodS": 9.9,
    "dirDeg": 225,
    "dirCompass": "SW",
-   "powerKwPerM": 5.3,
-   "energyKjPerM2": 0.8,
+   "powerKwPerM": 5.2,
+   "energyKjPerM2": 0.7,
    "windKt": 8.1,
    "gustKt": 13.9,
    "windDirDeg": 280,
@@ -15314,7 +15370,7 @@
    "localDate": "2026-09-18",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.107,
+   "deepHsM": 1.105,
    "deepHsFt": 3.63,
    "faceFt": 2.12,
    "faceSetFt": 3.3,
@@ -15342,7 +15398,7 @@
     "tide": 0.79,
     "wind": 0.79,
     "size": 0.35,
-    "shape": 0.66
+    "shape": 0.67
    },
    "modelSpread": {
     "heightFt": [
@@ -15367,7 +15423,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 10.9,
       "dirDeg": 194,
       "faceFt": 1.2
@@ -15415,7 +15471,7 @@
     }
    ],
    "mixFt": [
-    1.95,
+    1.94,
     0,
     0.17
    ],
@@ -15435,7 +15491,7 @@
    "localDate": "2026-09-18",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.1,
    "faceSetFt": 3.3,
@@ -15488,7 +15544,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 10.9,
       "dirDeg": 194,
       "faceFt": 1.1
@@ -15536,7 +15592,7 @@
     }
    ],
    "mixFt": [
-    1.89,
+    1.88,
     0,
     0.22
    ],
@@ -15556,8 +15612,8 @@
    "localDate": "2026-09-18",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.132,
-   "deepHsFt": 3.72,
+   "deepHsM": 1.13,
+   "deepHsFt": 3.71,
    "faceFt": 2.06,
    "faceSetFt": 3.2,
    "sizeLabel": "Thigh high",
@@ -15576,14 +15632,14 @@
    "tideRate": -0.58,
    "waterF": 75,
    "airF": 72,
-   "score": 44,
+   "score": 43,
    "grade": "Fair",
    "confidence": 0.16,
    "board": "Longboard",
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.34,
+    "size": 0.33,
     "shape": 0.67
    },
    "modelSpread": {
@@ -15649,7 +15705,7 @@
     }
    ],
    "mixFt": [
-    1.87,
+    1.86,
     0,
     0.2
    ],
@@ -15669,8 +15725,8 @@
    "localDate": "2026-09-18",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.145,
-   "deepHsFt": 3.76,
+   "deepHsM": 1.142,
+   "deepHsFt": 3.75,
    "faceFt": 2.08,
    "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
@@ -15678,7 +15734,7 @@
    "periodS": 9.6,
    "dirDeg": 225,
    "dirCompass": "SW",
-   "powerKwPerM": 5.6,
+   "powerKwPerM": 5.5,
    "energyKjPerM2": 0.8,
    "windKt": 3.2,
    "gustKt": 5.7,
@@ -15782,8 +15838,8 @@
    "localDate": "2026-09-18",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.145,
-   "deepHsFt": 3.76,
+   "deepHsM": 1.142,
+   "deepHsFt": 3.75,
    "faceFt": 2.09,
    "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
@@ -15809,7 +15865,7 @@
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.35,
+    "size": 0.34,
     "shape": 0.67
    },
    "modelSpread": {
@@ -15895,9 +15951,9 @@
    "localDate": "2026-09-18",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 1.157,
-   "deepHsFt": 3.8,
-   "faceFt": 2.15,
+   "deepHsM": 1.154,
+   "deepHsFt": 3.79,
+   "faceFt": 2.14,
    "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -15933,7 +15989,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.08
+      "faceFt": 1.07
      }
     ]
    },
@@ -16008,8 +16064,8 @@
    "localDate": "2026-09-18",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 1.157,
-   "deepHsFt": 3.8,
+   "deepHsM": 1.154,
+   "deepHsFt": 3.79,
    "faceFt": 2.15,
    "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
@@ -16121,8 +16177,8 @@
    "localDate": "2026-09-19",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 1.157,
-   "deepHsFt": 3.8,
+   "deepHsM": 1.154,
+   "deepHsFt": 3.79,
    "faceFt": 2.3,
    "faceSetFt": 3.6,
    "sizeLabel": "Thigh high",
@@ -16159,7 +16215,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.38
+      "faceFt": 1.37
      }
     ]
    },
@@ -16234,7 +16290,7 @@
    "localDate": "2026-09-19",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.28,
    "faceSetFt": 3.6,
@@ -16272,7 +16328,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.38
+      "faceFt": 1.37
      }
     ]
    },
@@ -16287,7 +16343,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 8.2,
       "dirDeg": 213,
       "faceFt": 1.4
@@ -16347,7 +16403,7 @@
    "localDate": "2026-09-19",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.37,
    "faceSetFt": 3.7,
@@ -16385,7 +16441,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.56
+      "faceFt": 1.55
      }
     ]
    },
@@ -16400,7 +16456,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 6.8,
       "dirDeg": 221,
       "faceFt": 1.6
@@ -16442,7 +16498,7 @@
    "mixFt": [
     1.62,
     0,
-    0.76
+    0.75
    ],
    "crossing": false,
    "chopFt": 0,
@@ -16460,10 +16516,10 @@
    "localDate": "2026-09-19",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.49,
-   "faceSetFt": 3.24,
+   "faceSetFt": 3.23,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 7.1,
@@ -16513,7 +16569,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 5.8,
       "dirDeg": 239,
       "faceFt": 1.8
@@ -16573,16 +16629,16 @@
    "localDate": "2026-09-19",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.57,
-   "faceSetFt": 3.35,
+   "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.8,
    "dirDeg": 256,
    "dirCompass": "WSW",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "energyKjPerM2": 0.8,
    "windKt": 2.2,
    "gustKt": 3.4,
@@ -16626,7 +16682,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 5,
       "dirDeg": 256,
       "faceFt": 2
@@ -16686,7 +16742,7 @@
    "localDate": "2026-09-19",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.52,
    "faceSetFt": 3.3,
@@ -16739,7 +16795,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.6,
       "dirDeg": 274,
       "faceFt": 1.9
@@ -16799,7 +16855,7 @@
    "localDate": "2026-09-19",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.54,
    "faceSetFt": 3.3,
@@ -16820,7 +16876,7 @@
    "waterF": 74.3,
    "airF": 65.2,
    "score": 56,
-   "grade": "Good",
+   "grade": "Fair",
    "confidence": 0.62,
    "board": "Mid-length / fun shape",
    "parts": {
@@ -16852,7 +16908,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.5,
       "dirDeg": 275,
       "faceFt": 1.9
@@ -16912,16 +16968,16 @@
    "localDate": "2026-09-19",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 1.132,
-   "deepHsFt": 3.72,
-   "faceFt": 2.56,
+   "deepHsM": 1.13,
+   "deepHsFt": 3.71,
+   "faceFt": 2.55,
    "faceSetFt": 3.32,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.7,
    "dirDeg": 266,
    "dirCompass": "W",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "energyKjPerM2": 0.8,
    "windKt": 2,
    "gustKt": 3.8,
@@ -16934,7 +16990,7 @@
    "airF": 65.4,
    "score": 56,
    "grade": "Good",
-   "confidence": 0.63,
+   "confidence": 0.62,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -16950,7 +17006,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.94
+      "faceFt": 1.93
      }
     ]
    },
@@ -17005,7 +17061,7 @@
     }
    ],
    "mixFt": [
-    2.16,
+    2.15,
     0,
     0.4
    ],
@@ -17025,8 +17081,8 @@
    "localDate": "2026-09-19",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 1.132,
-   "deepHsFt": 3.72,
+   "deepHsM": 1.13,
+   "deepHsFt": 3.71,
    "faceFt": 2.59,
    "faceSetFt": 3.4,
    "sizeLabel": "Waist high",
@@ -17047,7 +17103,7 @@
    "airF": 67,
    "score": 57,
    "grade": "Good",
-   "confidence": 0.65,
+   "confidence": 0.64,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -17063,7 +17119,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2
+      "faceFt": 1.99
      }
     ]
    },
@@ -17138,8 +17194,8 @@
    "localDate": "2026-09-19",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 1.132,
-   "deepHsFt": 3.72,
+   "deepHsM": 1.13,
+   "deepHsFt": 3.71,
    "faceFt": 2.59,
    "faceSetFt": 3.4,
    "sizeLabel": "Waist high",
@@ -17251,8 +17307,8 @@
    "localDate": "2026-09-19",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 1.145,
-   "deepHsFt": 3.76,
+   "deepHsM": 1.142,
+   "deepHsFt": 3.75,
    "faceFt": 2.61,
    "faceSetFt": 3.4,
    "sizeLabel": "Waist high",
@@ -17260,7 +17316,7 @@
    "periodS": 6.7,
    "dirDeg": 266,
    "dirCompass": "W",
-   "powerKwPerM": 3.9,
+   "powerKwPerM": 3.8,
    "energyKjPerM2": 0.8,
    "windKt": 2.5,
    "gustKt": 6.4,
@@ -17273,7 +17329,7 @@
    "airF": 73.8,
    "score": 58,
    "grade": "Good",
-   "confidence": 0.63,
+   "confidence": 0.62,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -17289,7 +17345,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.98
+      "faceFt": 1.97
      }
     ]
    },
@@ -17364,8 +17420,8 @@
    "localDate": "2026-09-19",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 1.145,
-   "deepHsFt": 3.76,
+   "deepHsM": 1.142,
+   "deepHsFt": 3.75,
    "faceFt": 2.62,
    "faceSetFt": 3.41,
    "sizeLabel": "Waist high",
@@ -17402,7 +17458,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.01
+      "faceFt": 2
      }
     ]
    },
@@ -17477,9 +17533,9 @@
    "localDate": "2026-09-19",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
-   "faceFt": 2.68,
+   "faceFt": 2.67,
    "faceSetFt": 3.5,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -17515,7 +17571,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.12
+      "faceFt": 2.11
      }
     ]
    },
@@ -17530,7 +17586,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 5.5,
       "dirDeg": 268,
       "faceFt": 2.1
@@ -17570,7 +17626,7 @@
     }
    ],
    "mixFt": [
-    1.75,
+    1.74,
     0,
     0.93
    ],
@@ -17590,7 +17646,7 @@
    "localDate": "2026-09-19",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.65,
    "faceSetFt": 3.7,
@@ -17599,7 +17655,7 @@
    "periodS": 7.5,
    "dirDeg": 259,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.3,
+   "powerKwPerM": 4.2,
    "energyKjPerM2": 0.8,
    "windKt": 7.1,
    "gustKt": 10.6,
@@ -17617,7 +17673,7 @@
    "parts": {
     "tide": 0.91,
     "wind": 0.76,
-    "size": 0.52,
+    "size": 0.51,
     "shape": 0.49
    },
    "modelSpread": {
@@ -17628,7 +17684,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.09
+      "faceFt": 2.08
      }
     ]
    },
@@ -17643,7 +17699,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 6.5,
       "dirDeg": 260,
       "faceFt": 2.1
@@ -17693,7 +17749,7 @@
    "mixFt": [
     1.08,
     0,
-    1.57
+    1.56
    ],
    "crossing": false,
    "chopFt": 0.1,
@@ -17711,9 +17767,9 @@
    "localDate": "2026-09-19",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.119,
-   "deepHsFt": 3.67,
-   "faceFt": 2.64,
+   "deepHsM": 1.117,
+   "deepHsFt": 3.66,
+   "faceFt": 2.63,
    "faceSetFt": 3.6,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -17733,7 +17789,7 @@
    "airF": 79.1,
    "score": 58,
    "grade": "Good",
-   "confidence": 0.73,
+   "confidence": 0.72,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.77,
@@ -17749,7 +17805,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.07
+      "faceFt": 2.06
      }
     ]
    },
@@ -17832,8 +17888,8 @@
    "localDate": "2026-09-19",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.104,
+   "deepHsFt": 3.62,
    "faceFt": 2.41,
    "faceSetFt": 3.6,
    "sizeLabel": "Thigh high",
@@ -17953,9 +18009,9 @@
    "localDate": "2026-09-19",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.094,
-   "deepHsFt": 3.59,
-   "faceFt": 2.21,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
+   "faceFt": 2.2,
    "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -17963,7 +18019,7 @@
    "dirDeg": 235,
    "dirCompass": "SW",
    "powerKwPerM": 4.7,
-   "energyKjPerM2": 0.8,
+   "energyKjPerM2": 0.7,
    "windKt": 6.7,
    "gustKt": 11,
    "windDirDeg": 266,
@@ -17991,7 +18047,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.26
+      "faceFt": 1.25
      }
     ]
    },
@@ -18074,8 +18130,8 @@
    "localDate": "2026-09-19",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.082,
-   "deepHsFt": 3.55,
+   "deepHsM": 1.079,
+   "deepHsFt": 3.54,
    "faceFt": 1.97,
    "faceSetFt": 3,
    "sizeLabel": "Knee high",
@@ -18195,8 +18251,8 @@
    "localDate": "2026-09-19",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.082,
-   "deepHsFt": 3.55,
+   "deepHsM": 1.079,
+   "deepHsFt": 3.54,
    "faceFt": 2.24,
    "faceSetFt": 3.5,
    "sizeLabel": "Thigh high",
@@ -18233,7 +18289,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.32
+      "faceFt": 1.31
      }
     ]
    },
@@ -18308,8 +18364,8 @@
    "localDate": "2026-09-19",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.054,
+   "deepHsFt": 3.46,
    "faceFt": 2.38,
    "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
@@ -18346,7 +18402,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.64
+      "faceFt": 1.63
      }
     ]
    },
@@ -18421,16 +18477,16 @@
    "localDate": "2026-09-19",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
-   "faceFt": 2.46,
+   "deepHsM": 1.054,
+   "deepHsFt": 3.46,
+   "faceFt": 2.45,
    "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 9.1,
    "dirDeg": 259,
    "dirCompass": "W",
-   "powerKwPerM": 4.5,
+   "powerKwPerM": 4.4,
    "energyKjPerM2": 0.7,
    "windKt": 2.7,
    "gustKt": 4.1,
@@ -18443,7 +18499,7 @@
    "airF": 71.3,
    "score": 54,
    "grade": "Fair",
-   "confidence": 0.62,
+   "confidence": 0.61,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -18514,7 +18570,7 @@
     }
    ],
    "mixFt": [
-    0.83,
+    0.82,
     0,
     1.63
    ],
@@ -18534,8 +18590,8 @@
    "localDate": "2026-09-19",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.054,
+   "deepHsFt": 3.46,
    "faceFt": 2.47,
    "faceSetFt": 3.8,
    "sizeLabel": "Thigh high",
@@ -18543,7 +18599,7 @@
    "periodS": 8.9,
    "dirDeg": 257,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.4,
+   "powerKwPerM": 4.3,
    "energyKjPerM2": 0.7,
    "windKt": 1.7,
    "gustKt": 3.2,
@@ -18647,8 +18703,8 @@
    "localDate": "2026-09-19",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.055,
+   "deepHsFt": 3.46,
    "faceFt": 2.45,
    "faceSetFt": 3.8,
    "sizeLabel": "Thigh high",
@@ -18669,12 +18725,12 @@
    "airF": 69.6,
    "score": 54,
    "grade": "Fair",
-   "confidence": 0.7,
+   "confidence": 0.69,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.46,
+    "size": 0.45,
     "shape": 0.63
    },
    "modelSpread": {
@@ -18685,7 +18741,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.83
+      "faceFt": 1.82
      }
     ]
    },
@@ -18760,8 +18816,8 @@
    "localDate": "2026-09-19",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.055,
+   "deepHsFt": 3.46,
    "faceFt": 2.39,
    "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
@@ -18769,7 +18825,7 @@
    "periodS": 8.4,
    "dirDeg": 250,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.2,
+   "powerKwPerM": 4.1,
    "energyKjPerM2": 0.7,
    "windKt": 1.9,
    "gustKt": 2.3,
@@ -18798,7 +18854,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.72
+      "faceFt": 1.71
      }
     ]
    },
@@ -18873,8 +18929,8 @@
    "localDate": "2026-09-20",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.055,
+   "deepHsFt": 3.46,
    "faceFt": 2.38,
    "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
@@ -18968,7 +19024,7 @@
    "mixFt": [
     0.98,
     0,
-    1.4
+    1.39
    ],
    "crossing": true,
    "chopFt": 0,
@@ -18986,9 +19042,9 @@
    "localDate": "2026-09-20",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 1.082,
-   "deepHsFt": 3.55,
-   "faceFt": 2.4,
+   "deepHsM": 1.08,
+   "deepHsFt": 3.54,
+   "faceFt": 2.39,
    "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
@@ -19024,7 +19080,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.67
+      "faceFt": 1.66
      }
     ]
    },
@@ -19099,8 +19155,8 @@
    "localDate": "2026-09-20",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 1.082,
-   "deepHsFt": 3.55,
+   "deepHsM": 1.08,
+   "deepHsFt": 3.54,
    "faceFt": 2.42,
    "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
@@ -19126,7 +19182,7 @@
    "parts": {
     "tide": 0.99,
     "wind": 1,
-    "size": 0.45,
+    "size": 0.44,
     "shape": 0.64
    },
    "modelSpread": {
@@ -19137,7 +19193,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.71
+      "faceFt": 1.7
      }
     ]
    },
@@ -19212,10 +19268,10 @@
    "localDate": "2026-09-20",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 1.082,
-   "deepHsFt": 3.55,
-   "faceFt": 2.42,
-   "faceSetFt": 3.8,
+   "deepHsM": 1.08,
+   "deepHsFt": 3.54,
+   "faceFt": 2.41,
+   "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 9.5,
@@ -19239,7 +19295,7 @@
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.45,
+    "size": 0.44,
     "shape": 0.7
    },
    "modelSpread": {
@@ -19307,7 +19363,7 @@
    "mixFt": [
     1.7,
     0,
-    0.72
+    0.71
    ],
    "crossing": false,
    "chopFt": 0,
@@ -19325,8 +19381,8 @@
    "localDate": "2026-09-20",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.105,
+   "deepHsFt": 3.62,
    "faceFt": 2.4,
    "faceSetFt": 3.12,
    "sizeLabel": "Thigh high",
@@ -19363,7 +19419,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.62
+      "faceFt": 1.61
      }
     ]
    },
@@ -19438,8 +19494,8 @@
    "localDate": "2026-09-20",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.105,
+   "deepHsFt": 3.62,
    "faceFt": 2.33,
    "faceSetFt": 3.6,
    "sizeLabel": "Thigh high",
@@ -19460,7 +19516,7 @@
    "airF": 65.4,
    "score": 51,
    "grade": "Fair",
-   "confidence": 0.4,
+   "confidence": 0.39,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -19476,7 +19532,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.48
+      "faceFt": 1.47
      }
     ]
    },
@@ -19551,8 +19607,8 @@
    "localDate": "2026-09-20",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.105,
+   "deepHsFt": 3.62,
    "faceFt": 2.4,
    "faceSetFt": 3.12,
    "sizeLabel": "Thigh high",
@@ -19589,7 +19645,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.62
+      "faceFt": 1.61
      }
     ]
    },
@@ -19664,9 +19720,9 @@
    "localDate": "2026-09-20",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
-   "faceFt": 2.45,
+   "faceFt": 2.44,
    "faceSetFt": 3.8,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
@@ -19684,7 +19740,7 @@
    "tideRate": 0.2,
    "waterF": 74.3,
    "airF": 65.8,
-   "score": 54,
+   "score": 53,
    "grade": "Fair",
    "confidence": 0.54,
    "board": "Mid-length / fun shape",
@@ -19702,7 +19758,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.7
+      "faceFt": 1.69
      }
     ]
    },
@@ -19717,7 +19773,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 9.9,
       "dirDeg": 239,
       "faceFt": 1.7
@@ -19777,7 +19833,7 @@
    "localDate": "2026-09-20",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.45,
    "faceSetFt": 3.8,
@@ -19830,7 +19886,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 7.8,
       "dirDeg": 249,
       "faceFt": 1.7
@@ -19890,9 +19946,9 @@
    "localDate": "2026-09-20",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
-   "faceFt": 2.46,
+   "faceFt": 2.45,
    "faceSetFt": 3.8,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
@@ -19928,7 +19984,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.71
+      "faceFt": 1.7
      }
     ]
    },
@@ -19943,7 +19999,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 7.8,
       "dirDeg": 250,
       "faceFt": 1.7
@@ -20003,7 +20059,7 @@
    "localDate": "2026-09-20",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.57,
    "faceSetFt": 3.9,
@@ -20056,7 +20112,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 8.9,
       "dirDeg": 252,
       "faceFt": 1.9
@@ -20116,9 +20172,9 @@
    "localDate": "2026-09-20",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
-   "faceFt": 2.63,
+   "faceFt": 2.62,
    "faceSetFt": 3.9,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -20154,7 +20210,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.04
+      "faceFt": 2.03
      }
     ]
    },
@@ -20169,7 +20225,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 10.2,
       "dirDeg": 253,
       "faceFt": 2
@@ -20229,8 +20285,8 @@
    "localDate": "2026-09-20",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.105,
+   "deepHsFt": 3.62,
    "faceFt": 2.54,
    "faceSetFt": 3.3,
    "sizeLabel": "Waist high",
@@ -20238,7 +20294,7 @@
    "periodS": 10.3,
    "dirDeg": 248,
    "dirCompass": "WSW",
-   "powerKwPerM": 5.6,
+   "powerKwPerM": 5.5,
    "energyKjPerM2": 0.8,
    "windKt": 5.6,
    "gustKt": 8.1,
@@ -20267,7 +20323,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.88
+      "faceFt": 1.87
      }
     ]
    },
@@ -20324,7 +20380,7 @@
    "mixFt": [
     1.6,
     0,
-    0.94
+    0.93
    ],
    "crossing": false,
    "chopFt": 0,
@@ -20342,8 +20398,8 @@
    "localDate": "2026-09-20",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.105,
+   "deepHsFt": 3.62,
    "faceFt": 2.46,
    "faceSetFt": 3.8,
    "sizeLabel": "Thigh high",
@@ -20380,7 +20436,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.75
+      "faceFt": 1.74
      }
     ]
    },
@@ -20463,8 +20519,8 @@
    "localDate": "2026-09-20",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.094,
-   "deepHsFt": 3.59,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
    "faceFt": 2.3,
    "faceSetFt": 3.6,
    "sizeLabel": "Thigh high",
@@ -20473,7 +20529,7 @@
    "dirDeg": 234,
    "dirCompass": "SW",
    "powerKwPerM": 6.1,
-   "energyKjPerM2": 0.8,
+   "energyKjPerM2": 0.7,
    "windKt": 7.6,
    "gustKt": 10.9,
    "windDirDeg": 263,
@@ -20584,17 +20640,17 @@
    "localDate": "2026-09-20",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.094,
-   "deepHsFt": 3.59,
-   "faceFt": 2.48,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
+   "faceFt": 2.47,
    "faceSetFt": 3.8,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
    "periodS": 11.3,
    "dirDeg": 241,
    "dirCompass": "WSW",
-   "powerKwPerM": 6,
-   "energyKjPerM2": 0.8,
+   "powerKwPerM": 5.9,
+   "energyKjPerM2": 0.7,
    "windKt": 8,
    "gustKt": 12.3,
    "windDirDeg": 263,
@@ -20622,7 +20678,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.78
+      "faceFt": 1.77
      }
     ]
    },
@@ -20687,7 +20743,7 @@
    "mixFt": [
     1.12,
     0.36,
-    1
+    0.99
    ],
    "crossing": false,
    "chopFt": 0.3,
@@ -20705,8 +20761,8 @@
    "localDate": "2026-09-20",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.069,
-   "deepHsFt": 3.51,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
    "faceFt": 2.61,
    "faceSetFt": 3.9,
    "sizeLabel": "Waist high",
@@ -20733,7 +20789,7 @@
     "tide": 0.6,
     "wind": 0.72,
     "size": 0.5,
-    "shape": 0.73
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -20826,8 +20882,8 @@
    "localDate": "2026-09-20",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.069,
-   "deepHsFt": 3.51,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
    "faceFt": 2.71,
    "faceSetFt": 3.9,
    "sizeLabel": "Waist high",
@@ -20864,7 +20920,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.28
+      "faceFt": 2.27
      }
     ]
    },
@@ -20947,9 +21003,9 @@
    "localDate": "2026-09-20",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.069,
-   "deepHsFt": 3.51,
-   "faceFt": 2.67,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
+   "faceFt": 2.66,
    "faceSetFt": 3.9,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -20969,7 +21025,7 @@
    "airF": 72.9,
    "score": 59,
    "grade": "Good",
-   "confidence": 0.8,
+   "confidence": 0.79,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.34,
@@ -20985,7 +21041,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.19
+      "faceFt": 2.18
      }
     ]
    },
@@ -21068,8 +21124,8 @@
    "localDate": "2026-09-20",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
+   "deepHsM": 1.042,
+   "deepHsFt": 3.42,
    "faceFt": 2.64,
    "faceSetFt": 3.8,
    "sizeLabel": "Waist high",
@@ -21077,7 +21133,7 @@
    "periodS": 10.1,
    "dirDeg": 254,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.7,
    "windKt": 4.3,
    "gustKt": 12.2,
@@ -21090,7 +21146,7 @@
    "airF": 71.4,
    "score": 59,
    "grade": "Good",
-   "confidence": 0.82,
+   "confidence": 0.81,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.49,
@@ -21106,7 +21162,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.19
+      "faceFt": 2.18
      }
     ]
    },
@@ -21163,7 +21219,7 @@
    "mixFt": [
     0.45,
     0.42,
-    1.78
+    1.77
    ],
    "crossing": false,
    "chopFt": 0,
@@ -21181,9 +21237,9 @@
    "localDate": "2026-09-20",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
-   "faceFt": 2.62,
+   "deepHsM": 1.042,
+   "deepHsFt": 3.42,
+   "faceFt": 2.61,
    "faceSetFt": 3.8,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -21219,7 +21275,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.13
+      "faceFt": 2.12
      }
     ]
    },
@@ -21276,7 +21332,7 @@
    "mixFt": [
     0.45,
     0.47,
-    1.7
+    1.69
    ],
    "crossing": false,
    "chopFt": 0,
@@ -21294,9 +21350,9 @@
    "localDate": "2026-09-20",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
-   "faceFt": 2.62,
+   "deepHsM": 1.042,
+   "deepHsFt": 3.42,
+   "faceFt": 2.61,
    "faceSetFt": 3.8,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -21316,12 +21372,12 @@
    "airF": 69.6,
    "score": 58,
    "grade": "Good",
-   "confidence": 0.79,
+   "confidence": 0.78,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.51,
+    "size": 0.5,
     "shape": 0.59
    },
    "modelSpread": {
@@ -21332,7 +21388,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.13
+      "faceFt": 2.12
      }
     ]
    },
@@ -21387,7 +21443,7 @@
     }
    ],
    "mixFt": [
-    0.44,
+    0.43,
     0.47,
     1.71
    ],
@@ -21407,8 +21463,8 @@
    "localDate": "2026-09-20",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
+   "deepHsM": 1.042,
+   "deepHsFt": 3.42,
    "faceFt": 2.65,
    "faceSetFt": 3.8,
    "sizeLabel": "Waist high",
@@ -21434,7 +21490,7 @@
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.52,
+    "size": 0.51,
     "shape": 0.57
    },
    "modelSpread": {
@@ -21445,7 +21501,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.19
+      "faceFt": 2.18
      }
     ]
    },
@@ -21520,8 +21576,8 @@
    "localDate": "2026-09-20",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
+   "deepHsM": 1.042,
+   "deepHsFt": 3.42,
    "faceFt": 2.65,
    "faceSetFt": 3.8,
    "sizeLabel": "Waist high",
@@ -21547,7 +21603,7 @@
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.52,
+    "size": 0.51,
     "shape": 0.58
    },
    "modelSpread": {
@@ -21558,7 +21614,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.18
+      "faceFt": 2.17
      }
     ]
    },
@@ -21615,7 +21671,7 @@
    "mixFt": [
     0.38,
     0.35,
-    1.93
+    1.92
    ],
    "crossing": false,
    "chopFt": 0,
@@ -21633,8 +21689,8 @@
    "localDate": "2026-09-21",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
+   "deepHsM": 1.042,
+   "deepHsFt": 3.42,
    "faceFt": 2.65,
    "faceSetFt": 3.8,
    "sizeLabel": "Waist high",
@@ -21660,8 +21716,8 @@
    "parts": {
     "tide": 0.73,
     "wind": 1,
-    "size": 0.52,
-    "shape": 0.57
+    "size": 0.51,
+    "shape": 0.58
    },
    "modelSpread": {
     "heightFt": [
@@ -21728,7 +21784,7 @@
    "mixFt": [
     0.37,
     0.28,
-    2
+    1.99
    ],
    "crossing": false,
    "chopFt": 0,
@@ -21746,16 +21802,16 @@
    "localDate": "2026-09-21",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
-   "faceFt": 2.55,
+   "deepHsM": 1.043,
+   "deepHsFt": 3.42,
+   "faceFt": 2.54,
    "faceSetFt": 3.7,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
    "periodS": 10.1,
    "dirDeg": 253,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.7,
    "windKt": 2,
    "gustKt": 7.3,
@@ -21768,7 +21824,7 @@
    "airF": 68.2,
    "score": 56,
    "grade": "Good",
-   "confidence": 0.91,
+   "confidence": 0.9,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.57,
@@ -21859,9 +21915,9 @@
    "localDate": "2026-09-21",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
-   "faceFt": 2.56,
+   "deepHsM": 1.043,
+   "deepHsFt": 3.42,
+   "faceFt": 2.55,
    "faceSetFt": 3.7,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -21897,7 +21953,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.25
+      "faceFt": 2.24
      }
     ]
    },
@@ -21972,8 +22028,8 @@
    "localDate": "2026-09-21",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
+   "deepHsM": 1.043,
+   "deepHsFt": 3.42,
    "faceFt": 2.48,
    "faceSetFt": 3.7,
    "sizeLabel": "Thigh high",
@@ -21981,7 +22037,7 @@
    "periodS": 10.7,
    "dirDeg": 245,
    "dirCompass": "WSW",
-   "powerKwPerM": 5.2,
+   "powerKwPerM": 5.1,
    "energyKjPerM2": 0.7,
    "windKt": 2.2,
    "gustKt": 5.3,
@@ -21992,7 +22048,7 @@
    "tideRate": 0.61,
    "waterF": 74.1,
    "airF": 68.2,
-   "score": 55,
+   "score": 54,
    "grade": "Fair",
    "confidence": 0.82,
    "board": "Mid-length / fun shape",
@@ -22010,7 +22066,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.1
+      "faceFt": 2.09
      }
     ]
    },
@@ -22085,9 +22141,9 @@
    "localDate": "2026-09-21",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 1.07,
-   "deepHsFt": 3.51,
-   "faceFt": 2.52,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
+   "faceFt": 2.51,
    "faceSetFt": 3.8,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -22123,7 +22179,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.89
+      "faceFt": 1.88
      }
     ]
    },
@@ -22178,7 +22234,7 @@
     }
    ],
    "mixFt": [
-    1.11,
+    1.1,
     0.29,
     1.12
    ],
@@ -22198,8 +22254,8 @@
    "localDate": "2026-09-21",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 1.07,
-   "deepHsFt": 3.51,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
    "faceFt": 2.33,
    "faceSetFt": 3.6,
    "sizeLabel": "Thigh high",
@@ -22311,9 +22367,9 @@
    "localDate": "2026-09-21",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 1.07,
-   "deepHsFt": 3.51,
-   "faceFt": 2.49,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
+   "faceFt": 2.48,
    "faceSetFt": 3.9,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Chest high",
@@ -22331,14 +22387,14 @@
    "tideRate": 0.57,
    "waterF": 73.9,
    "airF": 68.4,
-   "score": 55,
+   "score": 54,
    "grade": "Fair",
    "confidence": 0.59,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
     "wind": 1,
-    "size": 0.47,
+    "size": 0.46,
     "shape": 0.72
    },
    "modelSpread": {
@@ -22349,7 +22405,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.84
+      "faceFt": 1.83
      }
     ]
    },
@@ -22404,7 +22460,7 @@
     }
    ],
    "mixFt": [
-    1.23,
+    1.22,
     0,
     1.26
    ],
@@ -22424,17 +22480,17 @@
    "localDate": "2026-09-21",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 1.095,
-   "deepHsFt": 3.59,
-   "faceFt": 2.53,
-   "faceSetFt": 4,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
+   "faceFt": 2.52,
+   "faceSetFt": 3.9,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
    "periodS": 8.2,
    "dirDeg": 250,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.4,
-   "energyKjPerM2": 0.8,
+   "powerKwPerM": 4.3,
+   "energyKjPerM2": 0.7,
    "windKt": 3.4,
    "gustKt": 4.7,
    "windDirDeg": 166,
@@ -22537,8 +22593,8 @@
    "localDate": "2026-09-21",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 1.095,
-   "deepHsFt": 3.59,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
    "faceFt": 2.47,
    "faceSetFt": 3.21,
    "sizeLabel": "Thigh high",
@@ -22547,7 +22603,7 @@
    "dirDeg": 259,
    "dirCompass": "W",
    "powerKwPerM": 3.6,
-   "energyKjPerM2": 0.8,
+   "energyKjPerM2": 0.7,
    "windKt": 3.6,
    "gustKt": 5.4,
    "windDirDeg": 172,
@@ -22575,7 +22631,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.76
+      "faceFt": 1.75
      }
     ]
    },
@@ -22650,8 +22706,8 @@
    "localDate": "2026-09-21",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 1.095,
-   "deepHsFt": 3.59,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
    "faceFt": 2.45,
    "faceSetFt": 3.2,
    "sizeLabel": "Thigh high",
@@ -22660,7 +22716,7 @@
    "dirDeg": 260,
    "dirCompass": "W",
    "powerKwPerM": 3.4,
-   "energyKjPerM2": 0.8,
+   "energyKjPerM2": 0.7,
    "windKt": 3.2,
    "gustKt": 5.9,
    "windDirDeg": 179,
@@ -22672,12 +22728,12 @@
    "airF": 70.9,
    "score": 54,
    "grade": "Fair",
-   "confidence": 0.57,
+   "confidence": 0.56,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.86,
     "wind": 1,
-    "size": 0.46,
+    "size": 0.45,
     "shape": 0.56
    },
    "modelSpread": {
@@ -22688,7 +22744,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.72
+      "faceFt": 1.71
      }
     ]
    },
@@ -22763,9 +22819,9 @@
    "localDate": "2026-09-21",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 1.107,
+   "deepHsM": 1.105,
    "deepHsFt": 3.63,
-   "faceFt": 2.48,
+   "faceFt": 2.47,
    "faceSetFt": 3.22,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -22785,7 +22841,7 @@
    "airF": 73.1,
    "score": 54,
    "grade": "Fair",
-   "confidence": 0.58,
+   "confidence": 0.57,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -22801,7 +22857,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.77
+      "faceFt": 1.76
      }
     ]
    },
@@ -22816,7 +22872,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.1,
       "dirDeg": 269,
       "faceFt": 1.8
@@ -22856,7 +22912,7 @@
     }
    ],
    "mixFt": [
-    2.48,
+    2.47,
     0,
     0
    ],
@@ -22876,9 +22932,9 @@
    "localDate": "2026-09-21",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 1.107,
+   "deepHsM": 1.105,
    "deepHsFt": 3.63,
-   "faceFt": 2.53,
+   "faceFt": 2.52,
    "faceSetFt": 3.3,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
@@ -22898,7 +22954,7 @@
    "airF": 74.8,
    "score": 56,
    "grade": "Fair",
-   "confidence": 0.61,
+   "confidence": 0.6,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -22914,7 +22970,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.87
+      "faceFt": 1.86
      }
     ]
    },
@@ -22929,7 +22985,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.4,
       "dirDeg": 270,
       "faceFt": 1.9
@@ -22969,7 +23025,7 @@
     }
    ],
    "mixFt": [
-    2.53,
+    2.52,
     0,
     0
    ],
@@ -22989,7 +23045,7 @@
    "localDate": "2026-09-21",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 1.107,
+   "deepHsM": 1.105,
    "deepHsFt": 3.63,
    "faceFt": 2.55,
    "faceSetFt": 3.32,
@@ -23011,7 +23067,7 @@
    "airF": 75.7,
    "score": 56,
    "grade": "Good",
-   "confidence": 0.63,
+   "confidence": 0.62,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -23027,7 +23083,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.93
+      "faceFt": 1.92
      }
     ]
    },
@@ -23042,7 +23098,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.5,
       "dirDeg": 271,
       "faceFt": 1.9
@@ -23102,9 +23158,9 @@
    "localDate": "2026-09-21",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
-   "faceFt": 2.54,
+   "faceFt": 2.53,
    "faceSetFt": 3.3,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
@@ -23124,7 +23180,7 @@
    "airF": 76.1,
    "score": 56,
    "grade": "Fair",
-   "confidence": 0.58,
+   "confidence": 0.57,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -23155,10 +23211,10 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.6,
       "dirDeg": 273,
-      "faceFt": 1.9
+      "faceFt": 1.8
      }
     ],
     "wind": [
@@ -23203,7 +23259,7 @@
     }
    ],
    "mixFt": [
-    2.54,
+    2.53,
     0,
     0
    ],
@@ -23223,10 +23279,10 @@
    "localDate": "2026-09-21",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.57,
-   "faceSetFt": 3.35,
+   "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.9,
@@ -23261,7 +23317,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.93
+      "faceFt": 1.92
      }
     ]
    },
@@ -23276,7 +23332,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.7,
       "dirDeg": 274,
       "faceFt": 1.9
@@ -23344,10 +23400,10 @@
    "localDate": "2026-09-21",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.12,
+   "deepHsM": 1.117,
    "deepHsFt": 3.67,
    "faceFt": 2.57,
-   "faceSetFt": 3.35,
+   "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.9,
@@ -23366,7 +23422,7 @@
    "airF": 75.3,
    "score": 57,
    "grade": "Good",
-   "confidence": 0.61,
+   "confidence": 0.6,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -23382,7 +23438,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.94
+      "faceFt": 1.93
      }
     ]
    },
@@ -23397,7 +23453,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.7,
       "dirDeg": 274,
       "faceFt": 1.9
@@ -23465,9 +23521,9 @@
    "localDate": "2026-09-21",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
-   "faceFt": 2.59,
+   "faceFt": 2.58,
    "faceSetFt": 3.4,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
@@ -23518,7 +23574,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.6,
       "dirDeg": 273,
       "faceFt": 1.9
@@ -23566,7 +23622,7 @@
     }
    ],
    "mixFt": [
-    2.59,
+    2.58,
     0,
     0
    ],
@@ -23586,10 +23642,10 @@
    "localDate": "2026-09-21",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
-   "faceFt": 2.58,
-   "faceSetFt": 3.4,
+   "faceFt": 2.57,
+   "faceSetFt": 3.35,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.7,
@@ -23608,7 +23664,7 @@
    "airF": 72.8,
    "score": 56,
    "grade": "Fair",
-   "confidence": 0.59,
+   "confidence": 0.58,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.44,
@@ -23639,7 +23695,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.6,
       "dirDeg": 273,
       "faceFt": 1.9
@@ -23687,7 +23743,7 @@
     }
    ],
    "mixFt": [
-    2.58,
+    2.57,
     0,
     0
    ],
@@ -23707,7 +23763,7 @@
    "localDate": "2026-09-21",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.56,
    "faceSetFt": 3.33,
@@ -23729,7 +23785,7 @@
    "airF": 71.8,
    "score": 55,
    "grade": "Fair",
-   "confidence": 0.58,
+   "confidence": 0.57,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.22,
@@ -23745,7 +23801,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.88
+      "faceFt": 1.87
      }
     ]
    },
@@ -23760,7 +23816,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.5,
       "dirDeg": 273,
       "faceFt": 1.9
@@ -23828,7 +23884,7 @@
    "localDate": "2026-09-21",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.55,
    "faceSetFt": 3.31,
@@ -23850,7 +23906,7 @@
    "airF": 70.9,
    "score": 55,
    "grade": "Fair",
-   "confidence": 0.57,
+   "confidence": 0.56,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.15,
@@ -23866,7 +23922,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.86
+      "faceFt": 1.85
      }
     ]
    },
@@ -23881,10 +23937,10 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.4,
       "dirDeg": 273,
-      "faceFt": 1.9
+      "faceFt": 1.8
      }
     ],
     "wind": [
@@ -23941,9 +23997,9 @@
    "localDate": "2026-09-21",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
-   "faceFt": 2.55,
+   "faceFt": 2.54,
    "faceSetFt": 3.31,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
@@ -23979,7 +24035,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.85
+      "faceFt": 1.84
      }
     ]
    },
@@ -23994,7 +24050,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 273,
       "faceFt": 1.8
@@ -24034,7 +24090,7 @@
     }
    ],
    "mixFt": [
-    2.55,
+    2.54,
     0,
     0
    ],
@@ -24054,10 +24110,10 @@
    "localDate": "2026-09-21",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.54,
-   "faceSetFt": 3.31,
+   "faceSetFt": 3.3,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.6,
@@ -24075,7 +24131,7 @@
    "waterF": 74.1,
    "airF": 69.2,
    "score": 56,
-   "grade": "Good",
+   "grade": "Fair",
    "confidence": 0.56,
    "board": "Mid-length / fun shape",
    "parts": {
@@ -24107,7 +24163,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 273,
       "faceFt": 1.8
@@ -24167,10 +24223,10 @@
    "localDate": "2026-09-21",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.54,
-   "faceSetFt": 3.31,
+   "faceSetFt": 3.3,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.6,
@@ -24188,7 +24244,7 @@
    "waterF": 74.1,
    "airF": 68.7,
    "score": 56,
-   "grade": "Good",
+   "grade": "Fair",
    "confidence": 0.56,
    "board": "Mid-length / fun shape",
    "parts": {
@@ -24220,7 +24276,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 273,
       "faceFt": 1.8
@@ -24280,7 +24336,7 @@
    "localDate": "2026-09-21",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.54,
    "faceSetFt": 3.3,
@@ -24301,8 +24357,8 @@
    "waterF": 73.9,
    "airF": 68.2,
    "score": 56,
-   "grade": "Good",
-   "confidence": 0.57,
+   "grade": "Fair",
+   "confidence": 0.56,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -24333,7 +24389,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 273,
       "faceFt": 1.8
@@ -24393,7 +24449,7 @@
    "localDate": "2026-09-22",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 1.132,
+   "deepHsM": 1.129,
    "deepHsFt": 3.71,
    "faceFt": 2.54,
    "faceSetFt": 3.3,
@@ -24446,7 +24502,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 273,
       "faceFt": 1.8
@@ -24506,16 +24562,16 @@
    "localDate": "2026-09-22",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 1.144,
+   "deepHsM": 1.142,
    "deepHsFt": 3.75,
-   "faceFt": 2.57,
-   "faceSetFt": 3.34,
+   "faceFt": 2.56,
+   "faceSetFt": 3.33,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.5,
    "dirDeg": 264,
    "dirCompass": "W",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "energyKjPerM2": 0.8,
    "windKt": 1.8,
    "gustKt": 6.6,
@@ -24559,7 +24615,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 273,
       "faceFt": 1.8
@@ -24599,7 +24655,7 @@
     }
    ],
    "mixFt": [
-    2.57,
+    2.56,
     0,
     0
    ],
@@ -24619,7 +24675,7 @@
    "localDate": "2026-09-22",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 1.144,
+   "deepHsM": 1.142,
    "deepHsFt": 3.75,
    "faceFt": 2.56,
    "faceSetFt": 3.33,
@@ -24672,7 +24728,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 273,
       "faceFt": 1.8
@@ -24732,7 +24788,7 @@
    "localDate": "2026-09-22",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 1.144,
+   "deepHsM": 1.142,
    "deepHsFt": 3.75,
    "faceFt": 2.57,
    "faceSetFt": 3.34,
@@ -24741,7 +24797,7 @@
    "periodS": 6.5,
    "dirDeg": 266,
    "dirCompass": "W",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "energyKjPerM2": 0.8,
    "windKt": 2,
    "gustKt": 5.1,
@@ -24770,7 +24826,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.85
+      "faceFt": 1.84
      }
     ]
    },
@@ -24785,7 +24841,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 4.3,
       "dirDeg": 274,
       "faceFt": 1.8
@@ -24845,8 +24901,8 @@
    "localDate": "2026-09-22",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 1.144,
-   "deepHsFt": 3.75,
+   "deepHsM": 1.141,
+   "deepHsFt": 3.74,
    "faceFt": 2.57,
    "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
@@ -24883,7 +24939,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.8
+      "faceFt": 1.79
      }
     ]
    },
@@ -24958,16 +25014,16 @@
    "localDate": "2026-09-22",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 1.144,
-   "deepHsFt": 3.75,
+   "deepHsM": 1.141,
+   "deepHsFt": 3.74,
    "faceFt": 2.57,
-   "faceSetFt": 3.35,
+   "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.5,
    "dirDeg": 266,
    "dirCompass": "W",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "energyKjPerM2": 0.8,
    "windKt": 1.7,
    "gustKt": 4.2,
@@ -24986,7 +25042,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.49,
-    "shape": 0.55
+    "shape": 0.56
    },
    "modelSpread": {
     "heightFt": [
@@ -24996,7 +25052,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.81
+      "faceFt": 1.8
      }
     ]
    },
@@ -25071,16 +25127,16 @@
    "localDate": "2026-09-22",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 1.144,
-   "deepHsFt": 3.75,
+   "deepHsM": 1.141,
+   "deepHsFt": 3.74,
    "faceFt": 2.57,
-   "faceSetFt": 3.35,
+   "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.5,
    "dirDeg": 267,
    "dirCompass": "W",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "energyKjPerM2": 0.8,
    "windKt": 1.5,
    "gustKt": 4,
@@ -25093,7 +25149,7 @@
    "airF": 66.8,
    "score": 57,
    "grade": "Good",
-   "confidence": 0.53,
+   "confidence": 0.52,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -25184,8 +25240,8 @@
    "localDate": "2026-09-22",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 1.144,
-   "deepHsFt": 3.75,
+   "deepHsM": 1.141,
+   "deepHsFt": 3.74,
    "faceFt": 2.57,
    "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
@@ -25206,7 +25262,7 @@
    "airF": 67.4,
    "score": 57,
    "grade": "Good",
-   "confidence": 0.53,
+   "confidence": 0.52,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.86,
@@ -25222,7 +25278,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.8
+      "faceFt": 1.79
      }
     ]
    },
@@ -25297,8 +25353,8 @@
    "localDate": "2026-09-22",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 1.144,
-   "deepHsFt": 3.75,
+   "deepHsM": 1.141,
+   "deepHsFt": 3.74,
    "faceFt": 2.57,
    "faceSetFt": 3.34,
    "sizeLabel": "Waist high",
@@ -25306,7 +25362,7 @@
    "periodS": 6.5,
    "dirDeg": 269,
    "dirCompass": "W",
-   "powerKwPerM": 3.8,
+   "powerKwPerM": 3.7,
    "energyKjPerM2": 0.8,
    "windKt": 1.4,
    "gustKt": 4.2,
@@ -25335,7 +25391,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.81
+      "faceFt": 1.8
      }
     ]
    },
@@ -25410,10 +25466,10 @@
    "localDate": "2026-09-22",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 1.144,
-   "deepHsFt": 3.75,
-   "faceFt": 2.57,
-   "faceSetFt": 3.34,
+   "deepHsM": 1.141,
+   "deepHsFt": 3.74,
+   "faceFt": 2.56,
+   "faceSetFt": 3.33,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.5,
@@ -25432,7 +25488,7 @@
    "airF": 70.3,
    "score": 57,
    "grade": "Good",
-   "confidence": 0.53,
+   "confidence": 0.52,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.71,
@@ -25448,7 +25504,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.81
+      "faceFt": 1.8
      }
     ]
    },
@@ -25503,7 +25559,7 @@
     }
    ],
    "mixFt": [
-    2.57,
+    2.56,
     0,
     0
    ],
@@ -25523,10 +25579,10 @@
    "localDate": "2026-09-22",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 1.156,
-   "deepHsFt": 3.79,
-   "faceFt": 2.57,
-   "faceSetFt": 3.34,
+   "deepHsM": 1.153,
+   "deepHsFt": 3.78,
+   "faceFt": 2.56,
+   "faceSetFt": 3.33,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 6.5,
@@ -25545,7 +25601,7 @@
    "airF": 72.6,
    "score": 57,
    "grade": "Good",
-   "confidence": 0.5,
+   "confidence": 0.49,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.96,
@@ -25616,7 +25672,7 @@
     }
    ],
    "mixFt": [
-    2.57,
+    2.56,
     0,
     0
    ],
@@ -25636,9 +25692,9 @@
    "localDate": "2026-09-22",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 1.156,
-   "deepHsFt": 3.79,
-   "faceFt": 2.6,
+   "deepHsM": 1.153,
+   "deepHsFt": 3.78,
+   "faceFt": 2.59,
    "faceSetFt": 3.4,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
@@ -25658,7 +25714,7 @@
    "airF": 74.5,
    "score": 57,
    "grade": "Good",
-   "confidence": 0.52,
+   "confidence": 0.51,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -25674,7 +25730,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.82
+      "faceFt": 1.81
      }
     ]
    },
@@ -25749,10 +25805,10 @@
    "localDate": "2026-09-22",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 1.144,
-   "deepHsFt": 3.75,
+   "deepHsM": 1.141,
+   "deepHsFt": 3.74,
    "faceFt": 2.65,
-   "faceSetFt": 3.45,
+   "faceSetFt": 3.44,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
    "periodS": 7.3,
@@ -25776,7 +25832,7 @@
    "parts": {
     "tide": 1,
     "wind": 0.91,
-    "size": 0.52,
+    "size": 0.51,
     "shape": 0.59
    },
    "modelSpread": {
@@ -25850,7 +25906,7 @@
     }
    ],
    "mixFt": [
-    1.83,
+    1.82,
     0,
     0.82
    ],
@@ -25870,8 +25926,8 @@
    "localDate": "2026-09-22",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.104,
+   "deepHsFt": 3.62,
    "faceFt": 2.75,
    "faceSetFt": 4.3,
    "sizeLabel": "Waist high",
@@ -25879,7 +25935,7 @@
    "periodS": 8.1,
    "dirDeg": 261,
    "dirCompass": "W",
-   "powerKwPerM": 4.4,
+   "powerKwPerM": 4.3,
    "energyKjPerM2": 0.8,
    "windKt": 6.8,
    "gustKt": 9.4,
@@ -25897,7 +25953,7 @@
    "parts": {
     "tide": 1,
     "wind": 0.79,
-    "size": 0.55,
+    "size": 0.54,
     "shape": 0.36
    },
    "modelSpread": {
@@ -25908,7 +25964,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.26
+      "faceFt": 2.25
      }
     ]
    },
@@ -25991,17 +26047,17 @@
    "localDate": "2026-09-22",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.094,
-   "deepHsFt": 3.59,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
    "faceFt": 2.79,
-   "faceSetFt": 3.63,
+   "faceSetFt": 3.62,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
    "periodS": 8.7,
    "dirDeg": 257,
    "dirCompass": "WSW",
    "powerKwPerM": 4.6,
-   "energyKjPerM2": 0.8,
+   "energyKjPerM2": 0.7,
    "windKt": 7.5,
    "gustKt": 10.3,
    "windDirDeg": 272,
@@ -26013,7 +26069,7 @@
    "airF": 76.9,
    "score": 45,
    "grade": "Fair",
-   "confidence": 0.85,
+   "confidence": 0.84,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -26029,7 +26085,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.39
+      "faceFt": 2.38
      }
     ]
    },
@@ -26112,8 +26168,8 @@
    "localDate": "2026-09-22",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.094,
-   "deepHsFt": 3.59,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
    "faceFt": 2.82,
    "faceSetFt": 4.3,
    "sizeLabel": "Waist high",
@@ -26122,7 +26178,7 @@
    "dirDeg": 257,
    "dirCompass": "WSW",
    "powerKwPerM": 4.7,
-   "energyKjPerM2": 0.8,
+   "energyKjPerM2": 0.7,
    "windKt": 7.7,
    "gustKt": 11.2,
    "windDirDeg": 273,
@@ -26150,7 +26206,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.46
+      "faceFt": 2.45
      }
     ]
    },
@@ -26168,7 +26224,7 @@
       "deepHsFt": 3.5,
       "periodS": 9.2,
       "dirDeg": 258,
-      "faceFt": 2.5
+      "faceFt": 2.4
      }
     ],
     "wind": [
@@ -26233,8 +26289,8 @@
    "localDate": "2026-09-22",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
+   "deepHsM": 1.104,
+   "deepHsFt": 3.62,
    "faceFt": 2.83,
    "faceSetFt": 4.3,
    "sizeLabel": "Waist high",
@@ -26354,16 +26410,16 @@
    "localDate": "2026-09-22",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
-   "faceFt": 2.83,
+   "deepHsM": 1.104,
+   "deepHsFt": 3.62,
+   "faceFt": 2.82,
    "faceSetFt": 4.3,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
    "periodS": 9,
    "dirDeg": 257,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.8,
    "windKt": 7,
    "gustKt": 12.4,
@@ -26392,7 +26448,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.45
+      "faceFt": 2.44
      }
     ]
    },
@@ -26457,7 +26513,7 @@
    "mixFt": [
     0,
     0,
-    2.83
+    2.82
    ],
    "crossing": false,
    "chopFt": 0.7,
@@ -26475,9 +26531,9 @@
    "localDate": "2026-09-22",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.107,
-   "deepHsFt": 3.63,
-   "faceFt": 2.8,
+   "deepHsM": 1.104,
+   "deepHsFt": 3.62,
+   "faceFt": 2.79,
    "faceSetFt": 4.3,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -26513,7 +26569,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.38
+      "faceFt": 2.37
      }
     ]
    },
@@ -26578,7 +26634,7 @@
    "mixFt": [
     0,
     0,
-    2.8
+    2.79
    ],
    "crossing": false,
    "chopFt": 0.5,
@@ -26596,8 +26652,8 @@
    "localDate": "2026-09-22",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.094,
-   "deepHsFt": 3.59,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
    "faceFt": 2.74,
    "faceSetFt": 3.6,
    "sizeLabel": "Waist high",
@@ -26605,8 +26661,8 @@
    "periodS": 8.6,
    "dirDeg": 256,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.6,
-   "energyKjPerM2": 0.8,
+   "powerKwPerM": 4.5,
+   "energyKjPerM2": 0.7,
    "windKt": 5.2,
    "gustKt": 12,
    "windDirDeg": 286,
@@ -26634,7 +26690,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.31
+      "faceFt": 2.3
      }
     ]
    },
@@ -26717,9 +26773,9 @@
    "localDate": "2026-09-22",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.094,
-   "deepHsFt": 3.59,
-   "faceFt": 2.73,
+   "deepHsM": 1.092,
+   "deepHsFt": 3.58,
+   "faceFt": 2.72,
    "faceSetFt": 3.54,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -26727,7 +26783,7 @@
    "dirDeg": 256,
    "dirCompass": "WSW",
    "powerKwPerM": 4.5,
-   "energyKjPerM2": 0.8,
+   "energyKjPerM2": 0.7,
    "windKt": 4.2,
    "gustKt": 11.5,
    "windDirDeg": 291,
@@ -26755,7 +26811,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.27
+      "faceFt": 2.26
      }
     ]
    },
@@ -26812,7 +26868,7 @@
    "mixFt": [
     0,
     0,
-    2.73
+    2.72
    ],
    "crossing": false,
    "chopFt": 0,
@@ -26830,8 +26886,8 @@
    "localDate": "2026-09-22",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.082,
-   "deepHsFt": 3.55,
+   "deepHsM": 1.08,
+   "deepHsFt": 3.54,
    "faceFt": 2.71,
    "faceSetFt": 3.52,
    "sizeLabel": "Waist high",
@@ -26868,7 +26924,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.28
+      "faceFt": 2.27
      }
     ]
    },
@@ -26943,16 +26999,16 @@
    "localDate": "2026-09-22",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 1.069,
-   "deepHsFt": 3.51,
-   "faceFt": 2.7,
-   "faceSetFt": 3.51,
+   "deepHsM": 1.067,
+   "deepHsFt": 3.5,
+   "faceFt": 2.69,
+   "faceSetFt": 3.5,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
    "periodS": 8.9,
    "dirDeg": 254,
    "dirCompass": "WSW",
-   "powerKwPerM": 4.5,
+   "powerKwPerM": 4.4,
    "energyKjPerM2": 0.7,
    "windKt": 2.1,
    "gustKt": 10.2,
@@ -26965,7 +27021,7 @@
    "airF": 69.9,
    "score": 45,
    "grade": "Fair",
-   "confidence": 0.81,
+   "confidence": 0.8,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -26981,7 +27037,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.25
+      "faceFt": 2.24
      }
     ]
    },
@@ -27038,7 +27094,7 @@
    "mixFt": [
     0,
     0,
-    2.7
+    2.69
    ],
    "crossing": false,
    "chopFt": 0,
@@ -27056,9 +27112,9 @@
    "localDate": "2026-09-22",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
-   "faceFt": 2.6,
+   "deepHsM": 1.055,
+   "deepHsFt": 3.46,
+   "faceFt": 2.59,
    "faceSetFt": 4,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Chest high",
@@ -27094,7 +27150,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.3
+      "faceFt": 2.29
      }
     ]
    },
@@ -27151,7 +27207,7 @@
    "mixFt": [
     0,
     0,
-    2.6
+    2.59
    ],
    "crossing": false,
    "chopFt": 0,
@@ -27169,8 +27225,8 @@
    "localDate": "2026-09-23",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 1.057,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.055,
+   "deepHsFt": 3.46,
    "faceFt": 2.53,
    "faceSetFt": 3.9,
    "sizeLabel": "Waist high",
@@ -27207,7 +27263,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.16
+      "faceFt": 2.15
      }
     ]
    },
@@ -27262,9 +27318,9 @@
     }
    ],
    "mixFt": [
-    0.82,
+    0.81,
     0,
-    1.72
+    1.71
    ],
    "crossing": false,
    "chopFt": 0,
@@ -27282,10 +27338,10 @@
    "localDate": "2026-09-23",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 1.032,
-   "deepHsFt": 3.39,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
    "faceFt": 2.41,
-   "faceSetFt": 3.14,
+   "faceSetFt": 3.13,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.4,
@@ -27320,7 +27376,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.97
+      "faceFt": 1.96
      }
     ]
    },
@@ -27395,8 +27451,8 @@
    "localDate": "2026-09-23",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 1.032,
-   "deepHsFt": 3.39,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
    "faceFt": 2.25,
    "faceSetFt": 2.93,
    "sizeLabel": "Thigh high",
@@ -27433,7 +27489,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.64
+      "faceFt": 1.63
      }
     ]
    },
@@ -27508,8 +27564,8 @@
    "localDate": "2026-09-23",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 1.032,
-   "deepHsFt": 3.39,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
    "faceFt": 2.26,
    "faceSetFt": 2.94,
    "sizeLabel": "Thigh high",
@@ -27546,7 +27602,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.65
+      "faceFt": 1.64
      }
     ]
    },
@@ -27564,7 +27620,7 @@
       "deepHsFt": 3.3,
       "periodS": 12.5,
       "dirDeg": 212,
-      "faceFt": 1.7
+      "faceFt": 1.6
      }
     ],
     "wind": [
@@ -27621,10 +27677,10 @@
    "localDate": "2026-09-23",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 1.007,
-   "deepHsFt": 3.31,
-   "faceFt": 2.24,
-   "faceSetFt": 2.91,
+   "deepHsM": 1.005,
+   "deepHsFt": 3.3,
+   "faceFt": 2.23,
+   "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11,
@@ -27714,7 +27770,7 @@
     }
    ],
    "mixFt": [
-    2.24,
+    2.23,
     0,
     0
    ],
@@ -27734,8 +27790,8 @@
    "localDate": "2026-09-23",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 1.007,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.005,
+   "deepHsFt": 3.3,
    "faceFt": 2.23,
    "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
@@ -27772,7 +27828,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.64
+      "faceFt": 1.63
      }
     ]
    },
@@ -27847,8 +27903,8 @@
    "localDate": "2026-09-23",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 1.007,
-   "deepHsFt": 3.31,
+   "deepHsM": 1.005,
+   "deepHsFt": 3.3,
    "faceFt": 2.24,
    "faceSetFt": 2.91,
    "sizeLabel": "Thigh high",
@@ -27856,7 +27912,7 @@
    "periodS": 11.1,
    "dirDeg": 230,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 1.4,
    "gustKt": 3.2,
@@ -27885,7 +27941,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.64
+      "faceFt": 1.63
      }
     ]
    },
@@ -27960,10 +28016,10 @@
    "localDate": "2026-09-23",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.24,
-   "faceSetFt": 2.92,
+   "faceSetFt": 2.91,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.1,
@@ -28013,7 +28069,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.2,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28073,7 +28129,7 @@
    "localDate": "2026-09-23",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.25,
    "faceSetFt": 2.92,
@@ -28082,7 +28138,7 @@
    "periodS": 11.1,
    "dirDeg": 230,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.6,
    "windKt": 1.9,
    "gustKt": 5.4,
@@ -28093,7 +28149,7 @@
    "tideRate": 0.26,
    "waterF": 73.6,
    "airF": 70.2,
-   "score": 49,
+   "score": 48,
    "grade": "Fair",
    "confidence": 0.56,
    "board": "Mid-length / fun shape",
@@ -28126,7 +28182,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.2,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28186,7 +28242,7 @@
    "localDate": "2026-09-23",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.25,
    "faceSetFt": 2.93,
@@ -28208,7 +28264,7 @@
    "airF": 72.5,
    "score": 49,
    "grade": "Fair",
-   "confidence": 0.56,
+   "confidence": 0.55,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.5,
@@ -28239,7 +28295,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.2,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28299,16 +28355,16 @@
    "localDate": "2026-09-23",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 0.983,
+   "deepHsM": 0.98,
    "deepHsFt": 3.22,
-   "faceFt": 2.23,
+   "faceFt": 2.22,
    "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.2,
    "dirDeg": 230,
    "dirCompass": "SW",
-   "powerKwPerM": 4.8,
+   "powerKwPerM": 4.7,
    "energyKjPerM2": 0.6,
    "windKt": 4.2,
    "gustKt": 7.3,
@@ -28352,7 +28408,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.2,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28392,7 +28448,7 @@
     }
    ],
    "mixFt": [
-    2.23,
+    2.22,
     0,
     0
    ],
@@ -28412,7 +28468,7 @@
    "localDate": "2026-09-23",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 0.983,
+   "deepHsM": 0.98,
    "deepHsFt": 3.22,
    "faceFt": 2.23,
    "faceSetFt": 2.9,
@@ -28421,7 +28477,7 @@
    "periodS": 11.2,
    "dirDeg": 230,
    "dirCompass": "SW",
-   "powerKwPerM": 4.8,
+   "powerKwPerM": 4.7,
    "energyKjPerM2": 0.6,
    "windKt": 5.3,
    "gustKt": 8.3,
@@ -28450,7 +28506,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -28465,7 +28521,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.1,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28525,7 +28581,7 @@
    "localDate": "2026-09-23",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.25,
    "faceSetFt": 2.93,
@@ -28534,7 +28590,7 @@
    "periodS": 11.1,
    "dirDeg": 230,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.6,
    "windKt": 6.1,
    "gustKt": 9.5,
@@ -28563,7 +28619,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -28578,7 +28634,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.1,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28638,9 +28694,9 @@
    "localDate": "2026-09-23",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
-   "faceFt": 2.25,
+   "faceFt": 2.24,
    "faceSetFt": 2.92,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -28658,7 +28714,7 @@
    "tideRate": -0.37,
    "waterF": 74.3,
    "airF": 77.9,
-   "score": 49,
+   "score": 48,
    "grade": "Fair",
    "confidence": 0.55,
    "board": "Mid-length / fun shape",
@@ -28676,7 +28732,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -28691,7 +28747,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.1,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28731,7 +28787,7 @@
     }
    ],
    "mixFt": [
-    2.25,
+    2.24,
     0,
     0
    ],
@@ -28751,7 +28807,7 @@
    "localDate": "2026-09-23",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.007,
+   "deepHsM": 1.005,
    "deepHsFt": 3.3,
    "faceFt": 2.27,
    "faceSetFt": 2.95,
@@ -28804,7 +28860,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28864,9 +28920,9 @@
    "localDate": "2026-09-23",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.007,
+   "deepHsM": 1.005,
    "deepHsFt": 3.3,
-   "faceFt": 2.27,
+   "faceFt": 2.26,
    "faceSetFt": 2.94,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -28902,7 +28958,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -28917,7 +28973,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -28965,7 +29021,7 @@
     }
    ],
    "mixFt": [
-    2.08,
+    2.07,
     0,
     0.19
    ],
@@ -28985,7 +29041,7 @@
    "localDate": "2026-09-23",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.019,
+   "deepHsM": 1.017,
    "deepHsFt": 3.34,
    "faceFt": 2.29,
    "faceSetFt": 3.4,
@@ -28995,7 +29051,7 @@
    "dirDeg": 231,
    "dirCompass": "SW",
    "powerKwPerM": 5,
-   "energyKjPerM2": 0.7,
+   "energyKjPerM2": 0.6,
    "windKt": 6.7,
    "gustKt": 11.8,
    "windDirDeg": 263,
@@ -29005,7 +29061,7 @@
    "tideRate": 0.79,
    "waterF": 75,
    "airF": 76.3,
-   "score": 50,
+   "score": 49,
    "grade": "Fair",
    "confidence": 0.52,
    "board": "Mid-length / fun shape",
@@ -29023,7 +29079,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -29038,7 +29094,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -29106,7 +29162,7 @@
    "localDate": "2026-09-23",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.019,
+   "deepHsM": 1.017,
    "deepHsFt": 3.34,
    "faceFt": 2.29,
    "faceSetFt": 3.3,
@@ -29115,8 +29171,8 @@
    "periodS": 10.8,
    "dirDeg": 231,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
-   "energyKjPerM2": 0.7,
+   "powerKwPerM": 4.9,
+   "energyKjPerM2": 0.6,
    "windKt": 6.2,
    "gustKt": 11.5,
    "windDirDeg": 261,
@@ -29126,7 +29182,7 @@
    "tideRate": 0.9,
    "waterF": 75.2,
    "airF": 75.3,
-   "score": 50,
+   "score": 49,
    "grade": "Fair",
    "confidence": 0.52,
    "board": "Mid-length / fun shape",
@@ -29159,7 +29215,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -29227,17 +29283,17 @@
    "localDate": "2026-09-23",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.019,
+   "deepHsM": 1.017,
    "deepHsFt": 3.34,
-   "faceFt": 2.29,
+   "faceFt": 2.28,
    "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.8,
    "dirDeg": 231,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
-   "energyKjPerM2": 0.7,
+   "powerKwPerM": 4.9,
+   "energyKjPerM2": 0.6,
    "windKt": 5.3,
    "gustKt": 10.9,
    "windDirDeg": 261,
@@ -29247,9 +29303,9 @@
    "tideRate": 0.77,
    "waterF": 75.2,
    "airF": 74.1,
-   "score": 50,
+   "score": 49,
    "grade": "Fair",
-   "confidence": 0.52,
+   "confidence": 0.51,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.42,
@@ -29280,7 +29336,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.9,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -29348,16 +29404,16 @@
    "localDate": "2026-09-23",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.007,
+   "deepHsM": 1.005,
    "deepHsFt": 3.3,
-   "faceFt": 2.27,
+   "faceFt": 2.26,
    "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.9,
    "dirDeg": 232,
    "dirCompass": "SW",
-   "powerKwPerM": 4.9,
+   "powerKwPerM": 4.8,
    "energyKjPerM2": 0.6,
    "windKt": 4.4,
    "gustKt": 10,
@@ -29386,7 +29442,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.62
+      "faceFt": 1.61
      }
     ]
    },
@@ -29401,7 +29457,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.9,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -29461,10 +29517,10 @@
    "localDate": "2026-09-23",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.007,
+   "deepHsM": 1.005,
    "deepHsFt": 3.3,
    "faceFt": 2.27,
-   "faceSetFt": 3.4,
+   "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.9,
@@ -29499,7 +29555,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.62
+      "faceFt": 1.61
      }
     ]
    },
@@ -29514,7 +29570,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.9,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -29554,7 +29610,7 @@
     }
    ],
    "mixFt": [
-    1.73,
+    1.72,
     0,
     0.54
    ],
@@ -29574,9 +29630,9 @@
    "localDate": "2026-09-23",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.007,
+   "deepHsM": 1.005,
    "deepHsFt": 3.3,
-   "faceFt": 2.28,
+   "faceFt": 2.27,
    "faceSetFt": 3.4,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -29627,7 +29683,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.8,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -29687,9 +29743,9 @@
    "localDate": "2026-09-23",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
-   "faceFt": 2.25,
+   "faceFt": 2.24,
    "faceSetFt": 3.3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -29725,7 +29781,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.6
+      "faceFt": 1.59
      }
     ]
    },
@@ -29740,7 +29796,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.8,
       "dirDeg": 211,
       "faceFt": 1.6
@@ -29800,7 +29856,7 @@
    "localDate": "2026-09-23",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.25,
    "faceSetFt": 3.3,
@@ -29838,7 +29894,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.6
+      "faceFt": 1.59
      }
     ]
    },
@@ -29853,7 +29909,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.8,
       "dirDeg": 211,
       "faceFt": 1.6
@@ -29913,7 +29969,7 @@
    "localDate": "2026-09-24",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.27,
    "faceSetFt": 2.95,
@@ -29951,7 +30007,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.62
+      "faceFt": 1.61
      }
     ]
    },
@@ -29966,7 +30022,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.9,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -30000,10 +30056,10 @@
    "localDate": "2026-09-24",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.39,
-   "faceSetFt": 3.11,
+   "faceSetFt": 3.1,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.3,
@@ -30053,7 +30109,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 212,
       "faceFt": 1.6
@@ -30087,7 +30143,7 @@
    "localDate": "2026-09-24",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.4,
    "faceSetFt": 3.12,
@@ -30096,7 +30152,7 @@
    "periodS": 11.4,
    "dirDeg": 233,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 1.8,
    "gustKt": 5.2,
@@ -30109,7 +30165,7 @@
    "airF": 68.9,
    "score": 52,
    "grade": "Fair",
-   "confidence": 0.45,
+   "confidence": 0.44,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.4,
@@ -30140,7 +30196,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.1,
       "dirDeg": 213,
       "faceFt": 1.6
@@ -30174,16 +30230,16 @@
    "localDate": "2026-09-24",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.4,
-   "faceSetFt": 3.13,
+   "faceSetFt": 3.12,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
    "dirDeg": 233,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 1.9,
    "gustKt": 4.5,
@@ -30194,9 +30250,9 @@
    "tideRate": 0.37,
    "waterF": 74.1,
    "airF": 68.5,
-   "score": 53,
+   "score": 52,
    "grade": "Fair",
-   "confidence": 0.45,
+   "confidence": 0.44,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.46,
@@ -30227,7 +30283,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.1,
       "dirDeg": 213,
       "faceFt": 1.6
@@ -30261,16 +30317,16 @@
    "localDate": "2026-09-24",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
-   "faceFt": 2.41,
-   "faceSetFt": 3.13,
+   "faceFt": 2.4,
+   "faceSetFt": 3.12,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
    "dirDeg": 233,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 1.8,
    "gustKt": 3.8,
@@ -30281,7 +30337,7 @@
    "tideRate": 0.79,
    "waterF": 73.9,
    "airF": 68.3,
-   "score": 53,
+   "score": 52,
    "grade": "Fair",
    "confidence": 0.44,
    "board": "Mid-length / fun shape",
@@ -30314,7 +30370,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12.1,
       "dirDeg": 213,
       "faceFt": 1.6
@@ -30348,16 +30404,16 @@
    "localDate": "2026-09-24",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
-   "faceFt": 2.41,
+   "faceFt": 2.4,
    "faceSetFt": 3.13,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
    "dirDeg": 233,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 1.6,
    "gustKt": 3.5,
@@ -30386,7 +30442,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.64
+      "faceFt": 1.63
      }
     ]
    },
@@ -30401,7 +30457,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 213,
       "faceFt": 1.6
@@ -30435,7 +30491,7 @@
    "localDate": "2026-09-24",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.41,
    "faceSetFt": 3.13,
@@ -30444,7 +30500,7 @@
    "periodS": 11.4,
    "dirDeg": 233,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 1.3,
    "gustKt": 3.8,
@@ -30457,7 +30513,7 @@
    "airF": 69.1,
    "score": 53,
    "grade": "Fair",
-   "confidence": 0.44,
+   "confidence": 0.43,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -30473,7 +30529,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.64
+      "faceFt": 1.63
      }
     ]
    },
@@ -30488,7 +30544,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 213,
       "faceFt": 1.6
@@ -30522,7 +30578,7 @@
    "localDate": "2026-09-24",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.3,
    "faceSetFt": 2.99,
@@ -30544,7 +30600,7 @@
    "airF": 70.1,
    "score": 50,
    "grade": "Fair",
-   "confidence": 0.52,
+   "confidence": 0.51,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.8,
@@ -30560,7 +30616,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.64
+      "faceFt": 1.63
      }
     ]
    },
@@ -30575,7 +30631,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 12,
       "dirDeg": 213,
       "faceFt": 1.6
@@ -30609,7 +30665,7 @@
    "localDate": "2026-09-24",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.3,
    "faceSetFt": 2.99,
@@ -30662,7 +30718,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.9,
       "dirDeg": 213,
       "faceFt": 1.6
@@ -30696,7 +30752,7 @@
    "localDate": "2026-09-24",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.28,
    "faceSetFt": 2.97,
@@ -30705,7 +30761,7 @@
    "periodS": 11.4,
    "dirDeg": 231,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.6,
    "windKt": 2.2,
    "gustKt": 6,
@@ -30723,7 +30779,7 @@
    "parts": {
     "tide": 0.27,
     "wind": 1,
-    "size": 0.41,
+    "size": 0.4,
     "shape": 0.85
    },
    "modelSpread": {
@@ -30734,7 +30790,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.6
+      "faceFt": 1.59
      }
     ]
    },
@@ -30749,7 +30805,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.8,
       "dirDeg": 211,
       "faceFt": 1.6
@@ -30783,7 +30839,7 @@
    "localDate": "2026-09-24",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 0.983,
+   "deepHsM": 0.98,
    "deepHsFt": 3.22,
    "faceFt": 2.22,
    "faceSetFt": 2.89,
@@ -30836,7 +30892,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.7,
       "dirDeg": 210,
       "faceFt": 1.5
@@ -30870,7 +30926,7 @@
    "localDate": "2026-09-24",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 0.983,
+   "deepHsM": 0.98,
    "deepHsFt": 3.22,
    "faceFt": 2.2,
    "faceSetFt": 2.86,
@@ -30893,7 +30949,7 @@
    "score": 47,
    "grade": "Fair",
    "confidence": 0.47,
-   "board": "Mid-length / fun shape",
+   "board": "Longboard",
    "parts": {
     "tide": 1,
     "wind": 1,
@@ -30908,7 +30964,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.5
+      "faceFt": 1.49
      }
     ]
    },
@@ -30923,7 +30979,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.6,
       "dirDeg": 208,
       "faceFt": 1.5
@@ -30957,10 +31013,10 @@
    "localDate": "2026-09-24",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 0.983,
+   "deepHsM": 0.98,
    "deepHsFt": 3.22,
-   "faceFt": 2.21,
-   "faceSetFt": 2.87,
+   "faceFt": 2.2,
+   "faceSetFt": 2.86,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.2,
@@ -31010,7 +31066,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.6,
       "dirDeg": 209,
       "faceFt": 1.5
@@ -31044,9 +31100,9 @@
    "localDate": "2026-09-24",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
-   "faceFt": 2.26,
+   "faceFt": 2.25,
    "faceSetFt": 2.93,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -31097,7 +31153,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.6,
       "dirDeg": 210,
       "faceFt": 1.6
@@ -31131,9 +31187,9 @@
    "localDate": "2026-09-24",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
-   "faceFt": 2.26,
+   "faceFt": 2.25,
    "faceSetFt": 2.93,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -31169,7 +31225,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.59
+      "faceFt": 1.58
      }
     ]
    },
@@ -31184,7 +31240,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.6,
       "dirDeg": 211,
       "faceFt": 1.6
@@ -31218,7 +31274,7 @@
    "localDate": "2026-09-24",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 0.995,
+   "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 2.27,
    "faceSetFt": 2.95,
@@ -31256,7 +31312,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -31271,7 +31327,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.2,
+      "deepHsFt": 3.1,
       "periodS": 11.6,
       "dirDeg": 211,
       "faceFt": 1.6
@@ -31305,9 +31361,9 @@
    "localDate": "2026-09-24",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
-   "faceFt": 2.29,
+   "deepHsM": 1.017,
+   "deepHsFt": 3.34,
+   "faceFt": 2.28,
    "faceSetFt": 2.97,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -31325,7 +31381,7 @@
    "tideRate": 0.74,
    "waterF": 75,
    "airF": 76.6,
-   "score": 50,
+   "score": 49,
    "grade": "Fair",
    "confidence": 0.52,
    "board": "Mid-length / fun shape",
@@ -31343,7 +31399,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.63
+      "faceFt": 1.62
      }
     ]
    },
@@ -31392,16 +31448,16 @@
    "localDate": "2026-09-24",
    "localHour": 17,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
-   "faceFt": 2.31,
-   "faceSetFt": 3,
+   "deepHsM": 1.017,
+   "deepHsFt": 3.34,
+   "faceFt": 2.3,
+   "faceSetFt": 2.99,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.8,
    "dirDeg": 229,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.7,
    "windKt": 6,
    "gustKt": 11.5,
@@ -31430,7 +31486,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.67
+      "faceFt": 1.66
      }
     ]
    },
@@ -31479,16 +31535,16 @@
    "localDate": "2026-09-24",
    "localHour": 18,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
-   "faceFt": 2.3,
-   "faceSetFt": 2.99,
+   "deepHsM": 1.017,
+   "deepHsFt": 3.34,
+   "faceFt": 2.29,
+   "faceSetFt": 2.98,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.8,
    "dirDeg": 229,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.7,
    "windKt": 5.1,
    "gustKt": 10.8,
@@ -31566,8 +31622,8 @@
    "localDate": "2026-09-24",
    "localHour": 19,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.017,
+   "deepHsFt": 3.34,
    "faceFt": 2.31,
    "faceSetFt": 3,
    "sizeLabel": "Thigh high",
@@ -31588,7 +31644,7 @@
    "airF": 74,
    "score": 50,
    "grade": "Fair",
-   "confidence": 0.55,
+   "confidence": 0.54,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.23,
@@ -31653,8 +31709,8 @@
    "localDate": "2026-09-24",
    "localHour": 20,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.017,
+   "deepHsFt": 3.34,
    "faceFt": 2.31,
    "faceSetFt": 3,
    "sizeLabel": "Thigh high",
@@ -31691,7 +31747,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.68
+      "faceFt": 1.67
      }
     ]
    },
@@ -31740,10 +31796,10 @@
    "localDate": "2026-09-24",
    "localHour": 21,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
-   "faceFt": 2.31,
-   "faceSetFt": 3,
+   "deepHsM": 1.017,
+   "deepHsFt": 3.34,
+   "faceFt": 2.3,
+   "faceSetFt": 2.99,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.8,
@@ -31778,7 +31834,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.68
+      "faceFt": 1.67
      }
     ]
    },
@@ -31827,8 +31883,8 @@
    "localDate": "2026-09-24",
    "localHour": 22,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
    "faceFt": 2.3,
    "faceSetFt": 2.99,
    "sizeLabel": "Thigh high",
@@ -31836,7 +31892,7 @@
    "periodS": 10.8,
    "dirDeg": 227,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.7,
    "windKt": 3.6,
    "gustKt": 9.6,
@@ -31865,7 +31921,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.72
+      "faceFt": 1.71
      }
     ]
    },
@@ -31914,16 +31970,16 @@
    "localDate": "2026-09-24",
    "localHour": 23,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
-   "faceFt": 2.3,
-   "faceSetFt": 2.99,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
+   "faceFt": 2.29,
+   "faceSetFt": 2.98,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.8,
    "dirDeg": 226,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.7,
    "windKt": 4,
    "gustKt": 9.5,
@@ -32001,16 +32057,16 @@
    "localDate": "2026-09-25",
    "localHour": 0,
    "inWindow": false,
-   "deepHsM": 1.02,
-   "deepHsFt": 3.35,
+   "deepHsM": 1.018,
+   "deepHsFt": 3.34,
    "faceFt": 2.31,
-   "faceSetFt": 3.01,
+   "faceSetFt": 3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.8,
    "dirDeg": 226,
    "dirCompass": "SW",
-   "powerKwPerM": 5,
+   "powerKwPerM": 4.9,
    "energyKjPerM2": 0.7,
    "windKt": 4,
    "gustKt": 8.9,
@@ -32039,7 +32095,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.75
+      "faceFt": 1.74
      }
     ]
    },
@@ -32088,8 +32144,8 @@
    "localDate": "2026-09-25",
    "localHour": 1,
    "inWindow": false,
-   "deepHsM": 1.033,
-   "deepHsFt": 3.39,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
    "faceFt": 2.3,
    "faceSetFt": 2.99,
    "sizeLabel": "Thigh high",
@@ -32175,10 +32231,10 @@
    "localDate": "2026-09-25",
    "localHour": 2,
    "inWindow": false,
-   "deepHsM": 1.033,
-   "deepHsFt": 3.39,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
    "faceFt": 2.31,
-   "faceSetFt": 3.01,
+   "faceSetFt": 3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.6,
@@ -32197,7 +32253,7 @@
    "airF": 69.9,
    "score": 50,
    "grade": "Fair",
-   "confidence": 0.62,
+   "confidence": 0.61,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.55,
@@ -32213,7 +32269,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.76
+      "faceFt": 1.75
      }
     ]
    },
@@ -32231,7 +32287,7 @@
       "deepHsFt": 3.4,
       "periodS": 10.7,
       "dirDeg": 209,
-      "faceFt": 1.8
+      "faceFt": 1.7
      }
     ],
     "wind": [
@@ -32262,10 +32318,10 @@
    "localDate": "2026-09-25",
    "localHour": 3,
    "inWindow": false,
-   "deepHsM": 1.033,
-   "deepHsFt": 3.39,
-   "faceFt": 2.31,
-   "faceSetFt": 3,
+   "deepHsM": 1.03,
+   "deepHsFt": 3.38,
+   "faceFt": 2.3,
+   "faceSetFt": 2.99,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.6,
@@ -32300,7 +32356,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.75
+      "faceFt": 1.74
      }
     ]
    },
@@ -32318,7 +32374,7 @@
       "deepHsFt": 3.4,
       "periodS": 10.6,
       "dirDeg": 209,
-      "faceFt": 1.8
+      "faceFt": 1.7
      }
     ],
     "wind": [
@@ -32349,9 +32405,9 @@
    "localDate": "2026-09-25",
    "localHour": 4,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
-   "faceFt": 2.32,
+   "deepHsM": 1.043,
+   "deepHsFt": 3.42,
+   "faceFt": 2.31,
    "faceSetFt": 3.01,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -32387,7 +32443,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.77
+      "faceFt": 1.76
      }
     ]
    },
@@ -32436,9 +32492,9 @@
    "localDate": "2026-09-25",
    "localHour": 5,
    "inWindow": false,
-   "deepHsM": 1.045,
-   "deepHsFt": 3.43,
-   "faceFt": 2.31,
+   "deepHsM": 1.043,
+   "deepHsFt": 3.42,
+   "faceFt": 2.3,
    "faceSetFt": 3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -32523,10 +32579,10 @@
    "localDate": "2026-09-25",
    "localHour": 6,
    "inWindow": false,
-   "deepHsM": 1.058,
-   "deepHsFt": 3.47,
+   "deepHsM": 1.056,
+   "deepHsFt": 3.46,
    "faceFt": 2.32,
-   "faceSetFt": 3.02,
+   "faceSetFt": 3.01,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.5,
@@ -32545,7 +32601,7 @@
    "airF": 70.8,
    "score": 50,
    "grade": "Fair",
-   "confidence": 0.65,
+   "confidence": 0.64,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -32561,7 +32617,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.8
+      "faceFt": 1.79
      }
     ]
    },
@@ -32610,8 +32666,8 @@
    "localDate": "2026-09-25",
    "localHour": 7,
    "inWindow": false,
-   "deepHsM": 1.07,
-   "deepHsFt": 3.51,
+   "deepHsM": 1.068,
+   "deepHsFt": 3.5,
    "faceFt": 2.35,
    "faceSetFt": 3.06,
    "sizeLabel": "Thigh high",
@@ -32697,10 +32753,10 @@
    "localDate": "2026-09-25",
    "localHour": 8,
    "inWindow": true,
-   "deepHsM": 1.083,
-   "deepHsFt": 3.55,
-   "faceFt": 2.37,
-   "faceSetFt": 3.08,
+   "deepHsM": 1.081,
+   "deepHsFt": 3.54,
+   "faceFt": 2.36,
+   "faceSetFt": 3.07,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.5,
@@ -32717,7 +32773,7 @@
    "tideRate": 0.6,
    "waterF": 75,
    "airF": 73.5,
-   "score": 52,
+   "score": 51,
    "grade": "Fair",
    "confidence": 0.65,
    "board": "Mid-length / fun shape",
@@ -32735,7 +32791,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.84
+      "faceFt": 1.83
      }
     ]
    },
@@ -32750,7 +32806,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 10.1,
       "dirDeg": 207,
       "faceFt": 1.8
@@ -32784,10 +32840,10 @@
    "localDate": "2026-09-25",
    "localHour": 9,
    "inWindow": true,
-   "deepHsM": 1.083,
-   "deepHsFt": 3.55,
+   "deepHsM": 1.081,
+   "deepHsFt": 3.54,
    "faceFt": 2.38,
-   "faceSetFt": 3.1,
+   "faceSetFt": 3.09,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.5,
@@ -32806,7 +32862,7 @@
    "airF": 75.4,
    "score": 52,
    "grade": "Fair",
-   "confidence": 0.67,
+   "confidence": 0.66,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.08,
@@ -32822,7 +32878,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.87
+      "faceFt": 1.86
      }
     ]
    },
@@ -32837,7 +32893,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "deepHsFt": 3.7,
+      "deepHsFt": 3.6,
       "periodS": 10.1,
       "dirDeg": 207,
       "faceFt": 1.9
@@ -32871,7 +32927,7 @@
    "localDate": "2026-09-25",
    "localHour": 10,
    "inWindow": true,
-   "deepHsM": 1.096,
+   "deepHsM": 1.093,
    "deepHsFt": 3.59,
    "faceFt": 2.25,
    "faceSetFt": 2.93,
@@ -32893,7 +32949,7 @@
    "airF": 77.6,
    "score": 49,
    "grade": "Fair",
-   "confidence": 0.74,
+   "confidence": 0.73,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 0.2,
@@ -32909,7 +32965,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.85
+      "faceFt": 1.84
      }
     ]
    },
@@ -32958,7 +33014,7 @@
    "localDate": "2026-09-25",
    "localHour": 11,
    "inWindow": false,
-   "deepHsM": 1.096,
+   "deepHsM": 1.093,
    "deepHsFt": 3.59,
    "faceFt": 2.26,
    "faceSetFt": 2.94,
@@ -32996,7 +33052,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.88
+      "faceFt": 1.87
      }
     ]
    },
@@ -33045,9 +33101,9 @@
    "localDate": "2026-09-25",
    "localHour": 12,
    "inWindow": false,
-   "deepHsM": 1.121,
-   "deepHsFt": 3.68,
-   "faceFt": 2.31,
+   "deepHsM": 1.118,
+   "deepHsFt": 3.67,
+   "faceFt": 2.3,
    "faceSetFt": 3,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
@@ -33073,7 +33129,7 @@
     "tide": 1,
     "wind": 0.82,
     "size": 0.41,
-    "shape": 0.67
+    "shape": 0.68
    },
    "modelSpread": {
     "heightFt": [
@@ -33083,7 +33139,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.92
+      "faceFt": 1.91
      }
     ]
    },
@@ -33132,10 +33188,10 @@
    "localDate": "2026-09-25",
    "localHour": 13,
    "inWindow": false,
-   "deepHsM": 1.133,
-   "deepHsFt": 3.72,
-   "faceFt": 2.33,
-   "faceSetFt": 3.03,
+   "deepHsM": 1.13,
+   "deepHsFt": 3.71,
+   "faceFt": 2.32,
+   "faceSetFt": 3.02,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.2,
@@ -33152,7 +33208,7 @@
    "tideRate": -0.93,
    "waterF": 75,
    "airF": 79.6,
-   "score": 51,
+   "score": 50,
    "grade": "Fair",
    "confidence": 0.75,
    "board": "Mid-length / fun shape",
@@ -33219,16 +33275,16 @@
    "localDate": "2026-09-25",
    "localHour": 14,
    "inWindow": false,
-   "deepHsM": 1.158,
-   "deepHsFt": 3.8,
-   "faceFt": 2.48,
+   "deepHsM": 1.155,
+   "deepHsFt": 3.79,
+   "faceFt": 2.47,
    "faceSetFt": 3.22,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 10.1,
    "dirDeg": 220,
    "dirCompass": "SW",
-   "powerKwPerM": 6,
+   "powerKwPerM": 5.9,
    "energyKjPerM2": 0.8,
    "windKt": 7.4,
    "gustKt": 12.9,
@@ -33257,7 +33313,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 1.98
+      "faceFt": 1.97
      }
     ]
    },
@@ -33306,9 +33362,9 @@
    "localDate": "2026-09-25",
    "localHour": 15,
    "inWindow": false,
-   "deepHsM": 1.183,
-   "deepHsFt": 3.88,
-   "faceFt": 2.51,
+   "deepHsM": 1.18,
+   "deepHsFt": 3.87,
+   "faceFt": 2.5,
    "faceSetFt": 3.26,
    "sizeLabel": "Waist high",
    "setSizeLabel": "Waist high",
@@ -33393,11 +33449,11 @@
    "localDate": "2026-09-25",
    "localHour": 16,
    "inWindow": false,
-   "deepHsM": 1.183,
-   "deepHsFt": 3.88,
+   "deepHsM": 1.18,
+   "deepHsFt": 3.87,
    "faceFt": 2.5,
    "faceSetFt": 3.25,
-   "sizeLabel": "Waist high",
+   "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 9.8,
    "dirDeg": 221,
@@ -33415,7 +33471,7 @@
    "airF": 78.9,
    "score": 55,
    "grade": "Fair",
-   "confidence": 0.68,
+   "confidence": 0.67,
    "board": "Mid-length / fun shape",
    "parts": {
     "tide": 1,
@@ -33431,7 +33487,7 @@
      },
      {
       "model": "meteofrance_wave",
-      "faceFt": 2.02
+      "faceFt": 2.01
      }
     ]
    },
