@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-17T03:55:39.562Z",
-  "finishedAt": "2026-09-17T03:56:25.409Z",
+  "generatedAt": "2026-09-17T03:57:54.676Z",
+  "finishedAt": "2026-09-17T03:58:26.849Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -79,8 +79,8 @@
   "sizeLabel": "Thigh high",
   "setSizeLabel": "Chest high",
   "superposition": 1.31,
-  "tideFt": 1.276540387222222,
-  "tideRate": 0.1510650326112042,
+  "tideFt": 1.2779246155555555,
+  "tideRate": 0.15656942201808377,
   "trains": [
    {
     "hsM": 0.510830970870013,
@@ -811,7 +811,7 @@
   "hoursStepped": 0,
   "observations": 0,
   "updatedAt": "2026-09-17T03:00:00.000Z",
-  "spinUpRuns": 19,
+  "spinUpRuns": 20,
   "profile": {
    "shorelineOffsetM": 0.032683013942272146,
    "barCrestM": 94.94770717769237,
@@ -924,6 +924,11 @@
    },
    {
     "t": "2026-09-17T03:55:39.562Z",
+    "s": 0.03,
+    "e": null
+   },
+   {
+    "t": "2026-09-17T03:57:54.676Z",
     "s": 0.03,
     "e": null
    }
@@ -7979,17 +7984,17 @@
   }
  },
  "shelf": {
-  "observations": 6,
+  "observations": 7,
   "firstAt": "2026-09-17T02:30:00.000Z",
   "lastAt": "2026-09-17T03:00:00.000Z",
   "bins": [
    {
     "periodBand": "chop",
     "dirBand": "SW",
-    "n": 23,
-    "measuredHeightRatio": 0.84,
+    "n": 27,
+    "measuredHeightRatio": 0.83,
     "predictedHeightRatio": 1,
-    "residual": 0.84,
+    "residual": 0.83,
     "residualSd": 0.11,
     "dirErrorDeg": 7,
     "settled": false
@@ -7997,10 +8002,10 @@
    {
     "periodBand": "chop",
     "dirBand": "W",
-    "n": 83,
-    "measuredHeightRatio": 0.85,
+    "n": 97,
+    "measuredHeightRatio": 0.86,
     "predictedHeightRatio": 0.97,
-    "residual": 0.87,
+    "residual": 0.88,
     "residualSd": 0.17,
     "dirErrorDeg": -4,
     "settled": false
@@ -8019,55 +8024,55 @@
    {
     "periodBand": "ground",
     "dirBand": "S",
-    "n": 11,
+    "n": 13,
     "measuredHeightRatio": 0.64,
-    "predictedHeightRatio": 0.45,
-    "residual": 1.63,
-    "residualSd": 0.62,
+    "predictedHeightRatio": 0.44,
+    "residual": 1.65,
+    "residualSd": 0.61,
     "dirErrorDeg": 10,
     "settled": false
    },
    {
     "periodBand": "ground",
     "dirBand": "SSW",
-    "n": 7,
+    "n": 8,
     "measuredHeightRatio": 0.81,
     "predictedHeightRatio": 0.78,
     "residual": 1.04,
-    "residualSd": 0.17,
+    "residualSd": 0.16,
     "dirErrorDeg": 5,
     "settled": false
    },
    {
     "periodBand": "long",
     "dirBand": "S",
-    "n": 13,
+    "n": 15,
     "measuredHeightRatio": 0.37,
     "predictedHeightRatio": 0.55,
     "residual": 0.69,
     "residualSd": 0.25,
-    "dirErrorDeg": -1,
+    "dirErrorDeg": -2,
     "settled": false
    },
    {
     "periodBand": "long",
     "dirBand": "SSW",
-    "n": 5,
-    "measuredHeightRatio": 1.33,
+    "n": 6,
+    "measuredHeightRatio": 1.34,
     "predictedHeightRatio": 1.06,
-    "residual": 1.25,
-    "residualSd": 0.11,
+    "residual": 1.26,
+    "residualSd": 0.1,
     "dirErrorDeg": -5,
     "settled": false
    },
    {
     "periodBand": "mid",
     "dirBand": "S",
-    "n": 23,
-    "measuredHeightRatio": 0.45,
+    "n": 27,
+    "measuredHeightRatio": 0.44,
     "predictedHeightRatio": 0.54,
-    "residual": 0.85,
-    "residualSd": 0.27,
+    "residual": 0.84,
+    "residualSd": 0.26,
     "dirErrorDeg": 5,
     "settled": false
    },
@@ -8085,10 +8090,10 @@
    {
     "periodBand": "windswell",
     "dirBand": "SSW",
-    "n": 5,
+    "n": 6,
     "measuredHeightRatio": 0.41,
     "predictedHeightRatio": 0.86,
-    "residual": 0.48,
+    "residual": 0.47,
     "residualSd": 0.02,
     "dirErrorDeg": 15,
     "settled": false
@@ -8107,7 +8112,7 @@
    {
     "periodBand": "windswell",
     "dirBand": "W",
-    "n": 23,
+    "n": 27,
     "measuredHeightRatio": 0.44,
     "predictedHeightRatio": 0.91,
     "residual": 0.48,
