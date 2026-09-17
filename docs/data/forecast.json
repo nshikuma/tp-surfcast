@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-17T03:57:54.676Z",
-  "finishedAt": "2026-09-17T03:58:26.849Z",
+  "generatedAt": "2026-09-17T04:06:25.873Z",
+  "finishedAt": "2026-09-17T04:07:14.735Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -65,68 +65,61 @@
   }
  },
  "current": {
-  "observedAt": "2026-09-17T03:00:00.000Z",
+  "observedAt": "2026-09-17T03:30:00.000Z",
   "source": "cdip-thredds",
   "station": "100p1",
   "deepHsM": 0.94,
   "deepHsFt": 3.0839895999999998,
-  "periodS": 18.181818,
-  "dirDeg": 189.59375,
+  "periodS": 16.666668,
+  "dirDeg": 178.34375,
   "dirCompass": "S",
-  "powerKwPerM": 7.093614060294162,
-  "faceFt": 2.113507048538684,
-  "faceSetFt": 3.6307426875213213,
-  "sizeLabel": "Thigh high",
-  "setSizeLabel": "Chest high",
-  "superposition": 1.31,
-  "tideFt": 1.2779246155555555,
-  "tideRate": 0.15656942201808377,
+  "powerKwPerM": 6.502480140492814,
+  "faceFt": 0,
+  "faceSetFt": 2.5210409042552264,
+  "sizeLabel": "Ankle high",
+  "setSizeLabel": "Waist high",
+  "superposition": 1.09,
+  "tideFt": 1.3074632794444443,
+  "tideRate": 0.17819646773717124,
   "trains": [
    {
-    "hsM": 0.510830970870013,
-    "hsFt": 1.6759546824691733,
+    "hsM": 0.4832368599351668,
+    "hsFt": 1.5854228195496927,
     "periodS": 9.090909090909092,
-    "dirDeg": 258.12111181763396,
+    "dirDeg": 256.3065646413229,
     "dirCompass": "WSW",
-    "energyFraction": 0.2931485813238272,
-    "powerKwPerM": 1.047457227367097,
-    "faceFt": 1.708032658133488,
+    "energyFraction": 0.26300841561514066,
+    "powerKwPerM": 0.9373503912702466,
+    "faceFt": 1.6304261583552917,
     "sizeLabel": "Knee high",
     "kind": "windswell"
    },
    {
-    "hsM": 0.4036933650185497,
-    "hsFt": 1.3244533396874585,
-    "periodS": 18.181818181818183,
-    "dirDeg": 190.85168946237332,
-    "dirCompass": "S",
-    "energyFraction": 0.18307817725976414,
-    "powerKwPerM": 1.3083233019783853,
-    "faceFt": 1.1075231214269752,
-    "sizeLabel": "Shin high",
+    "hsM": 0.27933677595332845,
+    "hsFt": 0.9164592680187181,
+    "periodS": 12.5,
+    "dirDeg": 191.50716660578922,
+    "dirCompass": "SSW",
+    "energyFraction": 0.08788318145537304,
+    "powerKwPerM": 0.4306662001844055,
+    "faceFt": 0.7220726599439786,
+    "sizeLabel": "Ankle high",
     "kind": "groundswell"
    },
    {
-    "hsM": 0.2863121639050636,
-    "hsFt": 0.9393443998262888,
-    "periodS": 12.5,
-    "dirDeg": 185.9075575288575,
+    "hsM": 0.48419583322453325,
+    "hsFt": 1.5885690574763776,
+    "periodS": 16.666666666666668,
+    "dirDeg": 184.6739255567717,
     "dirCompass": "S",
-    "energyFraction": 0.09209010230961402,
-    "powerKwPerM": 0.45244329290855356,
-    "faceFt": 0.6256963193642897,
+    "energyFraction": 0.2640533206174853,
+    "powerKwPerM": 1.7253030421094198,
+    "faceFt": 0,
     "sizeLabel": "Ankle high",
     "kind": "groundswell"
    }
   ],
   "history": [
-   {
-    "time": "2026-09-15T03:30:00.000Z",
-    "hsFt": 4.0682416,
-    "periodS": 9.090909,
-    "dirDeg": 286.625,
-    "powerKwPerM": 6.17199014209388
-   },
    {
     "time": "2026-09-15T04:00:00.000Z",
     "hsFt": 4.10105,
@@ -791,32 +784,39 @@
     "periodS": 18.181818,
     "dirDeg": 189.59375,
     "powerKwPerM": 7.093614060294162
+   },
+   {
+    "time": "2026-09-17T03:30:00.000Z",
+    "hsFt": 3.0839895999999998,
+    "periodS": 16.666668,
+    "dirDeg": 178.34375,
+    "powerKwPerM": 6.502480140492814
    }
   ]
  },
  "buoyCheck": {
-  "observedAt": "2026-09-17T03:00:00.000Z",
-  "buoyPeriodS": 18.2,
+  "observedAt": "2026-09-17T03:30:00.000Z",
+  "buoyPeriodS": 16.7,
   "modelPeriodS": 11.4,
-  "periodGapS": 6.8,
+  "periodGapS": 5.3,
   "buoyHsFt": 3.1,
   "modelHsFt": 3.3,
   "heightGapFt": -0.2,
   "periodDisagrees": true,
-  "note": "The buoy is reading a 18.2 s peak and the models are on 11.4 s. A gap that size usually means the models are missing a swell the buoy can already see, so the near-term size and shape here are taken from the buoy rather than from them."
+  "note": "The buoy is reading a 16.7 s peak and the models are on 11.4 s. A gap that size usually means the models are missing a swell the buoy can already see, so the near-term size and shape here are taken from the buoy rather than from them."
  },
  "beach": {
-  "shorelineM": 0.03,
+  "shorelineM": 0.04,
   "trendMPerRun": 0,
-  "hoursStepped": 0,
-  "observations": 0,
-  "updatedAt": "2026-09-17T03:00:00.000Z",
-  "spinUpRuns": 20,
+  "hoursStepped": 0.5,
+  "observations": 1,
+  "updatedAt": "2026-09-17T03:30:00.000Z",
+  "spinUpRuns": 21,
   "profile": {
-   "shorelineOffsetM": 0.032683013942272146,
-   "barCrestM": 94.94770717769237,
-   "barHeightM": 1.00071902630673,
-   "foreshoreSlope": 0.08496078038326928
+   "shorelineOffsetM": 0.035603072332340426,
+   "barCrestM": 94.94303508426826,
+   "barHeightM": 1.0007832675913115,
+   "foreshoreSlope": 0.0849572763132012
   },
   "coefficients": {
    "a": -0.002,
@@ -931,6 +931,11 @@
     "t": "2026-09-17T03:57:54.676Z",
     "s": 0.03,
     "e": null
+   },
+   {
+    "t": "2026-09-17T04:06:25.873Z",
+    "s": 0.04,
+    "e": 0.0552
    }
   ]
  },
@@ -941,7 +946,6 @@
   "meanShoreNormalDeg": 257,
   "lineErrors": {},
   "times": [
-   "2026-09-17T03:00:00.000Z",
    "2026-09-17T04:00:00.000Z",
    "2026-09-17T05:00:00.000Z",
    "2026-09-17T06:00:00.000Z",
@@ -990,6 +994,7 @@
    "2026-09-19T01:00:00.000Z",
    "2026-09-19T02:00:00.000Z",
    "2026-09-19T03:00:00.000Z",
+   "2026-09-19T04:00:00.000Z",
    "2026-09-19T06:00:00.000Z",
    "2026-09-19T09:00:00.000Z",
    "2026-09-19T12:00:00.000Z",
@@ -1030,7 +1035,6 @@
    "2026-09-23T21:00:00.000Z"
   ],
   "localHours": [
-   20,
    21,
    22,
    23,
@@ -1079,6 +1083,7 @@
    18,
    19,
    20,
+   21,
    23,
    2,
    5,
@@ -1136,7 +1141,6 @@
      1.6,
      1.6,
      1.6,
-     1.6,
      1.5,
      1.5,
      1.5,
@@ -1173,6 +1177,7 @@
      2,
      2,
      2,
+     2.1,
      2.1,
      2.1,
      2.2,
@@ -1225,7 +1230,6 @@
      2.1,
      2.1,
      2.1,
-     2.1,
      2,
      2,
      2,
@@ -1262,6 +1266,7 @@
      2.6,
      2.6,
      2.6,
+     2.7,
      2.7,
      2.7,
      2.8,
@@ -1314,7 +1319,6 @@
      30,
      30,
      30,
-     30,
      29,
      29,
      29,
@@ -1351,6 +1355,7 @@
      42,
      42,
      42,
+     45,
      45,
      45,
      47,
@@ -1400,7 +1405,6 @@
      245,
      245,
      245,
-     245,
      244,
      244,
      244,
@@ -1416,6 +1420,7 @@
      249,
      249,
      249,
+     248,
      248,
      248,
      248,
@@ -1492,7 +1497,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -1502,6 +1506,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -1588,7 +1593,6 @@
      1.7,
      1.7,
      1.7,
-     1.7,
      1.6,
      1.6,
      1.6,
@@ -1625,6 +1629,7 @@
      2,
      2,
      2,
+     2.1,
      2.1,
      2.1,
      2.2,
@@ -1674,7 +1679,6 @@
      2.2,
      2.2,
      2.2,
-     2.2,
      2.1,
      2.1,
      2.1,
@@ -1714,6 +1718,7 @@
      2.6,
      2.6,
      2.6,
+     2.7,
      2.7,
      2.7,
      2.8,
@@ -1757,7 +1762,6 @@
     ],
     "score": [
      33,
-     33,
      32,
      32,
      32,
@@ -1803,6 +1807,7 @@
      42,
      42,
      42,
+     45,
      45,
      45,
      46,
@@ -1849,7 +1854,6 @@
      244,
      244,
      244,
-     244,
      243,
      243,
      243,
@@ -1889,6 +1893,7 @@
      245,
      245,
      245,
+     246,
      246,
      246,
      246,
@@ -1947,7 +1952,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -1957,6 +1961,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -2031,7 +2036,6 @@
     "shoreNormalDeg": 261,
     "faceFt": [
      1.7,
-     1.7,
      1.6,
      1.6,
      1.6,
@@ -2077,6 +2081,7 @@
      2,
      2,
      2,
+     2.1,
      2.1,
      2.1,
      2.1,
@@ -2120,7 +2125,6 @@
     ],
     "setFt": [
      2.2,
-     2.2,
      2.1,
      2.1,
      2.1,
@@ -2166,6 +2170,7 @@
      2.6,
      2.6,
      2.6,
+     2.7,
      2.7,
      2.7,
      2.8,
@@ -2209,7 +2214,6 @@
     ],
     "score": [
      33,
-     33,
      32,
      32,
      32,
@@ -2255,6 +2259,7 @@
      41,
      41,
      41,
+     44,
      44,
      44,
      46,
@@ -2301,7 +2306,6 @@
      243,
      243,
      243,
-     243,
      242,
      242,
      242,
@@ -2326,6 +2330,7 @@
      240,
      240,
      240,
+     245,
      245,
      245,
      245,
@@ -2402,7 +2407,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -2415,6 +2419,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -2498,7 +2503,6 @@
      1.8,
      1.8,
      1.8,
-     1.8,
      1.7,
      1.7,
      1.7,
@@ -2529,6 +2533,7 @@
      2.1,
      2.1,
      2.1,
+     2.2,
      2.2,
      2.2,
      2.3,
@@ -2572,7 +2577,6 @@
     ],
     "setFt": [
      2.4,
-     2.4,
      2.3,
      2.3,
      2.3,
@@ -2618,6 +2622,7 @@
      2.7,
      2.7,
      2.7,
+     2.8,
      2.8,
      2.8,
      2.9,
@@ -2661,7 +2666,6 @@
     ],
     "score": [
      37,
-     37,
      36,
      36,
      36,
@@ -2707,6 +2711,7 @@
      44,
      44,
      44,
+     47,
      47,
      47,
      49,
@@ -2753,7 +2758,6 @@
      241,
      241,
      241,
-     241,
      240,
      240,
      240,
@@ -2784,6 +2788,7 @@
      238,
      238,
      238,
+     245,
      245,
      245,
      245,
@@ -2854,7 +2859,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -2873,6 +2877,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -2947,7 +2952,6 @@
      1.9,
      1.9,
      1.9,
-     1.9,
      1.8,
      1.8,
      1.8,
@@ -2981,6 +2985,7 @@
      2.1,
      2.1,
      2.1,
+     2.2,
      2.2,
      2.2,
      2.3,
@@ -3033,7 +3038,6 @@
      2.5,
      2.5,
      2.5,
-     2.5,
      2.4,
      2.4,
      2.4,
@@ -3070,6 +3074,7 @@
      2.8,
      2.8,
      2.8,
+     2.9,
      2.9,
      2.9,
      3,
@@ -3113,7 +3118,6 @@
     ],
     "score": [
      40,
-     40,
      39,
      39,
      39,
@@ -3159,6 +3163,7 @@
      46,
      46,
      46,
+     48,
      48,
      48,
      50,
@@ -3205,7 +3210,6 @@
      240,
      240,
      240,
-     240,
      239,
      239,
      239,
@@ -3245,6 +3249,7 @@
      244,
      244,
      244,
+     245,
      245,
      245,
      245,
@@ -3309,10 +3314,10 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -3396,7 +3401,6 @@
      1.9,
      1.9,
      1.9,
-     1.9,
      1.8,
      1.8,
      1.8,
@@ -3433,6 +3437,7 @@
      2.1,
      2.1,
      2.1,
+     2.2,
      2.2,
      2.2,
      2.3,
@@ -3476,7 +3481,6 @@
     ],
     "setFt": [
      2.5,
-     2.5,
      2.4,
      2.4,
      2.4,
@@ -3522,6 +3526,7 @@
      2.7,
      2.7,
      2.7,
+     2.8,
      2.8,
      2.8,
      2.9,
@@ -3565,7 +3570,6 @@
     ],
     "score": [
      39,
-     39,
      38,
      38,
      38,
@@ -3611,6 +3615,7 @@
      44,
      44,
      44,
+     47,
      47,
      47,
      49,
@@ -3654,7 +3659,6 @@
     ],
     "dirDeg": [
      241,
-     241,
      240,
      240,
      240,
@@ -3685,6 +3689,7 @@
      238,
      238,
      238,
+     244,
      244,
      244,
      244,
@@ -3758,7 +3763,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -3774,6 +3778,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -3839,7 +3844,6 @@
     "shoreNormalDeg": 252,
     "faceFt": [
      1.8,
-     1.8,
      1.7,
      1.7,
      1.7,
@@ -3879,6 +3883,7 @@
      2,
      2,
      2,
+     2.1,
      2.1,
      2.1,
      2.1,
@@ -3937,7 +3942,6 @@
      2.3,
      2.3,
      2.3,
-     2.3,
      2.2,
      2.2,
      2.2,
@@ -3974,6 +3978,7 @@
      2.7,
      2.7,
      2.7,
+     2.8,
      2.8,
      2.8,
      2.9,
@@ -4026,7 +4031,6 @@
      35,
      35,
      35,
-     35,
      34,
      34,
      34,
@@ -4063,6 +4067,7 @@
      44,
      44,
      44,
+     46,
      46,
      46,
      48,
@@ -4109,7 +4114,6 @@
      241,
      241,
      241,
-     241,
      240,
      240,
      240,
@@ -4128,6 +4132,7 @@
      238,
      238,
      238,
+     243,
      243,
      243,
      243,
@@ -4207,7 +4212,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -4217,6 +4221,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -4306,7 +4311,6 @@
      1.7,
      1.7,
      1.7,
-     1.7,
      1.6,
      1.6,
      1.6,
@@ -4337,6 +4341,7 @@
      2,
      2,
      2,
+     2.1,
      2.1,
      2.1,
      2.2,
@@ -4392,7 +4397,6 @@
      2.2,
      2.2,
      2.2,
-     2.2,
      2.1,
      2.1,
      2.1,
@@ -4426,6 +4430,7 @@
      2.7,
      2.7,
      2.7,
+     2.8,
      2.8,
      2.8,
      2.8,
@@ -4469,7 +4474,6 @@
     ],
     "score": [
      34,
-     34,
      33,
      33,
      33,
@@ -4515,6 +4519,7 @@
      43,
      43,
      43,
+     45,
      45,
      45,
      47,
@@ -4561,7 +4566,6 @@
      240,
      240,
      240,
-     240,
      239,
      239,
      239,
@@ -4586,6 +4590,7 @@
      237,
      237,
      237,
+     242,
      242,
      242,
      242,
@@ -4662,7 +4667,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -4675,6 +4679,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -4758,7 +4763,6 @@
      1.7,
      1.7,
      1.7,
-     1.7,
      1.6,
      1.6,
      1.6,
@@ -4789,6 +4793,7 @@
      2,
      2,
      2,
+     2.1,
      2.1,
      2.1,
      2.2,
@@ -4847,7 +4852,6 @@
      2.2,
      2.2,
      2.2,
-     2.2,
      2.1,
      2.1,
      2.1,
@@ -4878,6 +4882,7 @@
      2.7,
      2.7,
      2.7,
+     2.8,
      2.8,
      2.8,
      2.8,
@@ -4921,7 +4926,6 @@
     ],
     "score": [
      34,
-     34,
      33,
      33,
      33,
@@ -4967,6 +4971,7 @@
      43,
      43,
      43,
+     45,
      45,
      45,
      47,
@@ -5010,7 +5015,6 @@
     ],
     "dirDeg": [
      239,
-     239,
      238,
      238,
      238,
@@ -5053,6 +5057,7 @@
      242,
      242,
      242,
+     243,
      243,
      243,
      243,
@@ -5117,7 +5122,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -5136,6 +5140,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -5207,7 +5212,6 @@
      1.8,
      1.8,
      1.8,
-     1.8,
      1.7,
      1.7,
      1.7,
@@ -5241,6 +5245,7 @@
      2.1,
      2.1,
      2.1,
+     2.2,
      2.2,
      2.2,
      2.3,
@@ -5296,7 +5301,6 @@
      2.3,
      2.3,
      2.3,
-     2.3,
      2.2,
      2.2,
      2.2,
@@ -5330,6 +5334,7 @@
      2.8,
      2.8,
      2.8,
+     2.9,
      2.9,
      2.9,
      3,
@@ -5385,7 +5390,6 @@
      35,
      35,
      35,
-     35,
      34,
      34,
      34,
@@ -5419,6 +5423,7 @@
      45,
      45,
      45,
+     48,
      48,
      48,
      49,
@@ -5465,7 +5470,6 @@
      240,
      240,
      240,
-     240,
      239,
      239,
      239,
@@ -5505,6 +5509,7 @@
      244,
      244,
      244,
+     245,
      245,
      245,
      245,
@@ -5566,7 +5571,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -5585,6 +5589,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -5662,7 +5667,6 @@
      1.8,
      1.8,
      1.8,
-     1.8,
      1.7,
      1.7,
      1.7,
@@ -5693,6 +5697,7 @@
      2.2,
      2.2,
      2.2,
+     2.3,
      2.3,
      2.3,
      2.3,
@@ -5760,7 +5765,6 @@
      2.3,
      2.3,
      2.3,
-     2.3,
      2.4,
      2.4,
      2.4,
@@ -5782,6 +5786,7 @@
      2.9,
      2.9,
      2.9,
+     3,
      3,
      3,
      3,
@@ -5837,7 +5842,6 @@
      36,
      36,
      36,
-     36,
      35,
      35,
      35,
@@ -5871,6 +5875,7 @@
      48,
      48,
      48,
+     50,
      50,
      50,
      51,
@@ -5917,7 +5922,6 @@
      242,
      242,
      242,
-     242,
      241,
      241,
      241,
@@ -5939,6 +5943,7 @@
      238,
      238,
      238,
+     247,
      247,
      247,
      247,
@@ -6018,7 +6023,6 @@
      15.4,
      15.4,
      15.4,
-     15.4,
      14.3,
      14.3,
      14.3,
@@ -6028,6 +6032,7 @@
      14.3,
      14.3,
      14.3,
+     20,
      20,
      20,
      20,
@@ -6101,12 +6106,6 @@
    },
    {
     "id": "D0590",
-    "score": 40,
-    "lat": 32.93341,
-    "lon": -117.26859
-   },
-   {
-    "id": "D0590",
     "score": 39,
     "lat": 32.93341,
     "lon": -117.26859
@@ -6372,6 +6371,12 @@
    {
     "id": "D0601",
     "score": 48,
+    "lat": 32.94239,
+    "lon": -117.27137
+   },
+   {
+    "id": "D0601",
+    "score": 50,
     "lat": 32.94239,
     "lon": -117.27137
    },
@@ -6624,11 +6629,6 @@
   "note": "MOP reads about the same as the global-model pipeline at the north lot (mean -0.1 ft over 87 hours).",
   "sample": [
    {
-    "t": "2026-09-17T03:00:00.000Z",
-    "mop": 1.9,
-    "models": 1.9
-   },
-   {
     "t": "2026-09-17T04:00:00.000Z",
     "mop": 1.9,
     "models": 1.9
@@ -6652,6 +6652,11 @@
     "t": "2026-09-17T08:00:00.000Z",
     "mop": 1.9,
     "models": 1.9
+   },
+   {
+    "t": "2026-09-17T09:00:00.000Z",
+    "mop": 1.9,
+    "models": 1.9
    }
   ]
  },
@@ -6660,11 +6665,11 @@
   "waterF": 73.9
  },
  "nowcast": {
-  "time": "2026-09-17T03:00:00.000Z",
+  "time": "2026-09-17T03:30:00.000Z",
   "buoyHsFt": 3.08,
   "forecastHsFt": 3.3,
   "errorFt": 0.22,
-  "buoyTpS": 18.181818,
+  "buoyTpS": 16.666668,
   "forecastTpS": 11.4
  },
  "days": [
@@ -6678,9 +6683,9 @@
    "confidence": 0.4,
    "faceMinFt": 2,
    "faceMaxFt": 2,
-   "setMaxFt": 3.5,
+   "setMaxFt": 3.1,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.6,
    "dirDeg": 218.8,
    "dirCompass": "SW",
@@ -6718,7 +6723,7 @@
     "parts": [
      {
       "cls": "windswell",
-      "share": 0.594966781570836,
+      "share": 0.6962842224945239,
       "peakFaceFt": 2.2,
       "periodS": 8.5,
       "dirCompass": "WSW",
@@ -6727,7 +6732,7 @@
      },
      {
       "cls": "southGround",
-      "share": 0.4050332184291641,
+      "share": 0.30371577750547607,
       "peakFaceFt": 1.7,
       "periodS": 11.2,
       "dirCompass": "SW",
@@ -6736,13 +6741,13 @@
      }
     ],
     "dominant": "windswell",
-    "dominantShare": 0.594966781570836,
-    "crossing": true,
+    "dominantShare": 0.6962842224945239,
+    "crossing": false,
     "chopFt": 0,
     "tideShiftFt": 0.7,
     "tideNote": "Short-period swell needs water on the bar - this wants the higher end of the tide.",
-    "read": "Two swells crossing: 59% short-period windswell (8.5s WSW) against 41% south swell (11.2s SW).",
-    "look": "Crossed-up and hard to read: wedging peaks where the two swells meet, then flat spots. Good for a wave-count session, bad for picking off set waves."
+    "read": "Mostly short-period windswell at 70% (8.5s WSW), with 30% south swell.",
+    "look": "8.5s short-period windswell with 70% windswell sitting on top of it - the sets will be organised, the waves between them will not be."
    },
    "call": "MAYBE",
    "tone": "warning",
@@ -6759,7 +6764,7 @@
    "confidence": 0.7,
    "faceMinFt": 1.9,
    "faceMaxFt": 1.9,
-   "setMaxFt": 3.2,
+   "setMaxFt": 2.8,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -6799,7 +6804,7 @@
     "parts": [
      {
       "cls": "southGround",
-      "share": 0.6740593542480635,
+      "share": 0.6008428419736267,
       "peakFaceFt": 2,
       "periodS": 12.1,
       "dirCompass": "SSW",
@@ -6808,22 +6813,22 @@
      },
      {
       "cls": "windswell",
-      "share": 0.3259406457519364,
-      "peakFaceFt": 1.6,
+      "share": 0.39915715802637314,
+      "peakFaceFt": 1.9,
       "periodS": 9.1,
       "dirCompass": "WSW",
-      "dirDeg": 258,
-      "offAngleDeg": 7
+      "dirDeg": 256,
+      "offAngleDeg": 9
      }
     ],
     "dominant": "southGround",
-    "dominantShare": 0.6740593542480635,
+    "dominantShare": 0.6008428419736267,
     "crossing": false,
     "chopFt": 0.9,
     "tideShiftFt": 0,
     "tideNote": null,
-    "read": "Mostly south swell at 67% (12.1s SSW), with 33% short-period windswell. Plus 0.9 ft of sub-6s chop on the surface, which is texture, not surf.",
-    "look": "12.1s south swell with 33% windswell sitting on top of it - the sets will be organised, the waves between them will not be."
+    "read": "Mostly south swell at 60% (12.1s SSW), with 40% short-period windswell. Plus 0.9 ft of sub-6s chop on the surface, which is texture, not surf.",
+    "look": "12.1s south swell with 40% windswell sitting on top of it - the sets will be organised, the waves between them will not be."
    },
    "call": "SKIP",
    "tone": "serious",
@@ -7898,47 +7903,47 @@
   "buckets": [
    {
     "label": "0-12 h",
-    "n": 308,
+    "n": 325,
     "hsMaeM": 0.07,
-    "hsMaeFt": 0.22,
-    "hsBiasM": -0.04,
-    "tpMaeS": 2.45,
-    "dirMaeDeg": 22.08
+    "hsMaeFt": 0.23,
+    "hsBiasM": -0.03,
+    "tpMaeS": 2.59,
+    "dirMaeDeg": 22.73
    },
    {
     "label": "12-24 h",
-    "n": 242,
+    "n": 245,
     "hsMaeM": 0.07,
     "hsMaeFt": 0.23,
     "hsBiasM": -0.06,
-    "tpMaeS": 3.66,
-    "dirMaeDeg": 33.18
+    "tpMaeS": 3.68,
+    "dirMaeDeg": 33.21
    },
    {
     "label": "24-48 h",
-    "n": 175,
+    "n": 191,
     "hsMaeM": 0.08,
-    "hsMaeFt": 0.26,
+    "hsMaeFt": 0.25,
     "hsBiasM": -0.06,
-    "tpMaeS": 5.02,
-    "dirMaeDeg": 33.9
+    "tpMaeS": 5.05,
+    "dirMaeDeg": 34.59
    },
    {
     "label": "48-72 h",
-    "n": 11,
-    "hsMaeM": 0.07,
-    "hsMaeFt": 0.22,
-    "hsBiasM": -0.07,
-    "tpMaeS": 7.54,
-    "dirMaeDeg": 57.07
+    "n": 13,
+    "hsMaeM": 0.06,
+    "hsMaeFt": 0.21,
+    "hsBiasM": -0.06,
+    "tpMaeS": 7.39,
+    "dirMaeDeg": 58.7
    }
   ],
   "overall": {
-   "n": 736,
+   "n": 774,
    "hsMaeFt": 0.23,
-   "hsBiasFt": -0.17
+   "hsBiasFt": -0.15
   },
-  "n": 736,
+  "n": 774,
   "note": "Error is this forecast's deep-water significant height against CDIP 100p1 observations, by lead time."
  },
  "groundTruth": {
@@ -7984,107 +7989,118 @@
   }
  },
  "shelf": {
-  "observations": 7,
+  "observations": 8,
   "firstAt": "2026-09-17T02:30:00.000Z",
-  "lastAt": "2026-09-17T03:00:00.000Z",
+  "lastAt": "2026-09-17T03:30:00.000Z",
   "bins": [
    {
     "periodBand": "chop",
     "dirBand": "SW",
-    "n": 27,
-    "measuredHeightRatio": 0.83,
+    "n": 28,
+    "measuredHeightRatio": 0.84,
     "predictedHeightRatio": 1,
-    "residual": 0.83,
-    "residualSd": 0.11,
+    "residual": 0.85,
+    "residualSd": 0.12,
     "dirErrorDeg": 7,
     "settled": false
    },
    {
     "periodBand": "chop",
     "dirBand": "W",
-    "n": 97,
+    "n": 110,
     "measuredHeightRatio": 0.86,
-    "predictedHeightRatio": 0.97,
+    "predictedHeightRatio": 0.98,
     "residual": 0.88,
-    "residualSd": 0.17,
+    "residualSd": 0.16,
     "dirErrorDeg": -4,
     "settled": false
    },
    {
     "periodBand": "chop",
     "dirBand": "WNW",
-    "n": 1,
-    "measuredHeightRatio": 0.53,
+    "n": 4,
+    "measuredHeightRatio": 0.84,
     "predictedHeightRatio": 0.95,
-    "residual": 0.56,
-    "residualSd": 0,
-    "dirErrorDeg": -9,
+    "residual": 0.88,
+    "residualSd": 0.25,
+    "dirErrorDeg": -12,
     "settled": false
    },
    {
     "periodBand": "ground",
     "dirBand": "S",
-    "n": 13,
+    "n": 14,
     "measuredHeightRatio": 0.64,
-    "predictedHeightRatio": 0.44,
-    "residual": 1.65,
-    "residualSd": 0.61,
-    "dirErrorDeg": 10,
+    "predictedHeightRatio": 0.45,
+    "residual": 1.62,
+    "residualSd": 0.6,
+    "dirErrorDeg": 9,
     "settled": false
    },
    {
     "periodBand": "ground",
     "dirBand": "SSW",
-    "n": 8,
-    "measuredHeightRatio": 0.81,
+    "n": 9,
+    "measuredHeightRatio": 0.8,
     "predictedHeightRatio": 0.78,
-    "residual": 1.04,
+    "residual": 1.02,
     "residualSd": 0.16,
     "dirErrorDeg": 5,
     "settled": false
    },
    {
+    "periodBand": "ground",
+    "dirBand": "SW",
+    "n": 1,
+    "measuredHeightRatio": 0.95,
+    "predictedHeightRatio": 0.94,
+    "residual": 1.01,
+    "residualSd": 0,
+    "dirErrorDeg": 0,
+    "settled": false
+   },
+   {
     "periodBand": "long",
     "dirBand": "S",
-    "n": 15,
-    "measuredHeightRatio": 0.37,
-    "predictedHeightRatio": 0.55,
-    "residual": 0.69,
-    "residualSd": 0.25,
-    "dirErrorDeg": -2,
+    "n": 18,
+    "measuredHeightRatio": 0.36,
+    "predictedHeightRatio": 0.51,
+    "residual": 0.74,
+    "residualSd": 0.28,
+    "dirErrorDeg": -1,
     "settled": false
    },
    {
     "periodBand": "long",
     "dirBand": "SSW",
-    "n": 6,
+    "n": 7,
     "measuredHeightRatio": 1.34,
-    "predictedHeightRatio": 1.06,
-    "residual": 1.26,
-    "residualSd": 0.1,
-    "dirErrorDeg": -5,
+    "predictedHeightRatio": 1.03,
+    "residual": 1.3,
+    "residualSd": 0.13,
+    "dirErrorDeg": -4,
     "settled": false
    },
    {
     "periodBand": "mid",
     "dirBand": "S",
-    "n": 27,
+    "n": 30,
     "measuredHeightRatio": 0.44,
     "predictedHeightRatio": 0.54,
-    "residual": 0.84,
-    "residualSd": 0.26,
+    "residual": 0.83,
+    "residualSd": 0.25,
     "dirErrorDeg": 5,
     "settled": false
    },
    {
     "periodBand": "mid",
     "dirBand": "SSW",
-    "n": 1,
-    "measuredHeightRatio": 0.42,
-    "predictedHeightRatio": 0.86,
-    "residual": 0.49,
-    "residualSd": 0,
-    "dirErrorDeg": 11,
+    "n": 2,
+    "measuredHeightRatio": 0.53,
+    "predictedHeightRatio": 0.83,
+    "residual": 0.64,
+    "residualSd": 0.16,
+    "dirErrorDeg": -2,
     "settled": false
    },
    {
@@ -8101,18 +8117,18 @@
    {
     "periodBand": "windswell",
     "dirBand": "SW",
-    "n": 2,
-    "measuredHeightRatio": 0.46,
+    "n": 4,
+    "measuredHeightRatio": 0.45,
     "predictedHeightRatio": 0.91,
     "residual": 0.5,
     "residualSd": 0.02,
-    "dirErrorDeg": 16,
+    "dirErrorDeg": 13,
     "settled": false
    },
    {
     "periodBand": "windswell",
     "dirBand": "W",
-    "n": 27,
+    "n": 30,
     "measuredHeightRatio": 0.44,
     "predictedHeightRatio": 0.91,
     "residual": 0.48,
@@ -8124,47 +8140,47 @@
   "settledBins": 0,
   "note": "Still collecting. Nothing here is being applied to the forecast yet - a bin needs 200 band-samples before it is allowed to argue with the physics.",
   "latest": {
-   "time": "2026-09-17T03:00:00.000Z",
+   "time": "2026-09-17T03:30:00.000Z",
    "byPeriod": {
     "chop": {
-     "n": 18,
-     "energy": 1.8243329830000004,
-     "measuredHeightRatio": 0.8838545606318902,
-     "predictedHeightRatio": 0.9778176014639082,
-     "residual": 0.9026390107846712,
-     "dirErrorDeg": -2.4438253128433036
+     "n": 17,
+     "energy": 1.6319734410000002,
+     "measuredHeightRatio": 0.9277134162218166,
+     "predictedHeightRatio": 0.980618209884272,
+     "residual": 0.9464550060708714,
+     "dirErrorDeg": -3.046721787210065
     },
     "windswell": {
      "n": 5,
-     "energy": 1.5276412,
-     "measuredHeightRatio": 0.42149887133419306,
-     "predictedHeightRatio": 0.9083063843786017,
-     "residual": 0.4639224333004549,
-     "dirErrorDeg": 3.1010327346616258
+     "energy": 1.28159178,
+     "measuredHeightRatio": 0.4621595659336877,
+     "predictedHeightRatio": 0.9117312048047386,
+     "residual": 0.5067625274577297,
+     "dirErrorDeg": 5.882859280797685
     },
     "mid": {
      "n": 4,
-     "energy": 1.00378867,
-     "measuredHeightRatio": 0.4249174941362261,
-     "predictedHeightRatio": 0.542780890529003,
-     "residual": 0.8121468913697655,
-     "dirErrorDeg": 3.704219285852222
+     "energy": 0.9452267099999999,
+     "measuredHeightRatio": 0.4373304217326593,
+     "predictedHeightRatio": 0.578385602607481,
+     "residual": 0.7578384012408917,
+     "dirErrorDeg": 3.3301994216048203
     },
     "ground": {
      "n": 3,
-     "energy": 0.96052874,
-     "measuredHeightRatio": 0.7203652965697342,
-     "predictedHeightRatio": 0.530760489619674,
-     "residual": 1.5339282466662683,
-     "dirErrorDeg": 9.148442873589945
+     "energy": 0.8273565,
+     "measuredHeightRatio": 0.7725059221092049,
+     "predictedHeightRatio": 0.7829209717286137,
+     "residual": 1.0004027138824032,
+     "dirErrorDeg": 4.071787460426533
     },
     "long": {
-     "n": 3,
-     "energy": 1.7437553499999998,
-     "measuredHeightRatio": 0.3818840587932183,
-     "predictedHeightRatio": 0.5657954076955262,
-     "residual": 0.6706638646201363,
-     "dirErrorDeg": -3.5890001331111616
+     "n": 4,
+     "energy": 2.661148437,
+     "measuredHeightRatio": 0.3309537747559308,
+     "predictedHeightRatio": 0.3496154464374757,
+     "residual": 1.0031761306481923,
+     "dirErrorDeg": 1.4839209798096733
     }
    },
    "bands": 33
@@ -8761,140 +8777,23 @@
   "skewDeg": 5,
   "ripSpacingM": 400,
   "closeoutProne": true,
-  "omega": 5.3,
-  "rtr": 1.8,
+  "omega": 5.28,
+  "rtr": 1.81,
   "regime": "wave-dominated",
   "meanBreakerM": 1.01,
   "tideRangeM": 1.83,
   "settlingVelocityMs": 0.02,
   "d50mm": 0.18,
-  "samples": 144,
+  "samples": 145,
   "spunUp": false,
   "summary": "Longshore bar and trough. One straight continuous bar parallel to the beach, with a trough inside it.",
   "note": "Wright & Short (1984) beach-state classification with the Masselink & Short (1993) tide-modified extension - the distilled result of years of daily visual observations of how waves break on sandbars. Driven here by an energy-weighted running mean of measured buoy conditions with a four-day half-life, because bars respond over weeks rather than hours. It is a statistical expectation, not a picture of this particular sandbar."
  },
+ "sandbar": {
+  "scenes": 0,
+  "note": "No usable satellite pass yet. Sentinel-2 comes over every day or two but cloud and the morning marine layer take out a fair share of them."
+ },
  "hourly": [
-  {
-   "time": "2026-09-16T16:00:00.000Z",
-   "localDate": "2026-09-16",
-   "localHour": 9,
-   "inWindow": true,
-   "deepHsM": 1.006,
-   "deepHsFt": 3.3,
-   "faceFt": 2.02,
-   "faceSetFt": 3.5,
-   "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
-   "periodS": 11.6,
-   "dirDeg": 219,
-   "dirCompass": "SW",
-   "powerKwPerM": 5.2,
-   "energyKjPerM2": 0.6,
-   "windKt": 3.2,
-   "gustKt": 6.9,
-   "windDirDeg": 191,
-   "windCompass": "SSW",
-   "windLabel": "cross-shore",
-   "tideFt": 3.7,
-   "tideRate": 0.56,
-   "waterF": 74.5,
-   "airF": 71.7,
-   "score": 42,
-   "grade": "Fair",
-   "confidence": 0.41,
-   "board": "Longboard",
-   "parts": {
-    "tide": 0.99,
-    "wind": 1,
-    "size": 0.32,
-    "shape": 0.69
-   },
-   "modelSpread": {
-    "heightFt": [
-     {
-      "model": "ecmwf_wam025",
-      "faceFt": 2.8
-     },
-     {
-      "model": "meteofrance_wave",
-      "faceFt": 1.25
-     }
-    ]
-   },
-   "byModel": {
-    "waves": [
-     {
-      "model": "ecmwf_wam025",
-      "deepHsFt": 3.3,
-      "periodS": 10.5,
-      "dirDeg": 241,
-      "faceFt": 2.8
-     },
-     {
-      "model": "meteofrance_wave",
-      "deepHsFt": 3.3,
-      "periodS": 12.7,
-      "dirDeg": 197,
-      "faceFt": 1.2
-     }
-    ],
-    "wind": [
-     {
-      "model": "ecmwf_ifs025",
-      "windKt": 1.9,
-      "gustKt": 8.6,
-      "dirDeg": 156
-     },
-     {
-      "model": "gfs_seamless",
-      "windKt": 4.5,
-      "gustKt": 5.1,
-      "dirDeg": 227
-     }
-    ]
-   },
-   "trains": [
-    {
-     "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
-     "periodS": 9.1,
-     "dirDeg": 258,
-     "dirCompass": "WSW"
-    },
-    {
-     "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
-    },
-    {
-     "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
-     "dirCompass": "S"
-    }
-   ],
-   "mixFt": [
-    0.72,
-    0,
-    1.3
-   ],
-   "crossing": true,
-   "chopFt": 0,
-   "superposition": 1.31,
-   "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
-    "makeable": false,
-    "closeoutRatio": 1.15
-   },
-   "trainsFrom": "buoy"
-  },
   {
    "time": "2026-09-16T17:00:00.000Z",
    "localDate": "2026-09-16",
@@ -8903,7 +8802,7 @@
    "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.4,
+   "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.7,
@@ -8928,7 +8827,7 @@
     "tide": 0.63,
     "wind": 1,
     "size": 0.31,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -8977,42 +8876,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.71,
+    0.33,
     0,
-    1.28
+    1.66
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9024,7 +8923,7 @@
    "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.4,
+   "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.8,
@@ -9049,7 +8948,7 @@
     "tide": 0.34,
     "wind": 0.98,
     "size": 0.31,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9098,42 +8997,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.71,
+    0.33,
     0,
-    1.28
+    1.66
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9145,7 +9044,7 @@
    "deepHsM": 0.993,
    "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.4,
+   "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.6,
@@ -9170,7 +9069,7 @@
     "tide": 0.18,
     "wind": 0.93,
     "size": 0.31,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9219,42 +9118,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.71,
+    0.33,
     0,
-    1.28
+    1.66
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9266,7 +9165,7 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 2.01,
-   "faceSetFt": 3.4,
+   "faceSetFt": 2.8,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -9291,7 +9190,7 @@
     "tide": 0.15,
     "wind": 0.83,
     "size": 0.32,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9340,42 +9239,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.72,
+    0.33,
     0,
-    1.29
+    1.68
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9387,7 +9286,7 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 2.02,
-   "faceSetFt": 3.4,
+   "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.3,
@@ -9412,7 +9311,7 @@
     "tide": 0.36,
     "wind": 0.69,
     "size": 0.32,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9461,42 +9360,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.72,
+    0.33,
     0,
-    1.3
+    1.69
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9508,7 +9407,7 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 2.01,
-   "faceSetFt": 3.4,
+   "faceSetFt": 2.8,
    "sizeLabel": "Thigh high",
    "setSizeLabel": "Waist high",
    "periodS": 11.3,
@@ -9533,7 +9432,7 @@
     "tide": 0.73,
     "wind": 0.64,
     "size": 0.32,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9582,42 +9481,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.72,
+    0.33,
     0,
-    1.3
+    1.68
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9629,9 +9528,9 @@
    "deepHsM": 1.03,
    "deepHsFt": 3.38,
    "faceFt": 2.03,
-   "faceSetFt": 3.5,
+   "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.2,
    "dirDeg": 216,
    "dirCompass": "SW",
@@ -9654,7 +9553,7 @@
     "tide": 1,
     "wind": 0.67,
     "size": 0.33,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9703,42 +9602,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.73,
+    0.33,
     0,
-    1.31
+    1.7
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9750,9 +9649,9 @@
    "deepHsM": 1.03,
    "deepHsFt": 3.38,
    "faceFt": 2.03,
-   "faceSetFt": 3.5,
+   "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 11.2,
    "dirDeg": 216,
    "dirCompass": "SW",
@@ -9775,7 +9674,7 @@
     "tide": 1,
     "wind": 0.82,
     "size": 0.33,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9824,42 +9723,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.73,
+    0.33,
     0,
-    1.31
+    1.7
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9871,7 +9770,7 @@
    "deepHsM": 1.018,
    "deepHsFt": 3.34,
    "faceFt": 1.91,
-   "faceSetFt": 3.3,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.3,
@@ -9896,7 +9795,7 @@
     "tide": 1,
     "wind": 0.94,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -9945,42 +9844,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.68,
+    0.31,
     0,
-    1.23
+    1.59
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -9992,7 +9891,7 @@
    "deepHsM": 1.018,
    "deepHsFt": 3.34,
    "faceFt": 1.89,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
@@ -10017,7 +9916,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10066,42 +9965,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.68,
+    0.31,
     0,
-    1.22
+    1.58
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10113,7 +10012,7 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 1.88,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.4,
@@ -10138,7 +10037,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10187,42 +10086,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.67,
+    0.31,
     0,
-    1.21
+    1.57
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10234,7 +10133,7 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 1.88,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -10259,7 +10158,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.27,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10308,42 +10207,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.67,
+    0.31,
     0,
-    1.21
+    1.57
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10355,7 +10254,7 @@
    "deepHsM": 1.019,
    "deepHsFt": 3.34,
    "faceFt": 1.89,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -10380,7 +10279,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10429,42 +10328,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.67,
+    0.31,
     0,
-    1.22
+    1.58
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10476,7 +10375,7 @@
    "deepHsM": 1.019,
    "deepHsFt": 3.34,
    "faceFt": 1.89,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -10501,7 +10400,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10550,42 +10449,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.67,
+    0.31,
     0,
-    1.21
+    1.58
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10597,7 +10496,7 @@
    "deepHsM": 1.019,
    "deepHsFt": 3.34,
    "faceFt": 1.88,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.5,
@@ -10622,7 +10521,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10671,42 +10570,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.67,
+    0.31,
     0,
-    1.21
+    1.58
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10718,7 +10617,7 @@
    "deepHsM": 1.019,
    "deepHsFt": 3.34,
    "faceFt": 1.9,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.6,
@@ -10743,7 +10642,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10792,42 +10691,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.68,
+    0.31,
     0,
-    1.22
+    1.58
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10839,7 +10738,7 @@
    "deepHsM": 1.019,
    "deepHsFt": 3.34,
    "faceFt": 1.89,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.6,
@@ -10864,7 +10763,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -10913,42 +10812,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.68,
+    0.31,
     0,
-    1.22
+    1.58
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -10960,7 +10859,7 @@
    "deepHsM": 1.019,
    "deepHsFt": 3.34,
    "faceFt": 1.91,
-   "faceSetFt": 3.3,
+   "faceSetFt": 2.7,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.8,
@@ -10985,7 +10884,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.28,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -11034,42 +10933,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.68,
+    0.31,
     0,
-    1.23
+    1.59
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -11081,9 +10980,9 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 2.05,
-   "faceSetFt": 3.5,
+   "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 12.1,
    "dirDeg": 213,
    "dirCompass": "SSW",
@@ -11106,7 +11005,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.33,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -11155,42 +11054,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.73,
+    0.34,
     0,
-    1.32
+    1.71
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -11202,9 +11101,9 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 2.05,
-   "faceSetFt": 3.5,
+   "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 12.2,
    "dirDeg": 214,
    "dirCompass": "SSW",
@@ -11227,7 +11126,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.33,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -11276,42 +11175,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.73,
+    0.34,
     0,
-    1.32
+    1.71
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -11323,9 +11222,9 @@
    "deepHsM": 1.006,
    "deepHsFt": 3.3,
    "faceFt": 2.04,
-   "faceSetFt": 3.5,
+   "faceSetFt": 2.9,
    "sizeLabel": "Thigh high",
-   "setSizeLabel": "Chest high",
+   "setSizeLabel": "Waist high",
    "periodS": 12,
    "dirDeg": 213,
    "dirCompass": "SSW",
@@ -11348,7 +11247,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.33,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -11397,42 +11296,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.73,
+    0.33,
     0,
-    1.31
+    1.71
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -11444,7 +11343,7 @@
    "deepHsM": 0.994,
    "deepHsFt": 3.26,
    "faceFt": 1.99,
-   "faceSetFt": 3.4,
+   "faceSetFt": 2.8,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.8,
@@ -11469,7 +11368,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.31,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -11518,42 +11417,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.71,
+    0.33,
     0,
-    1.28
+    1.66
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -11565,7 +11464,7 @@
    "deepHsM": 0.994,
    "deepHsFt": 3.26,
    "faceFt": 1.87,
-   "faceSetFt": 3.2,
+   "faceSetFt": 2.6,
    "sizeLabel": "Knee high",
    "setSizeLabel": "Waist high",
    "periodS": 11.6,
@@ -11590,7 +11489,7 @@
     "tide": 1,
     "wind": 1,
     "size": 0.27,
-    "shape": 0.69
+    "shape": 0.74
    },
    "modelSpread": {
     "heightFt": [
@@ -11639,42 +11538,42 @@
    "trains": [
     {
      "kind": "windswell",
-     "hsM": 0.51,
-     "hsFt": 1.7,
+     "hsM": 0.48,
+     "hsFt": 1.6,
      "periodS": 9.1,
-     "dirDeg": 258,
+     "dirDeg": 256,
      "dirCompass": "WSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.4,
-     "hsFt": 1.3,
-     "periodS": 18.2,
-     "dirDeg": 191,
-     "dirCompass": "S"
+     "hsM": 0.28,
+     "hsFt": 0.9,
+     "periodS": 12.5,
+     "dirDeg": 192,
+     "dirCompass": "SSW"
     },
     {
      "kind": "groundswell",
-     "hsM": 0.29,
-     "hsFt": 0.9,
-     "periodS": 12.5,
-     "dirDeg": 186,
+     "hsM": 0.48,
+     "hsFt": 1.6,
+     "periodS": 16.7,
+     "dirDeg": 185,
      "dirCompass": "S"
     }
    ],
    "mixFt": [
-    0.9,
+    0.66,
     0,
-    0.96
+    1.2
    ],
-   "crossing": true,
+   "crossing": false,
    "chopFt": 0,
-   "superposition": 1.31,
+   "superposition": 1.09,
    "peel": {
-    "alphaDeg": 13.4,
-    "speedMs": 13,
+    "alphaDeg": 13.7,
+    "speedMs": 12,
     "makeable": false,
-    "closeoutRatio": 1.15
+    "closeoutRatio": 1.1
    },
    "trainsFrom": "buoy"
   },
@@ -11776,9 +11675,9 @@
     }
    ],
    "mixFt": [
-    1.18,
+    1.06,
     0,
-    0.69
+    0.81
    ],
    "crossing": false,
    "chopFt": 0,
