@@ -20,3 +20,6 @@ jobs:
         with:
           node-version: '22'
       - run: node scripts/probe-buoy.js
+      - name: Band-by-band refraction comparison
+        if: always()
+        run: node scripts/probe-refraction.js
