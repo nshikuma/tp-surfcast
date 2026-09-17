@@ -955,6 +955,11 @@ function renderSandbar() {
     `Pass at ${fmtTime(L.time, { weekday: 'short', month: 'short', day: 'numeric' })}, `
     + `${Math.round(L.cloudPct)}% cloud over the scene, tide ${L.tideFt == null ? 'unknown' : `${n1(L.tideFt)} ft`} at the moment it was taken. `
     + 'The waterline moves further in one tide than it does in a season, which is why the tide is recorded with it.' }));
+  if (sb.lastSkipped) {
+    card.appendChild(el('p', { class: 'cap', text:
+      `A later pass on ${fmtDate(sb.lastSkipped.time.slice(0, 10), { month: 'short', day: 'numeric' })} was thrown out: `
+      + `${sb.lastSkipped.reason}. That is usually cloud, and it is the main reason this is a weekly picture rather than a daily one.` }));
+  }
   card.appendChild(sourceBar(SRC.satellite, `${L.transectsUsed} transects, ${L.transectsDropped} discarded`));
   return card;
 }
