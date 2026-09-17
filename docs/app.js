@@ -1774,116 +1774,191 @@ const loadLog = () => { try { return JSON.parse(localStorage.getItem(LOG_KEY) ||
 const saveLog = (l) => { try { localStorage.setItem(LOG_KEY, JSON.stringify(l)); } catch { /* private mode */ } };
 
 function renderLog() {
-  const card = el('div', { class: 'card' });
-  card.appendChild(el('h2', { text: 'Session log — what it was actually like' }));
-  card.appendChild(el('p', { class: 'note', text: 'This is the part that makes the forecast beat the big services: they never find out how wrong they were at this exact beach. Log a session and the entry carries what we predicted alongside what you saw, so the local calibration can be retuned from real sessions.' }));
+  const card = el('div', { class: 'card', id: 'log' });
+  card.appendChild(el('h2', { text: 'Log a session' }));
+  card.appendChild(el('p', {
+    class: 'note',
+    text: 'The only sensor that sees the sandbar. Every other source on this page measures the swell; '
+      + 'none of them can tell you whether the bank had a corner on it. Four fields matter most — which '
+      + 'bank you surfed, the size of the SETS, whether you could make them, and where the sand was. '
+      + 'The first logged session found the set size out by a factor of two.',
+  }));
 
   const today = DATA.days[0]?.date || new Date().toISOString().slice(0, 10);
-  const form = el('div');
-  const dateIn = el('input', { type: 'date', value: today });
-  const sizeIn = el('select', {}, ['Ankle', 'Knee', 'Thigh', 'Waist', 'Chest', 'Shoulder', 'Head high', 'Overhead', 'Well overhead', 'Double overhead']
-    .map((s) => el('option', { text: s, value: s })));
-  sizeIn.value = 'Chest';
-  const rateIn = el('select', {}, [['5', '5 — one of the best'], ['4', '4 — really good'], ['3', '3 — fun, worth it'], ['2', '2 — marginal'], ['1', '1 — should have stayed home']]
-    .map(([v, t]) => el('option', { text: t, value: v })));
-  rateIn.value = '3';
-  const crowdIn = el('select', {}, [['light', 'Light'], ['moderate', 'Moderate'], ['packed', 'Packed']].map(([v, t]) => el('option', { text: t, value: v })));
-  const notesIn = el('textarea', { placeholder: 'How it broke, which bank worked, what the wind did, what board you were on…' });
+  const field = (label, control) => el('div', {}, [el('label', { class: 'field', text: label }), control]);
+  const sel = (opts, value) => {
+    const n = el('select', {}, opts.map(([v, t]) => el('option', { text: t, value: v })));
+    n.value = value;
+    return n;
+  };
 
-  form.appendChild(el('div', { class: 'row2' }, [
-    el('div', {}, [el('label', { class: 'field', text: 'Date' }), dateIn]),
-    el('div', {}, [el('label', { class: 'field', text: 'Rating' }), rateIn]),
+  const dateIn = el('input', { type: 'date', value: today });
+  const fromIn = el('input', { type: 'number', value: '7', min: '0', max: '23', step: '1' });
+  const toIn = el('input', { type: 'number', value: '10', min: '0', max: '23', step: '1' });
+  const spotIn = sel([['rivermouth', 'Rivermouth'], ['north-lot', 'North lot'], ['south-end', 'South end'], ['other', 'Somewhere else']], 'rivermouth');
+  const typIn = el('input', { type: 'number', step: '0.5', min: '0', placeholder: 'ft', value: '2' });
+  const setIn = el('input', { type: 'number', step: '0.5', min: '0', placeholder: 'ft', value: '3' });
+  const wordsIn = el('input', { type: 'text', placeholder: 'e.g. waist with head-high sets through it' });
+  const shapeIn = sel([['peeling', 'Peeling — proper shoulders'], ['mixed', 'Mixed — some corners'],
+    ['walled', 'Walled — fast, hard to make'], ['closeout', 'Closeout — nothing to ride']], 'mixed');
+  const makeIn = sel([['yes', 'Yes, could get into them and go'], ['no', 'No, too fast / shut down']], 'yes');
+  const barIn = el('input', { type: 'text', placeholder: 'e.g. very shallow at the rivermouth, thigh-to-waist deep' });
+  const rateIn = sel([['5', '5 — one of the best'], ['4', '4 — really good'], ['3', '3 — fun, worth it'],
+    ['2', '2 — marginal'], ['1', '1 — should have stayed home']], '3');
+  const notesIn = el('textarea', { placeholder: 'Anything else — which bank worked, what the wind did, what you rode…' });
+
+  const form = el('div');
+  form.appendChild(el('div', { class: 'row3' }, [
+    field('Date', dateIn), field('From (24h)', fromIn), field('To', toIn),
   ]));
-  form.appendChild(el('div', { class: 'row2' }, [
-    el('div', {}, [el('label', { class: 'field', text: 'Size it actually was' }), sizeIn]),
-    el('div', {}, [el('label', { class: 'field', text: 'Crowd' }), crowdIn]),
+  form.appendChild(el('div', { class: 'row3' }, [
+    field('Which bank', spotIn),
+    field('Ordinary waves, ft', typIn),
+    field('SETS, ft', setIn),
   ]));
-  form.appendChild(el('label', { class: 'field', text: 'Notes' }));
-  form.appendChild(notesIn);
+  form.appendChild(field('In your words', wordsIn));
+  form.appendChild(el('div', { class: 'row3' }, [
+    field('Shape', shapeIn), field('Could you make them?', makeIn), field('Rating', rateIn),
+  ]));
+  form.appendChild(field('Where was the sand?', barIn));
+  form.appendChild(field('Notes', notesIn));
 
   const listHost = el('div', { style: 'margin-top:14px' });
+  const toast = el('span', { class: 'note', style: 'margin-left:10px' });
+
+  const copy = async (text, label) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.textContent = `${label} copied.`;
+    } catch {
+      const ta = el('textarea', { style: 'margin-top:8px' });
+      ta.value = text; listHost.prepend(ta); ta.select();
+      toast.textContent = 'Clipboard blocked — copy from the box above.';
+    }
+    setTimeout(() => { toast.textContent = ''; }, 5000);
+  };
+
   const renderList = () => {
     listHost.innerHTML = '';
-    const log = loadLog().sort((a, b) => b.date.localeCompare(a.date));
-    if (!log.length) { listHost.appendChild(el('p', { class: 'note', text: 'No sessions logged yet.' })); return; }
+    const log = loadLog().sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    if (!log.length) {
+      listHost.appendChild(el('p', { class: 'note', text: 'Nothing logged in this browser yet.' }));
+      return;
+    }
     const t = el('table');
-    t.appendChild(el('tr', {}, ['Date', 'Rated', 'You saw', 'We said', 'Notes', ''].map((h) => el('th', { text: h }))));
-    for (const s of log.slice(0, 20)) {
+    t.appendChild(el('tr', {}, ['Date', 'Bank', 'You saw', 'We said', 'Shape', ''].map((h) => el('th', { text: h }))));
+    for (const s of log.slice(0, 40)) {
       const del = el('button', { text: '✕', title: 'Delete this entry' });
       del.addEventListener('click', () => { saveLog(loadLog().filter((x) => x.id !== s.id)); renderList(); });
+      const said = s.forecast
+        ? `${n1(s.forecast.faceMaxFt)} / sets ${n1(s.forecast.setMaxFt)}`
+        : '—';
       t.appendChild(el('tr', {}, [
         el('td', { text: fmtDate(s.date, { month: 'short', day: 'numeric' }) }),
-        el('td', { text: `${s.rating}/5` }),
-        el('td', { text: s.observedSize }),
-        el('td', { text: s.forecast ? `${s.forecast.sizeLabel} (${s.forecast.windowScore})` : '—' }),
-        el('td', { text: s.notes || '', style: 'text-align:left;font-size:12.5px;color:var(--text-secondary)' }),
+        el('td', { text: s.spot || '—' }),
+        el('td', { text: `${n1(s.typicalFt)} / sets ${n1(s.setFt)}` }),
+        el('td', { text: said }),
+        el('td', { text: `${s.shape}${s.makeable === false ? ', no' : ''}` }),
         el('td', {}, [del]),
       ]));
     }
     listHost.appendChild(el('div', { class: 'table-wrap' }, [t]));
   };
 
-  const toast = el('span', { class: 'note', style: 'margin-left:10px' });
-  const copy = async (text, label) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      toast.textContent = `${label} copied.`;
-    } catch {
-      // Clipboard can be blocked; fall back to a selectable box.
-      const ta = el('textarea', { style: 'margin-top:8px' });
-      ta.value = text; listHost.prepend(ta); ta.select();
-      toast.textContent = 'Clipboard blocked — copy from the box above.';
-    }
-    setTimeout(() => { toast.textContent = ''; }, 4000);
-  };
-
-  const save = el('button', { class: 'primary', text: 'Log this session' });
+  const save = el('button', { class: 'primary', text: 'Log it' });
   save.addEventListener('click', () => {
     const d = DATA.days.find((x) => x.date === dateIn.value);
     const entry = {
       id: `${Date.now()}`,
       date: dateIn.value,
+      fromLocalHour: Number(fromIn.value),
+      toLocalHour: Number(toIn.value),
+      spot: spotIn.value,
+      typicalFt: Number(typIn.value),
+      setFt: Number(setIn.value),
+      sizeWords: wordsIn.value.trim(),
+      shape: shapeIn.value,
+      makeable: makeIn.value === 'yes',
+      barNote: barIn.value.trim(),
       rating: Number(rateIn.value),
-      observedSize: sizeIn.value,
-      crowd: crowdIn.value,
       notes: notesIn.value.trim(),
+      // What the page was saying at the time, captured now so the comparison
+      // survives even after the forecast has moved on.
       forecast: d ? {
-        windowScore: d.windowScore, sizeLabel: d.sizeLabel,
-        faceMinFt: d.faceMinFt, faceMaxFt: d.faceMaxFt, periodS: d.periodS,
+        windowScore: d.windowScore, sizeLabel: d.sizeLabel, setSizeLabel: d.setSizeLabel,
+        faceMaxFt: d.faceMaxFt, setMaxFt: d.setMaxFt, periodS: d.periodS,
         dirDeg: d.dirDeg, windKt: d.windKt, tideFt: d.tideAtWindowFt,
+        makeable: peelForDay(d)?.makeable ?? null,
       } : null,
       generatedAt: DATA.meta.generatedAt,
     };
     saveLog([...loadLog(), entry]);
-    notesIn.value = '';
+    wordsIn.value = ''; barIn.value = ''; notesIn.value = '';
     renderList();
-    toast.textContent = 'Logged.';
-    setTimeout(() => { toast.textContent = ''; }, 3000);
+    toast.textContent = 'Logged. Keep going — they are worth far more in bulk.';
+    setTimeout(() => { toast.textContent = ''; }, 5000);
   });
 
-  const chat = el('button', { text: 'Copy today’s call for the group chat' });
+  /**
+   * The export that matters: the exact shape src/data/observations.json wants,
+   * so a batch can be pasted straight in and start grading the forecast
+   * without anybody having to reshape it by hand.
+   */
+  const exp = el('button', { text: 'Copy all as observations.json' });
+  exp.addEventListener('click', () => {
+    const sessions = loadLog()
+      .sort((a, b) => String(a.date).localeCompare(String(b.date)))
+      .map((s) => ({
+        date: s.date,
+        fromLocalHour: s.fromLocalHour ?? 7,
+        toLocalHour: s.toLocalHour ?? 10,
+        spot: s.spot ?? null,
+        typicalFt: s.typicalFt ?? null,
+        setFt: s.setFt ?? null,
+        sizeWords: s.sizeWords || null,
+        shape: s.shape ?? null,
+        makeable: s.makeable ?? null,
+        barNote: s.barNote || null,
+        notes: s.notes || null,
+        modelSaidAtTheTime: s.forecast
+          ? {
+            typicalFt: s.forecast.faceMaxFt, setFt: s.forecast.setMaxFt,
+            setLabel: s.forecast.setSizeLabel, windowScore: s.forecast.windowScore,
+            makeable: s.forecast.makeable, peakPeriodS: s.forecast.periodS,
+          }
+          : undefined,
+      }));
+    copy(JSON.stringify({ sessions }, null, 2), `${sessions.length} session${sessions.length === 1 ? '' : 's'}`);
+  });
+
+  const chat = el('button', { text: 'Copy the call for the group chat' });
   chat.addEventListener('click', () => {
     const d = DATA.days.find((x) => x.date === selectedDate) || DATA.days[0];
-    const lines = [
-      `Torrey Pines (north lot) — ${fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' })}`,
-      `${d.windowGrade} (${d.windowScore}/100) for 7:30–10`,
-      `${range1(sizeVal(d.faceMinFt), sizeVal(d.faceMaxFt))} ${sizeUnit()}, ${d.sizeLabel.toLowerCase()}, sets ${n1(sizeVal(d.setMaxFt))}`,
-      `Swell ${d.dirCompass} ${n1(d.periodS)}s · ${n0(d.powerKwPerM)} kW/m`,
-      `Wind ${n0(d.windKt)} kt ${d.windCompass} (${d.windLabel}) · tide ${n1(d.tideAtWindowFt)} ft`,
-      `Board: ${d.board.board}`,
+    const p = peelForDay(d);
+    copy([
+      `Torrey Pines north lot — ${fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' })}`,
+      `${d.call} (${d.windowScore}/100) for ${DATA.meta.sessionWindow.label}`,
+      `${n1(sizeVal(d.faceMaxFt))} ${sizeUnit()}, sets ${n1(sizeVal(d.setMaxFt))} (${(d.setSizeLabel || '').toLowerCase()})`,
+      `Swell ${d.dirCompass} ${n1(d.periodS)}s · wind ${n0(d.windKt)} kt ${d.windCompass} ${d.windLabel} · tide ${n1(d.tideAtWindowFt)} ft`,
+      p ? (p.makeable ? 'Should be rideable.' : 'Expect walls and closeouts.') : '',
+      DATA.morphology ? `Bars: ${DATA.morphology.label.toLowerCase()}.` : '',
       d.water?.advisory ? `⚠ ${d.water.reason}` : '',
-      d.verdict,
-    ].filter(Boolean);
-    copy(lines.join('\n'), 'Call');
+    ].filter(Boolean).join('\n'), 'Call');
   });
 
-  const exp = el('button', { text: 'Export log for calibration' });
-  exp.addEventListener('click', () => copy(JSON.stringify({ site: 'torrey-pines-north-lot', exported: new Date().toISOString(), sessions: loadLog() }, null, 2), 'Log JSON'));
-
   card.appendChild(form);
-  card.appendChild(el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px' }, [save, chat, exp, toast]));
+  card.appendChild(el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px' },
+    [save, exp, chat, toast]));
   card.appendChild(listHost);
-  card.appendChild(el('p', { class: 'note', style: 'margin-top:12px', text: 'Entries are stored in this browser only — they are never uploaded. Use "Export log for calibration" to hand them back for retuning.' }));
+  card.appendChild(el('div', { class: 'alert info', style: 'margin-top:14px' }, [
+    el('span', { class: 'ic', text: 'i' }),
+    el('div', {
+      html: '<b>Backfill is welcome.</b> The date field goes backwards, so sessions you remember are worth '
+        + 'entering too — rough numbers beat no numbers, and the model is graded on set size and shape, '
+        + 'which people remember well. Entries live in this browser only and are never uploaded; '
+        + '“copy all as observations.json” hands the whole batch over in the exact shape the repository wants.',
+    }),
+  ]));
   renderList();
   return card;
 }

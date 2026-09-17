@@ -506,3 +506,5 @@ a.cam .cam-note { font-size: 11px; color: var(--muted); }
 .state-tag.bad { background: var(--wind-soft); color: var(--wind); }
 .state-bars { margin: 0 0 4px; font-size: 15px; }
 .state-waves { margin: 0 0 14px; font-size: 14px; color: var(--text-secondary); }
+.row3 { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 620px) { .row3 { grid-template-columns: repeat(3, 1fr); } }
