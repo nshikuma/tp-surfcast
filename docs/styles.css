@@ -508,3 +508,7 @@ a.cam .cam-note { font-size: 11px; color: var(--muted); }
 .state-waves { margin: 0 0 14px; font-size: 14px; color: var(--text-secondary); }
 .row3 { display: grid; gap: 10px; grid-template-columns: 1fr; }
 @media (min-width: 620px) { .row3 { grid-template-columns: repeat(3, 1fr); } }
+.planview { width: 100%; height: auto; display: block; }
+.plan-label { font-size: 11px; fill: var(--muted); }
+.plan-keys { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.plan-key { white-space: nowrap; }

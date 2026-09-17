@@ -346,6 +346,11 @@ const SRC = {
     what: 'Modelled by Scripps: swell refracted over surveyed bathymetry, published every ~100 m along this beach.',
     url: 'https://cdip.ucsd.edu/m/models/mop_alongshore/',
   },
+  satellite: {
+    name: 'Sentinel-2 \u00b7 Copernicus, via the AWS open archive',
+    what: 'Measured. 10 m visible and near-infrared imagery of this beach, every day or two, read straight from the public archive.',
+    url: 'https://browser.dataspace.copernicus.eu/?lat=32.934&lng=-117.2585&zoom=14',
+  },
   waves: {
     name: 'ECMWF-WAM · GFS-Wave · Météo-France WAM',
     what: 'Global wave model forecasts, fetched through Open-Meteo. Each is a separate physical model, not three views of one.',
@@ -878,6 +883,179 @@ function renderMorphology() {
     + 'That grain size is the cheapest measurement on this page \u2014 a sieve sample would pin it.' }));
   card.appendChild(sourceBar(SRC.buoy));
   return card;
+}
+
+/* ------------------------------------------------- the beach, from orbit -- */
+
+/**
+ * The one card on this page that is looking at the SAND rather than at the
+ * waves. Drawn as a plan view because that is what it is: the beach seen from
+ * above, with the waterline and the line the waves are breaking on.
+ *
+ * Read the gap between the two lines. A wide gap with the breaking line running
+ * dead straight is the closeout state. A breaking line that wanders in and out
+ * has banks and gaps in it, and that is where the corners are.
+ */
+function renderSandbar() {
+  const sb = DATA.sandbar;
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'Where the sand is, from the satellite' }));
+  card.appendChild(el('p', {
+    class: 'note',
+    text: 'There is no public webcam of this beach that a forecast can watch, so this watches it from orbit instead. '
+      + 'Water is black in near-infrared and sand is bright, so the shoreline is a hard edge; white water is bright in '
+      + 'every band, so the line the waves are breaking on shows up too. Every pass is another look at the one thing '
+      + 'no buoy can see.',
+  }));
+
+  if (!sb || !sb.scenes) {
+    card.appendChild(el('div', { class: 'alert info' }, [
+      el('span', { class: 'ic', text: 'i' }),
+      el('div', { text: sb?.note || 'No usable satellite pass yet.' }),
+    ]));
+    card.appendChild(sourceBar(SRC.satellite));
+    return card;
+  }
+
+  const L = sb.latest;
+  card.appendChild(el('div', { class: 'state-head' }, [
+    el('div', { class: 'state-name', text: L.rhythmic ? 'Bar has rhythm in it' : 'Bar is running straight' }),
+    el('div', { class: `state-tag ${L.rhythmic ? 'ok' : 'bad'}`,
+      text: L.rhythmic ? 'Corners likely' : 'Closeout-prone' }),
+  ]));
+  card.appendChild(el('p', { class: 'state-waves', text: sb.shape || '' }));
+
+  const stats = el('div', { class: 'statrow' });
+  const stat = (k, v, sub) => stats.appendChild(el('div', { class: 'stat' }, [
+    el('div', { class: 'k', text: k }), el('div', { class: 'v', text: v }), el('div', { class: 's', text: sub }),
+  ]));
+  stat('Breaking', `${Math.round(L.barOffsetM ?? (L.barM - L.waterlineM))} m out`, 'from the water\u2019s edge to the white water');
+  stat('Surf zone', `${Math.round(L.surfWidthM)} m`, 'how wide the broken water is');
+  stat('Bar wander', `\u00b1${Math.round(L.barSpreadM)} m`, 'scatter along the beach \u2014 over 25 m means banks');
+  if (sb.barMovedM != null) {
+    stat('Since last pass', `${sb.barMovedM > 0 ? '+' : ''}${Math.round(sb.barMovedM)} m`,
+      sb.barMovedM > 0 ? 'bar pushed offshore' : 'bar moved inshore');
+  }
+  card.appendChild(stats);
+
+  card.appendChild(planView(L));
+
+  if (sb.history?.length > 2) card.appendChild(barHistory(sb.history));
+
+  card.appendChild(el('div', { class: 'alert warn' }, [
+    el('span', { class: 'ic', text: '\u26a0' }),
+    el('div', {
+      html: `<b>Shown, not used.</b> Nothing else on this page is computed from these lines yet. `
+        + `One frame is an instant and not a ten-minute average, so a set breaking inside the bar can move `
+        + `the line; it gets a vote once there are enough passes to know how much a reading jumps around. `
+        + `${sb.scenes} pass${sb.scenes === 1 ? '' : 'es'} so far.`,
+    }),
+  ]));
+  card.appendChild(el('p', { class: 'cap', text:
+    `Pass at ${fmtTime(L.time, { weekday: 'short', month: 'short', day: 'numeric' })}, `
+    + `${Math.round(L.cloudPct)}% cloud over the scene, tide ${L.tideFt == null ? 'unknown' : `${n1(L.tideFt)} ft`} at the moment it was taken. `
+    + 'The waterline moves further in one tide than it does in a season, which is why the tide is recorded with it.' }));
+  card.appendChild(sourceBar(SRC.satellite, `${L.transectsUsed} transects, ${L.transectsDropped} discarded`));
+  return card;
+}
+
+/** The beach from above: north at the top, the ocean on the left. */
+function planView(latest) {
+  const ts = (latest.transects || []).slice().sort((a, b) => a.alongshoreM - b.alongshoreM);
+  if (ts.length < 4) return el('p', { class: 'cap', text: 'Not enough transects in this pass to draw it.' });
+
+  const W = 680, H = 340, PAD_T = 26, PAD_B = 34, PAD_L = 8, PAD_R = 8;
+  const xs = ts.flatMap((t) => [t.waterlineM, t.barM]).filter(Number.isFinite);
+  const xMin = Math.min(...xs) - 60;
+  const xMax = Math.max(...xs) + 90;
+  const sMin = ts[0].alongshoreM, sMax = ts[ts.length - 1].alongshoreM;
+
+  // Cross-shore runs RIGHT to LEFT so the ocean is on the left, the way it is
+  // when you stand on this beach and look at it. Alongshore runs down the
+  // page with north at the top, which is how a map of this coast reads.
+  const px = (m) => PAD_L + (xMax - m) / (xMax - xMin) * (W - PAD_L - PAD_R);
+  const py = (s) => PAD_T + (s - sMin) / (sMax - sMin) * (H - PAD_T - PAD_B);
+
+  const svg = el('svg', { class: 'chart planview', width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img',
+    'aria-label': 'The beach seen from above: the waterline, and the line the waves are breaking on, along 1.6 km of coast' });
+
+  const shore = ts.map((t) => `${px(t.waterlineM)},${py(t.alongshoreM)}`);
+  const bar = ts.map((t) => `${px(t.barM)},${py(t.alongshoreM)}`);
+
+  // Dry sand to the right of the waterline; broken water between the two lines.
+  svg.appendChild(el('polygon', {
+    points: `${shore.join(' ')} ${W - PAD_R},${py(sMax)} ${W - PAD_R},${py(sMin)}`,
+    fill: '#e8dcc0', opacity: '0.7',
+  }));
+  svg.appendChild(el('polygon', {
+    points: `${shore.join(' ')} ${bar.slice().reverse().join(' ')}`,
+    fill: '#7ad151', opacity: '0.35',
+  }));
+
+  // A cross-shore scale, so the picture is a measurement and not an impression.
+  // Ticks are drawn relative to the waterline rather than to the satellite's
+  // own grid, because "150 m off the sand" means something and "270 m from the
+  // car park" does not.
+  const shoreRef = latest.waterlineM;
+  for (const d of [0, 100, 200, 300]) {
+    const m = shoreRef + d;
+    if (m < xMin || m > xMax) continue;
+    svg.appendChild(el('line', {
+      x1: String(px(m)), y1: String(PAD_T), x2: String(px(m)), y2: String(H - PAD_B),
+      stroke: 'var(--muted)', 'stroke-width': '1', 'stroke-dasharray': '2 5', opacity: '0.45',
+    }));
+    svg.appendChild(el('text', {
+      x: String(px(m)), y: String(H - PAD_B + 14), 'text-anchor': 'middle', class: 'plan-label',
+      text: d === 0 ? 'water\u2019s edge' : `${d} m out`,
+    }));
+  }
+
+  svg.appendChild(el('polyline', { points: shore.join(' '), fill: 'none', stroke: '#440154', 'stroke-width': '2.5' }));
+  svg.appendChild(el('polyline', { points: bar.join(' '), fill: 'none', stroke: '#22a884', 'stroke-width': '2.5',
+    'stroke-dasharray': '7 4' }));
+
+  const label = (x, y, text, anchor = 'start') => svg.appendChild(el('text', {
+    x: String(x), y: String(y), 'text-anchor': anchor, class: 'plan-label', text,
+  }));
+  label(PAD_L + 2, 12, '\u2190 open ocean');
+  label(W - PAD_R - 2, 12, 'dry sand \u2192', 'end');
+  label(W - PAD_R - 2, py(sMin) + 14, 'north \u00b7 the rivermouth', 'end');
+  label(W - PAD_R - 2, py(sMax) - 6, 'south \u00b7 towards the cliffs', 'end');
+
+  const key = el('div', { class: 'cap plan-keys', style: 'margin-top:6px' }, [
+    el('span', { class: 'plan-key', html: '<b style="color:#440154">\u2014</b> water\u2019s edge' }),
+    el('span', { class: 'plan-key', html: '<b style="color:#22a884">- -</b> where it is breaking' }),
+    el('span', { class: 'plan-key', text: `${Math.abs(ts[0].alongshoreM - ts[ts.length - 1].alongshoreM)} m of beach, one line every ${Math.abs(ts[1].alongshoreM - ts[0].alongshoreM)} m` }),
+  ]);
+  return el('div', { class: 'panel' }, [svg, key]);
+}
+
+/** How far out the breaking has been sitting, pass by pass. */
+function barHistory(history) {
+  const W = 680, H = 120, PAD = 30;
+  const pts = history.filter((h) => Number.isFinite(h.barM));
+  if (pts.length < 3) return el('div');
+  const t0 = Date.parse(pts[0].time), t1 = Date.parse(pts[pts.length - 1].time);
+  const lo = Math.min(...pts.map((p) => p.barM)) - 20;
+  const hi = Math.max(...pts.map((p) => p.barM)) + 20;
+  const px = (iso) => PAD + (t1 === t0 ? 0.5 : (Date.parse(iso) - t0) / (t1 - t0)) * (W - 2 * PAD);
+  const py = (m) => H - PAD - (m - lo) / (hi - lo) * (H - 2 * PAD);
+
+  const svg = el('svg', { class: 'chart planview', width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img',
+    'aria-label': 'How far offshore the waves have been breaking, over recent satellite passes' });
+  svg.appendChild(el('polyline', {
+    points: pts.map((p) => `${px(p.time)},${py(p.barM)}`).join(' '),
+    fill: 'none', stroke: '#22a884', 'stroke-width': '2',
+  }));
+  for (const p of pts) svg.appendChild(el('circle', { cx: String(px(p.time)), cy: String(py(p.barM)), r: '3', fill: '#22a884' }));
+  svg.appendChild(el('text', { x: String(PAD), y: '14', class: 'plan-label', text: 'how far out it has been breaking' }));
+  svg.appendChild(el('text', { x: String(W - PAD), y: '14', class: 'plan-label', 'text-anchor': 'end',
+    text: `${Math.round(lo)} to ${Math.round(hi)} m from the water\u2019s edge` }));
+  svg.appendChild(el('text', { x: String(PAD), y: String(H - 8), class: 'plan-label',
+    text: fmtDate(pts[0].time.slice(0, 10), { month: 'short', day: 'numeric' }) }));
+  svg.appendChild(el('text', { x: String(W - PAD), y: String(H - 8), class: 'plan-label', 'text-anchor': 'end',
+    text: fmtDate(pts[pts.length - 1].time.slice(0, 10), { month: 'short', day: 'numeric' }) }));
+  return el('div', { class: 'panel' }, [svg]);
 }
 
 /* ----------------------------------------------------- the shelf, measured -- */
@@ -2016,6 +2194,7 @@ function render() {
   app.appendChild(renderTrains(DATA.current));
   app.appendChild(renderModelCompare(DATA.hourly));
   app.appendChild(renderAlongshore(DATA.nearshore));
+  app.appendChild(renderSandbar());
   app.appendChild(renderMorphology());
   app.appendChild(renderShelf());
 

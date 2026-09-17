@@ -34,6 +34,8 @@ import { callFor, reliabilityFor, scoreHour } from './model/score.js';
 import { gradeSessions } from './model/groundtruth.js';
 import { compareSpectra, accumulate as accumulateShelf, summarise as summariseShelf, NEARSHORE } from './model/shelf.js';
 import { stepMorphology, stateFrom, observedTideRangeM } from './model/morphology.js';
+import { searchScenes, analyseScene } from './sources/sentinel.js';
+import { summariseScene, accumulate as accumulateSand, summarise as summariseSand } from './model/sandbar.js';
 import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel, combineFaces } from './model/waves.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -586,6 +588,51 @@ async function main() {
     log(`shelf calibration unavailable: ${e.message}`);
   }
 
+  /**
+   * Where the sand actually is, from orbit.
+   *
+   * Everything above measures the waves. This is the only source in the whole
+   * forecast that measures the BEACH - Sentinel-2 passes over every day or two
+   * at ten metres a pixel, water is black in near-infrared and sand is bright,
+   * and the white water marking the bar is bright in every band. A scene costs
+   * about three megabytes because the reader takes only the tiles that cover
+   * this kilometre and a half of coast, and it is only fetched when the
+   * catalogue has a pass that is not already in the record.
+   */
+  const SAND_FILE = path.join(DATA, 'sandbar.json');
+  let sandbar = null;
+  try {
+    const prevSand = existsSync(SAND_FILE) ? JSON.parse(await readFile(SAND_FILE, 'utf8')) : null;
+    let nextSand = prevSand;
+    if (!SYNTHETIC) {
+      const scenes = await searchScenes({ maxCloudPct: 40, sinceDays: 14, limit: 5 });
+      const seen = new Set((prevSand?.scenes || []).map((x) => x.sceneId));
+      const fresh = scenes.find((f) => !seen.has(f.id));
+      if (!fresh) {
+        log(`sandbar: no new satellite pass (${scenes.length} recent scene(s), all already read)`);
+      } else {
+        const analysis = await analyseScene(fresh);
+        // The waterline moves further in one tide cycle than it does in a
+        // season, so the tide at the moment of the overpass is recorded with
+        // it. Without that number the shoreline readings cannot be compared
+        // with each other at all.
+        const tideFt = data.tides ? tidesSrc.tideAt(data.tides, analysis.time) : null;
+        const summary = summariseScene(analysis, { tideFt });
+        nextSand = accumulateSand(prevSand, summary);
+        await writeFile(SAND_FILE, JSON.stringify(nextSand, null, 1));
+        log(`sandbar: ${fresh.id} ${analysis.time}, cloud ${Math.round(analysis.cloudPct)}%`
+          + `, ${(analysis.bytesRead / 1e6).toFixed(1)} MB read`
+          + (summary.usable
+            ? `, waterline ${summary.waterlineM} m, bar ${summary.barM} m, scatter ${summary.barSpreadM} m`
+              + `, ${summary.rhythmic ? 'rhythmic' : 'straight'}`
+            : `, unusable: ${summary.reason}`));
+      }
+    }
+    sandbar = nextSand ? summariseSand(nextSand) : null;
+  } catch (e) {
+    log(`sandbar unavailable: ${e.message}`);
+  }
+
   // Graded against sessions the crew actually surfed. The buoy comparison above
   // grades the swell; this grades the SURF, which is a different and harder
   // thing, and it is the only check that can see the parts of this model with
@@ -708,6 +755,7 @@ async function main() {
     groundTruth,
     shelf,
     morphology,
+    sandbar,
     hourly: hourly
       .filter((h) => Date.parse(h.time) >= Date.now() - 12 * 36e5)
       .map(compactHour),
