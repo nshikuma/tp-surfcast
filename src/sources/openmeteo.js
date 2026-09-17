@@ -207,14 +207,35 @@ export async function fetchSwellTrains({ days = 8 } = {}) {
   return byTime;
 }
 
-/** Sea surface temperature, as a backstop if neither buoy reports it. */
-export async function fetchSeaTempF() {
+/**
+ * Sea surface temperature: the whole forecast series, not just a number.
+ *
+ * This used to fetch a single day and return its first value, which was enough
+ * to pick a wetsuit for this morning and no use at all for "is it worth waiting
+ * for the water to warm up". Water temperature moves slowly but it does move,
+ * and a week of upwelling can cost several degrees.
+ *
+ * @returns {{f:number, source:string, byTime:Map<string,number>}}
+ */
+export async function fetchSeaTempF({ days = 8 } = {}) {
   const q = new URLSearchParams({
     latitude: String(SITE.lat), longitude: String(SITE.lon),
-    hourly: 'sea_surface_temperature', timezone: 'UTC', forecast_days: '1', cell_selection: 'sea',
+    hourly: 'sea_surface_temperature', timezone: 'UTC',
+    forecast_days: String(days), past_days: '1', cell_selection: 'sea',
   });
   const j = await getJson(`${SOURCES.marine}?${q}`, { label: 'openmeteo:sst' });
-  const arr = (j.hourly?.sea_surface_temperature || []).filter((v) => Number.isFinite(v));
-  if (!arr.length) throw new Error('No SST available');
-  return { f: arr[0] * 9 / 5 + 32, source: 'open-meteo' };
+  const times = normaliseTimes(j.hourly?.time || [], j.utc_offset_seconds ?? 0);
+  const vals = j.hourly?.sea_surface_temperature || [];
+  const byTime = new Map();
+  times.forEach((t, i) => {
+    const c = vals[i];
+    if (Number.isFinite(c)) byTime.set(t.iso, c * 9 / 5 + 32);
+  });
+  if (!byTime.size) throw new Error('No SST available');
+  // "Now" is the first reading at or after this moment, falling back to the
+  // last one before it if the series starts in the future.
+  const nowMs = Date.now();
+  const sorted = [...byTime.entries()].sort((a, b) => Date.parse(a[0]) - Date.parse(b[0]));
+  const at = sorted.find(([t]) => Date.parse(t) >= nowMs) || sorted[sorted.length - 1];
+  return { f: at[1], source: 'open-meteo', byTime };
 }

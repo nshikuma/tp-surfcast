@@ -102,6 +102,14 @@ async function collect() {
   if (!out.spectrum) {
     try { out.ndbcSpec = await ndbc.fetchSpec(); } catch (e) { errors['ndbc:spec'] = String(e.message); }
   }
+  // The SST series is worth having even when a buoy gives a spot reading: one
+  // number cannot be plotted, and the page now shows how the water is trending.
+  if (!out.seaTempSeries) {
+    try { out.seaTempSeries = await om.fetchSeaTempF(); } catch (e) { errors.sstSeries = String(e.message); }
+  }
+  if (!out.waterTemp && out.seaTempSeries) {
+    out.waterTemp = { f: out.seaTempSeries.f, station: 'open-meteo' };
+  }
   if (!out.waterTemp) {
     const c = out.buoy?.sstC;
     if (Number.isFinite(c)) out.waterTemp = { f: c * 9 / 5 + 32, station: 'buoy' };
@@ -250,6 +258,18 @@ async function main() {
   // reads them. They used to be bolted on during payload compaction, which runs
   // a hundred lines below this - so the mix model saw every hour as trainless
   // and shipped an empty swell breakdown while the build went green.
+  // Water temperature per hour, so it can be drawn as a trend rather than
+  // asserted as a single number.
+  const sst = data.seaTempSeries?.byTime || null;
+  if (sst) {
+    let last = null;
+    for (const h of hourly) {
+      const v = sst.get(h.time);
+      if (Number.isFinite(v)) last = v;
+      h.waterF = last;                      // carry forward past the series end
+    }
+  }
+
   const trains = data.trains || null;
   for (const h of hourly) {
     h.trains = (trains?.get(h.time) || []).slice(0, 4).map((p) => ({
@@ -510,6 +530,7 @@ async function main() {
     windKt: r(h.windKt, 1), gustKt: r(h.gustKt, 1), windDirDeg: r(h.windDirDeg, 0),
     windCompass: h.windCompass, windLabel: h.windLabel,
     tideFt: r(h.tideFt), tideRate: r(h.tideRate),
+    waterF: r(h.waterF, 1), airF: r(h.airF, 1),
     score: h.score, grade: h.grade, confidence: r(h.confidence),
     board: h.board.board,
     parts: { tide: r(h.parts.tide.score), wind: r(h.parts.wind.score), size: r(h.parts.size.score), shape: r(h.parts.shape.score) },

@@ -214,38 +214,6 @@ function timeChart(host, opts) {
 const PERIOD_RAMP = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95'];
 const periodColor = (T) => PERIOD_RAMP[Math.max(0, Math.min(5, Math.floor(((T - 6) / 14) * 6)))];
 
-function arrowStrip(host, hours, bands = []) {
-  host.innerHTML = '';
-  const W = Math.max(280, host.clientWidth || 320);
-  const H = 62;
-  if (!hours.length) return;
-  const x0 = Date.parse(hours[0].time), x1 = Date.parse(hours[hours.length - 1].time);
-  const X = (t) => PAD.l + ((t - x0) / (x1 - x0 || 1)) * (W - PAD.l - PAD.r);
-  const svg = el('svg', { class: 'chart', width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img' });
-  for (const b of bands) {
-    const bx0 = X(Math.max(b.from, x0)), bx1 = X(Math.min(b.to, x1));
-    if (bx1 > bx0) svg.appendChild(el('rect', { class: 'band-window', x: bx0, y: 4, width: bx1 - bx0, height: H - 20 }));
-  }
-  // Thin out arrows so they never collide on a narrow screen.
-  const step = Math.max(1, Math.ceil(hours.length / Math.floor((W - PAD.l - PAD.r) / 26)));
-  for (let i = 0; i < hours.length; i += step) {
-    const h = hours[i];
-    if (!Number.isFinite(h.dirDeg)) continue;
-    const cx = X(Date.parse(h.time)), cy = 26;
-    // Waves travel TOWARD the shore: rotate 180 from the "coming from" bearing.
-    const ang = (h.dirDeg + 180) % 360;
-    const g = el('g', { transform: `translate(${cx},${cy}) rotate(${ang})` }, [
-      el('path', { d: 'M0,-8 L4.6,7 L0,4.2 L-4.6,7 Z', fill: periodColor(h.periodS), stroke: 'var(--surface-1)', 'stroke-width': 1 }),
-    ]);
-    g.appendChild(el('title', { text: `${fmtHour(h.time)} - ${h.dirCompass} ${Math.round(h.dirDeg)}°, ${n1(h.periodS)}s` }));
-    svg.appendChild(g);
-    if (i % (step * 3) === 0) {
-      svg.appendChild(el('text', { class: 'axis-label', x: cx, y: 48, 'text-anchor': 'middle', text: h.dirCompass }));
-    }
-  }
-  host.appendChild(svg);
-}
-
 /** Horizontal score bars for the outlook - one row per day, value labelled. */
 function scoreBars(host, days, todayDate, onClick) {
   host.innerHTML = '';
@@ -403,45 +371,44 @@ const agoText = (iso) => {
   return h < 36 ? `${h} h ago` : `${Math.round(h / 24)} d ago`;
 };
 
-/* ------------------------------------------------------------ measured now -- */
+/* --------------------------------------------------------------- timeline -- */
 
-function renderNow(current, hourly, wetsuit) {
+/**
+ * The whole forecast on one shared time axis. This is the page now: score,
+ * size, period, swell direction, wind, tide and water temperature stacked so a
+ * single vertical read tells you everything about one moment, opening on today
+ * and tomorrow and dragging into next week.
+ */
+function renderTimeline() {
   const card = el('div', { class: 'card' });
-  card.appendChild(el('h2', { text: 'Measured right now' }));
-  card.appendChild(el('p', { class: 'note', text: 'Instruments, not forecasts. These are readings off a buoy and a tide gauge — the same numbers a forecaster starts from.' }));
+  card.appendChild(el('h2', { text: 'Today and tomorrow' }));
+  card.appendChild(el('p', { class: 'note', text: 'Everything on one timeline. Drag sideways for later in the week.' }));
+  const host = el('div');
+  card.appendChild(host);
 
-  const now = hourly.find((h) => Date.parse(h.time) >= Date.now() - 36e5) || hourly[0];
-  const grid = el('div', { class: 'readings' });
-
-  const reading = (k, big, sub, extra, cls) => {
-    grid.appendChild(el('div', { class: `reading ${cls || ''}` }, [
-      el('div', { class: 'r-k', text: k }),
-      el('div', { class: 'r-v', text: big }),
-      el('div', { class: 'r-s', text: sub }),
-      extra ? el('div', { class: 'r-x', text: extra }) : null,
-    ]));
+  let handle = null;
+  const run = () => {
+    if (handle && handle.destroy) handle.destroy();
+    if (!window.TPTimeline) { host.appendChild(el('p', { class: 'cap', text: 'Timeline unavailable.' })); return; }
+    handle = window.TPTimeline.mount(host, {
+      hours: DATA.hourly,
+      timeZone: TZ,
+      sizeVal,
+      sizeUnit: sizeUnit(),
+      showTip,
+      hideTip,
+    });
   };
+  rerenderers.push(run);
+  requestAnimationFrame(run);
 
-  if (current) {
-    reading('Swell height', `${n1(current.deepHsFt)} ft`, 'significant height at the buoy',
-      `${n1(sizeVal(current.faceFt))} ${sizeUnit()} at the beach`, 'swell');
-    reading('Peak period', `${n1(current.periodS)} s`, periodMeaning(current.periodS), null, 'swell');
-    reading('Swell from', `${current.dirCompass} ${n0(current.dirDeg)}°`,
-      `${Math.round(Math.abs(angleOff(current.dirDeg)))}° off straight-in`, exposureNote(current.dirDeg), 'swell');
-    reading('Tide', `${n1(current.tideFt)} ft`,
-      current.tideRate > 0 ? 'rising' : 'falling', 'MLLW datum', 'tide');
-  }
-  if (now) {
-    reading('Wind', `${n0(now.windKt)} kt`, `${now.windCompass} · ${now.windLabel}`,
-      now.gustKt ? `gusting ${n0(now.gustKt)}` : null, 'wind');
-  }
-  if (wetsuit?.waterF) {
-    reading('Water', `${n0(wetsuit.waterF)}°F`, wetsuit.call, null, 'tide');
-  }
-  card.appendChild(grid);
-  card.appendChild(sourceBar(SRC.buoy, current ? `observed ${fmtTime(current.observedAt)} · ${agoText(current.observedAt)}` : null));
+  card.appendChild(sourceBar(SRC.buoy));
+  card.appendChild(sourceBar(SRC.waves));
+  card.appendChild(sourceBar(SRC.tide));
   return card;
 }
+
+/* ------------------------------------------------------------ measured now -- */
 
 /** Shore normal here is 265°; this is how far off square a swell is arriving. */
 const angleOff = (dirDeg) => {
@@ -735,46 +702,6 @@ function buoyFace(r) {
 }
 
 /* ------------------------------------------------------------------ tide --- */
-
-function renderTide(hourly) {
-  const card = el('div', { class: 'card' });
-  card.appendChild(el('h2', { text: 'Tide' }));
-  card.appendChild(el('p', { class: 'note', text: 'Height above the MLLW datum at Scripps Pier. What matters here is how much water is over the bar: a long-period swell will stand up on less, short-period windswell needs more or it dumps on the inside.' }));
-  const hrs = hourly.filter((h) => Date.parse(h.time) <= Date.now() + 5 * 24 * 36e5);
-  card.appendChild(panel('Next five days', 'Feet, MLLW', (host) => timeChart(host, {
-    points: hrs.map((h) => ({ t: Date.parse(h.time), v: h.tideFt, h })),
-    color: 'var(--tide)', softColor: 'var(--tide-soft)', unit: 'ft', decimals: 1,
-    zeroBase: false, bands: windowBands(hrs), labelExtremes: true,
-    tooltipRows: (p) => [['Tide', `${n1(p.h.tideFt)} ft`], ['Moving', p.h.tideRate > 0 ? 'rising' : 'falling']],
-  })));
-
-  const turns = tideTurns(hrs).slice(0, 8);
-  if (turns.length) {
-    const t = el('table');
-    t.appendChild(el('tr', {}, ['When', 'High / low', 'Height'].map((h) => el('th', { text: h }))));
-    for (const x of turns) {
-      t.appendChild(el('tr', {}, [
-        el('td', { text: fmtTime(x.time, { weekday: 'short' }) }),
-        el('td', { text: x.kind }),
-        el('td', { text: `${n1(x.ft)} ft` }),
-      ]));
-    }
-    card.appendChild(el('div', { class: 'table-wrap' }, [t]));
-  }
-  card.appendChild(sourceBar(SRC.tide));
-  return card;
-}
-
-function tideTurns(hrs) {
-  const out = [];
-  for (let i = 1; i < hrs.length - 1; i++) {
-    const a = hrs[i - 1].tideFt, b = hrs[i].tideFt, c = hrs[i + 1].tideFt;
-    if (!Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(c)) continue;
-    if (b >= a && b >= c && b > a) out.push({ time: hrs[i].time, kind: 'High', ft: b });
-    else if (b <= a && b <= c && b < a) out.push({ time: hrs[i].time, kind: 'Low', ft: b });
-  }
-  return out;
-}
 
 /* ------------------------------------------------------- along the beach --- */
 
@@ -1563,89 +1490,6 @@ function renderMap(day) {
 
 /* -------------------------------------------------------- hourly detail -- */
 
-function renderHourly(day) {
-  const card = el('div', { class: 'card', id: 'hourly' });
-  card.appendChild(el('h2', { text: `Hour by hour · ${fmtDate(day.date, { weekday: 'long', month: 'short', day: 'numeric' })}` }));
-  card.appendChild(el('p', { class: 'note', text: 'The shaded band is your 7:30–10:00am window. Each panel carries one measure on its own axis — hover or drag for exact values.' }));
-
-  const picker = el('div', { style: 'display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px' });
-  for (const d of DATA.days.slice(0, 7)) {
-    const b = el('button', {
-      text: fmtDate(d.date, { weekday: 'short' }),
-      class: d.date === selectedDate ? 'primary' : '',
-      onclick: () => { selectedDate = d.date; render(); },
-    });
-    picker.appendChild(b);
-  }
-  card.appendChild(picker);
-
-  const hrs = day.hours.filter((h) => h.localHour >= 5 && h.localHour <= 20);
-  const bands = windowBands(hrs);
-  const pt = (f) => hrs.map((h) => ({ t: Date.parse(h.time), v: f(h), h }));
-
-  card.appendChild(panel('Surf size', `Face height at the north lot, ${sizeUnit()}`, (host) => timeChart(host, {
-    points: pt((h) => sizeVal(h.faceFt)), color: 'var(--swell)', softColor: 'var(--swell-soft)',
-    unit: sizeUnit(), decimals: 1, bands, labelExtremes: true,
-    tooltipRows: (p) => [
-      ['Face', `${n1(sizeVal(p.h.faceFt))} ${sizeUnit()}`],
-      ['Sets', `${n1(sizeVal(p.h.faceSetFt))}`],
-      ['Size', p.h.sizeLabel],
-      ['Score', `${p.h.score} (${p.h.grade})`],
-    ],
-  })));
-
-  card.appendChild(panel('Total wave energy', 'Wave power per metre of crest, kW/m — what separates a punchy long-period swell from a gutless one of the same height', (host) => timeChart(host, {
-    points: pt((h) => h.powerKwPerM), color: 'var(--swell)', softColor: 'var(--swell-soft)',
-    unit: 'kW/m', decimals: 0, bands, labelExtremes: true,
-    tooltipRows: (p) => [['Power', `${n0(p.h.powerKwPerM)} kW/m`], ['Deep Hs', `${n1(p.h.deepHsFt)} ft`], ['Period', `${n1(p.h.periodS)} s`]],
-  })));
-
-  card.appendChild(panel('Swell direction and period', 'Arrows point the way the swell is travelling; colour is period', (host) => arrowStrip(host, hrs, bands),
-    el('div', { class: 'legend' }, [
-      el('span', { class: 'item' }, [
-        el('span', { text: 'Period' }),
-        el('span', { class: 'ramp' }, PERIOD_RAMP.map((c) => el('span', { style: `background:${c}` }))),
-        el('span', { text: '6s → 20s' }),
-      ]),
-    ])));
-
-  card.appendChild(panel('Wind', 'Knots at the beach. Offshore here is from the ENE', (host) => timeChart(host, {
-    points: pt((h) => h.windKt), color: 'var(--wind)', softColor: 'var(--wind-soft)',
-    unit: 'kt', decimals: 0, bands, labelExtremes: true,
-    tooltipRows: (p) => [['Wind', `${n0(p.h.windKt)} kt ${p.h.windCompass}`], ['Gusts', `${n0(p.h.gustKt)} kt`], ['Effect', p.h.windLabel]],
-  })));
-
-  card.appendChild(panel('Tide', 'Feet above MLLW at Scripps Pier — highs and lows labelled', (host) => timeChart(host, {
-    points: pt((h) => h.tideFt), color: 'var(--tide)', softColor: 'var(--tide-soft)',
-    unit: 'ft', decimals: 1, bands, labelExtremes: true, zeroBase: false,
-    tooltipRows: (p) => [['Tide', `${n1(p.h.tideFt)} ft`], [p.h.tideRate > 0 ? 'Filling' : 'Draining', `${n1(Math.abs(p.h.tideRate))} ft/hr`], ['Tide score', `${Math.round((p.h.parts?.tide ?? 0) * 100)}%`]],
-  })));
-
-  // Contrast relief for the aqua tide series, and the accessible fallback for
-  // every panel above: the same numbers as text.
-  const table = el('table');
-  table.appendChild(el('tr', {}, ['Time', `Face (${sizeUnit()})`, 'Sets', 'Energy kW/m', 'Period', 'Dir', 'Wind kt', 'Tide ft', 'Score']
-    .map((h) => el('th', { text: h }))));
-  for (const h of hrs) {
-    table.appendChild(el('tr', {}, [
-      el('td', { text: fmtHour(h.time) }),
-      el('td', { text: n1(sizeVal(h.faceFt)) }),
-      el('td', { text: n1(sizeVal(h.faceSetFt)) }),
-      el('td', { text: n0(h.powerKwPerM) }),
-      el('td', { text: `${n1(h.periodS)}s` }),
-      el('td', { text: `${h.dirCompass} ${n0(h.dirDeg)}°` }),
-      el('td', { text: `${n0(h.windKt)} ${h.windCompass}` }),
-      el('td', { text: n1(h.tideFt) }),
-      el('td', { text: `${h.score}` }),
-    ]));
-  }
-  card.appendChild(el('details', { class: 'tableview' }, [
-    el('summary', { text: 'Show the same data as a table' }),
-    el('div', { class: 'table-wrap' }, [table]),
-  ]));
-  return card;
-}
-
 /* ---------------------------------------------------------------- buoy --- */
 
 function renderBuoy(current) {
@@ -1936,16 +1780,16 @@ function render() {
   // Instruments first, models second, opinions last. The measurements are the
   // part that is not up for argument, so they lead; what this page THINKS is
   // one more view and sits with the rest of the opinions at the bottom.
-  app.appendChild(renderNow(DATA.current, DATA.hourly, DATA.wetsuit));
+  app.appendChild(renderTimeline());
   app.appendChild(camCard());
   app.appendChild(renderTrains(DATA.current));
-  app.appendChild(renderBuoyTrend(DATA.current));
   app.appendChild(renderModelCompare(DATA.hourly));
-  app.appendChild(renderTide(DATA.hourly));
   app.appendChild(renderAlongshore(DATA.nearshore));
-  app.appendChild(renderHourly(selected));
-  app.appendChild(renderHowToRead());
 
+  app.appendChild(collapsible('How to read the numbers', renderHowToRead(),
+    'What each period band, swell angle, wind and tide actually does at this beach.'));
+  app.appendChild(collapsible('The buoy\u2019s last 48 hours', renderBuoyTrend(DATA.current),
+    'Measured height, period and direction. Building or dropping.'));
   app.appendChild(collapsible('If you want a second opinion: what this page\u2019s own model makes of it', modelOpinion(days, selected),
     'One reading of the same data, with a track record you can check. Treat it as a crew member with views, not as the answer.'));
   app.appendChild(collapsible('Where it will break', renderMap(selected),

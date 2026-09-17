@@ -464,3 +464,36 @@ a.cam .cam-note { font-size: 11px; color: var(--muted); }
 .ref { margin-top: 18px; }
 .ref h3 { font-size: 13px; margin: 0 0 6px; }
 .ref table td:first-child { white-space: nowrap; }
+
+/* ============================================================== timeline ===
+   One shared time axis, seven tracks, dragged sideways. */
+
+.tl { user-select: none; -webkit-user-select: none; }
+.tl-plot { cursor: grab; touch-action: pan-y; }
+.tl-svg.grabbing { cursor: grabbing; }
+.tl-svg { display: block; }
+
+.tl-gutter { fill: var(--surface-1); }
+.tl-rowlabel { font-size: 10.5px; font-weight: 700; fill: var(--text-primary); letter-spacing: .02em; }
+.tl-rowunit { font-size: 9.5px; fill: var(--muted); }
+.tl-tick { font-size: 9.5px; fill: var(--muted); }
+.tl-day { font-size: 11px; font-weight: 700; fill: var(--text-secondary); }
+
+.tl-window { fill: var(--swell); opacity: .10; }
+.tl-midnight { stroke: var(--axis); stroke-width: 1; }
+.tl-grid { stroke: var(--grid); stroke-width: 1; }
+.tl-axisline { stroke: var(--axis); stroke-width: 1; }
+.tl-now { stroke: var(--critical); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.tl-cross { stroke: var(--text-primary); stroke-width: 1; opacity: .45; pointer-events: none; }
+
+.tl-mini { margin-top: 6px; cursor: pointer; touch-action: none; }
+.tl-minisvg { display: block; }
+.tl-miniview { fill: var(--text-primary); opacity: .14; stroke: var(--text-primary); stroke-width: 1.5; }
+
+.tl-hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.tl-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
+.tl-legend-k { font-weight: 700; color: var(--text-primary); }
+.tl-legend-i { display: inline-flex; align-items: center; gap: 5px; }
+.tl-legend-i .sw { width: 13px; height: 13px; border-radius: 3px; flex: none; }
+.tl-scale { font-size: 9px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.tl-gut .tl-scale { paint-order: stroke; stroke: var(--surface-1); stroke-width: 2.5px; stroke-linejoin: round; }
