@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-17T04:12:10.696Z",
-  "finishedAt": "2026-09-17T04:12:59.414Z",
+  "generatedAt": "2026-09-17T04:15:32.576Z",
+  "finishedAt": "2026-09-17T04:16:17.658Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -79,8 +79,8 @@
   "sizeLabel": "Ankle high",
   "setSizeLabel": "Waist high",
   "superposition": 1.09,
-  "tideFt": 1.3302543577777777,
-  "tideRate": 0.19050182350567635,
+  "tideFt": 1.3434864966666666,
+  "tideRate": 0.19695608087954986,
   "trains": [
    {
     "hsM": 0.4832368599351668,
@@ -811,7 +811,7 @@
   "hoursStepped": 0,
   "observations": 0,
   "updatedAt": "2026-09-17T03:30:00.000Z",
-  "spinUpRuns": 23,
+  "spinUpRuns": 24,
   "profile": {
    "shorelineOffsetM": 0.035603072332340426,
    "barCrestM": 94.94303508426826,
@@ -944,6 +944,11 @@
    },
    {
     "t": "2026-09-17T04:12:10.696Z",
+    "s": 0.04,
+    "e": null
+   },
+   {
+    "t": "2026-09-17T04:15:32.576Z",
     "s": 0.04,
     "e": null
    }
@@ -7999,14 +8004,14 @@
   }
  },
  "shelf": {
-  "observations": 9,
+  "observations": 10,
   "firstAt": "2026-09-17T02:30:00.000Z",
   "lastAt": "2026-09-17T03:30:00.000Z",
   "bins": [
    {
     "periodBand": "chop",
     "dirBand": "SW",
-    "n": 29,
+    "n": 30,
     "measuredHeightRatio": 0.86,
     "predictedHeightRatio": 1,
     "residual": 0.86,
@@ -8017,43 +8022,43 @@
    {
     "periodBand": "chop",
     "dirBand": "W",
-    "n": 123,
+    "n": 136,
     "measuredHeightRatio": 0.86,
     "predictedHeightRatio": 0.98,
     "residual": 0.88,
-    "residualSd": 0.16,
-    "dirErrorDeg": -4,
+    "residualSd": 0.15,
+    "dirErrorDeg": -3,
     "settled": false
    },
    {
     "periodBand": "chop",
     "dirBand": "WNW",
-    "n": 7,
-    "measuredHeightRatio": 0.91,
+    "n": 10,
+    "measuredHeightRatio": 0.89,
     "predictedHeightRatio": 0.95,
-    "residual": 0.95,
-    "residualSd": 0.22,
-    "dirErrorDeg": -13,
+    "residual": 0.94,
+    "residualSd": 0.2,
+    "dirErrorDeg": -12,
     "settled": false
    },
    {
     "periodBand": "ground",
     "dirBand": "S",
-    "n": 15,
+    "n": 16,
     "measuredHeightRatio": 0.64,
-    "predictedHeightRatio": 0.45,
-    "residual": 1.6,
-    "residualSd": 0.59,
-    "dirErrorDeg": 9,
+    "predictedHeightRatio": 0.46,
+    "residual": 1.56,
+    "residualSd": 0.6,
+    "dirErrorDeg": 10,
     "settled": false
    },
    {
     "periodBand": "ground",
     "dirBand": "SSW",
-    "n": 10,
-    "measuredHeightRatio": 0.79,
-    "predictedHeightRatio": 0.78,
-    "residual": 1.01,
+    "n": 11,
+    "measuredHeightRatio": 0.78,
+    "predictedHeightRatio": 0.79,
+    "residual": 1,
     "residualSd": 0.16,
     "dirErrorDeg": 6,
     "settled": false
@@ -8061,43 +8066,43 @@
    {
     "periodBand": "ground",
     "dirBand": "SW",
-    "n": 2,
-    "measuredHeightRatio": 0.95,
+    "n": 3,
+    "measuredHeightRatio": 1.01,
     "predictedHeightRatio": 0.94,
-    "residual": 1.01,
-    "residualSd": 0,
-    "dirErrorDeg": 0,
-    "settled": false
-   },
-   {
-    "periodBand": "long",
-    "dirBand": "S",
-    "n": 21,
-    "measuredHeightRatio": 0.35,
-    "predictedHeightRatio": 0.48,
-    "residual": 0.78,
-    "residualSd": 0.29,
+    "residual": 1.08,
+    "residualSd": 0.1,
     "dirErrorDeg": -1,
     "settled": false
    },
    {
     "periodBand": "long",
+    "dirBand": "S",
+    "n": 24,
+    "measuredHeightRatio": 0.34,
+    "predictedHeightRatio": 0.46,
+    "residual": 0.79,
+    "residualSd": 0.28,
+    "dirErrorDeg": 0,
+    "settled": false
+   },
+   {
+    "periodBand": "long",
     "dirBand": "SSW",
-    "n": 8,
-    "measuredHeightRatio": 1.34,
-    "predictedHeightRatio": 1.01,
-    "residual": 1.33,
+    "n": 9,
+    "measuredHeightRatio": 1.31,
+    "predictedHeightRatio": 1,
+    "residual": 1.32,
     "residualSd": 0.14,
-    "dirErrorDeg": -4,
+    "dirErrorDeg": -3,
     "settled": false
    },
    {
     "periodBand": "mid",
     "dirBand": "S",
-    "n": 33,
-    "measuredHeightRatio": 0.44,
+    "n": 36,
+    "measuredHeightRatio": 0.43,
     "predictedHeightRatio": 0.55,
-    "residual": 0.82,
+    "residual": 0.81,
     "residualSd": 0.24,
     "dirErrorDeg": 5,
     "settled": false
@@ -8105,12 +8110,12 @@
    {
     "periodBand": "mid",
     "dirBand": "SSW",
-    "n": 3,
-    "measuredHeightRatio": 0.56,
-    "predictedHeightRatio": 0.82,
-    "residual": 0.7,
-    "residualSd": 0.16,
-    "dirErrorDeg": -7,
+    "n": 4,
+    "measuredHeightRatio": 0.57,
+    "predictedHeightRatio": 0.81,
+    "residual": 0.71,
+    "residualSd": 0.14,
+    "dirErrorDeg": -5,
     "settled": false
    },
    {
@@ -8127,20 +8132,20 @@
    {
     "periodBand": "windswell",
     "dirBand": "SW",
-    "n": 6,
-    "measuredHeightRatio": 0.45,
+    "n": 8,
+    "measuredHeightRatio": 0.46,
     "predictedHeightRatio": 0.91,
-    "residual": 0.49,
+    "residual": 0.5,
     "residualSd": 0.02,
-    "dirErrorDeg": 12,
+    "dirErrorDeg": 9,
     "settled": false
    },
    {
     "periodBand": "windswell",
     "dirBand": "W",
-    "n": 33,
-    "measuredHeightRatio": 0.44,
-    "predictedHeightRatio": 0.91,
+    "n": 36,
+    "measuredHeightRatio": 0.45,
+    "predictedHeightRatio": 0.92,
     "residual": 0.49,
     "residualSd": 0.07,
     "dirErrorDeg": 2,
@@ -8155,42 +8160,42 @@
     "chop": {
      "n": 17,
      "energy": 1.6319734410000002,
-     "measuredHeightRatio": 0.9277134162218166,
+     "measuredHeightRatio": 0.8372001094953645,
      "predictedHeightRatio": 0.980618209884272,
-     "residual": 0.9464550060708714,
-     "dirErrorDeg": -3.046721787210065
+     "residual": 0.8536869926904094,
+     "dirErrorDeg": -1.3981455087711072
     },
     "windswell": {
      "n": 5,
      "energy": 1.28159178,
-     "measuredHeightRatio": 0.4621595659336877,
+     "measuredHeightRatio": 0.5159096097388799,
      "predictedHeightRatio": 0.9117312048047386,
-     "residual": 0.5067625274577297,
-     "dirErrorDeg": 5.882859280797685
+     "residual": 0.5656495195946724,
+     "dirErrorDeg": 0.5156395507366821
     },
     "mid": {
      "n": 4,
      "energy": 0.9452267099999999,
-     "measuredHeightRatio": 0.4373304217326593,
+     "measuredHeightRatio": 0.41177623229701055,
      "predictedHeightRatio": 0.578385602607481,
-     "residual": 0.7578384012408917,
-     "dirErrorDeg": 3.3301994216048203
+     "residual": 0.7253134603449428,
+     "dirErrorDeg": 6.840986661075656
     },
     "ground": {
      "n": 3,
      "energy": 0.8273565,
-     "measuredHeightRatio": 0.7725059221092049,
+     "measuredHeightRatio": 0.7858530057200641,
      "predictedHeightRatio": 0.7829209717286137,
-     "residual": 1.0004027138824032,
-     "dirErrorDeg": 4.071787460426533
+     "residual": 0.9878340499353786,
+     "dirErrorDeg": 6.488900505483289
     },
     "long": {
      "n": 4,
      "energy": 2.661148437,
-     "measuredHeightRatio": 0.3309537747559308,
+     "measuredHeightRatio": 0.2751938580113538,
      "predictedHeightRatio": 0.3496154464374757,
-     "residual": 1.0031761306481923,
-     "dirErrorDeg": 1.4839209798096733
+     "residual": 0.8220616761296287,
+     "dirErrorDeg": 3.8360632589905275
     }
    },
    "bands": 33
@@ -8200,12 +8205,6 @@
   "nearStation": "153p1",
   "nearDepthM": 17,
   "history": [
-   {
-    "time": "2026-09-15T03:30:00.000Z",
-    "hsFt": 3.4,
-    "periodS": 9.1,
-    "dirDeg": 281
-   },
    {
     "time": "2026-09-15T04:00:00.000Z",
     "hsFt": 3.1,
@@ -8775,6 +8774,12 @@
     "hsFt": 2.1,
     "periodS": 15.4,
     "dirDeg": 246
+   },
+   {
+    "time": "2026-09-17T03:30:00.000Z",
+    "hsFt": 2,
+    "periodS": 15.4,
+    "dirDeg": 244
    }
   ]
  },
@@ -8800,7 +8805,7 @@
   "note": "Wright & Short (1984) beach-state classification with the Masselink & Short (1993) tide-modified extension - the distilled result of years of daily visual observations of how waves break on sandbars. Driven here by an energy-weighted running mean of measured buoy conditions with a four-day half-life, because bars respond over weeks rather than hours. It is a statistical expectation, not a picture of this particular sandbar."
  },
  "sandbar": {
-  "scenes": 1,
+  "scenes": 2,
   "skipped": 1,
   "lastSkipped": {
    "sceneId": "S2B_11SMS_20260916_0_L2A",
@@ -8981,14 +8986,26 @@
     }
    ]
   },
-  "previous": null,
-  "barMovedM": null,
-  "waterlineMovedM": null,
-  "barTrendM": 280,
-  "barSpreadTrendM": 20.3,
+  "previous": {
+   "time": "2026-09-13T18:35:31.010000Z",
+   "barM": 250,
+   "waterlineM": 220
+  },
+  "barMovedM": 30,
+  "waterlineMovedM": -10,
+  "barTrendM": 265,
+  "barSpreadTrendM": 23.4,
   "shape": "The breaking line is running straight along the beach. A straight bar trips the whole wave at once, which is how closeouts happen here.",
-  "note": "Measured from 1 satellite pass. This is shown, not used: nothing on this page is computed from it yet. It gets a vote once there are enough passes to know how much a reading jumps around.",
+  "note": "Measured from 2 satellite passes. This is shown, not used: nothing on this page is computed from it yet. It gets a vote once there are enough passes to know how much a reading jumps around.",
   "history": [
+   {
+    "time": "2026-09-13T18:35:31.010000Z",
+    "barM": 250,
+    "waterlineM": 220,
+    "surfWidthM": 60,
+    "barSpreadM": 26.4,
+    "tideFt": 0.635
+   },
    {
     "time": "2026-09-14T18:45:12.526000Z",
     "barM": 280,
