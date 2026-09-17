@@ -59,34 +59,49 @@ async function main() {
   log(`latest version ${latest.versionNumber}, ${latest.lastModificationDate}`);
 
   const filesHref = latest._links?.['stash:files']?.href;
-  const files = await json(`https://datadryad.org${filesHref}`);
-  const items = files._embedded?.['stash:files'] || [];
+
+  // The file list is paginated and the Torrey Pines files sort after Cardiff
+  // and Imperial, so the first page is all other people's beaches.
+  const items = [];
+  let next = `https://datadryad.org${filesHref}?per_page=100`;
+  while (next && items.length < 400) {
+    const page = await json(next);
+    items.push(...(page._embedded?.['stash:files'] || []));
+    const n = page._links?.next?.href;
+    next = n ? `https://datadryad.org${n}` : null;
+  }
   log(`\nfiles: ${items.length}`);
   for (const f of items) {
     log(`  ${String((f.size / 1e6).toFixed(2)).padStart(9)} MB  ${(f.mimeType || '').padEnd(28)} ${f.path}`);
   }
+  if (items[0]) log(`\nlink keys on a file entry: ${Object.keys(items[0]._links || {}).join(', ')}`);
 
-  // The first few kilobytes of each small text file: enough to see the header
-  // row, the units, and whether elevations are MSL or NAVD88, which decides
-  // whether any of this can be put next to the tide predictions.
+  const downloadHref = (f) => {
+    const l = f._links || {};
+    const h = l['stash:file-download']?.href || l['stash:download']?.href || l.download?.href || l.self?.href;
+    return h ? (h.startsWith('http') ? h : `https://datadryad.org${h}`) : null;
+  };
+
+  // The first few kilobytes of each README and small text file: enough to see
+  // the columns, the units, and whether elevations are MSL or NAVD88, which
+  // decides whether any of this can be put next to the tide predictions.
   log('\n--- heads of the small text files ---');
   for (const f of items) {
     const textish = /text|csv|plain/i.test(f.mimeType || '') || /\.(csv|txt|md)$/i.test(f.path);
     if (!textish || f.size > 40e6) continue;
-    const href = f._links?.['stash:file-download']?.href;
-    if (!href) { log(`\n${f.path}: no download link`); continue; }
+    const href = downloadHref(f);
+    if (!href) { log(`\n${f.path}: no download link (${Object.keys(f._links || {}).join(', ')})`); continue; }
     try {
-      const res = await fetch(`https://datadryad.org${href}`, {
-        headers: { 'user-agent': 'tp-surfcast/1.0', range: `bytes=0-${HEAD_BYTES}` },
-      });
+      const res = await fetch(href, { headers: { 'user-agent': 'tp-surfcast/1.0', range: `bytes=0-${HEAD_BYTES}` } });
       const txt = (await res.text()).slice(0, HEAD_BYTES);
       log(`\n${f.path}  (${res.status}, showing first lines)`);
-      log(txt.split('\n').slice(0, 14).map((l) => `    ${l.slice(0, 200)}`).join('\n'));
+      log(txt.split('\n').slice(0, 30).map((l) => `    ${l.slice(0, 220)}`).join('\n'));
     } catch (e) {
       log(`\n${f.path}: fetch failed - ${e.message}`);
     }
     await new Promise((r) => setTimeout(r, 400));
   }
+
   log('\nDone. Nothing stored.');
 }
 
