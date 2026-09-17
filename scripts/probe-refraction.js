@@ -33,16 +33,12 @@ const log = (s) => console.log(s);
 
 /** Snell + shoaling from deep water to a given depth, for one frequency. */
 function propagate(periodS, dirDeg, depthM, shoreNormalDeg = SITE.shoreNormalDeg) {
-  const omega = (2 * Math.PI) / periodS;
   const L0 = deepWavelength(periodS);
-  const k0 = (2 * Math.PI) / L0;
   const c0 = L0 / periodS;
-  const cg0 = groupVelocity(omega, k0, 4000);          // deep
-
+  const cg0 = groupVelocity(periodS, 4000);            // deep water
   const L1 = wavelengthAt(periodS, depthM);
-  const k1 = (2 * Math.PI) / L1;
   const c1 = L1 / periodS;
-  const cg1 = groupVelocity(omega, k1, depthM);
+  const cg1 = groupVelocity(periodS, depthM);
 
   // Angles measured from the shore normal, i.e. from the depth-contour normal.
   const off0 = (((dirDeg - shoreNormalDeg + 540) % 360) - 180);
