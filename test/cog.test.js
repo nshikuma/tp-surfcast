@@ -295,3 +295,39 @@ test('sentinel: water and sand come out on the right sides of the index', async 
   assert.ok(ndwi(2000, 2600) < 0, 'dry sand: near-infrared brighter than green');
   assert.ok(ndwi(3000, 2800) > 0, 'foam is bright in both, and this is the case the surf test has to handle separately');
 });
+
+test('sentinel: a lagoon behind the beach is not mistaken for the shoreline', async () => {
+  const { readProfile } = await import('../src/sources/sentinel.js');
+  // A transect running from 100 m inland to 1000 m offshore, 10 m a pixel:
+  // standing water at the back, then dry sand, then the ocean with a band of
+  // white water over the bar. Scanning outwards from the land stops at the
+  // lagoon and reports the shoreline 300 m too far inland, which is what the
+  // first real read of this beach did.
+  const cross = [];
+  for (let x = -100; x <= 1000; x += 10) cross.push(x);
+  const ndwi = cross.map((x) => {
+    if (x <= -40) return 0.4;                       // lagoon or wet flat
+    if (x < 250) return -0.3;                       // dry sand
+    return 0.6;                                     // ocean
+  });
+  const foam = cross.map((x) => {
+    if (x < 250) return 0.22;                       // sand is bright in NIR
+    if (x >= 260 && x <= 340) return 0.09;          // white water over the bar
+    return 0.001;                                   // clean water is black
+  });
+
+  const p = readProfile(cross, ndwi, foam);
+  assert.equal(p.waterlineM, 250, 'the ocean edge, not the lagoon edge');
+  assert.equal(p.foamPeakM >= 260 && p.foamPeakM <= 340, true, `foam peak ${p.foamPeakM}`);
+  assert.equal(p.surfOuterM, 340);
+  assert.ok(p.outerWaterNir < 0.01);
+});
+
+test('sentinel: a transect with no land at all is refused', async () => {
+  const { readProfile } = await import('../src/sources/sentinel.js');
+  const cross = [];
+  for (let x = -100; x <= 1000; x += 10) cross.push(x);
+  const allWater = cross.map(() => 0.6);
+  const dark = cross.map(() => 0.001);
+  assert.equal(readProfile(cross, allWater, dark), null);
+});

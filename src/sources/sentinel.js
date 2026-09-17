@@ -200,13 +200,21 @@ export function readProfile(cross, ndwi, foam, { waterThreshold = 0.0, foamMargi
   if (outer.length < 3) return null;
   const outerMean = outer.reduce((a, b) => a + b, 0) / outer.length;
 
-  let shoreIdx = null;
-  for (let i = 0; i < n - 3; i += 1) {
-    if (isWater[i] && isWater[i + 1] && isWater[i + 2]) { shoreIdx = i; break; }
+  // Find the shoreline by walking IN from the open sea, not out from the back
+  // of the beach. The first satellite read showed why: south of the lot there
+  // is standing water behind the sand - the lagoon, or wet flats at the back of
+  // the berm - and scanning outwards stopped at that instead, putting the
+  // shoreline 300 m inland of where it is. There is only ever one ocean and it
+  // is always the outermost water, so the shoreline is the most seaward place
+  // the transect goes back to land and stays there.
+  let landIdx = null;
+  for (let i = n - 1; i >= 2; i -= 1) {
+    if (isWater[i] === false && isWater[i - 1] === false && isWater[i - 2] === false) { landIdx = i; break; }
   }
-  if (shoreIdx == null) return null;
+  if (landIdx == null || landIdx >= n - 1) return null;
+  const shoreIdx = landIdx + 1;
 
-  // Foam: bright NIR over water, seaward of the waterline.
+  // Foam: bright near-infrared over water, seaward of the waterline.
   const lit = [];
   for (let i = shoreIdx; i < n; i += 1) {
     if (foam[i] == null) continue;
