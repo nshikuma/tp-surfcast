@@ -1,0 +1,21 @@
+name: probe-sentinel
+
+# Reconnaissance, run by hand. Asks whether Sentinel-2 scenes over this beach
+# can be read a tile at a time by range request, which decides whether the
+# forecast can see where the sand is. Decodes nothing and stores nothing.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/probe-sentinel.js
