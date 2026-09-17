@@ -1,7 +1,7 @@
 {
  "meta": {
-  "generatedAt": "2026-09-17T03:31:00.223Z",
-  "finishedAt": "2026-09-17T03:31:46.295Z",
+  "generatedAt": "2026-09-17T03:39:05.026Z",
+  "finishedAt": "2026-09-17T03:39:50.477Z",
   "synthetic": false,
   "site": {
    "id": "torrey-pines-north-lot",
@@ -79,8 +79,8 @@
   "sizeLabel": "Thigh high",
   "setSizeLabel": "Chest high",
   "superposition": 1.31,
-  "tideFt": 1.2397457773981735,
-  "tideRate": 0.05277919739817327,
+  "tideFt": 1.252916526898062,
+  "tideRate": 0.08694698356472852,
   "trains": [
    {
     "hsM": 0.510830970870013,
@@ -808,10 +808,10 @@
  "beach": {
   "shorelineM": 0.03,
   "trendMPerRun": 0,
-  "hoursStepped": 0.5,
-  "observations": 1,
+  "hoursStepped": 0,
+  "observations": 0,
   "updatedAt": "2026-09-17T03:00:00.000Z",
-  "spinUpRuns": 15,
+  "spinUpRuns": 16,
   "profile": {
    "shorelineOffsetM": 0.032683013942272146,
    "barCrestM": 94.94770717769237,
@@ -906,6 +906,11 @@
     "t": "2026-09-17T03:31:00.223Z",
     "s": 0.03,
     "e": 0.0552
+   },
+   {
+    "t": "2026-09-17T03:39:05.026Z",
+    "s": 0.03,
+    "e": null
    }
   ]
  },
@@ -6741,8 +6746,8 @@
    "dirDeg": 211.2,
    "dirCompass": "SSW",
    "powerKwPerM": 5,
-   "windKt": 2.2,
-   "windCompass": "SW",
+   "windKt": 2.4,
+   "windCompass": "WSW",
    "windLabel": "onshore",
    "tideAtWindowFt": 3.6,
    "board": {
@@ -6769,7 +6774,7 @@
     "lastRain": null,
     "reason": "0.00 in in the last 72 h - below the 0.2 in advisory threshold."
    },
-   "verdict": "Skip. 1.9 ft (knee high), onshore 2.2 kt.",
+   "verdict": "Skip. 1.9 ft (knee high), onshore 2.4 kt.",
    "mix": {
     "parts": [
      {
@@ -7959,29 +7964,29 @@
   }
  },
  "shelf": {
-  "observations": 2,
+  "observations": 3,
   "firstAt": "2026-09-17T02:30:00.000Z",
   "lastAt": "2026-09-17T03:00:00.000Z",
   "bins": [
    {
     "periodBand": "chop",
     "dirBand": "SW",
-    "n": 7,
-    "measuredHeightRatio": 0.9,
+    "n": 11,
+    "measuredHeightRatio": 0.87,
     "predictedHeightRatio": 1,
-    "residual": 0.9,
-    "residualSd": 0.15,
+    "residual": 0.87,
+    "residualSd": 0.14,
     "dirErrorDeg": 7,
     "settled": false
    },
    {
     "periodBand": "chop",
     "dirBand": "W",
-    "n": 27,
-    "measuredHeightRatio": 0.76,
+    "n": 41,
+    "measuredHeightRatio": 0.81,
     "predictedHeightRatio": 0.98,
-    "residual": 0.78,
-    "residualSd": 0.15,
+    "residual": 0.83,
+    "residualSd": 0.16,
     "dirErrorDeg": -5,
     "settled": false
    },
@@ -7999,56 +8004,56 @@
    {
     "periodBand": "ground",
     "dirBand": "S",
-    "n": 3,
-    "measuredHeightRatio": 0.57,
-    "predictedHeightRatio": 0.52,
-    "residual": 1.32,
-    "residualSd": 0.75,
+    "n": 5,
+    "measuredHeightRatio": 0.61,
+    "predictedHeightRatio": 0.48,
+    "residual": 1.48,
+    "residualSd": 0.7,
     "dirErrorDeg": 9,
     "settled": false
    },
    {
     "periodBand": "ground",
     "dirBand": "SSW",
-    "n": 3,
-    "measuredHeightRatio": 0.78,
-    "predictedHeightRatio": 0.8,
-    "residual": 0.96,
-    "residualSd": 0.24,
-    "dirErrorDeg": 2,
-    "settled": false
-   },
-   {
-    "periodBand": "long",
-    "dirBand": "S",
-    "n": 5,
-    "measuredHeightRatio": 0.43,
-    "predictedHeightRatio": 0.54,
-    "residual": 0.79,
-    "residualSd": 0.25,
+    "n": 4,
+    "measuredHeightRatio": 0.79,
+    "predictedHeightRatio": 0.79,
+    "residual": 0.99,
+    "residualSd": 0.22,
     "dirErrorDeg": 3,
     "settled": false
    },
    {
     "periodBand": "long",
+    "dirBand": "S",
+    "n": 7,
+    "measuredHeightRatio": 0.4,
+    "predictedHeightRatio": 0.55,
+    "residual": 0.74,
+    "residualSd": 0.26,
+    "dirErrorDeg": 1,
+    "settled": false
+   },
+   {
+    "periodBand": "long",
     "dirBand": "SSW",
-    "n": 1,
-    "measuredHeightRatio": 1.1,
+    "n": 2,
+    "measuredHeightRatio": 1.24,
     "predictedHeightRatio": 1.06,
-    "residual": 1.03,
-    "residualSd": 0,
-    "dirErrorDeg": -10,
+    "residual": 1.17,
+    "residualSd": 0.14,
+    "dirErrorDeg": -7,
     "settled": false
    },
    {
     "periodBand": "mid",
     "dirBand": "S",
-    "n": 7,
-    "measuredHeightRatio": 0.5,
+    "n": 11,
+    "measuredHeightRatio": 0.47,
     "predictedHeightRatio": 0.55,
-    "residual": 0.94,
-    "residualSd": 0.31,
-    "dirErrorDeg": 9,
+    "residual": 0.89,
+    "residualSd": 0.29,
+    "dirErrorDeg": 7,
     "settled": false
    },
    {
@@ -8065,12 +8070,12 @@
    {
     "periodBand": "windswell",
     "dirBand": "SSW",
-    "n": 1,
-    "measuredHeightRatio": 0.44,
+    "n": 2,
+    "measuredHeightRatio": 0.42,
     "predictedHeightRatio": 0.86,
-    "residual": 0.52,
-    "residualSd": 0,
-    "dirErrorDeg": 22,
+    "residual": 0.49,
+    "residualSd": 0.03,
+    "dirErrorDeg": 18,
     "settled": false
    },
    {
@@ -8087,10 +8092,10 @@
    {
     "periodBand": "windswell",
     "dirBand": "W",
-    "n": 7,
-    "measuredHeightRatio": 0.48,
+    "n": 11,
+    "measuredHeightRatio": 0.46,
     "predictedHeightRatio": 0.91,
-    "residual": 0.53,
+    "residual": 0.5,
     "residualSd": 0.09,
     "dirErrorDeg": 2,
     "settled": false
@@ -8104,42 +8109,42 @@
     "chop": {
      "n": 18,
      "energy": 1.8243329830000004,
-     "measuredHeightRatio": 0.7999807474820662,
+     "measuredHeightRatio": 0.8838545606318902,
      "predictedHeightRatio": 0.9778176014639082,
-     "residual": 0.8161636736165299,
-     "dirErrorDeg": -2.9716690964882555
+     "residual": 0.9026390107846712,
+     "dirErrorDeg": -2.4438253128433036
     },
     "windswell": {
      "n": 5,
      "energy": 1.5276412,
-     "measuredHeightRatio": 0.46658194399094166,
+     "measuredHeightRatio": 0.42149887133419306,
      "predictedHeightRatio": 0.9083063843786017,
-     "residual": 0.5135672326733175,
-     "dirErrorDeg": 4.502572366071803
+     "residual": 0.4639224333004549,
+     "dirErrorDeg": 3.1010327346616258
     },
     "mid": {
      "n": 4,
      "energy": 1.00378867,
-     "measuredHeightRatio": 0.44734198880887466,
+     "measuredHeightRatio": 0.4249174941362261,
      "predictedHeightRatio": 0.542780890529003,
-     "residual": 0.8371971756339945,
-     "dirErrorDeg": 10.558813110616153
+     "residual": 0.8121468913697655,
+     "dirErrorDeg": 3.704219285852222
     },
     "ground": {
      "n": 3,
      "energy": 0.96052874,
-     "measuredHeightRatio": 0.7129188525399983,
+     "measuredHeightRatio": 0.7203652965697342,
      "predictedHeightRatio": 0.530760489619674,
-     "residual": 1.5386181807726462,
-     "dirErrorDeg": 7.453484903097569
+     "residual": 1.5339282466662683,
+     "dirErrorDeg": 9.148442873589945
     },
     "long": {
      "n": 3,
      "energy": 1.7437553499999998,
-     "measuredHeightRatio": 0.4023294145286387,
+     "measuredHeightRatio": 0.3818840587932183,
      "predictedHeightRatio": 0.5657954076955262,
-     "residual": 0.719585654718099,
-     "dirErrorDeg": 2.561637689663117
+     "residual": 0.6706638646201363,
+     "dirErrorDeg": -3.5890001331111616
     }
    },
    "bands": 33
@@ -8149,12 +8154,6 @@
   "nearStation": "153p1",
   "nearDepthM": 17,
   "history": [
-   {
-    "time": "2026-09-15T03:00:00.000Z",
-    "hsFt": 3.2,
-    "periodS": 9.1,
-    "dirDeg": 281
-   },
    {
     "time": "2026-09-15T03:30:00.000Z",
     "hsFt": 3.4,
@@ -8724,6 +8723,12 @@
     "hsFt": 2.1,
     "periodS": 15.4,
     "dirDeg": 242
+   },
+   {
+    "time": "2026-09-17T03:00:00.000Z",
+    "hsFt": 2.1,
+    "periodS": 15.4,
+    "dirDeg": 246
    }
   ]
  },
@@ -9975,15 +9980,15 @@
    "dirCompass": "SW",
    "powerKwPerM": 5.2,
    "energyKjPerM2": 0.7,
-   "windKt": 3.4,
-   "gustKt": 6.9,
-   "windDirDeg": 264,
-   "windCompass": "W",
+   "windKt": 4.6,
+   "gustKt": 8.4,
+   "windDirDeg": 250,
+   "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 1.45,
    "tideRate": -0.33,
    "waterF": 75,
-   "airF": 71.8,
+   "airF": 71.3,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.56,
@@ -10032,9 +10037,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 2.5,
-      "gustKt": 2.7,
-      "dirDeg": 270
+      "windKt": 5,
+      "gustKt": 5.6,
+      "dirDeg": 242
      }
     ]
    },
@@ -10096,15 +10101,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.1,
    "energyKjPerM2": 0.6,
-   "windKt": 2.7,
-   "gustKt": 5.4,
-   "windDirDeg": 251,
-   "windCompass": "WSW",
+   "windKt": 3.4,
+   "gustKt": 6.3,
+   "windDirDeg": 222,
+   "windCompass": "SW",
    "windLabel": "onshore",
    "tideFt": 1.23,
    "tideRate": -0.1,
    "waterF": 75,
-   "airF": 71.2,
+   "airF": 70.7,
    "score": 38,
    "grade": "Poor",
    "confidence": 0.6,
@@ -10153,9 +10158,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 2.3,
-      "gustKt": 2.7,
-      "dirDeg": 246
+      "windKt": 3.7,
+      "gustKt": 4.5,
+      "dirDeg": 189
      }
     ]
    },
@@ -10218,14 +10223,14 @@
    "powerKwPerM": 5.1,
    "energyKjPerM2": 0.6,
    "windKt": 2.4,
-   "gustKt": 4.5,
+   "gustKt": 5.1,
    "windDirDeg": 237,
    "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 1.28,
    "tideRate": 0.16,
    "waterF": 75,
-   "airF": 70.7,
+   "airF": 70.2,
    "score": 38,
    "grade": "Poor",
    "confidence": 0.6,
@@ -10275,7 +10280,7 @@
      {
       "model": "gfs_seamless",
       "windKt": 2.9,
-      "gustKt": 3.1,
+      "gustKt": 4.3,
       "dirDeg": 228
      }
     ]
@@ -10338,15 +10343,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 2.4,
-   "gustKt": 4.5,
-   "windDirDeg": 232,
+   "windKt": 2.1,
+   "gustKt": 4.3,
+   "windDirDeg": 223,
    "windCompass": "SW",
    "windLabel": "onshore",
    "tideFt": 1.52,
    "tideRate": 0.3,
    "waterF": 74.8,
-   "airF": 69.9,
+   "airF": 69.1,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.61,
@@ -10395,9 +10400,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 3.7,
-      "gustKt": 4.7,
-      "dirDeg": 231
+      "windKt": 3.2,
+      "gustKt": 4.3,
+      "dirDeg": 213
      }
     ]
    },
@@ -10459,15 +10464,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 2.1,
-   "gustKt": 3.9,
-   "windDirDeg": 197,
+   "windKt": 1.8,
+   "gustKt": 3.7,
+   "windDirDeg": 193,
    "windCompass": "SSW",
    "windLabel": "cross-shore",
    "tideFt": 1.87,
    "tideRate": 0.36,
    "waterF": 74.8,
-   "airF": 68.6,
+   "airF": 69.9,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.62,
@@ -10516,9 +10521,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 3.5,
-      "gustKt": 4.7,
-      "dirDeg": 214
+      "windKt": 3,
+      "gustKt": 4.3,
+      "dirDeg": 207
      }
     ]
    },
@@ -10580,15 +10585,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 1.8,
-   "gustKt": 3.7,
-   "windDirDeg": 175,
+   "windKt": 1.3,
+   "gustKt": 2.4,
+   "windDirDeg": 183,
    "windCompass": "S",
    "windLabel": "cross-shore",
    "tideFt": 2.25,
    "tideRate": 0.34,
    "waterF": 74.7,
-   "airF": 68.9,
+   "airF": 69.6,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.62,
@@ -10637,9 +10642,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 2.9,
-      "gustKt": 4.9,
-      "dirDeg": 188
+      "windKt": 1.9,
+      "gustKt": 2.3,
+      "dirDeg": 204
      }
     ]
    },
@@ -10701,15 +10706,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.3,
    "energyKjPerM2": 0.7,
-   "windKt": 1.7,
-   "gustKt": 3,
-   "windDirDeg": 192,
-   "windCompass": "SSW",
+   "windKt": 1.1,
+   "gustKt": 2.3,
+   "windDirDeg": 180,
+   "windCompass": "S",
    "windLabel": "cross-shore",
    "tideFt": 2.56,
    "tideRate": 0.26,
    "waterF": 74.7,
-   "airF": 68.7,
+   "airF": 69.1,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.64,
@@ -10758,9 +10763,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 2.8,
-      "gustKt": 3.7,
-      "dirDeg": 205
+      "windKt": 1.6,
+      "gustKt": 2.3,
+      "dirDeg": 180
      }
     ]
    },
@@ -10824,13 +10829,13 @@
    "energyKjPerM2": 0.7,
    "windKt": 1.6,
    "gustKt": 2.6,
-   "windDirDeg": 178,
-   "windCompass": "S",
+   "windDirDeg": 192,
+   "windCompass": "SSW",
    "windLabel": "cross-shore",
    "tideFt": 2.77,
    "tideRate": 0.15,
    "waterF": 74.7,
-   "airF": 67.1,
+   "airF": 68.9,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.65,
@@ -10881,7 +10886,7 @@
       "model": "gfs_seamless",
       "windKt": 2.5,
       "gustKt": 2.9,
-      "dirDeg": 176
+      "dirDeg": 203
      }
     ]
    },
@@ -10943,15 +10948,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.7,
-   "windKt": 2.2,
-   "gustKt": 3.1,
-   "windDirDeg": 157,
-   "windCompass": "SSE",
+   "windKt": 1.9,
+   "gustKt": 3.2,
+   "windDirDeg": 181,
+   "windCompass": "S",
    "windLabel": "cross-shore",
    "tideFt": 2.86,
    "tideRate": 0.05,
    "waterF": 74.7,
-   "airF": 66,
+   "airF": 67.5,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.67,
@@ -11000,9 +11005,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 4,
-      "gustKt": 4.1,
-      "dirDeg": 133
+      "windKt": 3.3,
+      "gustKt": 4.3,
+      "dirDeg": 183
      }
     ]
    },
@@ -11064,15 +11069,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.6,
-   "windKt": 2.1,
+   "windKt": 1.9,
    "gustKt": 3,
-   "windDirDeg": 143,
-   "windCompass": "SE",
-   "windLabel": "offshore",
+   "windDirDeg": 158,
+   "windCompass": "SSE",
+   "windLabel": "cross-shore",
    "tideFt": 2.88,
    "tideRate": 0,
    "waterF": 74.7,
-   "airF": 66.1,
+   "airF": 67.4,
    "score": 43,
    "grade": "Fair",
    "confidence": 0.78,
@@ -11121,9 +11126,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 3.7,
+      "windKt": 3.3,
       "gustKt": 4.3,
-      "dirDeg": 133
+      "dirDeg": 163
      }
     ]
    },
@@ -11185,15 +11190,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.6,
-   "windKt": 1.9,
-   "gustKt": 3.8,
-   "windDirDeg": 135,
-   "windCompass": "SE",
+   "windKt": 1.7,
+   "gustKt": 3,
+   "windDirDeg": 120,
+   "windCompass": "ESE",
    "windLabel": "offshore",
    "tideFt": 2.87,
    "tideRate": 0.01,
    "waterF": 74.7,
-   "airF": 67.4,
+   "airF": 67.5,
    "score": 43,
    "grade": "Fair",
    "confidence": 0.8,
@@ -11242,9 +11247,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 3.3,
-      "gustKt": 5.6,
-      "dirDeg": 152
+      "windKt": 3,
+      "gustKt": 4.1,
+      "dirDeg": 122
      }
     ]
    },
@@ -11306,15 +11311,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.4,
    "energyKjPerM2": 0.6,
-   "windKt": 2.2,
-   "gustKt": 3.8,
-   "windDirDeg": 115,
+   "windKt": 2,
+   "gustKt": 3.6,
+   "windDirDeg": 109,
    "windCompass": "ESE",
    "windLabel": "offshore",
    "tideFt": 2.9,
    "tideRate": 0.08,
    "waterF": 74.7,
-   "airF": 67.6,
+   "airF": 68.1,
    "score": 43,
    "grade": "Fair",
    "confidence": 0.78,
@@ -11363,9 +11368,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 3.6,
-      "gustKt": 5.1,
-      "dirDeg": 139
+      "windKt": 3.2,
+      "gustKt": 4.7,
+      "dirDeg": 128
      }
     ]
    },
@@ -11427,15 +11432,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5.1,
    "energyKjPerM2": 0.6,
-   "windKt": 2,
-   "gustKt": 3.6,
-   "windDirDeg": 101,
-   "windCompass": "E",
+   "windKt": 2.2,
+   "gustKt": 4.1,
+   "windDirDeg": 107,
+   "windCompass": "ESE",
    "windLabel": "offshore",
    "tideFt": 3.03,
    "tideRate": 0.18,
    "waterF": 74.7,
-   "airF": 67.8,
+   "airF": 68.3,
    "score": 42,
    "grade": "Fair",
    "confidence": 0.78,
@@ -11484,9 +11489,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 2.7,
-      "gustKt": 3.9,
-      "dirDeg": 120
+      "windKt": 3.2,
+      "gustKt": 4.9,
+      "dirDeg": 133
      }
     ]
    },
@@ -11548,15 +11553,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
-   "windKt": 2.2,
-   "gustKt": 4.3,
-   "windDirDeg": 136,
-   "windCompass": "SE",
+   "windKt": 2.4,
+   "gustKt": 4.4,
+   "windDirDeg": 110,
+   "windCompass": "ESE",
    "windLabel": "offshore",
    "tideFt": 3.26,
    "tideRate": 0.28,
    "waterF": 74.7,
-   "airF": 68.5,
+   "airF": 69.5,
    "score": 38,
    "grade": "Poor",
    "confidence": 0.69,
@@ -11605,9 +11610,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 3.4,
-      "gustKt": 4.1,
-      "dirDeg": 193
+      "windKt": 3.7,
+      "gustKt": 4.3,
+      "dirDeg": 141
      }
     ]
    },
@@ -11669,15 +11674,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
-   "windKt": 1.5,
-   "gustKt": 4.5,
-   "windDirDeg": 278,
+   "windKt": 1.4,
+   "gustKt": 4.6,
+   "windDirDeg": 270,
    "windCompass": "W",
    "windLabel": "onshore",
    "tideFt": 3.59,
    "tideRate": 0.35,
    "waterF": 74.8,
-   "airF": 69.4,
+   "airF": 71.3,
    "score": 38,
    "grade": "Poor",
    "confidence": 0.68,
@@ -11726,9 +11731,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 2.8,
-      "gustKt": 3.1,
-      "dirDeg": 196
+      "windKt": 2.5,
+      "gustKt": 3.3,
+      "dirDeg": 180
      }
     ]
    },
@@ -11782,15 +11787,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
-   "windKt": 2.3,
-   "gustKt": 5.4,
-   "windDirDeg": 251,
+   "windKt": 2.8,
+   "gustKt": 6.1,
+   "windDirDeg": 255,
    "windCompass": "WSW",
    "windLabel": "onshore",
    "tideFt": 3.96,
    "tideRate": 0.36,
    "waterF": 74.8,
-   "airF": 71.4,
+   "airF": 73,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.67,
@@ -11839,9 +11844,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 3.2,
-      "gustKt": 3.3,
-      "dirDeg": 232
+      "windKt": 4.3,
+      "gustKt": 4.5,
+      "dirDeg": 240
      }
     ]
    },
@@ -11895,15 +11900,15 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
-   "windKt": 4.7,
-   "gustKt": 8.3,
-   "windDirDeg": 264,
+   "windKt": 5,
+   "gustKt": 8.6,
+   "windDirDeg": 262,
    "windCompass": "W",
    "windLabel": "onshore",
    "tideFt": 4.32,
    "tideRate": 0.31,
    "waterF": 74.8,
-   "airF": 73.2,
+   "airF": 74.4,
    "score": 39,
    "grade": "Poor",
    "confidence": 0.67,
@@ -11952,9 +11957,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 6.2,
-      "gustKt": 6.6,
-      "dirDeg": 257
+      "windKt": 6.9,
+      "gustKt": 7.2,
+      "dirDeg": 254
      }
     ]
    },
@@ -12008,22 +12013,22 @@
    "dirCompass": "SSW",
    "powerKwPerM": 5,
    "energyKjPerM2": 0.6,
-   "windKt": 6.3,
-   "gustKt": 11,
-   "windDirDeg": 268,
+   "windKt": 7,
+   "gustKt": 11.6,
+   "windDirDeg": 265,
    "windCompass": "W",
    "windLabel": "onshore",
    "tideFt": 4.58,
    "tideRate": 0.19,
    "waterF": 75,
-   "airF": 74.6,
+   "airF": 75.1,
    "score": 40,
    "grade": "Poor",
    "confidence": 0.64,
    "board": "Longboard",
    "parts": {
     "tide": 0.44,
-    "wind": 0.85,
+    "wind": 0.77,
     "size": 0.29,
     "shape": 0.85
    },
@@ -12065,9 +12070,9 @@
      },
      {
       "model": "gfs_seamless",
-      "windKt": 7.3,
-      "gustKt": 8,
-      "dirDeg": 261
+      "windKt": 8.6,
+      "gustKt": 9.1,
+      "dirDeg": 256
      }
     ]
    },
@@ -12123,20 +12128,20 @@
    "energyKjPerM2": 0.6,
    "windKt": 8.3,
    "gustKt": 14.2,
-   "windDirDeg": 279,
+   "windDirDeg": 266,
    "windCompass": "W",
    "windLabel": "onshore",
    "tideFt": 4.69,
    "tideRate": 0.02,
    "waterF": 75,
-   "airF": 74.7,
+   "airF": 75,
    "score": 40,
    "grade": "Poor",
    "confidence": 0.63,
    "board": "Longboard",
    "parts": {
     "tide": 0.32,
-    "wind": 0.64,
+    "wind": 0.61,
     "size": 0.29,
     "shape": 0.85
    },
@@ -12180,7 +12185,7 @@
       "model": "gfs_seamless",
       "windKt": 8.9,
       "gustKt": 9.7,
-      "dirDeg": 280
+      "dirDeg": 254
      }
     ]
    },
