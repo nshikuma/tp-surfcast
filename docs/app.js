@@ -817,6 +817,69 @@ function heatLegend(near) {
   ]);
 }
 
+/* ------------------------------------------------------------ beach state -- */
+
+/**
+ * What shape the sandbars are in. The one thing on this page that comes from a
+ * body of visual observation rather than from an instrument.
+ */
+function renderMorphology() {
+  const m = DATA.morphology;
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'What the sandbars are doing' }));
+  card.appendChild(el('p', {
+    class: 'note',
+    text: 'Wright & Short classified surf zones into six states from years of daily visual observations \u2014 '
+      + 'thousands of records of how waves were actually breaking on sandbars \u2014 and found the state is '
+      + 'predicted by one number: breaker height over settling velocity times period. This is that classification, '
+      + 'driven by a fortnight of measured buoy conditions, because bars respond over weeks rather than hours.',
+  }));
+
+  if (!m) {
+    card.appendChild(el('div', { class: 'alert info' }, [
+      el('span', { class: 'ic', text: 'i' }),
+      el('div', { text: 'Not enough accumulated history yet.' }),
+    ]));
+    return card;
+  }
+
+  card.appendChild(el('div', { class: 'state-head' }, [
+    el('div', { class: 'state-name', text: m.label }),
+    el('div', { class: `state-tag ${m.closeoutProne ? 'bad' : 'ok'}`,
+      text: m.closeoutProne ? 'Closeout-prone' : 'Should have corners' }),
+  ]));
+  card.appendChild(el('p', { class: 'state-bars', text: m.bars }));
+  card.appendChild(el('p', { class: 'state-waves', text: m.waves }));
+
+  const stats = el('div', { class: 'statrow' });
+  const stat = (k, v, sub) => stats.appendChild(el('div', { class: 'stat' }, [
+    el('div', { class: 'k', text: k }), el('div', { class: 'v', text: v }), el('div', { class: 's', text: sub }),
+  ]));
+  stat('\u03a9', String(m.omega), 'fall velocity number \u2014 picks the state');
+  stat('Tide vs waves', String(m.rtr ?? '\u2014'), 'over 3 and the tide takes over');
+  stat('Bank angle', `${m.skewDeg}\u00b0`, 'off shore-parallel \u2014 sets the peel');
+  if (m.ripSpacingM) stat('Rips', `~${m.ripSpacingM} m`, 'expected spacing along the beach');
+  card.appendChild(stats);
+
+  card.appendChild(el('div', { class: `alert ${m.spunUp ? 'info' : 'warn'}` }, [
+    el('span', { class: 'ic', text: m.spunUp ? 'i' : '\u26a0' }),
+    el('div', {
+      html: m.spunUp
+        ? `<b>Driving the peel calculation.</b> The bank angle above is what decides whether a wave has a `
+          + `shoulder or shuts down, and it used to be a fixed guess. From ${m.samples} accumulated buoy `
+          + `samples it is now derived. ${m.note}`
+        : `<b>Still spinning up \u2014 ${m.samples} samples so far, not yet driving anything.</b> The peel `
+          + `calculation is still using its fixed default until there is a fortnight of history behind this. `
+          + `${m.note}`,
+    }),
+  ]));
+  card.appendChild(el('p', { class: 'cap', text:
+    `Sand assumed at ${m.d50mm} mm median grain, settling at ${(m.settlingVelocityMs * 100).toFixed(1)} cm/s. `
+    + 'That grain size is the cheapest measurement on this page \u2014 a sieve sample would pin it.' }));
+  card.appendChild(sourceBar(SRC.buoy));
+  return card;
+}
+
 /* ----------------------------------------------------- the shelf, measured -- */
 
 /**
@@ -1878,6 +1941,7 @@ function render() {
   app.appendChild(renderTrains(DATA.current));
   app.appendChild(renderModelCompare(DATA.hourly));
   app.appendChild(renderAlongshore(DATA.nearshore));
+  app.appendChild(renderMorphology());
   app.appendChild(renderShelf());
 
   app.appendChild(collapsible('How to read the numbers', renderHowToRead(),

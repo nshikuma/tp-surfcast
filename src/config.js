@@ -113,6 +113,22 @@ export const CALIBRATION = {
   // what a flat, featureless sandbar feels like to surf.
   barSkewDeg: 12,
 
+  /**
+   * The sand itself. Grain size sets the settling velocity, which sets the
+   * dimensionless fall velocity, which is what the Wright & Short beach-state
+   * classification keys on - so this one number decides which morphological
+   * state the model thinks the bars are in.
+   *
+   * Torrey Pines is fine sand. 0.18 mm is a reasonable central value for this
+   * stretch; published figures for the beach run roughly 0.15-0.25 mm and it
+   * coarsens in the swash zone after a big swell strips the fines out. Worth
+   * a sieve sample if anyone is ever curious enough to take one - it is the
+   * cheapest measurement on this whole page.
+   */
+  sand: {
+    d50mm: 0.18,
+  },
+
   // Above this the break outruns the rider and the wave is a closeout however
   // good it looks from the sand. Roughly the top speed a surfer holds down the
   // line on a beach break.

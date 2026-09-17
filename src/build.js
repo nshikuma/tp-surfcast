@@ -33,6 +33,7 @@ import { mixForHour, mixForDay, smoothShares, CLASS_ORDER as MIX_ORDER } from '.
 import { callFor, reliabilityFor, scoreHour } from './model/score.js';
 import { gradeSessions } from './model/groundtruth.js';
 import { compareSpectra, accumulate as accumulateShelf, summarise as summariseShelf, NEARSHORE } from './model/shelf.js';
+import { stepMorphology, stateFrom, observedTideRangeM } from './model/morphology.js';
 import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel, combineFaces } from './model/waves.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -389,9 +390,40 @@ async function main() {
     log(`buoy anchor: ${anchoredHours} hours using measured partitions (within ${BUOY_ANCHOR_HOURS} h of the obs)`);
   }
 
+  /**
+   * What state the sandbars are in, from a fortnight of measured conditions.
+   *
+   * This is the piece that lets the peel calculation stop guessing. The bar
+   * skew was a hard-coded constant with a comment on it conceding that no wave
+   * model knows this; a morphological model does, and Wright & Short built
+   * theirs out of years of daily visual observations of exactly this.
+   */
+  const MORPH_FILE = path.join(DATA, 'morphology.json');
+  let morphology = null;
+  try {
+    let prevMorph = null;
+    if (existsSync(MORPH_FILE)) prevMorph = JSON.parse(await readFile(MORPH_FILE, 'utf8'));
+    const acc = SYNTHETIC ? prevMorph
+      : stepMorphology(prevMorph, data.buoy?.records || [], { from: prevMorph?.updatedAt });
+    if (acc) {
+      if (!SYNTHETIC) await writeFile(MORPH_FILE, JSON.stringify(acc, null, 1));
+      morphology = stateFrom(acc, observedTideRangeM(hourly));
+      if (morphology) {
+        log(`morphology: omega ${morphology.omega} RTR ${morphology.rtr} -> ${morphology.label}`
+          + ` (bar skew ${morphology.skewDeg} deg, ${morphology.samples} samples`
+          + `${morphology.spunUp ? '' : ', still spinning up'})`);
+      }
+    }
+  } catch (e) {
+    log(`morphology unavailable: ${e.message}`);
+  }
+
   // Hourly mixes first, then smoothed, so the daily rollup and the chart are
   // built from exactly the same numbers.
-  for (const h of hourly) h.mix = mixForHour(h);
+  // Once the classifier has enough history it supplies the bar skew; before
+  // that it would be asserting a beach state from a few days of data.
+  const barSkewDeg = morphology?.spunUp ? morphology.skewDeg : null;
+  for (const h of hourly) h.mix = mixForHour(h, { barSkewDeg });
   smoothShares(hourly);
 
   // Set height now comes from the partitions rather than from a flat multiple
@@ -675,6 +707,7 @@ async function main() {
     skill,
     groundTruth,
     shelf,
+    morphology,
     hourly: hourly
       .filter((h) => Date.parse(h.time) >= Date.now() - 12 * 36e5)
       .map(compactHour),

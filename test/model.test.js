@@ -25,6 +25,7 @@ import { stepState, profileFor, describe } from '../src/model/beachstate.js';
 import { classifyTrain, classWeights, mixForHour, mixForDay, tideShiftFor } from '../src/model/mix.js';
 import { gradeSessions } from '../src/model/groundtruth.js';
 import { propagateToDepth, compareSpectra, accumulate as accumulateShelf, summarise as summariseShelf } from '../src/model/shelf.js';
+import { settlingVelocity, dimensionlessFallVelocity, classify, STATES, stepMorphology, stateFrom } from '../src/model/morphology.js';
 
 /* ------------------------------------------------------------ wave theory -- */
 
@@ -852,4 +853,98 @@ test('shelf: an unusable observation does not corrupt the running record', () =>
     { usable: false, reason: 'observations 90 min apart' });
   assert.equal(state.observations, 7, 'a skipped observation must not count');
   assert.equal(state.bins['long|S'].n, 3, 'and must not touch the bins');
+});
+
+/* ================================================ beach state, Wright & Short ==
+ *
+ * The classification distilled from years of daily visual observations of how
+ * waves break on sandbars. It exists here to replace a hard-coded bar skew with
+ * a derived one, which is the difference between calling a morning "makeable"
+ * and calling it "walled and broke".
+ */
+
+test('morphology: settling velocity matches the literature for fine sand', () => {
+  // Ferguson & Church. Fine sand at 0.18 mm settles at about 2 cm/s.
+  const ws = settlingVelocity(0.18);
+  assert.ok(ws > 0.015 && ws < 0.025, `${(ws * 100).toFixed(2)} cm/s is outside the expected band`);
+  // And it must be monotonic in grain size, or the whole classification inverts.
+  assert.ok(settlingVelocity(0.35) > settlingVelocity(0.18));
+  assert.ok(settlingVelocity(0.10) < settlingVelocity(0.18));
+});
+
+test('morphology: the state sequence runs the right way', () => {
+  const ws = settlingVelocity(0.18);
+  const state = (Hb, T) => classify(dimensionlessFallVelocity(Hb, T, ws), null);
+  // Small and long-period is reflective; big and short-period is dissipative.
+  assert.equal(state(0.35, 18).id, 'reflective');
+  assert.equal(state(2.5, 8).id, 'dissipative');
+  // And the order index increases monotonically through the sequence.
+  const seq = [[0.35, 18], [0.7, 18], [0.8, 12], [1.1, 12], [1.6, 11], [2.5, 8]]
+    .map(([h, t]) => state(h, t).order);
+  for (let i = 1; i < seq.length; i++) {
+    assert.ok(seq[i] >= seq[i - 1], `state order went backwards: ${seq.join(' ')}`);
+  }
+});
+
+test('morphology: a big tide against small waves leaves the wave-dominated sequence', () => {
+  // Masselink & Short. This beach crosses that line on any small day.
+  const wave = classify(2.0, 1.5);
+  const tide = classify(2.0, 4.5);
+  assert.equal(wave.regime, 'wave-dominated');
+  assert.equal(tide.regime, 'tide-modified');
+  assert.equal(classify(2.0, 9).regime, 'tide-dominated');
+});
+
+test('morphology: straight bars close out, rhythmic bars have corners', () => {
+  // This is the whole point of the module: the skew it hands to the peel model.
+  const lbt = STATES.longshoreBarTrough;
+  const tbr = STATES.transverseBarRip;
+  assert.ok(lbt.skewDeg < tbr.skewDeg, 'a straight continuous bar gives the crest nothing to peel along');
+  assert.equal(lbt.closeoutProne, true);
+  assert.equal(tbr.closeoutProne, false);
+  // And that difference has to actually change the verdict, not just the number.
+  const shuts = peelAtBreak(3, 1.2, lbt.skewDeg);
+  const peels = peelAtBreak(3, 1.2, tbr.skewDeg);
+  assert.equal(shuts.makeable, false);
+  assert.equal(peels.makeable, true);
+});
+
+test('morphology: a storm straightens the bars, and the record remembers', () => {
+  const hour = (hsM, tpS, t) => ({ time: new Date(t).toISOString(), hsM, tpS });
+  let t = Date.parse('2026-02-01T00:00:00Z');
+  const calm = [];
+  for (let i = 0; i < 14 * 24; i++) { calm.push(hour(0.7, 9, t)); t += 36e5; }
+  let acc = stepMorphology(null, calm);
+  const before = stateFrom(acc, 1.7);
+  assert.ok(!before.closeoutProne, `${before.label} should still have corners`);
+
+  const storm = [];
+  for (let i = 0; i < 3 * 24; i++) { storm.push(hour(2.0, 16, t)); t += 36e5; }
+  acc = stepMorphology(acc, storm, { from: acc.updatedAt });
+  const after = stateFrom(acc, 1.7);
+  assert.ok(after.omega > before.omega, 'a big long-period swell raises omega');
+  assert.ok(after.skewDeg < before.skewDeg, 'and straightens the bank');
+  assert.equal(after.closeoutProne, true);
+});
+
+test('morphology: a gap in the record decays rather than distorts', () => {
+  const hour = (hsM, tpS, t) => ({ time: new Date(t).toISOString(), hsM, tpS });
+  const t0 = Date.parse('2026-02-01T00:00:00Z');
+  const first = [hour(2.5, 16, t0)];
+  let acc = stepMorphology(null, first);
+  const weightBefore = acc.wSum;
+  // Three weeks later, one more sample. The old one must have decayed away,
+  // not been averaged in as though it were still current.
+  acc = stepMorphology(acc, [hour(0.6, 9, t0 + 21 * 24 * 36e5)], { from: acc.updatedAt });
+  assert.ok(acc.wSum < weightBefore + 0.5, 'the stale sample should have decayed');
+  assert.ok(Number.isFinite(acc.omega));
+});
+
+test('morphology: does not claim a state before it has the history for one', () => {
+  const hour = (hsM, tpS, t) => ({ time: new Date(t).toISOString(), hsM, tpS });
+  let t = Date.parse('2026-02-01T00:00:00Z');
+  const few = [];
+  for (let i = 0; i < 20; i++) { few.push(hour(1.0, 12, t)); t += 36e5; }
+  const st = stateFrom(stepMorphology(null, few), 1.7);
+  assert.equal(st.spunUp, false, 'twenty hours is not a fortnight');
 });

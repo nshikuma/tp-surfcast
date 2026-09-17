@@ -147,7 +147,7 @@ export function classifyTrain(train) {
  * @returns {null|{parts: Array, dominant: string, dominantShare: number,
  *                 crossing: boolean, trainCount: number}}
  */
-export function mixForHour(hour) {
+export function mixForHour(hour, { barSkewDeg = null } = {}) {
   const all = (hour?.trains || []).filter((t) => t.hsM > 0 && t.periodS > 0);
   if (!all.length) return null;
 
@@ -222,9 +222,13 @@ export function mixForHour(hour) {
   // are still two trains, and they still superpose - merging them first would
   // throw away exactly the coincidence that makes the set waves.
   const combined = combineFaces(carried.map((c) => c.faceFt * k));
+  // How crooked the bank is decides whether a wave peels or shuts down, and it
+  // is the one term no wave model supplies. When the beach-state classifier has
+  // spun up it derives that from the last fortnight of conditions; until then
+  // it falls back to the calibration constant.
   const peels = carried.map((c) => ({
     faceFt: c.faceFt * k,
-    peel: peelAtBreak(c.angleBDeg, c.breakDepthM),
+    peel: peelAtBreak(c.angleBDeg, c.breakDepthM, barSkewDeg ?? undefined),
   }));
   // The wave you have to make is the biggest one. Closeout risk is that train's.
   const lead = peels.reduce((a, b) => (b.faceFt > a.faceFt ? b : a), peels[0]);
