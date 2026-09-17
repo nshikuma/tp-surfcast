@@ -76,30 +76,52 @@ async function main() {
   }
   if (items[0]) log(`\nlink keys on a file entry: ${Object.keys(items[0]._links || {}).join(', ')}`);
 
-  const downloadHref = (f) => {
-    const l = f._links || {};
-    const h = l['stash:file-download']?.href || l['stash:download']?.href || l.download?.href || l.self?.href;
-    return h ? (h.startsWith('http') ? h : `https://datadryad.org${h}`) : null;
+  // The API's own download route answers 401 "must have current bearer token"
+  // even for a published, open dataset, so the route the website itself uses is
+  // tried alongside it. Each candidate gets the same small range request and
+  // the first one that returns bytes is the one a fetcher will use.
+  const fileId = (f) => {
+    const self = f._links?.self?.href || '';
+    const m = self.match(/files\/(\d+)/);
+    return m ? m[1] : null;
+  };
+  const routes = (f) => {
+    const id = fileId(f);
+    const api = f._links?.['stash:download']?.href;
+    return [
+      api ? ['stash:download', api.startsWith('http') ? api : `https://datadryad.org${api}`] : null,
+      id ? ['file_stream', `https://datadryad.org/downloads/file_stream/${id}`] : null,
+      id ? ['api file download', `https://datadryad.org/api/v2/files/${id}/download`] : null,
+    ].filter(Boolean);
   };
 
-  // The first few kilobytes of each README and small text file: enough to see
-  // the columns, the units, and whether elevations are MSL or NAVD88, which
-  // decides whether any of this can be put next to the tide predictions.
-  log('\n--- heads of the small text files ---');
-  for (const f of items) {
-    const textish = /text|csv|plain/i.test(f.mimeType || '') || /\.(csv|txt|md)$/i.test(f.path);
-    if (!textish || f.size > 40e6) continue;
-    const href = downloadHref(f);
-    if (!href) { log(`\n${f.path}: no download link (${Object.keys(f._links || {}).join(', ')})`); continue; }
-    try {
-      const res = await fetch(href, { headers: { 'user-agent': 'tp-surfcast/1.0', range: `bytes=0-${HEAD_BYTES}` } });
-      const txt = (await res.text()).slice(0, HEAD_BYTES);
-      log(`\n${f.path}  (${res.status}, showing first lines)`);
-      log(txt.split('\n').slice(0, 30).map((l) => `    ${l.slice(0, 220)}`).join('\n'));
-    } catch (e) {
-      log(`\n${f.path}: fetch failed - ${e.message}`);
+  // One small text file and one small zip: enough to find a route that works
+  // and to see the columns, the units, and whether elevations are MSL or
+  // NAVD88, which decides whether any of this can sit next to the tides.
+  const wanted = items.filter((f) => /README_for_torrey_binned|README_for_torrey_survey|README\.txt$|torrey_beach_characteristics\.zip|torrey_survey_info\.nc/.test(f.path));
+  log(`\n--- trying download routes on ${wanted.length} small files ---`);
+  for (const f of wanted) {
+    log(`\n${f.path}  (${(f.size / 1e6).toFixed(2)} MB)`);
+    for (const [name, url] of routes(f)) {
+      try {
+        const res = await fetch(url, { headers: { 'user-agent': 'tp-surfcast/1.0', range: `bytes=0-${HEAD_BYTES}` } });
+        const buf = Buffer.from(await res.arrayBuffer());
+        const looksText = /text|plain/.test(res.headers.get('content-type') || '') || /\.txt$/.test(f.path);
+        log(`  ${name.padEnd(18)} ${res.status} ${res.headers.get('content-type') || ''} ${buf.length} bytes`);
+        if (res.status === 200 || res.status === 206) {
+          if (looksText) {
+            log(buf.toString('utf8').split('\n').slice(0, 30).map((l) => `      ${l.slice(0, 200)}`).join('\n'));
+          } else {
+            log(`      first bytes ${buf.subarray(0, 8).toString('hex')} (PK 504b = zip, 8943 = netCDF-4/HDF5, 4344 = netCDF-3)`);
+          }
+          break;
+        }
+        log(`      ${buf.toString('utf8').slice(0, 160).replace(/\s+/g, ' ')}`);
+      } catch (e) {
+        log(`  ${name.padEnd(18)} failed: ${e.message}`);
+      }
+      await new Promise((r) => setTimeout(r, 300));
     }
-    await new Promise((r) => setTimeout(r, 400));
   }
 
   log('\nDone. Nothing stored.');
