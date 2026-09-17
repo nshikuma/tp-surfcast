@@ -24,6 +24,7 @@ import { tideAt, tideRateAt } from '../src/sources/tides.js';
 import { stepState, profileFor, describe } from '../src/model/beachstate.js';
 import { classifyTrain, classWeights, mixForHour, mixForDay, tideShiftFor } from '../src/model/mix.js';
 import { gradeSessions } from '../src/model/groundtruth.js';
+import { propagateToDepth, compareSpectra, accumulate as accumulateShelf, summarise as summariseShelf } from '../src/model/shelf.js';
 
 /* ------------------------------------------------------------ wave theory -- */
 
@@ -764,4 +765,91 @@ test('normaliseTimes: a Map keyed from it matches hourly timestamps exactly', ()
   assert.equal(byTime.size, 2, 'every reading must get its own key');
   const hour = { time: new Date(Date.UTC(2026, 1, 1, 9, 0, 0)).toISOString() };
   assert.equal(byTime.get(hour.time), 61);
+});
+
+/* ================================================== the shelf, two buoys ==
+ *
+ * 100p1 in 550 m and 153p1 in 17 m straddle the shelf transformation. Both sit
+ * behind the same islands so sheltering cancels, and what is left between them
+ * is refraction, shoaling and dissipation - the step this model has only ever
+ * been able to compute.
+ */
+
+test('shelf: Snell reproduces the turning the two buoys actually measured', () => {
+  // An 18.2 s swell read 188 degrees at the outer buoy and 240 at Del Mar.
+  const p = propagateToDepth(18.2, 188, 17);
+  assert.ok(Math.abs(angleDiff(p.predictedDirDeg, 240)) < 6,
+    `predicted ${p.predictedDirDeg.toFixed(0)} against a measured 240`);
+  assert.ok(p.Kr < 0.7, 'a swell 77 degrees off normal must lose a lot to refraction');
+  assert.ok(p.Ks > 1, 'and gain some back to shoaling');
+});
+
+test('shelf: everything oblique converges toward shore normal', () => {
+  // The striking thing in the data: south swells arriving anywhere from 187 to
+  // 222 degrees all landed within a few degrees of each other at Del Mar.
+  const landed = [187, 197, 204, 222].map((d) => propagateToDepth(16, d, 17).predictedDirDeg);
+  const spread = Math.max(...landed) - Math.min(...landed);
+  assert.ok(spread < 16, `35 degrees of offshore spread should compress, got ${spread.toFixed(0)}`);
+  for (const d of landed) {
+    assert.ok(Math.abs(angleDiff(d, 265)) < 45, 'and end up within 45 degrees of shore normal');
+  }
+});
+
+test('shelf: compares each band with ITSELF, not peak with peak', () => {
+  // The whole reason this is band-by-band. Outer peaks on a big 18 s south;
+  // nearshore peaks on a 9 s west because the south has been knocked down.
+  // A peak-to-peak comparison would report a 90 degree turn that never happened.
+  const band = (T, e, dir) => ({ freqHz: 1 / T, periodS: T, energy: e, bandwidth: 0.01, dirDeg: dir });
+  const t = '2026-02-01T12:00:00.000Z';
+  const outer = { time: t, bands: [band(18, 1.0, 190), band(9, 0.3, 280)] };
+  const near = { time: t, bands: [band(18, 0.2, 240), band(9, 0.25, 278)] };
+  const c = compareSpectra(outer, near, { minEnergy: 0.01 });
+  assert.equal(c.usable, true);
+  const long = c.rows.find((r) => r.periodS === 18);
+  const wind = c.rows.find((r) => r.periodS === 9);
+  // The 18 s band is compared against the 18 s band, so its turn is real.
+  assert.ok(Math.abs(long.dirErrorDeg) < 15, `18 s dir error ${long.dirErrorDeg}`);
+  assert.ok(Math.abs(wind.dirErrorDeg) < 15, `9 s dir error ${wind.dirErrorDeg}`);
+  // And the south loses far more height than the west, as it should.
+  assert.ok(long.measuredHeightRatio < wind.measuredHeightRatio);
+});
+
+test('shelf: refuses observations that are not simultaneous', () => {
+  const band = (T, e, dir) => ({ freqHz: 1 / T, periodS: T, energy: e, bandwidth: 0.01, dirDeg: dir });
+  const outer = { time: '2026-02-01T12:00:00.000Z', bands: [band(14, 1, 200)] };
+  const near = { time: '2026-02-01T15:00:00.000Z', bands: [band(14, 0.5, 240)] };
+  const c = compareSpectra(outer, near);
+  assert.equal(c.usable, false);
+  assert.match(c.reason, /apart/);
+});
+
+test('shelf: accumulates energy-weighted, and refuses to act on a small sample', () => {
+  const band = (T, e, dir) => ({ freqHz: 1 / T, periodS: T, energy: e, bandwidth: 0.01, dirDeg: dir });
+  const t = '2026-02-01T12:00:00.000Z';
+  const obs = compareSpectra(
+    { time: t, bands: [band(17, 1.0, 195), band(8, 0.5, 270)] },
+    { time: t, bands: [band(17, 0.25, 240), band(8, 0.2, 268)] },
+    { minEnergy: 0.01 },
+  );
+  let state = null;
+  for (let i = 0; i < 5; i++) state = accumulateShelf(state, obs);
+  assert.equal(state.observations, 5);
+
+  const sum = summariseShelf(state);
+  assert.ok(sum.bins.length >= 2);
+  // Nothing may be applied on five observations. This number is going to be
+  // used to argue with wave physics; it has to earn that first.
+  assert.equal(sum.settledBins, 0);
+  assert.match(sum.note, /Still collecting/);
+  for (const b of sum.bins) {
+    assert.equal(b.settled, false);
+    assert.ok(b.measuredHeightRatio > 0 && b.predictedHeightRatio > 0);
+  }
+});
+
+test('shelf: an unusable observation does not corrupt the running record', () => {
+  const state = accumulateShelf({ observations: 7, bins: { 'long|S': { periodBand: 'long', dirBand: 'S', n: 3, weight: 1, sumResidual: 0.9, sumResidualSq: 0.81, sumMeasured: 0.5, sumPredicted: 0.55, sumDirError: 4, dirWeight: 1 } } },
+    { usable: false, reason: 'observations 90 min apart' });
+  assert.equal(state.observations, 7, 'a skipped observation must not count');
+  assert.equal(state.bins['long|S'].n, 3, 'and must not touch the bins');
 });

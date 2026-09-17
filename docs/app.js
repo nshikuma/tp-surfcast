@@ -336,6 +336,11 @@ const SRC = {
     what: 'Measured and predicted tide at Scripps Pier, 4 miles south.',
     url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9410230',
   },
+  nearBuoy: {
+    name: 'CDIP 153p1 · Del Mar Nearshore',
+    what: 'Measured. A second wave buoy in 17 m of water about 3 km up the beach — inside the zone where refraction and shoaling actually happen.',
+    url: 'https://cdip.ucsd.edu/m/products/?stn=153p1',
+  },
   mop: {
     name: 'CDIP MOP · Scripps nearshore model',
     what: 'Modelled by Scripps: swell refracted over surveyed bathymetry, published every ~100 m along this beach.',
@@ -664,10 +669,22 @@ function renderModelCompare(hourly) {
         v: sizeVal((h.byModel?.waves || []).find((x) => x.model === m)?.faceFt),
       })),
     }));
+    // Two measured lines, both heavy and dark, because a measurement is a
+    // different kind of thing from a forecast and should not be mistaken for
+    // one more model. Del Mar is the same quantity 530 m of water shallower,
+    // so the gap between the two IS the shelf loss, drawn rather than argued.
+    const nearHist = (DATA.shelf?.history || []);
+    if (nearHist.length) {
+      series.unshift({
+        name: 'Del Mar nearshore, 17 m (measured)', color: 'var(--text-secondary)',
+        emphasis: true, dashed: true,
+        points: nearHist.map((r) => ({ t: Date.parse(r.time), v: sizeVal(buoyFace(r)) })),
+      });
+    }
     const hist = (DATA.current?.history || []);
     if (hist.length) {
       series.unshift({
-        name: 'CDIP buoy (measured)', color: 'var(--text-primary)', emphasis: true,
+        name: 'Torrey Pines outer, 550 m (measured)', color: 'var(--text-primary)', emphasis: true,
         points: hist.map((r) => ({ t: Date.parse(r.time), v: sizeVal(buoyFace(r)) })),
       });
     }
@@ -799,6 +816,82 @@ function heatLegend(near) {
     el('span', { text: `${n1(sizeVal(hi))} ${sizeUnit()}` }),
   ]);
 }
+
+/* ----------------------------------------------------- the shelf, measured -- */
+
+/**
+ * What the shelf actually does to a swell, from two buoys rather than from
+ * theory. This is the one panel on the page where a measurement disagrees with
+ * the physics and both numbers are shown.
+ */
+function renderShelf() {
+  const sh = DATA.shelf;
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('h2', { text: 'What the shelf does to a swell' }));
+  card.appendChild(el('p', {
+    class: 'note',
+    text: 'Two buoys straddle the transformation: 100p1 in 550 m eight miles out, 153p1 in 17 m off Del Mar. '
+      + 'Both sit behind the same islands, so island sheltering cancels between them and what is left is refraction, '
+      + 'shoaling and friction — the step this forecast has always had to calculate rather than observe. '
+      + 'Compared band by band, because when the outer buoy peaks on an 18-second south the nearshore buoy often '
+      + 'peaks on a 9-second windswell, and comparing those two would be comparing different swells.',
+  }));
+
+  if (!sh) {
+    card.appendChild(el('div', { class: 'alert info' }, [
+      el('span', { class: 'ic', text: 'i' }),
+      el('div', { text: 'No paired spectra on the last run.' }),
+    ]));
+    return card;
+  }
+
+  const latest = sh.latest;
+  if (latest?.byPeriod) {
+    const t = el('table');
+    t.appendChild(el('tr', {}, ['Period band', 'Measured', 'Model says', 'Model is', 'Direction error']
+      .map((h) => el('th', { text: h }))));
+    for (const [id, v] of Object.entries(latest.byPeriod)) {
+      const off = v.residual;
+      const word = off > 1.12 ? 'under by ' + Math.round((off - 1) * 100) + '%'
+        : off < 0.88 ? 'over by ' + Math.round((1 - off) * 100) + '%'
+          : 'about right';
+      t.appendChild(el('tr', {}, [
+        el('td', { text: PERIOD_LABEL[id] || id }),
+        el('td', { text: `${Math.round(v.measuredHeightRatio * 100)}% of offshore` }),
+        el('td', { text: `${Math.round(v.predictedHeightRatio * 100)}%` }),
+        el('td', { html: off > 1.12 || off < 0.88 ? `<b>${word}</b>` : word }),
+        el('td', { text: v.dirErrorDeg == null ? '\u2014' : `${v.dirErrorDeg > 0 ? '+' : ''}${Math.round(v.dirErrorDeg)}\u00b0` }),
+      ]));
+    }
+    card.appendChild(el('div', { class: 'table-wrap' }, [t]));
+    card.appendChild(el('p', { class: 'cap', style: 'margin-top:8px',
+      text: `Latest paired observation, ${fmtTime(latest.time, { weekday: 'short' })}, ${latest.bands} frequency bands.` }));
+  } else if (sh.unusable) {
+    card.appendChild(el('p', { class: 'cap', text: `No comparison this run: ${sh.unusable}.` }));
+  }
+
+  card.appendChild(el('div', { class: 'alert info' }, [
+    el('span', { class: 'ic', text: 'i' }),
+    el('div', {
+      html: `<b>${sh.observations} paired observation${sh.observations === 1 ? '' : 's'} recorded so far.</b> ${sh.note} `
+        + 'Direction has already checked out — south swells arriving anywhere from 187° to 222° offshore all '
+        + 'converge on about 240° at Del Mar, which is what refraction says should happen and what the model predicts '
+        + 'to within a few degrees. The open question is height, and one snapshot cannot separate a real modelling error '
+        + 'from the ordinary variability between two buoys 3 km apart.',
+    }),
+  ]));
+  card.appendChild(sourceBar(SRC.buoy));
+  card.appendChild(sourceBar(SRC.nearBuoy));
+  return card;
+}
+
+const PERIOD_LABEL = {
+  chop: 'Chop, under 7s',
+  windswell: 'Windswell, 7\u201310s',
+  mid: 'Mid, 10\u201313s',
+  ground: 'Groundswell, 13\u201316s',
+  long: 'Long-period, 16s+',
+};
 
 /* --------------------------------------------------------- how to read it -- */
 
@@ -1785,6 +1878,7 @@ function render() {
   app.appendChild(renderTrains(DATA.current));
   app.appendChild(renderModelCompare(DATA.hourly));
   app.appendChild(renderAlongshore(DATA.nearshore));
+  app.appendChild(renderShelf());
 
   app.appendChild(collapsible('How to read the numbers', renderHowToRead(),
     'What each period band, swell angle, wind and tide actually does at this beach.'));

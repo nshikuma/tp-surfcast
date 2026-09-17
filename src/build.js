@@ -32,6 +32,7 @@ import { stepState, describe, profileFor, COEFFS } from './model/beachstate.js';
 import { mixForHour, mixForDay, smoothShares, CLASS_ORDER as MIX_ORDER } from './model/mix.js';
 import { callFor, reliabilityFor, scoreHour } from './model/score.js';
 import { gradeSessions } from './model/groundtruth.js';
+import { compareSpectra, accumulate as accumulateShelf, summarise as summariseShelf, NEARSHORE } from './model/shelf.js';
 import { M_TO_FT, wavePowerKwPerM, transformToBreak, faceHeights, sizeLabel, combineFaces } from './model/waves.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -102,6 +103,23 @@ async function collect() {
   if (!out.spectrum) {
     try { out.ndbcSpec = await ndbc.fetchSpec(); } catch (e) { errors['ndbc:spec'] = String(e.message); }
   }
+  // Del Mar Nearshore, 17 m. Paired with 100p1 it measures what the shelf does
+  // to a swell, which this model has only ever been able to compute.
+  //
+  // Fetched AFTER the parallel batch and one at a time. CDIP has refused this
+  // project with a 403 before, for exactly the sin of firing a pile of requests
+  // at once; doubling the parallel CDIP load to chase a calibration nicety
+  // would be a poor trade against the forecast itself failing.
+  for (const [key, fn] of [
+    ['nearBuoy', () => cdip.fetchBuoy(NEARSHORE.station, 48)],
+    ['nearSpectrum', () => cdip.fetchSpectrum(NEARSHORE.station)],
+  ]) {
+    try {
+      await new Promise((r) => setTimeout(r, 700));
+      out[key] = await fn();
+    } catch (e) { errors[key] = String(e.message); }
+  }
+
   // The SST series is worth having even when a buoy gives a spot reading: one
   // number cannot be plotted, and the page now shows how the water is trending.
   if (!out.seaTempSeries) {
@@ -497,6 +515,45 @@ async function main() {
   const drift = computeDrift(days, pickForDrift(archives));
   const skill = scoreSkill(archives, data.buoy?.records || []);
 
+  /**
+   * What the shelf did to this swell, measured against what the model said it
+   * would do. Accumulated across runs: one thirty-minute snapshot cannot
+   * separate a real modelling error from the ordinary variability between two
+   * buoys 3 km apart, and this is going to be used to argue with wave physics.
+   */
+  const SHELF_FILE = path.join(DATA, 'shelf-calibration.json');
+  let shelf = null;
+  try {
+    const comparison = compareSpectra(data.spectrum, data.nearSpectrum);
+    let prevShelf = null;
+    if (existsSync(SHELF_FILE)) prevShelf = JSON.parse(await readFile(SHELF_FILE, 'utf8'));
+    const nextShelf = SYNTHETIC ? prevShelf : accumulateShelf(prevShelf, comparison);
+    if (nextShelf) {
+      if (!SYNTHETIC) await writeFile(SHELF_FILE, JSON.stringify(nextShelf, null, 1));
+      shelf = {
+        ...summariseShelf(nextShelf),
+        latest: comparison?.usable
+          ? { time: comparison.time, byPeriod: comparison.byPeriod, bands: comparison.rows.length }
+          : null,
+        unusable: comparison && !comparison.usable ? comparison.reason : null,
+        outerStation: SOURCES.cdipStation,
+        nearStation: NEARSHORE.station,
+        nearDepthM: NEARSHORE.depthM,
+        // The nearshore buoy's own measured record: a second real line on the
+        // size chart, 17 m of water instead of 550, which is much closer to
+        // what you actually paddle out into.
+        history: (data.nearBuoy?.records || []).slice(-96).map((r) => ({
+          time: r.time, hsFt: round1(r.hsM * M_TO_FT), periodS: round1(r.tpS),
+          dirDeg: r.dirDeg == null ? null : Math.round(r.dirDeg),
+        })),
+      };
+      log(`shelf: ${shelf.observations} observation(s), ${shelf.bins.length} bins`
+        + (comparison?.usable ? `, ${comparison.rows.length} bands this run` : `, skipped: ${shelf.unusable}`));
+    }
+  } catch (e) {
+    log(`shelf calibration unavailable: ${e.message}`);
+  }
+
   // Graded against sessions the crew actually surfed. The buoy comparison above
   // grades the swell; this grades the SURF, which is a different and harder
   // thing, and it is the only check that can see the parts of this model with
@@ -617,6 +674,7 @@ async function main() {
     drift,
     skill,
     groundTruth,
+    shelf,
     hourly: hourly
       .filter((h) => Date.parse(h.time) >= Date.now() - 12 * 36e5)
       .map(compactHour),
