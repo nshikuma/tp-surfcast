@@ -263,11 +263,22 @@ async function main() {
   const sst = data.seaTempSeries?.byTime || null;
   if (sst) {
     let last = null;
+    let matched = 0;
     for (const h of hourly) {
       const v = sst.get(h.time);
-      if (Number.isFinite(v)) last = v;
+      if (Number.isFinite(v)) { last = v; matched++; }
       h.waterF = last;                      // carry forward past the series end
     }
+    // A fetch that succeeds and then matches nothing is the failure mode that
+    // has now bitten this build three times: a new field quietly never reaches
+    // the payload, the page drops a whole track, and CI stays green because an
+    // empty result is a valid result. It is not valid here.
+    log(`water temp: ${matched} of ${sst.size} readings matched an hourly timestamp`);
+    if (!matched) {
+      throw new Error(`Fatal: ${sst.size} sea-temperature readings fetched but none matched an hourly timestamp.`);
+    }
+  } else {
+    log('WARNING: no sea-temperature series - the water track will not be drawn.');
   }
 
   const trains = data.trains || null;

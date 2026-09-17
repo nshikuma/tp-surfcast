@@ -19,6 +19,7 @@ import { CALIBRATION } from '../src/config.js';
 import { scoreHour, scoreTide, scoreWind, scorePeriod, gradeFor, callFor, reliabilityFor } from '../src/model/score.js';
 import { median, circMean, computeModelBias, waterQuality, wetsuitCall, compass } from '../src/model/forecast.js';
 import { parseOpendapAscii, partitionSpectrum } from '../src/sources/cdip.js';
+import { normaliseTimes } from '../src/sources/openmeteo.js';
 import { tideAt, tideRateAt } from '../src/sources/tides.js';
 import { stepState, profileFor, describe } from '../src/model/beachstate.js';
 import { classifyTrain, classWeights, mixForHour, mixForDay, tideShiftFor } from '../src/model/mix.js';
@@ -726,4 +727,41 @@ test('groundTruth: falls back to what the page recorded when the archive predate
   assert.equal(s.forecast.setFromNote, true, 'flagged as the recorded note, not the archive');
   assert.ok(Math.abs(s.setRatio - 2.07) < 0.05, `set ratio ${s.setRatio}`);
   assert.equal(s.shapeRight, false);
+});
+
+/* ============================================ the timestamp shape contract ==
+ *
+ * normaliseTimes is what every Open-Meteo parser keys its data by, and a
+ * consumer that guesses the field name wrong fails SILENTLY: the Map keys every
+ * reading as `undefined`, size comes back as 1 so an emptiness check passes,
+ * and a whole hourly series disappears from the page with CI still green. That
+ * is exactly how sea temperature shipped empty. This pins the shape so the next
+ * mismatch fails here instead.
+ */
+
+test('normaliseTimes: returns exactly {time, localDate, localHour}', () => {
+  const out = normaliseTimes(['2026-02-01T08:00', '2026-02-01T09:30'], -8 * 3600);
+  assert.equal(out.length, 2);
+  assert.deepEqual(Object.keys(out[0]).sort(), ['localDate', 'localHour', 'time']);
+});
+
+test('normaliseTimes: `time` is a parseable UTC ISO string, and there is no `iso`', () => {
+  const out = normaliseTimes(['2026-02-01T08:00'], -8 * 3600);
+  const t = out[0];
+  assert.equal(t.iso, undefined, 'consumers must key on `time`, not `iso`');
+  assert.ok(Number.isFinite(Date.parse(t.time)), `unparseable: ${t.time}`);
+  assert.match(t.time, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
+  // 08:00 local at UTC-8 is 16:00 UTC.
+  assert.equal(new Date(t.time).getUTCHours(), 16);
+  assert.equal(t.localDate, '2026-02-01');
+  assert.equal(t.localHour, 8);
+});
+
+test('normaliseTimes: a Map keyed from it matches hourly timestamps exactly', () => {
+  // The operation that silently failed: build a lookup, then look an hour up.
+  const stamps = normaliseTimes(['2026-02-01T08:00', '2026-02-01T09:00'], 0);
+  const byTime = new Map(stamps.map((s, i) => [s.time, 60 + i]));
+  assert.equal(byTime.size, 2, 'every reading must get its own key');
+  const hour = { time: new Date(Date.UTC(2026, 1, 1, 9, 0, 0)).toISOString() };
+  assert.equal(byTime.get(hour.time), 61);
 });

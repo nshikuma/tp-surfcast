@@ -35,7 +35,7 @@ function pick(hourly, name, model) {
  * hour-of-day alongside. The local hour is what the 7:30-10:00 window is
  * defined in, so we keep it explicitly rather than re-deriving it later.
  */
-function normaliseTimes(times, offsetSeconds) {
+export function normaliseTimes(times, offsetSeconds) {
   return times.map((t) => {
     const utcMs = Date.parse(`${t}Z`) - offsetSeconds * 1000;
     const [, hh, mm] = t.match(/T(\d{2}):(\d{2})/) || [];
@@ -229,9 +229,13 @@ export async function fetchSeaTempF({ days = 8 } = {}) {
   const byTime = new Map();
   times.forEach((t, i) => {
     const c = vals[i];
-    if (Number.isFinite(c)) byTime.set(t.iso, c * 9 / 5 + 32);
+    // The field is `time`, not `iso`. Keying on a field that does not exist
+    // put every reading under the single key `undefined`, so the map had size
+    // 1, the emptiness check passed, the wetsuit call still found a number,
+    // and the whole hourly series silently vanished.
+    if (Number.isFinite(c) && t.time) byTime.set(t.time, c * 9 / 5 + 32);
   });
-  if (!byTime.size) throw new Error('No SST available');
+  if (byTime.size < 2) throw new Error(`SST series unusable: ${byTime.size} keyed readings from ${times.length} timestamps`);
   // "Now" is the first reading at or after this moment, falling back to the
   // last one before it if the series starts in the future.
   const nowMs = Date.now();
