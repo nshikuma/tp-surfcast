@@ -258,3 +258,40 @@ test('utm: the beach falls inside the scene that claims to cover it', () => {
   assert.ok(p.eastingM > 399960 && p.eastingM < 399960 + 109800, `easting ${p.eastingM.toFixed(0)}`);
   assert.ok(p.northingM < 3700020 && p.northingM > 3700020 - 109800, `northing ${p.northingM.toFixed(0)}`);
 });
+
+/* -------------------------------------------------------------- sentinel -- */
+
+test('sentinel: the baseline shift is removed once, not twice', async () => {
+  const { toReflectance } = await import('../src/sources/sentinel.js');
+  // Clean deep water reads as a digital number of about 1 in near-infrared.
+  // When the catalogue says the shift has already been taken out, subtracting
+  // it again turns that into minus a tenth, which inverts the water index and
+  // reports the entire Pacific as dry land. It has done exactly that once.
+  const corrected = { properties: { datetime: '2026-09-13T18:35:00Z', 'earthsearch:boa_offset_applied': true } };
+  assert.ok(Math.abs(toReflectance(1, corrected) - 0.0001) < 1e-9);
+  assert.ok(Math.abs(toReflectance(2000, corrected) - 0.2) < 1e-9);
+
+  // A scene that still carries the shift has to have it taken out.
+  const raw = { properties: { datetime: '2026-09-13T18:35:00Z', 'earthsearch:boa_offset_applied': false } };
+  assert.ok(Math.abs(toReflectance(1001, raw) - 0.0001) < 1e-9);
+
+  // Before the baseline changed there was no shift at all.
+  const old = { properties: { datetime: '2019-06-01T18:35:00Z' } };
+  assert.ok(Math.abs(toReflectance(1, old) - 0.0001) < 1e-9);
+
+  // Nodata is not a reflectance of zero, it is an absence.
+  assert.equal(toReflectance(0, corrected), null);
+});
+
+test('sentinel: water and sand come out on the right sides of the index', async () => {
+  const { toReflectance } = await import('../src/sources/sentinel.js');
+  const scene = { properties: { datetime: '2026-09-13T18:35:00Z', 'earthsearch:boa_offset_applied': true } };
+  const ndwi = (greenDn, nirDn) => {
+    const g = toReflectance(greenDn, scene);
+    const n = toReflectance(nirDn, scene);
+    return (g - n) / (g + n);
+  };
+  assert.ok(ndwi(400, 1) > 0.5, 'clear water: green reflects a little, near-infrared almost nothing');
+  assert.ok(ndwi(2000, 2600) < 0, 'dry sand: near-infrared brighter than green');
+  assert.ok(ndwi(3000, 2800) > 0, 'foam is bright in both, and this is the case the surf test has to handle separately');
+});

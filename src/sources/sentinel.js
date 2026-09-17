@@ -44,16 +44,27 @@ export const TRANSECTS = {
   alongshoreFromM: -900,   // north of the lot, towards the rivermouth
   alongshoreToM: 700,      // south of the lot
   alongshoreStepM: 50,
-  landwardM: 200,          // how far up the beach to sample
-  seawardM: 600,           // far enough to clear any bar this beach makes
+  // Measured from the north lot, which sits back from the water: the first
+  // satellite read put the waterline about 250 m seaward of it. So the grid
+  // runs far enough out that its outer fifth is open water well beyond any
+  // bar - that stretch is the reference the surf zone is measured against.
+  landwardM: 100,          // how far up the beach to sample
+  seawardM: 1000,          // past the bar, into water that is never breaking
   crossStepM: 10,          // one pixel
 };
 
 /**
  * Sentinel-2 processing baseline 04.00 shifted the digital numbers by -1000 so
- * that negative reflectances survive. Scenes from before the switch are not
- * shifted, and the catalogue says which is which; getting this backwards moves
- * every index by a few hundredths, which is enough to move a waterline.
+ * that slightly negative reflectances would survive being stored unsigned.
+ *
+ * Getting this backwards is not a rounding error, it is a different picture.
+ * The first read of this beach subtracted the shift from scenes that had
+ * already had it removed, which pushed clean water from a reflectance of about
+ * zero to about minus a tenth - and since the water index is a ratio, that
+ * inverted its sign and the whole ocean came back classified as land. The
+ * catalogue states which scenes have been corrected already, in
+ * earthsearch:boa_offset_applied; true means the work is done and nothing more
+ * should be subtracted.
  */
 const BOA_OFFSET_FROM = Date.parse('2022-01-25T00:00:00Z');
 
@@ -132,9 +143,9 @@ export async function readBand(scene, band, grid, { fetchImpl = fetch } = {}) {
 export function toReflectance(dn, scene) {
   if (!(dn > 0)) return null;                        // 0 is nodata in these scenes
   const applied = scene.properties?.['earthsearch:boa_offset_applied'];
-  const shifted = applied === true
-    || (applied === undefined && Date.parse(scene.properties?.datetime || 0) >= BOA_OFFSET_FROM);
-  return (dn - (shifted ? 1000 : 0)) / 10000;
+  const stillShifted = applied === false
+    || (applied == null && Date.parse(scene.properties?.datetime || 0) >= BOA_OFFSET_FROM);
+  return (dn - (stillShifted ? 1000 : 0)) / 10000;
 }
 
 /** Nearest-neighbour lookup of a ground point in a window that was already read. */
@@ -235,10 +246,21 @@ export async function analyseScene(scene, { fetchImpl = fetch, gridOpts = {} } =
     return v.length ? v[Math.floor(v.length / 2)] : null;
   };
 
+  // Clean deep water is nearly black in near-infrared - that is the whole basis
+  // of reading this picture. If the outer end of the transects is not dark, the
+  // scene is cloud, or surf all the way out, or the numbers have been scaled
+  // wrongly, and every reading below is meaningless. Say so rather than publish
+  // a confident waterline taken from a picture of a cloud.
+  const outerNir = lines.map((l) => l.outerWaterNir).filter(Number.isFinite);
+  const outerMedian = median(outerNir);
+  const looksLikeWater = outerMedian != null && outerMedian < 0.05;
+
   return {
     sceneId: scene.id,
     time: scene.properties?.datetime,
     cloudPct: scene.properties?.['eo:cloud_cover'] ?? null,
+    looksLikeWater,
+    outerWaterNir: outerMedian,
     bytesRead: green.win.bytesRead + nir.win.bytesRead,
     tilesRead: green.win.tilesRead + nir.win.tilesRead,
     transects: lines,
