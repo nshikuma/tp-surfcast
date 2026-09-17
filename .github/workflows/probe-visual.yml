@@ -1,0 +1,21 @@
+name: probe-visual
+
+# Reconnaissance, run by hand. Looks for a public still image of this beach on
+# a predictable URL (for time-averaged sandbar imaging) and for published field
+# data from Torrey Pines. Prints reachability only; stores nothing.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/probe-visual.js
