@@ -60,19 +60,54 @@ jobs:
 
       - name: Commit forecast data
         run: |
+          set -u
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          STAMP="$(date -u +'%Y-%m-%dT%H:%MZ')"
           git add docs/data
           if git diff --staged --quiet; then
             echo "No data changes to commit."
             exit 0
           fi
-          git commit -m "forecast: run $(date -u +'%Y-%m-%dT%H:%MZ') [skip ci]"
+          git commit -m "forecast: run ${STAMP} [skip ci]"
+
+          # Two runs can finish seconds apart - a push-triggered build and the
+          # three-hourly one - and then both try to push regenerated JSON. The
+          # old retry loop ran `git pull --rebase`, hit an unmergeable conflict
+          # in forecast.json, and left the tree mid-rebase, so every remaining
+          # attempt failed on "unmerged files" and a perfectly good forecast was
+          # thrown away.
+          #
+          # There is nothing to merge here: each run regenerates the whole
+          # forecast from the live sources, so the newer one is simply better.
+          # On a collision, keep this run's data, replay it on top of whatever
+          # arrived, and push that. Files the other run added and this one did
+          # not - its archive record - are left in place rather than deleted.
+          #
+          # The accumulating files (the satellite record, the shelf
+          # calibration, the beach state) lose the other run's increment this
+          # way. That is a scene or an observation, and the next run picks it
+          # up again, which is the cheaper of the two mistakes.
           for i in 1 2 3 4; do
-            if git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"; then
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "pushed on attempt $i"
               exit 0
             fi
-            echo "push attempt $i failed, retrying"; sleep $((2 ** i))
+            echo "push attempt $i lost a race, replaying this run's data on top"
+            git rebase --abort 2>/dev/null || true
+            git merge --abort 2>/dev/null || true
+            MINE="$(mktemp -d)"
+            cp -a docs/data/. "${MINE}/"
+            git fetch origin "${GITHUB_REF_NAME}"
+            git reset --hard "origin/${GITHUB_REF_NAME}"
+            cp -a "${MINE}/." docs/data/
+            git add docs/data
+            if git diff --staged --quiet; then
+              echo "The other run's data already matches this one. Nothing to push."
+              exit 0
+            fi
+            git commit -m "forecast: run ${STAMP} [skip ci]"
+            sleep $((2 ** i))
           done
           echo "::error::Could not push the forecast data after 4 attempts."
           exit 1
