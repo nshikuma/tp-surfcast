@@ -19,3 +19,5 @@ jobs:
         with:
           node-version: '22'
       - run: node scripts/probe-sentinel.js
+      - name: Draw the beach, to prove the reader is pointed at it
+        run: node scripts/probe-sentinel-image.js
