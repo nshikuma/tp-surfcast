@@ -1,0 +1,21 @@
+name: probe-ludka
+
+# Reconnaissance, run by hand. Lists the Torrey Pines sand-level survey archive
+# on Dryad and prints the head of its text files, so the distilling step can be
+# written against the real columns. Stores nothing.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/probe-ludka.js
