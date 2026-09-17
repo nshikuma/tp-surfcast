@@ -2,6 +2,210 @@
  "version": 1,
  "scenes": [
   {
+   "sceneId": "S2C_11SMS_20260911_0_L2A",
+   "time": "2026-09-11T18:35:15.199000Z",
+   "usable": true,
+   "cloudPct": 26.424059,
+   "tideFt": 0.635,
+   "transectsUsed": 31,
+   "transectsDropped": 2,
+   "waterlineM": 230,
+   "barM": 290,
+   "barOffsetM": 40,
+   "surfWidthM": 100,
+   "barSpreadM": 33.2,
+   "rhythmic": true,
+   "outerWaterNir": 0.0019,
+   "transects": [
+    {
+     "alongshoreM": -900,
+     "waterlineM": 320,
+     "barM": 360,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -850,
+     "waterlineM": 320,
+     "barM": 320,
+     "surfWidthM": 60
+    },
+    {
+     "alongshoreM": -800,
+     "waterlineM": 310,
+     "barM": 390,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -750,
+     "waterlineM": 300,
+     "barM": 330,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": -700,
+     "waterlineM": 310,
+     "barM": 370,
+     "surfWidthM": 70
+    },
+    {
+     "alongshoreM": -650,
+     "waterlineM": 290,
+     "barM": 360,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -600,
+     "waterlineM": 290,
+     "barM": 340,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -550,
+     "waterlineM": 280,
+     "barM": 330,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": -500,
+     "waterlineM": 280,
+     "barM": 320,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": -450,
+     "waterlineM": 270,
+     "barM": 360,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -400,
+     "waterlineM": 260,
+     "barM": 370,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": -350,
+     "waterlineM": 250,
+     "barM": 290,
+     "surfWidthM": 70
+    },
+    {
+     "alongshoreM": -300,
+     "waterlineM": 240,
+     "barM": 240,
+     "surfWidthM": 50
+    },
+    {
+     "alongshoreM": -250,
+     "waterlineM": 240,
+     "barM": 240,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -200,
+     "waterlineM": 230,
+     "barM": 230,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -150,
+     "waterlineM": 230,
+     "barM": 300,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -100,
+     "waterlineM": 180,
+     "barM": 180,
+     "surfWidthM": 160
+    },
+    {
+     "alongshoreM": 50,
+     "waterlineM": 190,
+     "barM": 190,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": 100,
+     "waterlineM": 190,
+     "barM": 190,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": 150,
+     "waterlineM": 200,
+     "barM": 290,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": 200,
+     "waterlineM": 200,
+     "barM": 290,
+     "surfWidthM": 120
+    },
+    {
+     "alongshoreM": 250,
+     "waterlineM": 190,
+     "barM": 270,
+     "surfWidthM": 140
+    },
+    {
+     "alongshoreM": 300,
+     "waterlineM": 200,
+     "barM": 270,
+     "surfWidthM": 140
+    },
+    {
+     "alongshoreM": 350,
+     "waterlineM": 200,
+     "barM": 200,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": 400,
+     "waterlineM": 190,
+     "barM": 310,
+     "surfWidthM": 140
+    },
+    {
+     "alongshoreM": 450,
+     "waterlineM": 200,
+     "barM": 310,
+     "surfWidthM": 120
+    },
+    {
+     "alongshoreM": 500,
+     "waterlineM": 180,
+     "barM": 180,
+     "surfWidthM": 60
+    },
+    {
+     "alongshoreM": 550,
+     "waterlineM": 190,
+     "barM": 190,
+     "surfWidthM": 70
+    },
+    {
+     "alongshoreM": 600,
+     "waterlineM": 190,
+     "barM": 220,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": 650,
+     "waterlineM": 200,
+     "barM": 220,
+     "surfWidthM": 40
+    },
+    {
+     "alongshoreM": 700,
+     "waterlineM": 190,
+     "barM": 240,
+     "surfWidthM": 110
+    }
+   ]
+  },
+  {
    "sceneId": "S2A_11SMS_20260913_0_L2A",
    "time": "2026-09-13T18:35:31.010000Z",
    "usable": true,
@@ -393,5 +597,5 @@
    "reason": "the outer transects are not dark in near-infrared, so this is not open water - cloud, haze, or a bad scene"
   }
  ],
- "updatedAt": "2026-09-17T04:16:17.642Z"
+ "updatedAt": "2026-09-17T04:47:23.647Z"
 }
