@@ -2,6 +2,216 @@
  "version": 1,
  "scenes": [
   {
+   "sceneId": "S2C_11SMS_20260904_0_L2A",
+   "time": "2026-09-04T18:45:11.663000Z",
+   "usable": true,
+   "cloudPct": 0.964695,
+   "tideFt": 0.635,
+   "transectsUsed": 32,
+   "transectsDropped": 1,
+   "waterlineM": 235,
+   "barM": 310,
+   "barOffsetM": 70,
+   "surfWidthM": 100,
+   "barSpreadM": 18.2,
+   "rhythmic": false,
+   "outerWaterNir": 0.0125,
+   "transects": [
+    {
+     "alongshoreM": -900,
+     "waterlineM": 340,
+     "barM": 410,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": -850,
+     "waterlineM": 340,
+     "barM": 390,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": -800,
+     "waterlineM": 330,
+     "barM": 420,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -750,
+     "waterlineM": 320,
+     "barM": 350,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -700,
+     "waterlineM": 320,
+     "barM": 400,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -650,
+     "waterlineM": 310,
+     "barM": 400,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -600,
+     "waterlineM": 310,
+     "barM": 400,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -550,
+     "waterlineM": 290,
+     "barM": 390,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -500,
+     "waterlineM": 290,
+     "barM": 340,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -450,
+     "waterlineM": 280,
+     "barM": 370,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -400,
+     "waterlineM": 280,
+     "barM": 380,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -350,
+     "waterlineM": 270,
+     "barM": 310,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -300,
+     "waterlineM": 260,
+     "barM": 350,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -250,
+     "waterlineM": 250,
+     "barM": 340,
+     "surfWidthM": 120
+    },
+    {
+     "alongshoreM": -200,
+     "waterlineM": 240,
+     "barM": 340,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -150,
+     "waterlineM": 240,
+     "barM": 330,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -100,
+     "waterlineM": 220,
+     "barM": 310,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": 0,
+     "waterlineM": 200,
+     "barM": 300,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": 50,
+     "waterlineM": 220,
+     "barM": 290,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": 100,
+     "waterlineM": 230,
+     "barM": 300,
+     "surfWidthM": 160
+    },
+    {
+     "alongshoreM": 150,
+     "waterlineM": 220,
+     "barM": 220,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": 200,
+     "waterlineM": 220,
+     "barM": 220,
+     "surfWidthM": 60
+    },
+    {
+     "alongshoreM": 250,
+     "waterlineM": 210,
+     "barM": 210,
+     "surfWidthM": 60
+    },
+    {
+     "alongshoreM": 300,
+     "waterlineM": 210,
+     "barM": 240,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": 350,
+     "waterlineM": 210,
+     "barM": 220,
+     "surfWidthM": 40
+    },
+    {
+     "alongshoreM": 400,
+     "waterlineM": 210,
+     "barM": 280,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": 450,
+     "waterlineM": 220,
+     "barM": 270,
+     "surfWidthM": 60
+    },
+    {
+     "alongshoreM": 500,
+     "waterlineM": 220,
+     "barM": 250,
+     "surfWidthM": 60
+    },
+    {
+     "alongshoreM": 550,
+     "waterlineM": 210,
+     "barM": 210,
+     "surfWidthM": 70
+    },
+    {
+     "alongshoreM": 600,
+     "waterlineM": 200,
+     "barM": 200,
+     "surfWidthM": 50
+    },
+    {
+     "alongshoreM": 650,
+     "waterlineM": 200,
+     "barM": 240,
+     "surfWidthM": 70
+    },
+    {
+     "alongshoreM": 700,
+     "waterlineM": 200,
+     "barM": 200,
+     "surfWidthM": 60
+    }
+   ]
+  },
+  {
    "sceneId": "S2C_11SMS_20260911_0_L2A",
    "time": "2026-09-11T18:35:15.199000Z",
    "usable": true,
@@ -595,7 +805,12 @@
    "sceneId": "S2B_11SMS_20260916_0_L2A",
    "time": "2026-09-16T18:35:15.646000Z",
    "reason": "the outer transects are not dark in near-infrared, so this is not open water - cloud, haze, or a bad scene"
+  },
+  {
+   "sceneId": "S2B_11SMS_20260909_0_L2A",
+   "time": "2026-09-09T18:45:10.902000Z",
+   "reason": "the outer transects are not dark in near-infrared, so this is not open water - cloud, haze, or a bad scene"
   }
  ],
- "updatedAt": "2026-09-17T04:47:23.647Z"
+ "updatedAt": "2026-09-17T11:35:02.774Z"
 }
