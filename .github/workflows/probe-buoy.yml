@@ -1,0 +1,22 @@
+name: probe-buoy
+
+# Reconnaissance for a second CDIP station, run by hand. The environment this
+# project is authored in cannot reach CDIP; a runner can. This prints what
+# 153p1 actually publishes so the comparison against 100p1 is written against
+# reality rather than against assumptions about it.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/probe-buoy.js
