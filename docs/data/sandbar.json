@@ -798,6 +798,180 @@
      "surfWidthM": 70
     }
    ]
+  },
+  {
+   "sceneId": "S2B_11SMS_20260919_0_L2A",
+   "time": "2026-09-19T18:45:12.658000Z",
+   "usable": true,
+   "cloudPct": 20.753737,
+   "tideFt": 3.637295353333333,
+   "transectsUsed": 26,
+   "transectsDropped": 7,
+   "waterlineM": 220,
+   "barM": 290,
+   "barOffsetM": 65,
+   "surfWidthM": 90,
+   "barSpreadM": 19.2,
+   "rhythmic": false,
+   "outerWaterNir": 0.0104,
+   "transects": [
+    {
+     "alongshoreM": -600,
+     "waterlineM": 300,
+     "barM": 300,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": -550,
+     "waterlineM": 300,
+     "barM": 360,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": -500,
+     "waterlineM": 300,
+     "barM": 370,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": -450,
+     "waterlineM": 280,
+     "barM": 280,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": -400,
+     "waterlineM": 280,
+     "barM": 310,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -350,
+     "waterlineM": 270,
+     "barM": 300,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -300,
+     "waterlineM": 260,
+     "barM": 340,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": -250,
+     "waterlineM": 250,
+     "barM": 340,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": -200,
+     "waterlineM": 240,
+     "barM": 320,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": -150,
+     "waterlineM": 230,
+     "barM": 320,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -100,
+     "waterlineM": 210,
+     "barM": 210,
+     "surfWidthM": 120
+    },
+    {
+     "alongshoreM": 0,
+     "waterlineM": 200,
+     "barM": 290,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": 50,
+     "waterlineM": 220,
+     "barM": 280,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": 100,
+     "waterlineM": 220,
+     "barM": 270,
+     "surfWidthM": 70
+    },
+    {
+     "alongshoreM": 150,
+     "waterlineM": 210,
+     "barM": 250,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": 200,
+     "waterlineM": 220,
+     "barM": 280,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": 250,
+     "waterlineM": 220,
+     "barM": 290,
+     "surfWidthM": 80
+    },
+    {
+     "alongshoreM": 300,
+     "waterlineM": 220,
+     "barM": 300,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": 350,
+     "waterlineM": 220,
+     "barM": 290,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": 400,
+     "waterlineM": 210,
+     "barM": 290,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": 450,
+     "waterlineM": 210,
+     "barM": 280,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": 500,
+     "waterlineM": 210,
+     "barM": 290,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": 550,
+     "waterlineM": 210,
+     "barM": 260,
+     "surfWidthM": 90
+    },
+    {
+     "alongshoreM": 600,
+     "waterlineM": 210,
+     "barM": 240,
+     "surfWidthM": 40
+    },
+    {
+     "alongshoreM": 650,
+     "waterlineM": 210,
+     "barM": 300,
+     "surfWidthM": 100
+    },
+    {
+     "alongshoreM": 700,
+     "waterlineM": 200,
+     "barM": 200,
+     "surfWidthM": 100
+    }
+   ]
   }
  ],
  "skipped": [
@@ -812,5 +986,5 @@
    "reason": "the outer transects are not dark in near-infrared, so this is not open water - cloud, haze, or a bad scene"
   }
  ],
- "updatedAt": "2026-09-17T11:35:02.774Z"
+ "updatedAt": "2026-09-20T04:48:55.735Z"
 }
