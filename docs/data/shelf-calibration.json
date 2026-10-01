@@ -1,8 +1,8 @@
 {
  "version": 1,
- "observations": 67,
+ "observations": 68,
  "firstAt": "2026-09-17T02:30:00.000Z",
- "lastAt": "2026-10-01T12:30:00.000Z",
+ "lastAt": "2026-10-01T19:30:00.000Z",
  "bins": {
   "long|S": {
    "periodBand": "long",
@@ -19,14 +19,14 @@
   "ground|SSW": {
    "periodBand": "ground",
    "dirBand": "SSW",
-   "n": 104,
-   "weight": 58.15547514499999,
-   "sumResidual": 55.21924165874648,
-   "sumResidualSq": 55.28809773176866,
-   "sumMeasured": 45.15778850977411,
-   "sumPredicted": 47.43525134859901,
-   "sumDirError": 45.10620797597075,
-   "dirWeight": 58.15547514499999
+   "n": 107,
+   "weight": 60.290638044999994,
+   "sumResidual": 57.02330962764927,
+   "sumResidualSq": 56.84087226910711,
+   "sumMeasured": 46.75324391179078,
+   "sumPredicted": 49.32060788049327,
+   "sumDirError": 48.419447830683914,
+   "dirWeight": 60.290638044999994
   },
   "ground|S": {
    "periodBand": "ground",
@@ -79,38 +79,38 @@
   "windswell|W": {
    "periodBand": "windswell",
    "dirBand": "W",
-   "n": 130,
-   "weight": 46.13310846500003,
-   "sumResidual": 33.469944711914465,
-   "sumResidualSq": 26.29388321549625,
-   "sumMeasured": 30.657298490407697,
-   "sumPredicted": 42.24880725879829,
-   "sumDirError": 35.44423080150307,
-   "dirWeight": 46.13310846500003
+   "n": 134,
+   "weight": 46.89685595500003,
+   "sumResidual": 34.21296709432243,
+   "sumResidualSq": 27.022570485781646,
+   "sumMeasured": 31.3378282144929,
+   "sumPredicted": 42.94844475393723,
+   "sumDirError": 36.635205479737785,
+   "dirWeight": 46.89685595500003
   },
   "chop|W": {
    "periodBand": "chop",
    "dirBand": "W",
-   "n": 575,
-   "weight": 66.90421038400002,
-   "sumResidual": 60.5104232030169,
-   "sumResidualSq": 56.52236428203329,
-   "sumMeasured": 59.32497062977577,
-   "sumPredicted": 65.60752690997556,
-   "sumDirError": -29.203179546349244,
-   "dirWeight": 66.90421038400002
+   "n": 580,
+   "weight": 67.33255509400003,
+   "sumResidual": 60.94792017289811,
+   "sumResidualSq": 56.98063929735884,
+   "sumMeasured": 59.74222958587658,
+   "sumPredicted": 66.01583804505415,
+   "sumDirError": -27.10618958040109,
+   "dirWeight": 67.33255509400003
   },
   "chop|WNW": {
    "periodBand": "chop",
    "dirBand": "WNW",
-   "n": 271,
-   "weight": 62.483877841000044,
-   "sumResidual": 58.29051973143538,
-   "sumResidualSq": 56.30777250720866,
-   "sumMeasured": 55.64780653106517,
-   "sumPredicted": 59.629685092166255,
-   "sumDirError": -444.0667324719508,
-   "dirWeight": 62.483877841000044
+   "n": 272,
+   "weight": 62.57756379600004,
+   "sumResidual": 58.397303377416875,
+   "sumResidualSq": 56.42948495651978,
+   "sumMeasured": 55.74954937847911,
+   "sumPredicted": 59.71894853449193,
+   "sumDirError": -444.5522991474191,
+   "dirWeight": 62.57756379600004
   },
   "chop|SW": {
    "periodBand": "chop",
@@ -127,14 +127,14 @@
   "long|SSW": {
    "periodBand": "long",
    "dirBand": "SSW",
-   "n": 114,
-   "weight": 39.28107376899999,
-   "sumResidual": 43.764600467933256,
-   "sumResidualSq": 53.306909007002275,
-   "sumMeasured": 38.63091390573462,
-   "sumPredicted": 34.8051797929918,
-   "sumDirError": -35.02825863565846,
-   "dirWeight": 39.28107376899999
+   "n": 116,
+   "weight": 39.62024269899999,
+   "sumResidual": 44.124638035021135,
+   "sumResidualSq": 53.68925476090168,
+   "sumMeasured": 38.95455732527398,
+   "sumPredicted": 35.109569689124115,
+   "sumDirError": -37.208455038919325,
+   "dirWeight": 39.62024269899999
   },
   "windswell|SSW": {
    "periodBand": "windswell",
@@ -175,14 +175,14 @@
   "windswell|WNW": {
    "periodBand": "windswell",
    "dirBand": "WNW",
-   "n": 108,
-   "weight": 50.67003143400001,
-   "sumResidual": 41.14823906494127,
-   "sumResidualSq": 35.1002867246405,
-   "sumMeasured": 37.486451071438594,
-   "sumPredicted": 46.16682072086724,
-   "sumDirError": -315.54414236929523,
-   "dirWeight": 50.67003143400001
+   "n": 109,
+   "weight": 51.024262074000006,
+   "sumResidual": 41.43525072022181,
+   "sumResidualSq": 35.332834903609076,
+   "sumMeasured": 37.750847213162736,
+   "sumPredicted": 46.49313922666077,
+   "sumDirError": -318.0659211875822,
+   "dirWeight": 51.024262074000006
   },
   "long|SW": {
    "periodBand": "long",
@@ -223,26 +223,26 @@
   "mid|SW": {
    "periodBand": "mid",
    "dirBand": "SW",
-   "n": 27,
-   "weight": 19.903257444999998,
-   "sumResidual": 15.89070046870956,
-   "sumResidualSq": 13.58083798285001,
-   "sumMeasured": 14.406154924710592,
-   "sumPredicted": 18.09390081504913,
-   "sumDirError": 18.494793186369222,
-   "dirWeight": 19.903257444999998
+   "n": 29,
+   "weight": 21.005822894999998,
+   "sumResidual": 16.784341367965222,
+   "sumResidualSq": 14.353280930295531,
+   "sumMeasured": 15.230198456717245,
+   "sumPredicted": 19.108821563325534,
+   "sumDirError": 28.271057607996717,
+   "dirWeight": 21.005822894999998
   },
   "mid|W": {
    "periodBand": "mid",
    "dirBand": "W",
-   "n": 19,
-   "weight": 14.536489470000001,
-   "sumResidual": 9.65197850507445,
-   "sumResidualSq": 7.05469199826886,
-   "sumMeasured": 9.22348105100863,
-   "sumPredicted": 13.89696334526044,
-   "sumDirError": -56.86136625314287,
-   "dirWeight": 14.536489470000001
+   "n": 21,
+   "weight": 15.529879600000001,
+   "sumResidual": 10.327495686518706,
+   "sumResidualSq": 7.515091903596113,
+   "sumMeasured": 9.854693719440327,
+   "sumPredicted": 14.825155455615342,
+   "sumDirError": -57.7117213060529,
+   "dirWeight": 15.529879600000001
   },
   "mid|WNW": {
    "periodBand": "mid",
