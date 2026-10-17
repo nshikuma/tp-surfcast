@@ -1,8 +1,8 @@
 {
  "version": 1,
- "observations": 118,
+ "observations": 119,
  "firstAt": "2026-09-17T02:30:00.000Z",
- "lastAt": "2026-10-17T03:30:00.000Z",
+ "lastAt": "2026-10-17T10:00:00.000Z",
  "bins": {
   "long|S": {
    "periodBand": "long",
@@ -19,26 +19,26 @@
   "ground|SSW": {
    "periodBand": "ground",
    "dirBand": "SSW",
-   "n": 230,
-   "weight": 236.31438541499992,
-   "sumResidual": 216.4721078143518,
-   "sumResidualSq": 210.27758087695221,
-   "sumMeasured": 176.52919636396257,
-   "sumPredicted": 192.3579041158551,
-   "sumDirError": 305.4561882071204,
-   "dirWeight": 236.31438541499992
+   "n": 232,
+   "weight": 239.56563231499993,
+   "sumResidual": 218.39601811231682,
+   "sumResidualSq": 211.4808535011068,
+   "sumMeasured": 177.9704891502958,
+   "sumPredicted": 194.7804757242551,
+   "sumDirError": 332.1621454025075,
+   "dirWeight": 239.56563231499993
   },
   "ground|S": {
    "periodBand": "ground",
    "dirBand": "S",
-   "n": 84,
-   "weight": 43.889068185999996,
-   "sumResidual": 44.23068452238119,
-   "sumResidualSq": 51.76489142051509,
-   "sumMeasured": 26.676400590774985,
-   "sumPredicted": 27.487356289947176,
-   "sumDirError": 231.27574236179603,
-   "dirWeight": 43.889068185999996
+   "n": 85,
+   "weight": 44.588276326,
+   "sumResidual": 45.22732031844362,
+   "sumResidualSq": 53.185474009832475,
+   "sumMeasured": 27.233335637203332,
+   "sumPredicted": 27.878084296559518,
+   "sumDirError": 234.6997755634222,
+   "dirWeight": 44.588276326
   },
   "mid|S": {
    "periodBand": "mid",
@@ -55,26 +55,26 @@
   "mid|SSW": {
    "periodBand": "mid",
    "dirBand": "SSW",
-   "n": 188,
-   "weight": 149.66303202499995,
-   "sumResidual": 127.26258366904983,
-   "sumResidualSq": 116.58456575016132,
-   "sumMeasured": 99.7878905040684,
-   "sumPredicted": 117.8029058355131,
-   "sumDirError": 606.9633072890115,
-   "dirWeight": 149.66303202499995
+   "n": 190,
+   "weight": 150.17224715499995,
+   "sumResidual": 127.8018432097457,
+   "sumResidualSq": 117.15852299350905,
+   "sumMeasured": 100.24865199142202,
+   "sumPredicted": 118.23850884319532,
+   "sumDirError": 617.320892654496,
+   "dirWeight": 150.17224715499995
   },
   "windswell|SW": {
    "periodBand": "windswell",
    "dirBand": "SW",
-   "n": 99,
-   "weight": 31.605818693999993,
-   "sumResidual": 25.66701635842417,
-   "sumResidualSq": 22.16276020322081,
-   "sumMeasured": 23.041122702827877,
-   "sumPredicted": 28.350118014346506,
-   "sumDirError": 168.83921913069952,
-   "dirWeight": 31.605818693999993
+   "n": 100,
+   "weight": 31.66706775999999,
+   "sumResidual": 25.716646944527128,
+   "sumResidualSq": 22.20297624630175,
+   "sumMeasured": 23.086497126838957,
+   "sumPredicted": 28.406114554165747,
+   "sumDirError": 170.0140014866036,
+   "dirWeight": 31.66706775999999
   },
   "windswell|W": {
    "periodBand": "windswell",
@@ -127,14 +127,14 @@
   "long|SSW": {
    "periodBand": "long",
    "dirBand": "SSW",
-   "n": 228,
-   "weight": 162.47165385100007,
-   "sumResidual": 160.94866325772503,
-   "sumResidualSq": 178.53224935509954,
-   "sumMeasured": 137.66605026143475,
-   "sumPredicted": 138.14538236471293,
-   "sumDirError": -341.47468041255695,
-   "dirWeight": 162.47165385100007
+   "n": 232,
+   "weight": 166.69115389100008,
+   "sumResidual": 163.4843747555256,
+   "sumResidualSq": 180.1367549930252,
+   "sumMeasured": 139.7412237443976,
+   "sumPredicted": 141.59704147217067,
+   "sumDirError": -335.50203357170494,
+   "dirWeight": 166.69115389100008
   },
   "windswell|SSW": {
    "periodBand": "windswell",
@@ -223,14 +223,14 @@
   "mid|SW": {
    "periodBand": "mid",
    "dirBand": "SW",
-   "n": 90,
-   "weight": 55.78004773100002,
-   "sumResidual": 41.91338021229739,
-   "sumResidualSq": 33.9668950632186,
-   "sumMeasured": 38.02886705918339,
-   "sumPredicted": 50.55719754100603,
-   "sumDirError": 178.74334336281618,
-   "dirWeight": 55.78004773100002
+   "n": 92,
+   "weight": 56.41361534100002,
+   "sumResidual": 42.41457836150162,
+   "sumResidualSq": 34.38206355440277,
+   "sumMeasured": 38.47600725653906,
+   "sumPredicted": 51.121953617228954,
+   "sumDirError": 182.73647376237207,
+   "dirWeight": 56.41361534100002
   },
   "mid|W": {
    "periodBand": "mid",
