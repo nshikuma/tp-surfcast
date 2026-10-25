@@ -1,340 +1,184 @@
 {
- "generatedAt": "2026-10-24T23:07:39.172Z",
+ "generatedAt": "2026-10-25T04:32:27.921Z",
  "synthetic": false,
- "errors": {},
+ "errors": {
+  "buoy": "HTTP 403 for cdip:dds",
+  "spectrum": "HTTP 403 for cdip:dds",
+  "transect": "MOP transect empty: {\"D0583\":\"HTTP 403 for mop:dds:D0583\",\"_refused\":\"CDIP refused with 403; backing off for this run.\",\"D0585\":\"skipped after a refusal earlier in this run\",\"D0587\":\"skipped after a refusal earlier in this run\",\"D0589\":\"skipped after a refusal earlier in this run\",\"D0590\":\"skipped after a refusal earlier in this run\",\"D0591\":\"skipped after a refusal earlier in this run\",\"D0593\":\"skipped after a refusal earlier in this run\",\"D0595\":\"skipped after a refusal earlier in this run\",\"D0597\":\"skipped after a refusal earlier in this run\",\"D0599\":\"skipped after a refusal earlier in this run\",\"D0601\":\"skipped after a refusal earlier in this run\"}",
+  "buoy:cdip-justdar": "HTTP 403 for cdip:justdar",
+  "buoyFallback": "used ndbc",
+  "nearBuoy": "HTTP 403 for cdip:dds",
+  "nearSpectrum": "HTTP 403 for cdip:dds"
+ },
  "trace": [
   {
    "label": "cdip:dds",
    "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/100p1_rt.nc.dds",
-   "status": 200,
-   "ms": 416,
-   "bytes": 4796,
+   "status": 403,
+   "ms": 405,
+   "bytes": 608,
    "attempt": 0
   },
   {
    "label": "cdip:dds",
    "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/100p1_rt.nc.dds",
-   "status": 200,
-   "ms": 461,
-   "bytes": 4796,
+   "error": "HTTP 403 for cdip:dds",
+   "ms": 405,
    "attempt": 0
   },
   {
-   "label": "cdip:params",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/100p1_rt.nc.ascii?waveTime[8499:1:8642],waveHs[8499:1:8642],waveTp[8499:1:8642],waveDp[8499:1:8642],waveTa[8499:1:8642],waveFlagPrimary[8499:1:8642]",
+   "label": "cdip:dds",
+   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/100p1_rt.nc.dds",
+   "status": 403,
+   "ms": 364,
+   "bytes": 608,
+   "attempt": 0
+  },
+  {
+   "label": "cdip:dds",
+   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/100p1_rt.nc.dds",
+   "error": "HTTP 403 for cdip:dds",
+   "ms": 364,
+   "attempt": 0
+  },
+  {
+   "label": "coops:hilo",
+   "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9410230&time_zone=gmt&units=english&format=json&application=tp-surfcast2&product=predictions&datum=MLLW&interval=hilo&begin_date=20261022&end_date=20261109",
    "status": 200,
-   "ms": 69,
-   "bytes": 7908,
+   "ms": 452,
+   "bytes": 3723,
    "attempt": 0
   },
   {
    "label": "coops:wtemp",
    "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9410230&time_zone=gmt&units=english&format=json&application=tp-surfcast2&product=water_temperature&date=latest",
    "status": 200,
-   "ms": 507,
+   "ms": 463,
    "bytes": 142,
    "attempt": 0
   },
   {
-   "label": "coops:hilo",
-   "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9410230&time_zone=gmt&units=english&format=json&application=tp-surfcast2&product=predictions&datum=MLLW&interval=hilo&begin_date=20261021&end_date=20261108",
-   "status": 200,
-   "ms": 525,
-   "bytes": 3722,
-   "attempt": 0
-  },
-  {
-   "label": "openmeteo:weather",
-   "url": "https://api.open-meteo.com/v1/forecast?latitude=32.934&longitude=-117.2585&hourly=temperature_2m%2Cprecipitation%2Ccloud_cover%2Cwind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&daily=sunrise%2Csunset%2Cprecipitation_sum&models=ecmwf_ifs025%2Cgfs_seamless&timezone=America%2FLos_Angeles&forecast_days=15&past_days=4&wind_speed_unit=kn&temperature_unit=fahrenheit&precipitation_unit=inch",
-   "status": 200,
-   "ms": 540,
-   "bytes": 35921,
-   "attempt": 0
-  },
-  {
    "label": "coops:curve",
-   "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9410230&time_zone=gmt&units=english&format=json&application=tp-surfcast2&product=predictions&datum=MLLW&interval=h&begin_date=20261021&end_date=20261108",
+   "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9410230&time_zone=gmt&units=english&format=json&application=tp-surfcast2&product=predictions&datum=MLLW&interval=h&begin_date=20261022&end_date=20261109",
    "status": 200,
-   "ms": 548,
-   "bytes": 17320,
-   "attempt": 0
-  },
-  {
-   "label": "cdip:sst",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/100p1_rt.nc.ascii?sstSeaSurfaceTemperature[8642:1:8642]",
-   "status": 200,
-   "ms": 71,
-   "bytes": 170,
-   "attempt": 0
-  },
-  {
-   "label": "cdip:spectrum",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/100p1_rt.nc.ascii?waveTime[8642:1:8642],waveFrequency[0:1:63],waveBandwidth[0:1:63],waveEnergyDensity[8642:1:8642][0:1:63],waveMeanDirection[8642:1:8642][0:1:63]",
-   "status": 200,
-   "ms": 243,
-   "bytes": 4011,
+   "ms": 497,
+   "bytes": 17319,
    "attempt": 0
   },
   {
    "label": "mop:dds:D0583",
    "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0583_forecast.nc.dds",
-   "status": 200,
-   "ms": 647,
-   "bytes": 2478,
+   "status": 403,
+   "ms": 522,
+   "bytes": 608,
+   "attempt": 0
+  },
+  {
+   "label": "mop:dds:D0583",
+   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0583_forecast.nc.dds",
+   "error": "HTTP 403 for mop:dds:D0583",
+   "ms": 522,
    "attempt": 0
   },
   {
    "label": "openmeteo:trains",
    "url": "https://marine-api.open-meteo.com/v1/marine?latitude=32.934&longitude=-117.2585&hourly=swell_wave_height%2Cswell_wave_direction%2Cswell_wave_period%2Csecondary_swell_wave_height%2Csecondary_swell_wave_direction%2Csecondary_swell_wave_period%2Ctertiary_swell_wave_height%2Ctertiary_swell_wave_direction%2Ctertiary_swell_wave_period%2Cwind_wave_height%2Cwind_wave_direction%2Cwind_wave_period&timezone=America%2FLos_Angeles&forecast_days=8&cell_selection=sea",
    "status": 200,
-   "ms": 883,
-   "bytes": 15722,
+   "ms": 812,
+   "bytes": 15726,
    "attempt": 0
   },
   {
    "label": "openmeteo:marine",
    "url": "https://marine-api.open-meteo.com/v1/marine?latitude=32.934&longitude=-117.2585&hourly=wave_height%2Cwave_direction%2Cwave_period%2Cwind_wave_height%2Cwind_wave_direction%2Cwind_wave_period%2Cswell_wave_height%2Cswell_wave_direction%2Cswell_wave_period&models=ecmwf_wam025%2Cncep_gfswave025%2Cmeteofrance_wave&timezone=America%2FLos_Angeles&forecast_days=15&past_days=2&cell_selection=sea",
    "status": 200,
-   "ms": 900,
-   "bytes": 60775,
+   "ms": 820,
+   "bytes": 60817,
    "attempt": 0
   },
   {
-   "label": "mop:D0583",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0583_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
+   "label": "openmeteo:weather",
+   "url": "https://api.open-meteo.com/v1/forecast?latitude=32.934&longitude=-117.2585&hourly=temperature_2m%2Cprecipitation%2Ccloud_cover%2Cwind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&daily=sunrise%2Csunset%2Cprecipitation_sum&models=ecmwf_ifs025%2Cgfs_seamless&timezone=America%2FLos_Angeles&forecast_days=15&past_days=4&wind_speed_unit=kn&temperature_unit=fahrenheit&precipitation_unit=inch",
    "status": 200,
-   "ms": 68,
-   "bytes": 3976,
+   "ms": 960,
+   "bytes": 35757,
    "attempt": 0
   },
   {
-   "label": "mop:dds:D0585",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0585_forecast.nc.dds",
-   "status": 200,
-   "ms": 74,
-   "bytes": 2478,
+   "label": "cdip:justdar",
+   "url": "https://cdip.ucsd.edu/data_access/justdar.cdip?100+pm",
+   "status": 403,
+   "ms": 352,
+   "bytes": 608,
    "attempt": 0
   },
   {
-   "label": "mop:D0585",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0585_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 67,
-   "bytes": 3995,
+   "label": "cdip:justdar",
+   "url": "https://cdip.ucsd.edu/data_access/justdar.cdip?100+pm",
+   "error": "HTTP 403 for cdip:justdar",
+   "ms": 352,
    "attempt": 0
   },
   {
-   "label": "mop:dds:D0587",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0587_forecast.nc.dds",
+   "label": "ndbc:txt",
+   "url": "https://www.ndbc.noaa.gov/data/realtime2/46225.txt",
    "status": 200,
-   "ms": 74,
-   "bytes": 2478,
+   "ms": 193,
+   "bytes": 202664,
    "attempt": 0
   },
   {
-   "label": "mop:D0587",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0587_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
+   "label": "ndbc:spec",
+   "url": "https://www.ndbc.noaa.gov/data/realtime2/46225.spec",
    "status": 200,
-   "ms": 73,
-   "bytes": 4017,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0589",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0589_forecast.nc.dds",
-   "status": 200,
-   "ms": 75,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0589",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0589_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 73,
-   "bytes": 4000,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0590",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0590_forecast.nc.dds",
-   "status": 200,
-   "ms": 75,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0590",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0590_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 76,
-   "bytes": 4003,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0591",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0591_forecast.nc.dds",
-   "status": 200,
-   "ms": 74,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0591",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0591_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 74,
-   "bytes": 4004,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0593",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0593_forecast.nc.dds",
-   "status": 200,
-   "ms": 73,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0593",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0593_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 74,
-   "bytes": 3979,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0595",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0595_forecast.nc.dds",
-   "status": 200,
-   "ms": 74,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0595",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0595_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 76,
-   "bytes": 3986,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0597",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0597_forecast.nc.dds",
-   "status": 200,
-   "ms": 74,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0597",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0597_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 75,
-   "bytes": 4007,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0599",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0599_forecast.nc.dds",
-   "status": 200,
-   "ms": 78,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0599",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0599_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 74,
-   "bytes": 3995,
-   "attempt": 0
-  },
-  {
-   "label": "mop:dds:D0601",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0601_forecast.nc.dds",
-   "status": 200,
-   "ms": 73,
-   "bytes": 2478,
-   "attempt": 0
-  },
-  {
-   "label": "mop:D0601",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0601_forecast.nc.ascii?metaWaterDepth,metaShoreNormal,waveTime[0:1:79],waveHs[0:1:79],waveTp[0:1:79],waveDp[0:1:79]",
-   "status": 200,
-   "ms": 75,
-   "bytes": 4010,
+   "ms": 16,
+   "bytes": 151761,
    "attempt": 0
   },
   {
    "label": "cdip:dds",
    "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/153p1_rt.nc.dds",
-   "status": 200,
-   "ms": 68,
-   "bytes": 4320,
-   "attempt": 0
-  },
-  {
-   "label": "cdip:params",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/153p1_rt.nc.ascii?waveTime[20908:1:21003],waveHs[20908:1:21003],waveTp[20908:1:21003],waveDp[20908:1:21003],waveTa[20908:1:21003],waveFlagPrimary[20908:1:21003]",
-   "status": 200,
-   "ms": 198,
-   "bytes": 5308,
-   "attempt": 0
-  },
-  {
-   "label": "cdip:sst",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/153p1_rt.nc.ascii?sstSeaSurfaceTemperature[21003:1:21003]",
-   "status": 200,
-   "ms": 81,
-   "bytes": 170,
+   "status": 403,
+   "ms": 54,
+   "bytes": 608,
    "attempt": 0
   },
   {
    "label": "cdip:dds",
    "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/153p1_rt.nc.dds",
-   "status": 200,
-   "ms": 68,
-   "bytes": 4320,
+   "error": "HTTP 403 for cdip:dds",
+   "ms": 54,
    "attempt": 0
   },
   {
-   "label": "cdip:spectrum",
-   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/153p1_rt.nc.ascii?waveTime[21003:1:21003],waveFrequency[0:1:63],waveBandwidth[0:1:63],waveEnergyDensity[21003:1:21003][0:1:63],waveMeanDirection[21003:1:21003][0:1:63]",
-   "status": 200,
-   "ms": 65,
-   "bytes": 3980,
+   "label": "cdip:dds",
+   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/153p1_rt.nc.dds",
+   "status": 403,
+   "ms": 55,
+   "bytes": 608,
+   "attempt": 0
+  },
+  {
+   "label": "cdip:dds",
+   "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/153p1_rt.nc.dds",
+   "error": "HTTP 403 for cdip:dds",
+   "ms": 55,
    "attempt": 0
   },
   {
    "label": "openmeteo:sst",
    "url": "https://marine-api.open-meteo.com/v1/marine?latitude=32.934&longitude=-117.2585&hourly=sea_surface_temperature&timezone=UTC&forecast_days=8&past_days=1&cell_selection=sea",
-   "error": "fetch failed",
-   "ms": 10424,
-   "attempt": 0
-  },
-  {
-   "label": "openmeteo:sst",
-   "url": "https://marine-api.open-meteo.com/v1/marine?latitude=32.934&longitude=-117.2585&hourly=sea_surface_temperature&timezone=UTC&forecast_days=8&past_days=1&cell_selection=sea",
-   "error": "fetch failed",
-   "ms": 10493,
-   "attempt": 1
-  },
-  {
-   "label": "openmeteo:sst",
-   "url": "https://marine-api.open-meteo.com/v1/marine?latitude=32.934&longitude=-117.2585&hourly=sea_surface_temperature&timezone=UTC&forecast_days=8&past_days=1&cell_selection=sea",
    "status": 200,
-   "ms": 434,
+   "ms": 125,
    "bytes": 5468,
-   "attempt": 2
+   "attempt": 0
   }
  ],
  "biasByModel": {
   "ecmwf_wam025": {
-   "factor": 1.024876644736842,
+   "factor": 1.0162870762711864,
    "n": 46,
-   "raw": 1.024876644736842,
+   "raw": 1.0162870762711864,
    "note": "buoy ran 2% above this model over the last 24 h (46 matched hours)"
   },
   "ncep_gfswave025": {
@@ -343,10 +187,10 @@
    "note": "no overlapping hours"
   },
   "meteofrance_wave": {
-   "factor": 1.080983606557377,
+   "factor": 1.1305538648813145,
    "n": 46,
-   "raw": 1.080983606557377,
-   "note": "buoy ran 8% above this model over the last 24 h (46 matched hours)"
+   "raw": 1.1305538648813145,
+   "note": "buoy ran 13% above this model over the last 24 h (46 matched hours)"
   }
  },
  "modelHourCounts": {
@@ -355,13 +199,13 @@
   "meteofrance_wave": 281
  },
  "counts": {
-  "buoyRecords": 144,
-  "spectrumBands": 62,
+  "buoyRecords": 2154,
+  "spectrumBands": 0,
   "tideSeries": 456,
   "hourly": 408,
   "days": 14,
   "archives": 160,
-  "mopLines": 11,
-  "mopFrames": 81
+  "mopLines": 0,
+  "mopFrames": 0
  }
 }
