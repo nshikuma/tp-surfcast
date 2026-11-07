@@ -1,8 +1,8 @@
 {
  "version": 1,
- "observations": 190,
+ "observations": 191,
  "firstAt": "2026-09-17T02:30:00.000Z",
- "lastAt": "2026-11-07T12:00:00.000Z",
+ "lastAt": "2026-11-07T18:30:00.000Z",
  "bins": {
   "long|S": {
    "periodBand": "long",
@@ -91,26 +91,26 @@
   "chop|W": {
    "periodBand": "chop",
    "dirBand": "W",
-   "n": 1011,
-   "weight": 157.50840007000014,
-   "sumResidual": 141.53628539937276,
-   "sumResidualSq": 132.0161771799503,
-   "sumMeasured": 138.12169946836468,
-   "sumPredicted": 153.6964315244267,
-   "sumDirError": -167.47403893245382,
-   "dirWeight": 157.50840007000014
+   "n": 1013,
+   "weight": 157.71429865000013,
+   "sumResidual": 141.74242255263908,
+   "sumResidualSq": 132.22257826385732,
+   "sumMeasured": 138.31680338717734,
+   "sumPredicted": 153.89129664308768,
+   "sumDirError": -163.7663576698143,
+   "dirWeight": 157.71429865000013
   },
   "chop|WNW": {
    "periodBand": "chop",
    "dirBand": "WNW",
-   "n": 886,
-   "weight": 154.970567167,
-   "sumResidual": 142.54903822633915,
-   "sumResidualSq": 135.84498574747508,
-   "sumMeasured": 137.37764756114444,
-   "sumPredicted": 149.38672791078955,
-   "sumDirError": -1021.0959197729541,
-   "dirWeight": 154.970567167
+   "n": 893,
+   "weight": 155.65158768,
+   "sumResidual": 143.08668470163664,
+   "sumResidualSq": 136.27052251223103,
+   "sumMeasured": 137.89627125499626,
+   "sumPredicted": 150.043598400569,
+   "sumDirError": -1023.312252693516,
+   "dirWeight": 155.65158768
   },
   "chop|SW": {
    "periodBand": "chop",
@@ -175,14 +175,14 @@
   "windswell|WNW": {
    "periodBand": "windswell",
    "dirBand": "WNW",
-   "n": 304,
-   "weight": 119.43433054699999,
-   "sumResidual": 103.58334069034875,
-   "sumResidualSq": 93.79115960959608,
-   "sumMeasured": 94.42148218461064,
-   "sumPredicted": 108.88025519388275,
-   "sumDirError": -629.9767551803552,
-   "dirWeight": 119.43433054699999
+   "n": 309,
+   "weight": 121.33851042699999,
+   "sumResidual": 105.40558671162765,
+   "sumResidualSq": 95.56950471924404,
+   "sumMeasured": 96.08333869489128,
+   "sumPredicted": 110.61625376670155,
+   "sumDirError": -631.3494805410029,
+   "dirWeight": 121.33851042699999
   },
   "long|SW": {
    "periodBand": "long",
@@ -199,26 +199,26 @@
   "long|W": {
    "periodBand": "long",
    "dirBand": "W",
-   "n": 28,
-   "weight": 24.674874998,
-   "sumResidual": 19.525532222593245,
-   "sumResidualSq": 16.38189632048928,
-   "sumMeasured": 21.32202964689745,
-   "sumPredicted": 26.941639593898408,
-   "sumDirError": -72.2393346504562,
-   "dirWeight": 24.674874998
+   "n": 30,
+   "weight": 25.032247648,
+   "sumResidual": 19.90974158513983,
+   "sumResidualSq": 16.79854294301279,
+   "sumMeasured": 21.761741497081925,
+   "sumPredicted": 27.35149271252187,
+   "sumDirError": -66.06214352533415,
+   "dirWeight": 25.032247648
   },
   "ground|W": {
    "periodBand": "ground",
    "dirBand": "W",
-   "n": 23,
-   "weight": 43.198755670000004,
-   "sumResidual": 35.38456415942657,
-   "sumResidualSq": 30.223129604440366,
-   "sumMeasured": 35.67422188594606,
-   "sumPredicted": 43.60551331872108,
-   "sumDirError": 10.975866058234274,
-   "dirWeight": 43.198755670000004
+   "n": 25,
+   "weight": 46.96257287,
+   "sumResidual": 39.43463549784416,
+   "sumResidualSq": 34.68881934743759,
+   "sumMeasured": 39.724702647488485,
+   "sumPredicted": 47.3753809988993,
+   "sumDirError": 35.04161107162676,
+   "dirWeight": 46.96257287
   },
   "mid|SW": {
    "periodBand": "mid",
@@ -235,26 +235,26 @@
   "mid|W": {
    "periodBand": "mid",
    "dirBand": "W",
-   "n": 110,
-   "weight": 82.01357087500003,
-   "sumResidual": 64.41867108028688,
-   "sumResidualSq": 53.7661968282295,
-   "sumMeasured": 61.129100356245694,
-   "sumPredicted": 77.85228723166612,
-   "sumDirError": -160.40548114186095,
-   "dirWeight": 82.01357087500003
+   "n": 111,
+   "weight": 82.74862810500002,
+   "sumResidual": 65.01632268111362,
+   "sumResidualSq": 54.25212829232891,
+   "sumMeasured": 61.708764274173504,
+   "sumPredicted": 78.56522124414691,
+   "sumDirError": -153.9880990188886,
+   "dirWeight": 82.74862810500002
   },
   "mid|WNW": {
    "periodBand": "mid",
    "dirBand": "WNW",
-   "n": 30,
-   "weight": 30.366326980000004,
-   "sumResidual": 24.664309111546164,
-   "sumResidualSq": 21.896707339030876,
-   "sumMeasured": 23.253541683077138,
-   "sumPredicted": 28.629980696582017,
-   "sumDirError": -180.58361943873768,
-   "dirWeight": 30.366326980000004
+   "n": 33,
+   "weight": 32.66249908,
+   "sumResidual": 26.857187701536414,
+   "sumResidualSq": 24.07992764793292,
+   "sumMeasured": 25.293376815108314,
+   "sumPredicted": 30.767644831447914,
+   "sumDirError": -191.9105310840648,
+   "dirWeight": 32.66249908
   },
   "chop|NW": {
    "periodBand": "chop",
@@ -295,14 +295,14 @@
   "long|WNW": {
    "periodBand": "long",
    "dirBand": "WNW",
-   "n": 10,
-   "weight": 5.3370213500000006,
-   "sumResidual": 4.135868147717749,
-   "sumResidualSq": 5.301816607094747,
-   "sumMeasured": 4.497568914615199,
-   "sumPredicted": 5.866980469221925,
-   "sumDirError": -51.65335249334392,
-   "dirWeight": 5.3370213500000006
+   "n": 12,
+   "weight": 9.073779550000001,
+   "sumResidual": 7.397074604302247,
+   "sumResidualSq": 8.190979654552335,
+   "sumMeasured": 7.996975363312558,
+   "sumPredicted": 9.882540802580795,
+   "sumDirError": -53.484367378153216,
+   "dirWeight": 9.073779550000001
   },
   "chop|S": {
    "periodBand": "chop",
@@ -319,14 +319,14 @@
   "ground|WNW": {
    "periodBand": "ground",
    "dirBand": "WNW",
-   "n": 3,
-   "weight": 6.77464877,
-   "sumResidual": 5.346210981076062,
-   "sumResidualSq": 4.911716303753206,
-   "sumMeasured": 5.264297849738093,
-   "sumPredicted": 6.6708495191979065,
-   "sumDirError": 0.8629882784711761,
-   "dirWeight": 6.77464877
+   "n": 4,
+   "weight": 8.60992167,
+   "sumResidual": 6.9929814513257975,
+   "sumResidualSq": 6.38934558803378,
+   "sumMeasured": 6.962709114761327,
+   "sumPredicted": 8.563674429568781,
+   "sumDirError": -0.12211888193350584,
+   "dirWeight": 8.60992167
   }
  }
 }
