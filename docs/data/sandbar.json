@@ -335,171 +335,7 @@
    "surfWidthM": 120,
    "barSpreadM": 14.2,
    "rhythmic": false,
-   "outerWaterNir": 0.0001,
-   "transects": [
-    {
-     "alongshoreM": -650,
-     "waterlineM": 310,
-     "barM": 420,
-     "surfWidthM": 140
-    },
-    {
-     "alongshoreM": -600,
-     "waterlineM": 300,
-     "barM": 410,
-     "surfWidthM": 140
-    },
-    {
-     "alongshoreM": -550,
-     "waterlineM": 290,
-     "barM": 400,
-     "surfWidthM": 140
-    },
-    {
-     "alongshoreM": -500,
-     "waterlineM": 290,
-     "barM": 400,
-     "surfWidthM": 150
-    },
-    {
-     "alongshoreM": -450,
-     "waterlineM": 280,
-     "barM": 380,
-     "surfWidthM": 140
-    },
-    {
-     "alongshoreM": -400,
-     "waterlineM": 280,
-     "barM": 390,
-     "surfWidthM": 130
-    },
-    {
-     "alongshoreM": -350,
-     "waterlineM": 270,
-     "barM": 370,
-     "surfWidthM": 130
-    },
-    {
-     "alongshoreM": -300,
-     "waterlineM": 260,
-     "barM": 340,
-     "surfWidthM": 120
-    },
-    {
-     "alongshoreM": -250,
-     "waterlineM": 260,
-     "barM": 330,
-     "surfWidthM": 120
-    },
-    {
-     "alongshoreM": -200,
-     "waterlineM": 250,
-     "barM": 320,
-     "surfWidthM": 120
-    },
-    {
-     "alongshoreM": -150,
-     "waterlineM": 240,
-     "barM": 320,
-     "surfWidthM": 130
-    },
-    {
-     "alongshoreM": -100,
-     "waterlineM": 220,
-     "barM": 320,
-     "surfWidthM": 120
-    },
-    {
-     "alongshoreM": 0,
-     "waterlineM": 200,
-     "barM": 320,
-     "surfWidthM": 150
-    },
-    {
-     "alongshoreM": 50,
-     "waterlineM": 230,
-     "barM": 330,
-     "surfWidthM": 130
-    },
-    {
-     "alongshoreM": 100,
-     "waterlineM": 240,
-     "barM": 290,
-     "surfWidthM": 100
-    },
-    {
-     "alongshoreM": 150,
-     "waterlineM": 230,
-     "barM": 320,
-     "surfWidthM": 100
-    },
-    {
-     "alongshoreM": 200,
-     "waterlineM": 240,
-     "barM": 310,
-     "surfWidthM": 90
-    },
-    {
-     "alongshoreM": 250,
-     "waterlineM": 240,
-     "barM": 290,
-     "surfWidthM": 90
-    },
-    {
-     "alongshoreM": 300,
-     "waterlineM": 230,
-     "barM": 310,
-     "surfWidthM": 90
-    },
-    {
-     "alongshoreM": 350,
-     "waterlineM": 220,
-     "barM": 290,
-     "surfWidthM": 90
-    },
-    {
-     "alongshoreM": 400,
-     "waterlineM": 210,
-     "barM": 310,
-     "surfWidthM": 120
-    },
-    {
-     "alongshoreM": 450,
-     "waterlineM": 220,
-     "barM": 300,
-     "surfWidthM": 90
-    },
-    {
-     "alongshoreM": 500,
-     "waterlineM": 220,
-     "barM": 290,
-     "surfWidthM": 90
-    },
-    {
-     "alongshoreM": 550,
-     "waterlineM": 220,
-     "barM": 290,
-     "surfWidthM": 100
-    },
-    {
-     "alongshoreM": 600,
-     "waterlineM": 220,
-     "barM": 270,
-     "surfWidthM": 90
-    },
-    {
-     "alongshoreM": 650,
-     "waterlineM": 220,
-     "barM": 270,
-     "surfWidthM": 100
-    },
-    {
-     "alongshoreM": 700,
-     "waterlineM": 220,
-     "barM": 270,
-     "surfWidthM": 100
-    }
-   ]
+   "outerWaterNir": 0.0001
   },
   {
    "sceneId": "S2B_11SMS_20261105_0_L2A",
@@ -1448,6 +1284,192 @@
      "surfWidthM": 120
     }
    ]
+  },
+  {
+   "sceneId": "S2C_11SMS_20261113_0_L2A",
+   "time": "2026-11-13T18:45:11.585000Z",
+   "usable": true,
+   "cloudPct": 30.907318,
+   "tideFt": 5.111510855555555,
+   "transectsUsed": 28,
+   "transectsDropped": 5,
+   "waterlineM": 210,
+   "barM": 320,
+   "barOffsetM": 105,
+   "surfWidthM": 160,
+   "barSpreadM": 22.6,
+   "rhythmic": false,
+   "outerWaterNir": 0.0009,
+   "transects": [
+    {
+     "alongshoreM": -750,
+     "waterlineM": 290,
+     "barM": 410,
+     "surfWidthM": 180
+    },
+    {
+     "alongshoreM": -700,
+     "waterlineM": 290,
+     "barM": 410,
+     "surfWidthM": 170
+    },
+    {
+     "alongshoreM": -650,
+     "waterlineM": 280,
+     "barM": 400,
+     "surfWidthM": 190
+    },
+    {
+     "alongshoreM": -600,
+     "waterlineM": 280,
+     "barM": 410,
+     "surfWidthM": 210
+    },
+    {
+     "alongshoreM": -550,
+     "waterlineM": 270,
+     "barM": 400,
+     "surfWidthM": 170
+    },
+    {
+     "alongshoreM": -500,
+     "waterlineM": 270,
+     "barM": 270,
+     "surfWidthM": 110
+    },
+    {
+     "alongshoreM": -450,
+     "waterlineM": 260,
+     "barM": 320,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": -400,
+     "waterlineM": 260,
+     "barM": 370,
+     "surfWidthM": 150
+    },
+    {
+     "alongshoreM": -350,
+     "waterlineM": 240,
+     "barM": 310,
+     "surfWidthM": 160
+    },
+    {
+     "alongshoreM": -300,
+     "waterlineM": 230,
+     "barM": 300,
+     "surfWidthM": 180
+    },
+    {
+     "alongshoreM": -250,
+     "waterlineM": 230,
+     "barM": 380,
+     "surfWidthM": 190
+    },
+    {
+     "alongshoreM": -200,
+     "waterlineM": 220,
+     "barM": 350,
+     "surfWidthM": 180
+    },
+    {
+     "alongshoreM": -150,
+     "waterlineM": 220,
+     "barM": 360,
+     "surfWidthM": 170
+    },
+    {
+     "alongshoreM": -100,
+     "waterlineM": 190,
+     "barM": 350,
+     "surfWidthM": 190
+    },
+    {
+     "alongshoreM": 50,
+     "waterlineM": 200,
+     "barM": 320,
+     "surfWidthM": 160
+    },
+    {
+     "alongshoreM": 100,
+     "waterlineM": 210,
+     "barM": 330,
+     "surfWidthM": 180
+    },
+    {
+     "alongshoreM": 150,
+     "waterlineM": 200,
+     "barM": 320,
+     "surfWidthM": 200
+    },
+    {
+     "alongshoreM": 200,
+     "waterlineM": 210,
+     "barM": 340,
+     "surfWidthM": 140
+    },
+    {
+     "alongshoreM": 250,
+     "waterlineM": 200,
+     "barM": 270,
+     "surfWidthM": 160
+    },
+    {
+     "alongshoreM": 300,
+     "waterlineM": 210,
+     "barM": 290,
+     "surfWidthM": 140
+    },
+    {
+     "alongshoreM": 350,
+     "waterlineM": 200,
+     "barM": 280,
+     "surfWidthM": 140
+    },
+    {
+     "alongshoreM": 400,
+     "waterlineM": 190,
+     "barM": 230,
+     "surfWidthM": 140
+    },
+    {
+     "alongshoreM": 450,
+     "waterlineM": 200,
+     "barM": 240,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": 500,
+     "waterlineM": 190,
+     "barM": 280,
+     "surfWidthM": 120
+    },
+    {
+     "alongshoreM": 550,
+     "waterlineM": 190,
+     "barM": 290,
+     "surfWidthM": 130
+    },
+    {
+     "alongshoreM": 600,
+     "waterlineM": 180,
+     "barM": 280,
+     "surfWidthM": 160
+    },
+    {
+     "alongshoreM": 650,
+     "waterlineM": 190,
+     "barM": 290,
+     "surfWidthM": 150
+    },
+    {
+     "alongshoreM": 700,
+     "waterlineM": 190,
+     "barM": 280,
+     "surfWidthM": 160
+    }
+   ]
   }
  ],
  "skipped": [
@@ -1462,5 +1484,5 @@
    "reason": "the outer transects are not dark in near-infrared, so this is not open water - cloud, haze, or a bad scene"
   }
  ],
- "updatedAt": "2026-11-13T06:32:38.218Z"
+ "updatedAt": "2026-11-13T23:29:36.684Z"
 }
